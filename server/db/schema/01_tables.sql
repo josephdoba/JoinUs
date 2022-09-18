@@ -1,0 +1,52 @@
+
+
+-- Drop and recreate Users table (Example)
+
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS wine_listings CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  sellers BOOLEAN NOT NULL DEFAULT FALSE,
+  city VARCHAR(255) NOT NULL,
+  country VARCHAR(255) NOT NULL,
+  province VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE wine_listings (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  price INTEGER NOT NULL,
+  year INTEGER NOT NULL,
+  wine_name VARCHAR(255) NOT NULL,
+  winery VARCHAR(255) NOT NULL,
+  award VARCHAR(255) NOT NULL,
+  wine_type VARCHAR(255) NOT NULL,
+  description TEXT,
+  sold_out BOOLEAN NOT NULL DEFAULT FALSE,
+  wine_image_url VARCHAR(255) NOT NULL,
+  winery_image_url VARCHAR(255) NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE TABLE favorites (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  listing_id INTEGER REFERENCES wine_listings(id) ON DELETE CASCADE,
+  favorite BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  listing_id INTEGER REFERENCES wine_listings(id) ON DELETE CASCADE,
+  sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  created_at INTEGER NOT NULL,
+  recipient_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  message_text TEXT
+);
+
