@@ -6,21 +6,21 @@ DROP TABLE IF EXISTS joined_events CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  Profile_picture VARCHAR(255) NOT NULL,
+  user_name VARCHAR(255) NOT NULL,
+  user_pfp VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE events (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  image VARCHAR(255) NOT NULL,
-  description TEXT,
+  event_name VARCHAR(255) NOT NULL,
+  event_image VARCHAR(255) NOT NULL,
+  event_description TEXT,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  latitude FLOAT(32) NOT NULL,
-  longitude FLOAT(32) NOT NULL,
-  start_time DATETIME NOT NULL,
-  end_time DATETIME NOT NULL
+  event_created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  event_latitude FLOAT(32) NOT NULL,
+  event_longitude FLOAT(32) NOT NULL,
+  event_start_time DATETIME NOT NULL,
+  event_end_time DATETIME NOT NULL
 )
 
 CREATE TABLE joined_events (
