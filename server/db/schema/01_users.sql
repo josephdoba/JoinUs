@@ -1,7 +1,30 @@
 -- Drop and recreate Users table (Example)
 
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS joined_events CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL,
+  Profile_picture VARCHAR(255) NOT NULL,
 );
+
+CREATE TABLE events (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  description TEXT,
+  owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  latitude FLOAT(32) NOT NULL,
+  longitude FLOAT(32) NOT NULL,
+  start_time DATETIME NOT NULL,
+  end_time DATETIME NOT NULL
+)
+
+CREATE TABLE joined_events (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  event_id INTEGER REFERENCES events_id ON DELETE CASCADE
+)
