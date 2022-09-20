@@ -4,8 +4,7 @@
  *   these routes are mounted onto /api/users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-
-const express = require("express");
+import express from 'express'
 const router = express.Router();
 const userQueries = require("../db/queries/users");
 

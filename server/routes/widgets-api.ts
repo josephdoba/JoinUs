@@ -4,8 +4,8 @@
  *   these routes are mounted onto /api/widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-
-const express = require("express");
+import express from 'express'
+//const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
 
