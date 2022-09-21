@@ -10,14 +10,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 const express_1 = __importDefault(require("express"));
-const connection_1 = __importDefault(require("../db/connection"));
+const connection_1 = require("../db/connection");
 // const express = require("express");
 const router = express_1.default.Router();
 // const db = require("../db/connection");
 router.get("/", (req, res) => {
     const query = `SELECT * FROM events`;
     console.log(query);
-    connection_1.default.query(query)
+    connection_1.db.query(query)
         .then((data) => {
         const widgets = data.rows;
         res.json({ widgets });

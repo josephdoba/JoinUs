@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.db = void 0;
 // PG database client/connection setup
 const pg_1 = require("pg");
 // const { Pool } = require('pg');
@@ -11,5 +12,5 @@ const dbParams = {
     database: process.env.DB_NAME,
 };
 const db = new pg_1.Pool(dbParams);
+exports.db = db;
 db.connect();
-exports.default = db;

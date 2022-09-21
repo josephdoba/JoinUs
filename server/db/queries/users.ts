@@ -1,4 +1,4 @@
-import db from "../connection";
+import { db } from "../connection";
 // const db = require('../connection');
 
 const getUsers = () => {

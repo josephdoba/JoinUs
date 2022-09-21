@@ -5,7 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 import express from "express";
-import db from "../db/connection";
+import { db } from "../db/connection";
 // const express = require("express");
 const router = express.Router();
 // const db = require("../db/connection");

@@ -10,17 +10,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 const express_1 = __importDefault(require("express"));
-const users_1 = __importDefault(require("../db/queries/users"));
 const router = express_1.default.Router();
 // const userQueries = require("../db/queries/users");
 router.get("/", (req, res) => {
-    users_1.default
-        .getUsers()
-        .then((users) => {
-        res.json({ users });
-    })
-        .catch((err) => {
-        res.status(500).json({ error: err.message });
-    });
+    // userQueries
+    //   .getUsers()
+    //   .then((users) => {
+    //     res.json({ users });
+    //   })
+    //   .catch((err) => {
+    //     res.status(500).json({ error: err.message });
+    //   });
 });
 exports.default = router;

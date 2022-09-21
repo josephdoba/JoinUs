@@ -2,7 +2,7 @@
 import { Pool } from "pg";
 // const { Pool } = require('pg');
 
-const dbParams = {
+const dbParams: {} = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
@@ -14,4 +14,4 @@ const db = new Pool(dbParams);
 
 db.connect();
 
-export default db;
+export { db };
