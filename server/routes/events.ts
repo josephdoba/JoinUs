@@ -4,13 +4,14 @@
  *   these routes are mounted onto /api/widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-import express from 'express'
-//const express = require("express");
+import express from "express";
+import { db } from "../db/connection";
+// const express = require("express");
 const router = express.Router();
-const db = require("../db/connection");
+// const db = require("../db/connection");
 
 router.get("/", (req, res) => {
-  const query = `SELECT * FROM widgets`;
+  const query = `SELECT * FROM events`;
   console.log(query);
   db.query(query)
     .then((data) => {
