@@ -3,10 +3,12 @@ import Button from '@mui/material/Button';
 
 const Herobanner = function() {
   return (
-    <div>
-        <h1>Join Us!</h1>
-        <Button variant="contained">Hello World</Button>
-    </div>
+  <div>
+    <p>include('partials/_navbar')</p>
+    <p>include('partials/_landing-page')</p>
+    <p>include('partials/_footer')</p>
+    <Button variant="contained">Hello World</Button>
+  </div>
   )
 }
 
