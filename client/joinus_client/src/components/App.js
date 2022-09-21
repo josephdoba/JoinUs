@@ -1,10 +1,13 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Herobanner from "./herobanner";
+
 const App = function() {
   return (
     <div>
-      <Navbar/>
-        <h1>App</h1>
+
+    <Herobanner/>
+
+
     </div>
   )
 }
