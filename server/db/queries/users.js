@@ -1,10 +1,10 @@
-const db = require('../connection');
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const connection_1 = require("../connection");
+// const db = require('../connection');
 const getUsers = () => {
-  return db.query('SELECT * FROM users;')
-    .then(data => {
-      return data.rows;
+    return connection_1.db.query("SELECT * FROM users;").then((data) => {
+        return data.rows;
     });
 };
-
-module.exports = { getUsers };
+exports.default = { getUsers };
