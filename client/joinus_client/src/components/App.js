@@ -1,9 +1,13 @@
 import React from "react";
+import Herobanner from "./herobanner";
 
 const App = function() {
   return (
     <div>
-        <h1>App</h1>
+
+    <Herobanner/>
+
+
     </div>
   )
 }
