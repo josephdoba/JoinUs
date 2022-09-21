@@ -10,6 +10,8 @@ const dbParams = {
   database: process.env.DB_NAME,
 };
 
-export const db = new Pool(dbParams);
+const db = new Pool(dbParams);
 
 db.connect();
+
+export default db;

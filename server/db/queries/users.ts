@@ -1,8 +1,10 @@
-import { db } from "../connection";
+import db from "../connection";
 // const db = require('../connection');
 
-export const getUsers = () => {
+const getUsers = () => {
   return db.query("SELECT * FROM users;").then((data) => {
     return data.rows;
   });
 };
+
+export default { getUsers };

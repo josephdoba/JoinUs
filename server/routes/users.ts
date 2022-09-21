@@ -4,9 +4,12 @@
  *   these routes are mounted onto /api/users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-import express from 'express'
+import express from "express";
+
+import userQueries from "../db/queries/users";
+
 const router = express.Router();
-const userQueries = require("../db/queries/users");
+// const userQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
   userQueries
@@ -19,4 +22,4 @@ router.get("/", (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;
