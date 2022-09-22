@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const morgan_1 = __importDefault(require("morgan"));
-const dotenv_1 = __importDefault(require("dotenv"));
 // load .env data into process.env
+const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 // Web server config
-const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8080;
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
+const morgan_1 = __importDefault(require("morgan"));
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -26,12 +26,46 @@ const users_1 = __importDefault(require("./routes/users"));
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", users_1.default);
 app.use("/api/events", events_1.default);
-// Note: mount other resources here, using the same pattern above
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
+const events = [
+    {
+        id: 1,
+        event_name: "coffee chat",
+        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
+        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
+        owner_id: 2,
+        event_created_at: Date.now(),
+        event_latitude: 51.0233064354121,
+        event_longitude: -114.02369425973428,
+        event_start_time: Date.now(),
+        event_end_time: Date.now(),
+    },
+    {
+        id: 2,
+        event_name: "coffee chat 2",
+        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
+        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
+        owner_id: 3,
+        event_created_at: Date.now(),
+        event_latitude: 51.0233064354121,
+        event_longitude: -114.02369425973428,
+        event_start_time: Date.now(),
+        event_end_time: Date.now(),
+    },
+    {
+        id: 3,
+        event_name: "coffee chat",
+        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
+        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
+        owner_id: 2,
+        event_created_at: Date.now(),
+        event_latitude: 51.0233064354121,
+        event_longitude: -114.02369425973428,
+        event_start_time: Date.now(),
+        event_end_time: Date.now(),
+    },
+];
 app.get("/", (req, res) => {
-    res.render("index");
+    res.json({ events });
 });
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
