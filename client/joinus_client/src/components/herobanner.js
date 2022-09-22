@@ -1,6 +1,8 @@
 import React from "react";
-import Stack from '@mui/material/stack';
+import ReactSwitch from 'react-switch'
 import { Container } from "@mui/system";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 const Herobanner = function() {
