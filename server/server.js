@@ -26,46 +26,8 @@ const users_1 = __importDefault(require("./routes/users"));
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", users_1.default);
 app.use("/api/events", events_1.default);
-const events = [
-    {
-        id: 1,
-        event_name: "coffee chat",
-        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
-        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
-        owner_id: 2,
-        event_created_at: Date.now(),
-        event_latitude: 51.0233064354121,
-        event_longitude: -114.02369425973428,
-        event_start_time: Date.now(),
-        event_end_time: Date.now(),
-    },
-    {
-        id: 2,
-        event_name: "coffee chat 2",
-        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
-        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
-        owner_id: 3,
-        event_created_at: Date.now(),
-        event_latitude: 51.0233064354121,
-        event_longitude: -114.02369425973428,
-        event_start_time: Date.now(),
-        event_end_time: Date.now(),
-    },
-    {
-        id: 3,
-        event_name: "coffee chat",
-        event_image: "https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg",
-        event_description: "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
-        owner_id: 2,
-        event_created_at: Date.now(),
-        event_latitude: 51.0233064354121,
-        event_longitude: -114.02369425973428,
-        event_start_time: Date.now(),
-        event_end_time: Date.now(),
-    },
-];
 app.get("/", (req, res) => {
-    res.json({ events });
+    res.json({});
 });
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
