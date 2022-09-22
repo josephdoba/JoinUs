@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import './app.scss'
 import { createContext, useState } from 'react'
 
+
 export const ThemeContext = createContext(null);
 
 const App = function() {
