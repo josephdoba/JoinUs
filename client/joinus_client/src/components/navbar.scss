@@ -3,8 +3,6 @@
   height: 100px;
   width: 100%;
   position: sticky;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
   animation: nav-load 650ms;
 
   .main-navbar {
@@ -15,13 +13,13 @@
   
   .logo {
     position: absolute;
-    left: 3%;
+    left: 57px;
     height: 100px;
   }
   
   .login {
     position: absolute;
-    left: 75%;
+    left: 78.8%;
     top: 41px;
     font-size: large;
     width: 125px;
@@ -30,7 +28,7 @@
 
   .signup {
     position: absolute;
-    left: 78.1%;
+    left: 82%;
     top: 41px;
     font-size: large;
     width: 125px;
@@ -39,13 +37,13 @@
 
   .toggle-switch {
     position: absolute;
-    left: 88%;
+    left: 1775px;
     top: 40px;
   }
   .user-logo {
     position: absolute;
     color: white;
-    left: 84%;
+    left: 88.5%;
     font-size: 22px;
     top: 41px;
   }
@@ -123,6 +121,7 @@
   color: #fff;
   padding: 7px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .login-button:hover {
   opacity: 1;
@@ -132,7 +131,7 @@
   text-decoration: none;
   border: none;
   background-color: #Dbded6;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .input:focus {
