@@ -36,7 +36,6 @@ interface Event {
   event_image: string;
   event_description: string;
   owner_id: number;
-  event_created_at: Date | number;
   event_latitude: number;
   event_longitude: number;
   event_start_time: Date | number;
