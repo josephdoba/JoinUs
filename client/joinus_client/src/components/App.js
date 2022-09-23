@@ -1,6 +1,7 @@
 import React from "react";
 import Herobanner from "./herobanner";
 import Navbar from "./Navbar";
+import Cards from "./Cards";
 import "./app.scss";
 import { createContext, useState } from "react";
 import Eventlist from "./Eventlist";
@@ -19,7 +20,7 @@ const App = function () {
       <div id={theme}>
         <Navbar toggleTheme={toggleTheme} theme={theme} />
         <Herobanner />
-
+        <Cards />
         <Eventlist />
       </div>
     </ThemeContext.Provider>
