@@ -1,28 +1,29 @@
 import React from "react";
 import Herobanner from "./herobanner";
 import Navbar from "./Navbar";
-import './app.scss'
-import { createContext, useState } from 'react'
-
+import "./app.scss";
+import { createContext, useState } from "react";
+import Eventlist from "./Eventlist";
 
 export const ThemeContext = createContext(null);
 
-const App = function() {
-
-  const [theme, setTheme] = useState('light')
+const App = function () {
+  const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
-    setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div id={theme}>
-        <Navbar toggleTheme={toggleTheme} theme={theme}/>
-        <Herobanner/>
+        <Navbar toggleTheme={toggleTheme} theme={theme} />
+        <Herobanner />
+
+        <Eventlist />
       </div>
     </ThemeContext.Provider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
