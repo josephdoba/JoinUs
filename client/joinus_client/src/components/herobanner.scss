@@ -1,0 +1,32 @@
+h1 {
+  color: red
+}
+
+.homepage-herobanner-main {
+  display: flex;
+  position: relative;
+}
+
+.homepage-herobanner--text-photo {
+//   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  // align-items: center;
+}
+
+.homepage-herobanner--title {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+justify-content
+align-items
+flex-direction
+order
+align-self
+flex-wrap
+flex-flow
+align-content
+*/
