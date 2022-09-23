@@ -1,28 +1,29 @@
 import React from "react";
 import Herobanner from "./herobanner";
+import Navbar from "./Navbar";
+import "./app.scss";
+import { createContext, useState } from "react";
+import Eventlist from "./Eventlist";
 
-const App = function() {
+export const ThemeContext = createContext(null);
+
+const App = function () {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
   return (
-    <div>
-      <head>
-        {/* left blank for navbar component */}
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div id={theme}>
+        <Navbar toggleTheme={toggleTheme} theme={theme} />
+        <Herobanner />
 
-      </head>
-      
-      <body>
-        <Herobanner/>
-        {/* left blank for instructions component */}
-        {/* left blank for event list component */}
-        
-      </body>
+        <Eventlist />
+      </div>
+    </ThemeContext.Provider>
+  );
+};
 
-      <footer>
-        {/* left blank for footer component */}
-
-      </footer>
-
-    </div>
-  )
-}
-
-export default App
+export default App;

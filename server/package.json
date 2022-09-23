@@ -4,15 +4,19 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "node bin/resetdb.js"
+    "local": "./node_modules/.bin/nodemon -L --ignore public/"
   },
   "author": "Carmen Tsang, Joseph Doba, Kyler Klepp, Mohammad Mahdi",
   "license": "ISC",
   "dependencies": {
+    "@types/morgan": "^1.9.3",
+    "@types/pg": "^8.6.5",
     "body-parser": "^1.20.0",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
@@ -20,6 +24,11 @@
     "socket.io": "^4.5.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.10"
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.7.18",
+    "nodemon": "^2.0.10",
+    "ts-node": "^10.9.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.8.3"
   }
 }

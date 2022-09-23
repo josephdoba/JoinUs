@@ -4,22 +4,22 @@
  *   these routes are mounted onto /api/widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-import express from 'express'
-//const express = require("express");
+import express from "express";
+// const express = require("express");
+// const db = require("../db/connection");
+import eventQueries from "../db/queries/events";
+
 const router = express.Router();
-const db = require("../db/connection");
 
 router.get("/", (req, res) => {
-  const query = `SELECT * FROM widgets`;
-  console.log(query);
-  db.query(query)
-    .then((data) => {
-      const widgets = data.rows;
-      res.json({ widgets });
+  eventQueries
+    .getEvents()
+    .then((events) => {
+      res.json({ events });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
 });
 
-module.exports = router;
+export default router;
