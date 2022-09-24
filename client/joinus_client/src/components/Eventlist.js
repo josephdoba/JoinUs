@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Event from "./Event";
 import axios from "axios";
 import Stack from "@mui/material/Stack";
+import EventMap from "./EventMap";
 
 const events = [
   {
@@ -70,6 +71,7 @@ export default function Eventlist() {
       >
         {event}
       </Stack>
+      <EventMap />
     </Container>
   );
 }
