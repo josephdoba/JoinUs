@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Event from "./Event";
 import axios from "axios";
+import Stack from "@mui/material/Stack";
 
 const events = [
   {
@@ -63,7 +64,12 @@ export default function Eventlist() {
   return (
     <Container>
       <h2 id="homepage-eventlist-title">Find an event!</h2>
-      {event}
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        {event}
+      </Stack>
     </Container>
   );
 }
