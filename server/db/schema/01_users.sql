@@ -16,6 +16,7 @@ CREATE TABLE events (
   name VARCHAR(255) NOT NULL,
   image VARCHAR(255) NOT NULL,
   description TEXT,
+  size_limit INTEGER NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   latitude FLOAT(32) NOT NULL,
   longitude FLOAT(32) NOT NULL,
