@@ -1,5 +1,8 @@
-import React from "react";
+import { Container } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import Event from "./Event";
+import Stack from "@mui/material/Stack";
+import { fetchAPI } from "../api";
 
 const events = [
   {
@@ -9,6 +12,7 @@ const events = [
       "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg",
     description:
       "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
+    size_limit: 4,
     owner_id: 1,
     latitude: 51.0233064354121,
     longitude: -114.02369425973428,
@@ -22,6 +26,7 @@ const events = [
       "https://i.cbc.ca/1.2716999.1406221490!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/135000779-board-games.jpg",
     description:
       "Come join me for some fun board games this could include battleship, monopoly, and risk!",
+    size_limit: 4,
     owner_id: 1,
     latitude: 49.25825320517397,
     longitude: -123.04434376344798,
@@ -31,14 +36,16 @@ const events = [
 ];
 
 export default function Eventlist() {
-  // const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState({});
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8080/api/events")
-  //     .then((data) => setEventData(data.events))
-  //     .catch((err) => console.error(err.response.data));
-  // }, []);
+  useEffect(() => {
+    fetchAPI("events")
+      .then((data) => {
+        setEventData(data.events);
+        console.log(eventData);
+      })
+      .catch((err) => console.error(err.response.data));
+  }, []);
 
   const event = events.map((e) => {
     return (
@@ -54,9 +61,14 @@ export default function Eventlist() {
   });
 
   return (
-    <div>
-      <h2>Find an event!</h2>
-      {event}
-    </div>
+    <Container>
+      <h2 id="homepage-eventlist-title">Find an event!</h2>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        {event}
+      </Stack>
+    </Container>
   );
 }
