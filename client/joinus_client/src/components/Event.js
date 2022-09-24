@@ -8,7 +8,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import moment from "moment";
-import { Divider } from "@mui/material";
 
 export default function Event(props) {
   const { name, image, description, start_time, end_time } = props;
