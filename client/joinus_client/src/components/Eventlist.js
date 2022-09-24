@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Event from "./Event";
-import axios from "axios";
 import Stack from "@mui/material/Stack";
+import { fetchAPI } from "../api";
 
 const events = [
   {
@@ -36,17 +36,16 @@ const events = [
 ];
 
 export default function Eventlist() {
-  // const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState({});
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/events")
-  //     .then((data) => {
-  //       setEventData(data.events);
-  //       console.log(eventData);
-  //     })
-  //     .catch((err) => console.error(err.response.data));
-  // }, []);
+  useEffect(() => {
+    fetchAPI("events")
+      .then((data) => {
+        setEventData(data.events);
+        console.log(eventData);
+      })
+      .catch((err) => console.error(err.response.data));
+  }, []);
 
   const event = events.map((e) => {
     return (
