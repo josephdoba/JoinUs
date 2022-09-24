@@ -149,5 +149,36 @@
   background-color: #F1f1f1;
 }
 
+.logged-in {
+  position: absolute;
+  left: 60%;
+  top: 43px;
+  color: white;
+  opacity: .8;
+  font-size: large;
+}
+
+.logout {
+  position: absolute;
+  font-size: large;
+  color: white;
+  opacity: .7;
+  left: 80%;
+  top: 38px;
+  background-color:#1976d2;
+  width: 75px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 30px;
+  border-radius: 5px;
+  transition: opacity 250ms;
+}
+
+.logout:hover {
+  opacity: 1;
+}
+
+
 
 
