@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import moment from "moment";
 import { Grid } from "@mui/material";
 
+// shorten the displayed text to 75 letters including spaces
 const shortenText = (text) => {
   if (text.length >= 75) {
     const short = text.slice(0, 75);
@@ -22,8 +23,8 @@ const shortenText = (text) => {
 export default function Event(props) {
   const { name, image, description, start_time, end_time, category } = props;
 
-  const start = moment(start_time).format("llll");
-  const end = moment(end_time).format("LT");
+  const start = moment(start_time).format("llll"); // format: Wed, Sep 28, 2022 12:00 PM
+  const end = moment(end_time).format("LT"); // format: 11:00 AM
 
   return (
     <Grid item xs={4}>
