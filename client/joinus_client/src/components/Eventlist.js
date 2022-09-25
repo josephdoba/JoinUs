@@ -13,6 +13,7 @@ const events = [
     description:
       "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
     size_limit: 4,
+    category: "food",
     owner_id: 1,
     latitude: 51.0233064354121,
     longitude: -114.02369425973428,
@@ -27,6 +28,7 @@ const events = [
     description:
       "Come join me for some fun board games this could include battleship, monopoly, and risk!",
     size_limit: 4,
+    category: "games",
     owner_id: 1,
     latitude: 49.25825320517397,
     longitude: -123.04434376344798,
@@ -36,24 +38,25 @@ const events = [
 ];
 
 export default function Eventlist() {
-  const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState([]);
 
   useEffect(() => {
     fetchAPI("events")
       .then((data) => {
-        setEventData(data.events);
-        console.log(eventData);
+        console.log(data.data.events);
+        setEventData((prev) => [...data.data.events]);
       })
       .catch((err) => console.error(err.response.data));
   }, []);
 
-  const event = events.map((e) => {
+  const event = eventData.map((e) => {
     return (
       <Event
         key={e.id}
         name={e.name}
         image={e.image}
         description={e.description}
+        category={e.category}
         start_time={e.start_time}
         end_time={e.end_time}
       />

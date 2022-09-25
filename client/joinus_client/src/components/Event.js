@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import moment from "moment";
 
 export default function Event(props) {
-  const { name, image, description, start_time, end_time } = props;
+  const { name, image, description, start_time, end_time, category } = props;
 
   const start = moment(start_time).format("llll");
   const end = moment(end_time).format("LT");
@@ -23,7 +23,8 @@ export default function Event(props) {
           {name}
         </Typography>
         <Typography gutterBottom variant="body2" color="text.secondary">
-          {start} - {end}
+          {start} - {end} <br />
+          Category: {category}
         </Typography>
 
         <Typography paragraph>{description}</Typography>
