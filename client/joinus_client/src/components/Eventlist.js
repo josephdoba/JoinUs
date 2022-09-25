@@ -4,6 +4,7 @@ import Event from "./Event";
 import { fetchAPI } from "../api";
 import Header from "./Header";
 import EventCategorySearch from "./EventCategorySearch";
+import moment from "moment";
 
 export default function Eventlist() {
   const [eventData, setEventData] = useState([]);
@@ -11,13 +12,25 @@ export default function Eventlist() {
   useEffect(() => {
     fetchAPI("events")
       .then((data) => {
-        console.log(data.data.events);
         setEventData((prev) => [...data.data.events]);
       })
       .catch((err) => console.error(err.response.data));
   }, []);
 
-  const events = eventData.map((e) => {
+  // return new array without past events
+  const upcomingEvents = (events) => {
+    let results = [];
+    const now = moment(Date.now());
+    events.forEach((event) => {
+      const eventEnd = moment(event.end_time);
+      if (now.isBefore(eventEnd)) {
+        results.push(event);
+      }
+    });
+    return results;
+  };
+
+  const events = upcomingEvents(eventData).map((e) => {
     return (
       <Event
         key={e.id}
