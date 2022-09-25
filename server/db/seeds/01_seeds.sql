@@ -12,7 +12,7 @@ INSERT INTO users (name, picture) VALUES
 ('Queen McbElith', 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2022/08/21/16611032033049.jpg');
 
 
-INSERT INTO events (name, image, description, size_limit, id, latitude, longitude, start_time, end_time) VALUES
+INSERT INTO events (name, image, description, size_limit, owner_id, latitude, longitude, start_time, end_time) VALUES
 ('coffee chat', 'https://images.squarespace-cdn.com/content/v1/5b97eba69f8770a3639818de/1601497107704-YWY5VZU9Q5IHAPQZ983M/image-asset.jpeg', 'Come join me for me a lovely quick little morning coffee and chat about the problems of the world', 3, 1, 51.0233064354121, -114.02369425973428, '2022-09-28 05:00:00', '2022-09-28 16:00:00'),
 ('board games', 'https://i.cbc.ca/1.2716999.1406221490!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/135000779-board-games.jpg', 'Come join me for some fun board games this could include battleship, monopoly, and risk!', 8, 2, 49.25825320517397, -123.04434376344798, '2022-09-28 12:00:00', '2022-09-28 11:00:00'),
 ('tennis', 'https://imageio.forbes.com/specials-images/imageserve//6297a140ad5629573ba5f667/0x0.jpg?format=jpg&width=1200', 'Come play some tennis with me im super good though ill probably mess you up.', 4, 3, 49.15964422830105, -123.13337467011768, '2022-09-29 16:00:00', '2022-09-29 18:00:00'),
