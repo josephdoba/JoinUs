@@ -1,6 +1,6 @@
 -- Drop and recreate Users table (Example)
-DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS joined_events CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
