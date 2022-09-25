@@ -13,8 +13,8 @@ const Herobanner = function() {
       </p>
     <img src="https://dummyimage.com/600x400/21c442/ffffff"></img>
     </div>
-    
     </Container>
+
   )
 }
 

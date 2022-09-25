@@ -15,9 +15,10 @@ CREATE TABLE events (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   image VARCHAR(255) NOT NULL,
-  description TEXT,
-  size_limit INTEGER NOT NULL,
+  description TEXT NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  category VARCHAR(255) NOT NULL,
+  size_limit INTEGER NOT NULL,
   latitude FLOAT(32) NOT NULL,
   longitude FLOAT(32) NOT NULL,
   start_time TIMESTAMP NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE joined_events (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
-  user_attendance_date TIMESTAMP,
+  user_attendance BOOLEAN NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
