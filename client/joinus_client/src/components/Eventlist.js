@@ -34,7 +34,7 @@ export default function Eventlist() {
   return (
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
-      <EventCategorySearch />
+
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
