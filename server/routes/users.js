@@ -23,4 +23,6 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+// create api events joined
+// delete route
 exports.default = router;

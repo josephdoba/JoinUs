@@ -22,4 +22,16 @@ router.get("/", (req, res) => {
     });
 });
 
+// show event from event owner based on owner_id
+router.get("/2", (req, res) => {
+  eventQueries
+    .getEvent()
+    .then((events) => {
+      res.json({ events });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 export default router;

@@ -24,4 +24,15 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+// show event from event owner based on owner_id
+router.get("/2", (req, res) => {
+    events_1.default
+        .getEvent()
+        .then((events) => {
+        res.json({ events });
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 exports.default = router;
