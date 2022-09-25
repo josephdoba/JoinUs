@@ -1,13 +1,13 @@
 import React from "react";
 import Sidebar from './Sidebar'
 import Feed from './Feed'
-import Navbar2 from "./Navbar2";
+import App_navbar from "./App_navbar";
 import { Box, Stack } from "@mui/material";
 
 export default function Homepage() {
   return (
     <Box>
-      <Navbar2 />
+      <App_navbar />
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar />
         <Feed />
