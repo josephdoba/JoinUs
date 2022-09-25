@@ -27,11 +27,11 @@ export default function App_navbar() {
 
   return (
 
-    <AppBar position="sticky" style={{ background: 'transparent', boxShadow: 'none'}}>
+    <AppBar position="sticky" style={{ background: 'white', boxShadow: 'none'}}>
       <StyledToolbar>
 
         <Typography color={"#f9a406b0"}>
-        <Avatar sx={{width: 60, height: 60}} alt="Moe" src="https://img.freepik.com/free-vector/hand-drawn-join-us-lettering_23-2148948794.jpg?w=740&t=st=1664077213~exp=1664077813~hmac=06a56276e90c71a05ceaf1919307823d95373c5fac03bf05420df3bf153353cf" />
+        <Avatar sx={{width: 80, height: 80}} alt="Logo" src="https://img.freepik.com/free-vector/hand-drawn-join-us-lettering_23-2148948794.jpg?w=740&t=st=1664077213~exp=1664077813~hmac=06a56276e90c71a05ceaf1919307823d95373c5fac03bf05420df3bf153353cf" />
         </Typography>
 
         <Search>
@@ -42,7 +42,7 @@ export default function App_navbar() {
           <Badge badgeContent={1} color="error">
             <NotificationsNoneTwoToneIcon/>
           </Badge>
-          <Avatar sx={{width: 30, height: 30}} alt="Moe" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=900&t=st=1664076923~exp=1664077523~hmac=fa17a13a423c8b6bffde0339319e35c0b643d486e5ca8e52d03bf325630bb2db" />
+          <Avatar sx={{width: 40, height: 40}} alt="Moe" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=900&t=st=1664076923~exp=1664077523~hmac=fa17a13a423c8b6bffde0339319e35c0b643d486e5ca8e52d03bf325630bb2db" />
         </Icon>
 
       </StyledToolbar>
