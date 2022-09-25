@@ -10,6 +10,15 @@ import Typography from "@mui/material/Typography";
 import moment from "moment";
 import { Grid } from "@mui/material";
 
+const shortenText = (text) => {
+  if (text.length >= 75) {
+    const short = text.slice(0, 75);
+    return `${short}...`;
+  }
+
+  return text;
+};
+
 export default function Event(props) {
   const { name, image, description, start_time, end_time, category } = props;
 
@@ -18,7 +27,7 @@ export default function Event(props) {
 
   return (
     <Grid item xs={4}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, maxHeight: 360 }}>
         <CardMedia component="img" alt={name} height="140" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -29,7 +38,7 @@ export default function Event(props) {
             Category: {category}
           </Typography>
 
-          <Typography paragraph>{description}</Typography>
+          <Typography paragraph>{shortenText(description)}</Typography>
         </CardContent>
         <CardActions>
           <Button onClick={() => {}} size="small">
