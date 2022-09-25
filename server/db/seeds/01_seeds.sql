@@ -25,13 +25,3 @@ INSERT INTO joined_tables(user_id, event_id, user_attendance, created_at, update
 (2, 2, TRUE),
 (3, 3, TRUE),
 (4, 4, TRUE);
-
-
-CREATE TABLE joined_events (
-  id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
-  user_attendance BOOLEAN NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
