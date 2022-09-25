@@ -1,5 +1,5 @@
 import React from "react";
-import Herobanner from "./herobanner";
+import Herobanner from "./Herobanner";
 import Navbar from "./Navbar";
 import Cards from "./Cards";
 import "./app.scss";
