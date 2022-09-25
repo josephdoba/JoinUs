@@ -1,8 +1,9 @@
 import { Container, Grid } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2";
 import React, { useState, useEffect } from "react";
 import Event from "./Event";
 import { fetchAPI } from "../api";
+import Header from "./Header";
+import EventCategorySearch from "./EventCategorySearch";
 
 export default function Eventlist() {
   const [eventData, setEventData] = useState([]);
@@ -32,6 +33,8 @@ export default function Eventlist() {
 
   return (
     <Container>
+      <Header id="events-homepage-title" title="Join an Event!" />
+      <EventCategorySearch />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
