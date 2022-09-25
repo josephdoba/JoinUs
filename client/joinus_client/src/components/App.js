@@ -5,6 +5,7 @@ import Cards from "./Cards";
 import "./app.scss";
 import { createContext, useState } from "react";
 import Eventlist from "./Eventlist";
+import Userpage from "./Userpage";
 
 export const ThemeContext = createContext(null);
 
@@ -18,14 +19,15 @@ const App = function () {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div id={theme}>
-        <Navbar toggleTheme={toggleTheme} theme={theme} success={success} setSuccess={setSuccess} user={user} setUser={setUser}/>
-        <Herobanner />
-        <Cards />
-        <Eventlist />
-      </div>
-    </ThemeContext.Provider>
+    // <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    //   <div id={theme}>
+    //     <Navbar toggleTheme={toggleTheme} theme={theme} success={success} setSuccess={setSuccess} user={user} setUser={setUser}/>
+    //     <Herobanner />
+    //     <Cards />
+    //     <Eventlist />
+    //   </div>
+    // </ThemeContext.Provider>
+    <Userpage />
   );
 };
 
