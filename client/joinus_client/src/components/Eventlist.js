@@ -3,16 +3,19 @@ import React, { useState, useEffect } from "react";
 import Event from "./Event";
 import { fetchAPI } from "../api";
 import Header from "./Header";
-import EventCategorySearch from "./EventCategorySearch";
+import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
 export default function Eventlist() {
   const [eventData, setEventData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    fetchAPI("events")
-      .then((data) => {
-        setEventData((prev) => [...data.data.events]);
+    Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
+      .then((all) => {
+        console.log(all[1]);
+        setEventData((prev) => [...all[0].data.events]);
+        setCategoryData((prev) => [...all[1].data.categories]);
       })
       .catch((err) => console.error(err.response.data));
   }, []);
@@ -30,14 +33,20 @@ export default function Eventlist() {
     return results;
   };
 
+  //T
+  const findCategoryByID = (categoryNum, categoryData) => {
+    return categoryData.find((category) => category.id === categoryNum);
+  };
+
   const events = upcomingEvents(eventData).map((e) => {
+    const category = findCategoryByID(e.category, categoryData);
     return (
       <Event
         key={e.id}
         name={e.name}
         image={e.image}
         description={e.description}
-        category={e.category}
+        category={category.name}
         start_time={e.start_time}
         end_time={e.end_time}
       />
@@ -47,7 +56,7 @@ export default function Eventlist() {
   return (
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
-
+      <EventCategoryDropdown list={categoryData} />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
