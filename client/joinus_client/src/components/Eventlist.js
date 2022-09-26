@@ -1,61 +1,53 @@
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Event from "./Event";
-import axios from "axios";
-import Stack from "@mui/material/Stack";
-import EventMap from "./EventMap";
-
-const events = [
-  {
-    id: 1,
-    name: "coffee chat",
-    image:
-      "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg",
-    description:
-      "Come join me for me a lovely quick little morning coffee and chat about the problems of the world",
-    size_limit: 4,
-    owner_id: 1,
-    latitude: 51.0233064354121,
-    longitude: -114.02369425973428,
-    start_time: "2022-09-28 05:00:00",
-    end_time: "2022-09-28 16:00:00",
-  },
-  {
-    id: 2,
-    name: "board games",
-    image:
-      "https://i.cbc.ca/1.2716999.1406221490!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/135000779-board-games.jpg",
-    description:
-      "Come join me for some fun board games this could include battleship, monopoly, and risk!",
-    size_limit: 4,
-    owner_id: 1,
-    latitude: 49.25825320517397,
-    longitude: -123.04434376344798,
-    start_time: "2022-09-28 08:00:00",
-    end_time: "2022-09-28 11:00:00",
-  },
-];
+import { fetchAPI } from "../api";
+import Header from "./Header";
+import EventCategoryDropdown from "./EventCategoryDropdown";
+import moment from "moment";
 
 export default function Eventlist() {
-  // const [eventData, setEventData] = useState({});
+  const [eventsData, setEventsData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/events")
-  //     .then((data) => {
-  //       setEventData(data.events);
-  //       console.log(eventData);
-  //     })
-  //     .catch((err) => console.error(err.response.data));
-  // }, []);
+  useEffect(() => {
+    Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
+      .then((all) => {
+        console.log(all[1]);
+        setEventsData((prev) => [...all[0].data.events]);
+        setCategoryData((prev) => [...all[1].data.categories]);
+      })
+      .catch((err) => console.error(err.response.data));
+  }, []);
 
-  const event = events.map((e) => {
+  // return new array without past events
+  const upcomingEvents = (events) => {
+    let results = [];
+    const now = moment(Date.now());
+    events.forEach((event) => {
+      const eventEnd = moment(event.end_time);
+      if (now.isBefore(eventEnd)) {
+        results.push(event);
+      }
+    });
+    return results;
+  };
+
+  const findCategoryByID = (categoryNum, categoryData) => {
+    return categoryData.find((category) => category.id === categoryNum);
+  };
+
+  const events = upcomingEvents(eventsData).map((e) => {
+    const category = findCategoryByID(e.category, categoryData);
+
     return (
       <Event
         key={e.id}
         name={e.name}
         image={e.image}
         description={e.description}
+        category={category}
         start_time={e.start_time}
         end_time={e.end_time}
       />
@@ -64,14 +56,19 @@ export default function Eventlist() {
 
   return (
     <Container>
-      <h2 id="homepage-eventlist-title">Find an event!</h2>
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={{ xs: 1, sm: 2, md: 4 }}
+      <Header id="events-homepage-title" title="Join an Event!" />
+      <EventCategoryDropdown
+        list={categoryData}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {event}
-      </Stack>
-      <EventMap />
+        {events}
+      </Grid>
     </Container>
   );
 }

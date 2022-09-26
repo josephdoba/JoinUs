@@ -1,5 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = 'http://localhost:5000/Events';
+const baseURL = "http://localhost:8080/";
 
-export const fetchEvent = () => axios.get(url)
+export const fetchEvent = (urlEnd) => {
+  return axios.get(`${baseURL}${urlEnd}`);
+};
+
+export const fetchAPI = (urlEnd) => {
+  return axios.get(`${baseURL}api/${urlEnd}`);
+};
