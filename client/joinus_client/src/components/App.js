@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Home from "./Home";
+import FunPhoto from "./Home/FunPhotos";
 
 import "./app.scss";
 
@@ -29,6 +30,7 @@ const App = function () {
           user={user}
           setUser={setUser}
         />
+        <FunPhoto/>
         <Home />
         <IndividualEvent />
       </div>

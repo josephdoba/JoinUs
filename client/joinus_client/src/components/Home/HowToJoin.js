@@ -4,12 +4,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import './howToJoin.scss'
 
 import { Container } from "@mui/material";
 
 export default function HowToJoin() {
   return (
-    <Container>
+    <Container className="card-animation">
       <Stack direction="row" spacing={2}>
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
