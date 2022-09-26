@@ -76,7 +76,7 @@ export default function Feed() {
           </IconButton>
         </CardActions>
       </Card>
-
+      
       <Card >
         <CardHeader style={{ textAlign: 'center' }}
           title="Celebration Night"
