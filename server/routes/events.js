@@ -14,6 +14,14 @@ const express_1 = __importDefault(require("express"));
 // const db = require("../db/connection");
 const events_1 = __importDefault(require("../db/queries/events"));
 const router = express_1.default.Router();
+// api route for category list
+router.get("/categories", (req, res) => {
+    events_1.default
+        .getCategories()
+        .then((categories) => res.json({ categories }))
+        .catch((err) => res.status(500).json({ error: err.message }));
+});
+// api route for all events
 router.get("/", (req, res) => {
     events_1.default
         .getEvents()
