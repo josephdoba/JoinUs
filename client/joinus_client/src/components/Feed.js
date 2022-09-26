@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, styled, Typography } from "@mui/material";
+import { Avatar, AvatarGroup, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, experimentalStyled, IconButton, styled, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import { BottomNavigation } from '@mui/material';
@@ -9,6 +9,13 @@ export default function Feed() {
     alignItems: "center",
     margin: 5
   }));
+
+  const CardContent = styled("CardContent")(({ theme }) => ({
+    display: 'flex', flexDirection: "column",
+    alignItems: "center",
+    margin: 10
+  }));
+
 
   return (
 
@@ -32,8 +39,19 @@ export default function Feed() {
         <CardContent>
 
           <Typography variant="body2" color="text.secondary">
-            3 attendees
+            5 attendees
           </Typography>
+
+          <AvatarGroup max={4} sx={{
+            '& .MuiAvatar-root': { width: 24, height: 24, fontSize: 15 },
+          }}>
+            <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-psd/3d-illustration-person-tank-top_23-2149436199.jpg?w=826&t=st=1664226689~exp=1664227289~hmac=f902731d7e27baa3e10deaf833daa64d9b644baad17b4ddd12ec762debfdb491" />
+            <Avatar alt="Travis Howard" src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436185.jpg?w=826&t=st=1664226705~exp=1664227305~hmac=a73f82e41b6ad2553c00d02712dc52b49f92f0bbc72ddc6e505c6454518339f8" />
+            <Avatar alt="Cindy Baker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436200.jpg?w=826&t=st=1664226740~exp=1664227340~hmac=571618557769385ccfe3fb036cd4109883e8a7a92451dc9866b633942ed9890a" />
+            <Avatar alt="Agnes Walker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=826&t=st=1664226755~exp=1664227355~hmac=a54b476daee8a547f1a03f6e8c5e437bf67d0cab761f6fb0148f20b439ad12a6" />
+            <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
+          </AvatarGroup>
+
           <Button size="small" variant="text">Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
@@ -64,8 +82,19 @@ export default function Feed() {
         <CardContent>
 
           <Typography variant="body2" color="text.secondary">
-            3 attendees
+            5 attendees
           </Typography>
+
+          <AvatarGroup max={4} sx={{
+            '& .MuiAvatar-root': { width: 24, height: 24, fontSize: 15 },
+          }}>
+            <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-psd/3d-illustration-person-tank-top_23-2149436199.jpg?w=826&t=st=1664226689~exp=1664227289~hmac=f902731d7e27baa3e10deaf833daa64d9b644baad17b4ddd12ec762debfdb491" />
+            <Avatar alt="Travis Howard" src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436185.jpg?w=826&t=st=1664226705~exp=1664227305~hmac=a73f82e41b6ad2553c00d02712dc52b49f92f0bbc72ddc6e505c6454518339f8" />
+            <Avatar alt="Cindy Baker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436200.jpg?w=826&t=st=1664226740~exp=1664227340~hmac=571618557769385ccfe3fb036cd4109883e8a7a92451dc9866b633942ed9890a" />
+            <Avatar alt="Agnes Walker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=826&t=st=1664226755~exp=1664227355~hmac=a54b476daee8a547f1a03f6e8c5e437bf67d0cab761f6fb0148f20b439ad12a6" />
+            <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
+          </AvatarGroup>
+
           <Button size="small" variant="text">Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
@@ -76,7 +105,7 @@ export default function Feed() {
           </IconButton>
         </CardActions>
       </Card>
-      
+
       <Card >
         <CardHeader style={{ textAlign: 'center' }}
           title="Celebration Night"
@@ -96,8 +125,20 @@ export default function Feed() {
         <CardContent>
 
           <Typography variant="body2" color="text.secondary">
-            3 attendees
+            5 attendees
           </Typography>
+
+
+          <AvatarGroup max={4} sx={{
+            '& .MuiAvatar-root': { width: 24, height: 24, fontSize: 15 },
+          }}>
+            <Avatar alt="Remy Sharp" src="https://img.freepik.com/free-psd/3d-illustration-person-tank-top_23-2149436199.jpg?w=826&t=st=1664226689~exp=1664227289~hmac=f902731d7e27baa3e10deaf833daa64d9b644baad17b4ddd12ec762debfdb491" />
+            <Avatar alt="Travis Howard" src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436185.jpg?w=826&t=st=1664226705~exp=1664227305~hmac=a73f82e41b6ad2553c00d02712dc52b49f92f0bbc72ddc6e505c6454518339f8" />
+            <Avatar alt="Cindy Baker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436200.jpg?w=826&t=st=1664226740~exp=1664227340~hmac=571618557769385ccfe3fb036cd4109883e8a7a92451dc9866b633942ed9890a" />
+            <Avatar alt="Agnes Walker" src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=826&t=st=1664226755~exp=1664227355~hmac=a54b476daee8a547f1a03f6e8c5e437bf67d0cab761f6fb0148f20b439ad12a6" />
+            <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
+          </AvatarGroup>
+
           <Button size="small" variant="text">Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
