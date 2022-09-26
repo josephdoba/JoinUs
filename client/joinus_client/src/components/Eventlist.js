@@ -7,14 +7,16 @@ import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
 export default function Eventlist() {
-  const [eventData, setEventData] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedEvents, setSelectedEvents] = useState([]);
 
   useEffect(() => {
     Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
       .then((all) => {
         console.log(all[1]);
-        setEventData((prev) => [...all[0].data.events]);
+        setEventsData((prev) => [...all[0].data.events]);
         setCategoryData((prev) => [...all[1].data.categories]);
       })
       .catch((err) => console.error(err.response.data));
@@ -33,13 +35,36 @@ export default function Eventlist() {
     return results;
   };
 
-  //T
   const findCategoryByID = (categoryNum, categoryData) => {
     return categoryData.find((category) => category.id === categoryNum);
   };
 
-  const events = upcomingEvents(eventData).map((e) => {
+  const findCategoryIDByName = (categoryName, categoryData) => {
+    if (categoryName.length === 0) {
+      return categoryData;
+    }
+    let results = [];
+
+    console.log(categoryData);
+    for (let name in categoryName) {
+      console.log(categoryData[name].id);
+      if (categoryData[name].name === name) {
+        results.push(categoryData[name].id);
+      }
+      return results;
+    }
+  };
+
+  const selectedCategoryID = findCategoryIDByName(
+    selectedCategory,
+    categoryData
+  );
+
+  console.log(selectedCategoryID);
+
+  const events = upcomingEvents(eventsData).map((e) => {
     const category = findCategoryByID(e.category, categoryData);
+
     return (
       <Event
         key={e.id}
@@ -56,7 +81,11 @@ export default function Eventlist() {
   return (
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
-      <EventCategoryDropdown list={categoryData} />
+      <EventCategoryDropdown
+        list={categoryData}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
