@@ -7,7 +7,7 @@ const Herobanner = () => {
       <Text style={styles.title}>Come and Join Us!</Text>
       <Image
         style={styles.bannerImage}
-        source={require('../images/running.png')}
+        source={require('../../images/running.png')}
       />
       <Text style={styles.body}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis
