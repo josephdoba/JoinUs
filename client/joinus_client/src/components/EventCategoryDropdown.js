@@ -19,37 +19,24 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
-function getStyles(name, personName, theme) {
+function getStyles(category, categorySearch, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      categorySearch.indexOf(category) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-export default function EventCategoryDropdown() {
+export default function EventCategoryDropdown({ list }) {
   const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
+  const [categorySearch, setCategorySearch] = useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setCategorySearch(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -58,14 +45,14 @@ export default function EventCategoryDropdown() {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 500 }}>
-        <InputLabel id="demo-multiple-chip-label">Categories</InputLabel>
+        <InputLabel id="category-dropdown-search">Categories</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
+          labelId="category-dropdown-search"
+          id="category-dropdown-search"
           multiple
-          value={personName}
+          value={categorySearch}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
@@ -75,13 +62,13 @@ export default function EventCategoryDropdown() {
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {list.map((category) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={category.id}
+              value={category.name}
+              style={getStyles(category.name, categorySearch, theme)}
             >
-              {name}
+              {category.name}
             </MenuItem>
           ))}
         </Select>
