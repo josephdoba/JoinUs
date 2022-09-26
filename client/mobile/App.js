@@ -18,14 +18,8 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import Herobanner from './components/Herobanner';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Herobanner from './src/components/Herobanner';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -72,9 +66,12 @@ const App = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+          style={
+            (styles.sectionContainer,
+            {
+              backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            })
+          }>
           <Herobanner />
         </View>
       </ScrollView>
@@ -84,7 +81,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
+    marginTop: 50,
     paddingHorizontal: 24,
   },
   sectionTitle: {
