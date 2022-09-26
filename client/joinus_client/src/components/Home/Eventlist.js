@@ -7,9 +7,9 @@ import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
 export default function Eventlist() {
-  const [eventsData, setEventsData] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [eventsData, setEventsData] = useState([]); //api
+  const [categoryData, setCategoryData] = useState([]); //api
+  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   useEffect(() => {
     Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
@@ -37,6 +37,26 @@ export default function Eventlist() {
   const findCategoryByID = (categoryNum, categoryData) => {
     return categoryData.find((category) => category.id === categoryNum);
   };
+
+  // const findCategoryByARR = (selectedCategoryArr, categoryData, eventData) => {
+  //   let arr = [];
+
+  //   for (let categoryObj of categoryData) {
+  //     for (let name of selectedCategoryArr) {
+  //       if (categoryObj.name === name) {
+  //         arr.push(categoryObj.id);
+  //       }
+  //       // if (categoryObj.name === selectedCategoryArr[0]) {
+  //       //   arr.push(categoryObj.id);
+  //     }
+  //   }
+  //   eventData.map(event => {
+  //     arr.map(id => (
+  //       if (id === event.category)
+  //       ))
+  //   })
+
+  // };
 
   const events = upcomingEvents(eventsData).map((e) => {
     const category = findCategoryByID(e.category, categoryData);
