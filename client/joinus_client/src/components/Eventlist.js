@@ -10,7 +10,6 @@ export default function Eventlist() {
   const [eventsData, setEventsData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const [selectedEvents, setSelectedEvents] = useState([]);
 
   useEffect(() => {
     Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
@@ -39,29 +38,6 @@ export default function Eventlist() {
     return categoryData.find((category) => category.id === categoryNum);
   };
 
-  const findCategoryIDByName = (categoryName, categoryData) => {
-    if (categoryName.length === 0) {
-      return categoryData;
-    }
-    let results = [];
-
-    console.log(categoryData);
-    for (let name in categoryName) {
-      console.log(categoryData[name].id);
-      if (categoryData[name].name === name) {
-        results.push(categoryData[name].id);
-      }
-      return results;
-    }
-  };
-
-  const selectedCategoryID = findCategoryIDByName(
-    selectedCategory,
-    categoryData
-  );
-
-  console.log(selectedCategoryID);
-
   const events = upcomingEvents(eventsData).map((e) => {
     const category = findCategoryByID(e.category, categoryData);
 
@@ -71,7 +47,7 @@ export default function Eventlist() {
         name={e.name}
         image={e.image}
         description={e.description}
-        category={category.name}
+        category={category}
         start_time={e.start_time}
         end_time={e.end_time}
       />
