@@ -1,8 +1,8 @@
 import { Container, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import Event from "./Event";
-import { fetchAPI } from "../api";
-import Header from "./Header";
+import EventCard from "./EventCard";
+import { fetchAPI } from "../../api";
+import Header from "../Header";
 import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
@@ -42,7 +42,7 @@ export default function Eventlist() {
     const category = findCategoryByID(e.category, categoryData);
 
     return (
-      <Event
+      <EventCard
         key={e.id}
         name={e.name}
         image={e.image}

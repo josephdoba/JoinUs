@@ -1,18 +1,16 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
-export default function HomePageCards() {
+export default function HowToJoin() {
   return (
     <Container>
-
       <Stack direction="row" spacing={2}>
-
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             component="img"
@@ -24,11 +22,11 @@ export default function HomePageCards() {
               JOIN US! by signing up
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              text text text text text text text text text text text text text text text text text text
+              text text text text text text text text text text text text text
+              text text text text text
             </Typography>
           </CardContent>
         </Card>
-
 
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
@@ -41,7 +39,8 @@ export default function HomePageCards() {
               Look for an event you like
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              text text text text text text text text text text text text text text text text text text
+              text text text text text text text text text text text text text
+              text text text text text
             </Typography>
           </CardContent>
         </Card>
@@ -57,7 +56,8 @@ export default function HomePageCards() {
               Chat with people
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              text text text text text text text text text text text text text text text text text text
+              text text text text text text text text text text text text text
+              text text text text text
             </Typography>
           </CardContent>
         </Card>
@@ -73,14 +73,12 @@ export default function HomePageCards() {
               Meet them
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              text text text text text text text text text text text text text text text text text text
+              text text text text text text text text text text text text text
+              text text text text text
             </Typography>
           </CardContent>
         </Card>
-
       </Stack>
-
     </Container>
-
   );
 }

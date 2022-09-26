@@ -1,17 +1,18 @@
 import React from "react";
-import Herobanner from "./Herobanner";
 import Navbar from "./Navbar";
-import Cards from "./Cards";
+import Home from "./Home";
+
 import "./app.scss";
+
 import { createContext, useState } from "react";
-import Eventlist from "./Eventlist";
+import IndividualEvent from "./IndividualEvent";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
   const [theme, setTheme] = useState("light");
-  const [success, setSuccess] = useState(false)
-  const [user, setUser] = useState({})
+  const [success, setSuccess] = useState(false);
+  const [user, setUser] = useState({});
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -20,10 +21,16 @@ const App = function () {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div id={theme}>
-        <Navbar toggleTheme={toggleTheme} theme={theme} success={success} setSuccess={setSuccess} user={user} setUser={setUser}/>
-        <Herobanner />
-        <Cards />
-        <Eventlist />
+        <Navbar
+          toggleTheme={toggleTheme}
+          theme={theme}
+          success={success}
+          setSuccess={setSuccess}
+          user={user}
+          setUser={setUser}
+        />
+        <Home />
+        <IndividualEvent />
       </div>
     </ThemeContext.Provider>
   );
