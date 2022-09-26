@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -28,15 +28,15 @@ function getStyles(category, categorySearch, theme) {
   };
 }
 
-export default function EventCategoryDropdown({ list }) {
+export default function EventCategoryDropdown(props) {
+  const { list, selectedCategory, setSelectedCategory } = props;
   const theme = useTheme();
-  const [categorySearch, setCategorySearch] = useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setCategorySearch(
+    setSelectedCategory(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -50,7 +50,7 @@ export default function EventCategoryDropdown({ list }) {
           labelId="category-dropdown-search"
           id="category-dropdown-search"
           multiple
-          value={categorySearch}
+          value={selectedCategory}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
           renderValue={(selected) => (
@@ -66,7 +66,7 @@ export default function EventCategoryDropdown({ list }) {
             <MenuItem
               key={category.id}
               value={category.name}
-              style={getStyles(category.name, categorySearch, theme)}
+              style={getStyles(category.name, selectedCategory, theme)}
             >
               {category.name}
             </MenuItem>
