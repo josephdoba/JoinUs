@@ -4,7 +4,7 @@
   height: 100%;
 
   .bubbles-image {
-    position: relative;
+    position: inherit;
     left: 77%;
     top: 20%;
     animation: bubbles-load 1300ms ease-out 1500ms;
@@ -13,12 +13,24 @@
   }
 
   .horn-image {
-    position: relative;
-    left: -24%;
-    top: 7%;
+    position: inherit;
+    left: 2.5%;
+    top: 40%;
     animation: horn-load 300ms ease-out 2300ms;
     animation-fill-mode: forwards;
     scale: 0;
+  }
+
+  .meet-image {
+    position: inherit;
+    top: 106%;
+    left: 2%;
+  }
+
+  .signup-image {
+    position: inherit;
+    left: 82%;
+    top: 155%;
   }
 }
 
