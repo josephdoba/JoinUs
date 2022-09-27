@@ -7,6 +7,7 @@ import "./app.scss";
 
 import { createContext, useState } from "react";
 import IndividualEvent from "./IndividualEvent";
+import Userpage from "./Userpage";
 
 export const ThemeContext = createContext(null);
 
