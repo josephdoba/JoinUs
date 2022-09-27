@@ -26,10 +26,10 @@ router.get("/", (req, res) => {
 });
 // show event from event owner based on owner_id
 router.get("/2", (req, res) => {
-    events_1.default
-        .getEvent()
-        .then((events) => {
-        res.json({ events });
+    events_1.default.getEventByID(req)
+        .then(() => {
+        console.log(req.events.event.id);
+        // res.json({ events });
     })
         .catch((err) => {
         res.status(500).json({ error: err.message });

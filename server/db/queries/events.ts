@@ -7,13 +7,13 @@ const getEvents = () => {
     .catch((err) => console.error(err.stack));
 };
 
-const getEvent = () => {
+const getEventByID = (eventID: any) => {
+  // dont worry, I will change this to ': number' before pushing
   return db
-    .query(`SELECT * FROM events WHERE owner_id = 2`)
+    .query(`SELECT * FROM events WHERE id = $1`, [eventID])
     .then((data) => data.rows)
-    .catch((err) => console.error(err.stack))
-}
+    .catch((err) => console.error(err.stack));
+};
 
 // create the functions first, export it, then import into routes
-
-export default { getEvents, getEvent };
+export default { getEvents, getEventByID };

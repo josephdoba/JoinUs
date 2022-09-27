@@ -22,12 +22,13 @@ router.get("/", (req, res) => {
     });
 });
 
-// show event from event owner based on owner_id
-router.get("/2", (req, res) => {
+// show event from event owner based on owner_id () 
+router.get("/2", (req: any, res: any) => {
   eventQueries
-    .getEvent()
-    .then((events) => {
-      res.json({ events });
+    .getEventByID(req)
+    .then(() => {
+      console.log(req.events.event.id);
+      // res.json({ events });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

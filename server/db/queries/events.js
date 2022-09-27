@@ -7,11 +7,10 @@ const getEvents = () => {
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };
-const getEvent = () => {
-    return connection_1.db
-        .query(`SELECT * FROM events WHERE owner_id = 2`)
+const getEventByID = (eventID) => {
+    return connection_1.db.query(`SELECT * FROM events WHERE id = $1`, [eventID])
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };
 // create the functions first, export it, then import into routes
-exports.default = { getEvents, getEvent };
+exports.default = { getEvents, getEventByID };
