@@ -8,7 +8,7 @@ import moment from "moment";
 
 export default function Eventlist() {
   const [eventsData, setEventsData] = useState([]); //api
-  const [categoryData, setCategoryData] = useState([]); //api
+  const [categoriesData, setCategoriesData] = useState([]); //api
   const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Eventlist() {
       .then((all) => {
         console.log(all[1]);
         setEventsData((prev) => [...all[0].data.events]);
-        setCategoryData((prev) => [...all[1].data.categories]);
+        setCategoriesData((prev) => [...all[1].data.categories]);
       })
       .catch((err) => console.error(err.response.data));
   }, []);
@@ -38,28 +38,32 @@ export default function Eventlist() {
     return categoryData.find((category) => category.id === categoryNum);
   };
 
-  // const findCategoryByARR = (selectedCategoryArr, categoryData, eventData) => {
-  //   let arr = [];
+  // return an array of selected category obj
+  const findCategoryByARR = (selectedCategoryArr, categoryData, eventsData) => {
+    let arr = [];
+    let results = [];
 
-  //   for (let categoryObj of categoryData) {
-  //     for (let name of selectedCategoryArr) {
-  //       if (categoryObj.name === name) {
-  //         arr.push(categoryObj.id);
-  //       }
-  //       // if (categoryObj.name === selectedCategoryArr[0]) {
-  //       //   arr.push(categoryObj.id);
-  //     }
-  //   }
-  //   eventData.map(event => {
-  //     arr.map(id => (
-  //       if (id === event.category)
-  //       ))
-  //   })
+    for (let categoryObj of categoryData) {
+      for (let name of selectedCategoryArr) {
+        if (categoryObj.name === name) {
+          arr.push(categoryObj.id);
+        }
+      }
+    }
+    for (let eventObj of eventsData) {
+      for (let id of arr) {
+        if (eventObj.category === id) {
+          results.push(eventObj);
+        }
+      }
+    }
+    return results;
+  };
 
-  // };
+  findCategoryByARR(selectedCategory, categoriesData, eventsData);
 
   const events = upcomingEvents(eventsData).map((e) => {
-    const category = findCategoryByID(e.category, categoryData);
+    const category = findCategoryByID(e.category, categoriesData);
 
     return (
       <EventCard
@@ -78,7 +82,7 @@ export default function Eventlist() {
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
       <EventCategoryDropdown
-        list={categoryData}
+        list={categoriesData}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
