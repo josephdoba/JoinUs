@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 });
 
 // show event from event owner based on owner_id () 
-router.get("/2", (req: any, res: any) => {
+router.get("/:id", (req: any, res: any) => {
   eventQueries
     .getEventByID(req)
     .then(() => {
@@ -34,5 +34,18 @@ router.get("/2", (req: any, res: any) => {
       res.status(500).json({ error: err.message });
     });
 });
+/*
+router.post("/:id", (req: any, res: any) => { // join event route
+  eventQueries
+    .getEventByID(req)
+    .then(() => {
+      console.log(req.events.event.id);
+      // res.json({ events });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+*/
 
 export default router;

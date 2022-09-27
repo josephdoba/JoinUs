@@ -15,5 +15,7 @@ const getEventByID = (eventID: any) => {
     .catch((err) => console.error(err.stack));
 };
 
+// stored in state 
+
 // create the functions first, export it, then import into routes
 export default { getEvents, getEventByID };
