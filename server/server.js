@@ -12,8 +12,6 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
-const server = require('http').Server(app)
-const io = require('socket.io')(server)
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -33,13 +31,6 @@ app.use("/api/events", events_1.default);
 app.get("/", (req, res) => {
     res.json({});
 });
-
-io.on('connection', socket => {
-    socket.on('message', ({name, message}) => {
-      io.emit('message', {name, message})
-    })
-  })
-
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
 });

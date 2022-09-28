@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import FunPhoto from "./Home/FunPhotos";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./Chat";
 
 import "./app.scss";
@@ -10,6 +10,8 @@ import "./app.scss";
 import { createContext, useState } from "react";
 import IndividualEvent from "./IndividualEvent";
 import Userpage from "./Userpage";
+
+import useAppData from "../hooks/useAppData";
 
 export const ThemeContext = createContext(null);
 
@@ -22,6 +24,7 @@ const App = function () {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
+  const { eventsData, usersData, categoriesData } = useAppData();
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -35,8 +38,21 @@ const App = function () {
             setUser={setUser}
           />
           <Routes>
-            <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
-            <Route path='/event/chat' element={<Chat user={user}/>} />
+            <Route
+              path="/"
+              element={
+                <div>
+                  <FunPhoto />{" "}
+                  <Home
+                    eventsData={eventsData}
+                    usersData={usersData}
+                    categoriesData={categoriesData}
+                  />{" "}
+                  <IndividualEvent />{" "}
+                </div>
+              }
+            />
+            <Route path="/event/chat" element={<Chat user={user} />} />
           </Routes>
         </div>
       </ThemeContext.Provider>

@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/categories", (req, res) => {
   eventQueries
     .getCategories()
-    .then((categories) => res.json({ categories }))
+    .then((categories) => res.json(categories))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
   eventQueries
     .getEvents()
     .then((events) => {
-      res.json({ events });
+      res.json(events);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
