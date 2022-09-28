@@ -4,11 +4,16 @@ import Herobanner from "./Herobanner";
 import HowToJoin from "./HowToJoin";
 
 export default function Home(props) {
+  const { eventsData, categoriesData, usersData } = props;
   return (
     <Fragment>
       <Herobanner />
       <HowToJoin />
-      <Eventlist />
+      <Eventlist
+        eventsData={eventsData}
+        usersData={usersData}
+        categoriesData={categoriesData}
+      />
     </Fragment>
   );
 }

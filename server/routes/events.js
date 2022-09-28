@@ -18,7 +18,11 @@ const router = express_1.default.Router();
 router.get("/categories", (req, res) => {
     events_1.default
         .getCategories()
+<<<<<<< HEAD
         .then((categories) => res.json({ categories }))
+=======
+        .then((categories) => res.json(categories))
+>>>>>>> main
         .catch((err) => res.status(500).json({ error: err.message }));
 });
 // api route for all events
@@ -26,7 +30,7 @@ router.get("/", (req, res) => {
     events_1.default
         .getEvents()
         .then((events) => {
-        res.json({ events });
+        res.json(events);
     })
         .catch((err) => {
         res.status(500).json({ error: err.message });

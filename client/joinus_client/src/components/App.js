@@ -1,16 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import "./app.scss";
-
-import Home from "./Home";
 import Navbar from "./Navbar";
+import Home from "./Home";
 import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
-import Userpage from "./Userpage";
+
+import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
-
+import Userpage from "./Userpage";
+import useAppData from "../hooks/useAppData";
 
 export const ThemeContext = createContext(null);
 
@@ -24,6 +24,7 @@ const App = function () {
   };
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
+  const { eventsData, usersData, categoriesData } = useAppData();
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -47,7 +48,21 @@ const App = function () {
             </Route>
 
             <Route path='/event/chat' element={<Chat user={user}/>} />
-            <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
+            <Route
+              path="/"
+              element={
+                <div>
+                  <FunPhoto />{" "}
+                  <Home
+                    eventsData={eventsData}
+                    usersData={usersData}
+                    categoriesData={categoriesData}
+                  />{" "}
+                  <IndividualEvent />{" "}
+                </div>
+              }
+            />
+            <Route path="/event/chat" element={<Chat user={user} />} />
           </Routes>
         </div>
       </ThemeContext.Provider>

@@ -14,6 +14,7 @@ const getEvents = () => {
     .catch((err) => console.error(err.stack));
 };
 
+<<<<<<< HEAD
 const getEventByID = (eventID: any) => {
   // dont worry, I will change this to ': number' before pushing
   return db
@@ -26,3 +27,6 @@ const getEventByID = (eventID: any) => {
 
 // create the functions first, export it, then import into routes
 export default { getEvents, getEventByID, getCategories };
+=======
+export default { getCategories, getEvents };
+>>>>>>> main

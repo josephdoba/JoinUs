@@ -13,6 +13,7 @@ const getEvents = () => {
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };
+<<<<<<< HEAD
 const getEventByID = (eventID) => {
     // dont worry, I will change this to ': number' before pushing
     return connection_1.db
@@ -23,3 +24,6 @@ const getEventByID = (eventID) => {
 // stored in state
 // create the functions first, export it, then import into routes
 exports.default = { getEvents, getEventByID, getCategories };
+=======
+exports.default = { getCategories, getEvents };
+>>>>>>> main
