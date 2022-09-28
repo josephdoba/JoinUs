@@ -8,6 +8,7 @@ import meet from "../../images/meet.png";
 
 import { Container } from "@mui/material";
 import JoinCard from "./JoinCard";
+import Header from "../Header";
 
 const instructions = [
   {
@@ -42,7 +43,7 @@ const instructions = [
   },
 ];
 
-export default function HowToJoin() {
+export default function HowToJoin(props) {
   const joinInstructions = instructions.map((card) => {
     return (
       <JoinCard
@@ -56,10 +57,13 @@ export default function HowToJoin() {
   });
 
   return (
-    <Container className="card-animation">
-      <Stack direction="row" spacing={2}>
-        {joinInstructions}
-      </Stack>
-    </Container>
+    <>
+      <Container className="card-animation">
+        <Header id="how-to-join-title" title="How to use JoinUs!" />
+        <Stack direction="row" spacing={2}>
+          {joinInstructions}
+        </Stack>
+      </Container>
+    </>
   );
 }
