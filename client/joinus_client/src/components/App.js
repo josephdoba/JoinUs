@@ -38,7 +38,6 @@ const App = function () {
           <Routes>
             <Route path='/event/chat' element={<Chat user={user}/>} />
             <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
-            <Route path='/' element={<Home />}/>
           </Routes>
         </div>
       </ThemeContext.Provider>

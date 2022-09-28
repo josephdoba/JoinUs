@@ -5,7 +5,6 @@ import ReactSwitch from 'react-switch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { reactLocalStorage } from 'reactjs-localstorage'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 const Navbar = function(props) {
 
@@ -46,9 +45,7 @@ const Navbar = function(props) {
     <div>
       <nav className='nav' id={props.theme}>
         <main className='main-navbar'>
-        <div>
           <a href='/'><img alt='LOGO' src={logo} className="logo"/></a>
-        </div>
         {props.success ? <div><div className="logged-in">Logged in as:  {props.user.email}</div> <div className="logout" onClick={logout}>Logout</div></div> : 
         <div className='login'>
           <div className="dropdown" data-dropdown>
