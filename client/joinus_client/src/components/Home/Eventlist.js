@@ -6,20 +6,10 @@ import Header from "../Header";
 import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
-export default function Eventlist() {
-  const [eventsData, setEventsData] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState([]);
+export default function Eventlist(props) {
+  const { eventsData, categoriesData } = props;
 
-  useEffect(() => {
-    Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
-      .then((all) => {
-        console.log(all[1]);
-        setEventsData((prev) => [...all[0].data.events]);
-        setCategoryData((prev) => [...all[1].data.categories]);
-      })
-      .catch((err) => console.error(err.response.data));
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   // return new array without past events
   const upcomingEvents = (events) => {
@@ -38,27 +28,65 @@ export default function Eventlist() {
     return categoryData.find((category) => category.id === categoryNum);
   };
 
-  const events = upcomingEvents(eventsData).map((e) => {
-    const category = findCategoryByID(e.category, categoryData);
+  // return an array of selected category obj
+  const findCategoryByARR = (selectedCategoryArr, categoryData, eventsData) => {
+    let arr = [];
+    let results = [];
 
-    return (
-      <EventCard
-        key={e.id}
-        name={e.name}
-        image={e.image}
-        description={e.description}
-        category={category}
-        start_time={e.start_time}
-        end_time={e.end_time}
-      />
-    );
-  });
+    for (let categoryObj of categoryData) {
+      for (let name of selectedCategoryArr) {
+        if (categoryObj.name === name) {
+          arr.push(categoryObj.id);
+        }
+      }
+    }
+    for (let eventObj of eventsData) {
+      for (let id of arr) {
+        if (eventObj.category === id) {
+          results.push(eventObj);
+        }
+      }
+    }
+    return results;
+  };
+
+  const displayEventCard = (eventArr) => {
+    return eventArr.map((e) => {
+      const category = findCategoryByID(e.category, categoriesData);
+
+      return (
+        <EventCard
+          key={e.id}
+          name={e.name}
+          image={e.image}
+          description={e.description}
+          category={category}
+          start_time={e.start_time}
+          end_time={e.end_time}
+        />
+      );
+    });
+  };
+
+  const filteredEvents = findCategoryByARR(
+    selectedCategory,
+    categoriesData,
+    eventsData
+  );
+
+  let event;
+
+  if (selectedCategory.length === 0) {
+    event = displayEventCard(upcomingEvents(eventsData));
+  } else {
+    event = displayEventCard(filteredEvents);
+  }
 
   return (
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
       <EventCategoryDropdown
-        list={categoryData}
+        list={categoriesData}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
@@ -67,7 +95,7 @@ export default function Eventlist() {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {events}
+        {event}
       </Grid>
     </Container>
   );
