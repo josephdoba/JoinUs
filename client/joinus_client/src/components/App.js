@@ -22,6 +22,7 @@ const App = function () {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
+  // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -35,8 +36,9 @@ const App = function () {
             setUser={setUser}
           />
           <Routes>
-            <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
             <Route path='/event/chat' element={<Chat user={user}/>} />
+            <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
+            <Route path='/' element={<Home />}/>
           </Routes>
         </div>
       </ThemeContext.Provider>
