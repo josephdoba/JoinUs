@@ -3,7 +3,6 @@ import ReactSwitch from 'react-switch'
 import { Container } from "@mui/system";
 import './herobanner.scss'
 
-
 const Herobanner = function() {
   return (
     <Container className="homepage-herobanner--main">
@@ -14,7 +13,6 @@ const Herobanner = function() {
     <img src="https://dummyimage.com/600x400/21c442/ffffff" id="photo"></img>
     </div>
     </Container>
-
   )
 }
 

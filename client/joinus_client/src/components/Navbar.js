@@ -5,6 +5,7 @@ import ReactSwitch from 'react-switch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { reactLocalStorage } from 'reactjs-localstorage'
+
 const Navbar = function(props) {
 
   const loginHandler = (e) => {
@@ -44,7 +45,7 @@ const Navbar = function(props) {
     <div>
       <nav className='nav' id={props.theme}>
         <main className='main-navbar'>
-        <img alt='LOGO' src={logo} className="logo"/>
+          <a href='/'><img alt='LOGO' src={logo} className="logo"/></a>
         {props.success ? <div><div className="logged-in">Logged in as:  {props.user.email}</div> <div className="logout" onClick={logout}>Logout</div></div> : 
         <div className='login'>
           <div className="dropdown" data-dropdown>

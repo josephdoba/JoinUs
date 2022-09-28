@@ -22,4 +22,10 @@ router.get("/", (req, res) => {
     });
 });
 
+// create api events joined
+// delete route
+
+
+
+
 export default router;
