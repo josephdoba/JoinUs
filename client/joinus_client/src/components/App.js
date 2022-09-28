@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
+import SingleEvent from './IndividualEvent/SingleEvent'
 
 import "./app.scss";
 
@@ -63,6 +64,8 @@ const App = function () {
               }
             />
             <Route path="/event/chat" element={<Chat user={user} />} />
+            <Route path="/user/homepage" element={<Userpage />}/>
+            <Route path="/event:id" element={<SingleEvent />}/>
           </Routes>
         </div>
       </ThemeContext.Provider>

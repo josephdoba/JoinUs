@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import './navbar.scss'
 import logo from '../images/logo.png'
 import ReactSwitch from 'react-switch'
@@ -7,7 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { reactLocalStorage } from 'reactjs-localstorage'
 
 const Navbar = function(props) {
-
+  const navigate = useNavigate();
   const loginHandler = (e) => {
     const isDropdownButton = e.target.matches('[data-dropdown-button]')
     if (!isDropdownButton && e.target.closest('[data-dropdown]') != null) return
@@ -17,6 +18,12 @@ const Navbar = function(props) {
       currentDropdown.classList.toggle('active')
     }
   };
+
+  function wait(time) {
+    return new Promise(resolve => {
+      setTimeout(resolve, time);
+    });
+  }
 
   const checkForUser = () => {
     const check = reactLocalStorage.getObject('userr')
@@ -32,14 +39,23 @@ const Navbar = function(props) {
     checkForUser()
   }, [])
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     reactLocalStorage.setObject('userr', {id: 2, email: event.target[0].value, password: event.target[1].value})
+    navigate('/user/homepage')
   }
 
-  const logout = () => {
+  async function logout() {
     reactLocalStorage.remove('userr')
     props.setSuccess(false)
+    await wait(500)
+    navigate('/')
   }
+
+  async function submit() {
+    await wait(250)
+    navigate('/')
+  }
+
 
   return (
     <div>
