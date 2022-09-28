@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
     users_1.default
         .getUsers()
         .then((users) => {
-        res.json({ users });
+        res.json(users);
     })
         .catch((err) => {
         res.status(500).json({ error: err.message });

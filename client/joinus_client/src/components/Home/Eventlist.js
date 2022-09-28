@@ -6,20 +6,10 @@ import Header from "../Header";
 import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
-export default function Eventlist() {
-  const [eventsData, setEventsData] = useState([]); //api
-  const [categoriesData, setCategoriesData] = useState([]); //api
-  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
+export default function Eventlist(props) {
+  const { eventsData, categoriesData } = props;
 
-  useEffect(() => {
-    Promise.all([fetchAPI("events"), fetchAPI("events/categories")])
-      .then((all) => {
-        console.log(all[1]);
-        setEventsData((prev) => [...all[0].data.events]);
-        setCategoriesData((prev) => [...all[1].data.categories]);
-      })
-      .catch((err) => console.error(err.response.data));
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   // return new array without past events
   const upcomingEvents = (events) => {
