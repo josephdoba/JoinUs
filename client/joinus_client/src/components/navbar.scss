@@ -4,6 +4,7 @@
   width: 100%;
   position: sticky;
   animation: nav-load 650ms;
+  z-index: 1;
 
   .main-navbar {
     position: relative;

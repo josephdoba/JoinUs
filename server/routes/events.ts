@@ -11,6 +11,15 @@ import eventQueries from "../db/queries/events";
 
 const router = express.Router();
 
+// api route for category list
+router.get("/categories", (req, res) => {
+  eventQueries
+    .getCategories()
+    .then((categories) => res.json({ categories }))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+// api route for all events
 router.get("/", (req, res) => {
   eventQueries
     .getEvents()
@@ -22,7 +31,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// show event from event owner based on owner_id () 
+// show event from event owner based on owner_id ()
 router.get("/:id", (req: any, res: any) => {
   eventQueries
     .getEventByID(req)

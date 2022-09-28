@@ -1,5 +1,12 @@
 import { db } from "../connection";
 
+const getCategories = () => {
+  return db
+    .query(`SELECT * FROM categories`)
+    .then((data) => data.rows)
+    .catch((err) => console.error(err.stack));
+};
+
 const getEvents = () => {
   return db
     .query(`SELECT * FROM events`)
@@ -15,7 +22,7 @@ const getEventByID = (eventID: any) => {
     .catch((err) => console.error(err.stack));
 };
 
-// stored in state 
+// stored in state
 
 // create the functions first, export it, then import into routes
 export default { getEvents, getEventByID };

@@ -36,7 +36,7 @@ export default function Event(props) {
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
             {start} - {end} <br />
-            Category: {category}
+            Category: {category.name}
           </Typography>
 
           <Typography paragraph>{shortenText(description)}</Typography>
