@@ -22,4 +22,4 @@ const getEventByID = (eventID) => {
 };
 // stored in state
 // create the functions first, export it, then import into routes
-exports.default = { getEvents, getEventByID };
+exports.default = { getEvents, getEventByID, getCategories };
