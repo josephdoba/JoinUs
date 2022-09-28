@@ -1,15 +1,16 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Home from "./Home";
-import FunPhoto from "./Home/FunPhotos";
+import { createContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Chat from "./Chat";
-
 import "./app.scss";
 
-import { createContext, useState } from "react";
-import IndividualEvent from "./IndividualEvent";
+import Home from "./Home";
+import Navbar from "./Navbar";
+import FunPhoto from "./Home/FunPhotos";
+import Chat from "./Chat";
 import Userpage from "./Userpage";
+
+import IndividualEvent from "./IndividualEvent";
+
 
 export const ThemeContext = createContext(null);
 
@@ -36,6 +37,15 @@ const App = function () {
             setUser={setUser}
           />
           <Routes>
+            <Route path='/dashboard' element={<Userpage/>}>
+              {/* nested route placeholders:  */}
+              {/* <Route index element={<Userpage/>}/>
+              <Route path='/myevents' element={false}/>
+              <Route path='/history' element={false}/>
+              <Route path='/create' element={false}/>
+              <Route path='/join' element={false}/> */}
+            </Route>
+
             <Route path='/event/chat' element={<Chat user={user}/>} />
             <Route path='/' element={<div><FunPhoto /> <Home /> <IndividualEvent /> </div> } />
           </Routes>
