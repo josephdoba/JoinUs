@@ -18,11 +18,7 @@ const router = express_1.default.Router();
 router.get("/categories", (req, res) => {
     events_1.default
         .getCategories()
-<<<<<<< HEAD
-        .then((categories) => res.json({ categories }))
-=======
         .then((categories) => res.json(categories))
->>>>>>> main
         .catch((err) => res.status(500).json({ error: err.message }));
 });
 // api route for all events
@@ -36,18 +32,18 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-// show event from event owner based on owner_id ()
-router.get("/:id", (req, res) => {
-    events_1.default
-        .getEventByID(req)
-        .then(() => {
-        console.log(req.events.event.id);
-        // res.json({ events });
-    })
-        .catch((err) => {
-        res.status(500).json({ error: err.message });
-    });
-});
+// show event from event owner based on owner_id () -- Commented out for now, may need a similar function later for routing with react router.
+// router.get("/:id", (req: any, res: any) => {
+//   eventQueries
+//     .getEventByID(req)
+//     .then(() => {
+//       console.log(req.events.event.id);
+//       // res.json({ events });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ error: err.message });
+//     });
+// });
 /*
 router.post("/:id", (req: any, res: any) => { // join event route
   eventQueries
