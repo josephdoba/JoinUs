@@ -60,23 +60,37 @@ export default function Eventlist() {
     return results;
   };
 
-  findCategoryByARR(selectedCategory, categoriesData, eventsData);
+  const displayEventCard = (eventArr) => {
+    return eventArr.map((e) => {
+      const category = findCategoryByID(e.category, categoriesData);
 
-  const events = upcomingEvents(eventsData).map((e) => {
-    const category = findCategoryByID(e.category, categoriesData);
+      return (
+        <EventCard
+          key={e.id}
+          name={e.name}
+          image={e.image}
+          description={e.description}
+          category={category}
+          start_time={e.start_time}
+          end_time={e.end_time}
+        />
+      );
+    });
+  };
 
-    return (
-      <EventCard
-        key={e.id}
-        name={e.name}
-        image={e.image}
-        description={e.description}
-        category={category}
-        start_time={e.start_time}
-        end_time={e.end_time}
-      />
-    );
-  });
+  const filteredEvents = findCategoryByARR(
+    selectedCategory,
+    categoriesData,
+    eventsData
+  );
+
+  let event;
+
+  if (selectedCategory.length === 0) {
+    event = displayEventCard(upcomingEvents(eventsData));
+  } else {
+    event = displayEventCard(filteredEvents);
+  }
 
   return (
     <Container>
@@ -91,7 +105,7 @@ export default function Eventlist() {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {events}
+        {event}
       </Grid>
     </Container>
   );
