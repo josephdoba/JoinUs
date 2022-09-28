@@ -11,6 +11,7 @@ import HistoryTwoToneIcon from '@mui/icons-material/HistoryTwoTone';
 import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
 import { styled, Switch } from '@mui/material';
 import Brightness4TwoToneIcon from '@mui/icons-material/Brightness4TwoTone';
+import { useNavigate } from 'react-router-dom';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -60,6 +61,21 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function Homepage() {
+
+  const navigate = useNavigate();
+
+  function wait(time) {
+    return new Promise(resolve => {
+      setTimeout(resolve, time);
+    });
+  }
+
+  async function submitHandler() {
+    await wait(250)
+    navigate('/')
+  }
+
+
   return (
     <Box
       flex={1}
@@ -73,7 +89,7 @@ export default function Homepage() {
               <ListItemIcon>
                 <HomeTwoToneIcon />
               </ListItemIcon>
-              <ListItemText primary="Home Page" />
+              <ListItemText primary="Home Page" onClick={submitHandler}/>
             </ListItemButton>
           </ListItem>
 

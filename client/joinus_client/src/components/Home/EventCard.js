@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -26,6 +26,19 @@ export default function Event(props) {
   const start = moment(start_time).format("llll"); // format: Wed, Sep 28, 2022 12:00 PM
   const end = moment(end_time).format("LT"); // format: 11:00 AM
 
+  function wait(time) {
+    return new Promise(resolve => {
+      setTimeout(resolve, time);
+    });
+  }
+
+  const navigate = useNavigate();
+
+  async function submitHandler() { 
+    await wait(250)
+    navigate('/event:id')
+  }
+
   return (
     <Grid item xs={4}>
       <Card sx={{ maxWidth: 345, maxHeight: 360 }}>
@@ -42,7 +55,7 @@ export default function Event(props) {
           <Typography paragraph>{shortenText(description)}</Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={() => {}} size="small">
+          <Button onClick={submitHandler} size="small">
             Learn More
           </Button>
           <Button onClick={() => {}} size="small">

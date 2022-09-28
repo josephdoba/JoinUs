@@ -1,8 +1,11 @@
 import { Avatar, AvatarGroup, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, experimentalStyled, IconButton, styled, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { BottomNavigation } from '@mui/material';
 export default function Feed() {
+
+  const navigate = useNavigate();
 
   const Card = styled("Card")(({ theme }) => ({
     display: 'flex', flexDirection: "column",
@@ -15,6 +18,17 @@ export default function Feed() {
     alignItems: "center",
     margin: 10
   }));
+
+  async function submitHandler() {
+    await wait(250)
+    navigate('/event/chat')
+  }
+
+  function wait(time) {
+    return new Promise(resolve => {
+      setTimeout(resolve, time);
+    });
+  }
 
 
   return (
@@ -52,7 +66,7 @@ export default function Feed() {
             <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
           </AvatarGroup>
 
-          <Button size="small" variant="text">Join Chat</Button>
+          <Button size="small" variant="text" onClick={submitHandler}>Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
@@ -95,7 +109,7 @@ export default function Feed() {
             <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
           </AvatarGroup>
 
-          <Button size="small" variant="text">Join Chat</Button>
+          <Button size="small" variant="text" onClick={submitHandler}>Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
@@ -139,7 +153,7 @@ export default function Feed() {
             <Avatar alt="Trevor Henderson" src="https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=826&t=st=1664226773~exp=1664227373~hmac=3910e620269a48446203c8ff5dfa5aaf7027412d691657d1ea8021477c703846" />
           </AvatarGroup>
 
-          <Button size="small" variant="text">Join Chat</Button>
+          <Button size="small" variant="text" onClick={submitHandler}>Join Chat</Button>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
