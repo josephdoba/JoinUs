@@ -54,7 +54,7 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (2, 6, TRUE),
 (3, 4, TRUE),
 (5, 2, TRUE),
-(5, 6, TRUE)
-(3, 3, TRUE)
-(4, 3, TRUE)
+(5, 6, TRUE),
+(3, 3, TRUE),
+(4, 3, TRUE),
 (6, 3, TRUE);
