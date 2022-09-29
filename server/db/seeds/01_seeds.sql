@@ -40,11 +40,11 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 ('Lets talk Shakespeare2', 'https://calhum.org/wp-content/uploads/2017/07/AP_Blog_Enewsjpg.jpg', 'Come discuss classic literature with me and some friends', 6, 5, 6, 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
 
-('Seafood Restaurant', 'https://lh5.googleusercontent.com/p/AF1QipO05bf-v-UnqlrcwtSN85qOHwKr36gBKFQvf4ox=w408-h272-k-no', 'All my friends are allergic to shelfish. Looking forward to eating some delicious oysters.', 6, 3, 1, 49.27087406969367, -123.1365432973447, '2022-10-13 15:00:00', '2022-09-10-13 17:00:00');
+('Seafood Restaurant', 'https://lh5.googleusercontent.com/p/AF1QipO05bf-v-UnqlrcwtSN85qOHwKr36gBKFQvf4ox=w408-h272-k-no', 'All my friends are allergic to shelfish. Looking forward to eating some delicious oysters', 6, 3, 1, 49.27087406969367, -123.1365432973447, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (1, 1, TRUE),
-(2, 1, TRUE)
+(2, 1, TRUE),
 (5, 1, TRUE),
 (3, 2, TRUE),
 (1, 6, TRUE),
@@ -57,4 +57,4 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (5, 6, TRUE),
 (3, 3, TRUE),
 (4, 3, TRUE),
-(6, 3, TRUE);
+(2, 9, TRUE);
