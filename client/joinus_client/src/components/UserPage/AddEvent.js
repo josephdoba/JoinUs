@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import {
+  Button,
   Fab,
   IconButton,
   Modal,
+  Stack,
   styled,
   TextField,
   Tooltip,
@@ -22,9 +24,20 @@ export default function AddEvent() {
     justifyContent: "center",
   });
 
+  const FormBox = styled("Box")({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  });
+
   const [open, setOpen] = useState(false);
 
-  const [value, setValue] = useState("10");
+  const [value, setValue] = useState(dayjs('2022-09-28T15:00:00'));
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <>
@@ -51,44 +64,58 @@ export default function AddEvent() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box width={500} height={300} bgcolor="white" p={3} borderRadius={3}>
+        <Box width={500} height={500} bgcolor="white" p={3} borderRadius={3}>
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-          <Box
+          <FormBox
             component="form"
             sx={{
-              "& > :not(style)": { m: 1, width: "25ch" },
+              "& > :not(style)": { m: 1, width: "100%" },
             }}
             noValidate
             autoComplete="off"
           >
+
             <TextField
               id="standard-basic"
               label="Event Name"
               variant="standard"
             />
+
             <TextField
               id="standard-basic"
               label="Full Address"
               variant="standard"
             />
-            <TextField
-              id="standard-basic"
-              label="Standard"
-              variant="standard"
-            />
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="Basic example"
+                label="Time"
                 value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
+                onChange={(handleChange)}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-          </Box>
+
+            <TextField
+              id="outlined-textarea"
+              label="Event Details"
+              placeholder="..."
+              multiline
+              inputProps={{ maxLength: 300 }}
+            />
+
+            <Stack direction="row" spacing={2} justifyContent="center" >
+              <Button onClick={(e) => setOpen(false)} variant="outlined">
+                Cancel
+              </Button>
+              <Button variant="contained" endIcon={<AddIcon />}>
+                Create
+              </Button>
+            </Stack>
+
+          </FormBox>
         </Box>
       </StyledModal>
     </>
