@@ -1,14 +1,12 @@
 import { Container, Grid } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import EventCard from "./EventCard";
-import { fetchAPI } from "../../api";
 import Header from "../Header";
 import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
 export default function Eventlist(props) {
   const { eventsData, categoriesData } = props;
-
   const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   // return new array without past events
