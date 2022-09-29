@@ -10,7 +10,7 @@ import SingleEvent from './IndividualEvent/SingleEvent'
 import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
-import Userpage from "./Userpage";
+import Userpage from "./UserPage/Index";
 import useAppData from "../hooks/useAppData";
 
 export const ThemeContext = createContext(null);
