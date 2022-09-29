@@ -4,7 +4,7 @@ import Herobanner from "./Herobanner";
 import HowToJoin from "./HowToJoin";
 
 export default function Home(props) {
-  const { eventsData, categoriesData, usersData } = props;
+  const { eventsData, categoriesData, usersData, setEvent } = props;
   return (
     <Fragment>
       <Herobanner />
@@ -13,6 +13,7 @@ export default function Home(props) {
         eventsData={eventsData}
         usersData={usersData}
         categoriesData={categoriesData}
+        setEvent={setEvent}
       />
     </Fragment>
   );

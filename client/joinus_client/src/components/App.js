@@ -19,6 +19,7 @@ const App = function () {
   const [theme, setTheme] = useState("light");
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({});
+  const [event, setEvent] = useState({});
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -58,6 +59,7 @@ const App = function () {
                     eventsData={eventsData}
                     usersData={usersData}
                     categoriesData={categoriesData}
+                    setEvent={setEvent}
                   />{" "}
                   <IndividualEvent />{" "}
                 </div>
@@ -65,7 +67,7 @@ const App = function () {
             />
             <Route path="/event/chat" element={<Chat user={user} />} />
             <Route path="/user/homepage" element={<Userpage />}/>
-            <Route path="/event:id" element={<SingleEvent />}/>
+            <Route path='/event' element={<IndividualEvent eventsData={eventsData}/>}/>
           </Routes>
         </div>
       </ThemeContext.Provider>
