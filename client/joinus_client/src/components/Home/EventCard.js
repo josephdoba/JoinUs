@@ -21,34 +21,45 @@ const shortenText = (text) => {
 };
 
 export default function Event(props) {
-  const { name, image, description, start_time, end_time, category, id, setEvent } = props;
+  const {
+    name,
+    image,
+    description,
+    start_time,
+    end_time,
+    category,
+    id,
+    eventsData,
+    setEvent,
+  } = props;
 
   const start = moment(start_time).format("llll"); // format: Wed, Sep 28, 2022 12:00 PM
   const end = moment(end_time).format("LT"); // format: 11:00 AM
 
   function wait(time) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(resolve, time);
     });
   }
 
+  const findEventByID = (id, eventsData) => {
+    const event = eventsData.find((event) => event.id === id);
+    setEvent(event);
+  };
+
   const navigate = useNavigate();
 
-  async function submitHandler(e) { 
-    let data
-    for (const i of props.eventData) {
-      if (id === i.id) {
-        data = i
-      }
-    }
-    await wait(250)
-    navigate(`/event`,{state:{id:data}} )
+  async function submitHandler() {
+    findEventByID(id, eventsData);
+
+    await wait(250);
+    navigate(`/event`);
   }
 
   return (
-    <Grid item xs={4} >
+    <Grid item xs={4}>
       <Card sx={{ maxWidth: 345, maxHeight: 360 }}>
-        <CardMedia component="img" alt={name} height="140" image={image}/>
+        <CardMedia component="img" alt={name} height="140" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}

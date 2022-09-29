@@ -6,7 +6,7 @@ import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
 export default function Eventlist(props) {
-  const { eventsData, categoriesData } = props;
+  const { eventsData, categoriesData, setEvent } = props;
   const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   // return new array without past events
@@ -61,6 +61,9 @@ export default function Eventlist(props) {
           category={category}
           start_time={e.start_time}
           end_time={e.end_time}
+          eventsData={eventsData}
+          setEvent={setEvent}
+          id={e.id}
         />
       );
     });
