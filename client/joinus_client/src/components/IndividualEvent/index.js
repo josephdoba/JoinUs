@@ -1,19 +1,15 @@
 import { Box, Stack } from "@mui/material";
-import { Fragment } from "react";
 import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
-import { useLocation } from "react-router-dom";
 
 export default function IndividualEvent(props) {
-
-  const { eventsData } = props
-
-  const location = useLocation()
+  const { event } = props;
 
   return (
-    <Box flex={"row"} >
+    <Box flex={"row"}>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <EventDetails />
+        <p>{event.name}</p>
         <EventMap />
       </Stack>
     </Box>

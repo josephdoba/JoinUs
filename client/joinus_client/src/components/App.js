@@ -5,7 +5,6 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
-import SingleEvent from './IndividualEvent/SingleEvent'
 
 import "./app.scss";
 
@@ -26,7 +25,7 @@ const App = function () {
   };
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
-  const { eventsData, usersData, categoriesData } = useAppData();
+  const { eventsData, usersData, categoriesData, userEvents } = useAppData();
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -40,7 +39,7 @@ const App = function () {
             setUser={setUser}
           />
           <Routes>
-            <Route path='/dashboard' element={<Userpage/>}>
+            <Route path="/dashboard" element={<Userpage />}>
               {/* nested route placeholders:  */}
               {/* <Route index element={<Userpage/>}/>
               <Route path='/myevents' element={false}/>
@@ -49,7 +48,7 @@ const App = function () {
               <Route path='/join' element={false}/> */}
             </Route>
 
-            <Route path='/event/chat' element={<Chat user={user}/>} />
+            <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/"
               element={
@@ -61,13 +60,15 @@ const App = function () {
                     categoriesData={categoriesData}
                     setEvent={setEvent}
                   />{" "}
-                  <IndividualEvent />{" "}
                 </div>
               }
             />
             <Route path="/event/chat" element={<Chat user={user} />} />
-            <Route path="/user/homepage" element={<Userpage />}/>
-            <Route path='/event' element={<IndividualEvent eventsData={eventsData}/>}/>
+            <Route
+              path="/user/home"
+              element={<Userpage userEvents={userEvents} />}
+            />
+            <Route path="/event" element={<IndividualEvent event={event} />} />
           </Routes>
         </div>
       </ThemeContext.Provider>
