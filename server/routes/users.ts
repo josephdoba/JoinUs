@@ -22,10 +22,18 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/user_events", (req, res) => {
+  userQueries
+    .getUserJoinedEvents()
+    .then((joinedEvents) => {
+      res.json(joinedEvents);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 // create api events joined
 // delete route
-
-
-
 
 export default router;

@@ -1,11 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080/";
-
-export const fetchEvent = (urlEnd) => {
-  return axios.get(`${baseURL}${urlEnd}`);
-};
+const baseURL = "http://localhost:8080/api/";
 
 export const fetchAPI = (urlEnd) => {
-  return axios.get(`${baseURL}api/${urlEnd}`);
+  return axios.get(`${baseURL}${urlEnd}`);
 };

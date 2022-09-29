@@ -23,6 +23,16 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+router.get("/user_events", (req, res) => {
+    users_1.default
+        .getUserJoinedEvents()
+        .then((joinedEvents) => {
+        res.json(joinedEvents);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 // create api events joined
 // delete route
 exports.default = router;

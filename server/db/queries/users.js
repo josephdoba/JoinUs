@@ -7,4 +7,10 @@ const getUsers = () => {
         return data.rows;
     });
 };
-exports.default = { getUsers };
+const getUserJoinedEvents = () => {
+    return connection_1.db
+        .query(`SELECT * FROM joined_events`)
+        .then((data) => data.rows)
+        .catch((err) => console.error(err.stack));
+};
+exports.default = { getUsers, getUserJoinedEvents };
