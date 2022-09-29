@@ -36,11 +36,16 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 ('Lets talk Shakespeare', 'https://calhum.org/wp-content/uploads/2017/07/AP_Blog_Enewsjpg.jpg', 'Come discuss classic literature with me and some friends', 5, 5, 6, 49.28053130736995, -123.11693171231532, '2022-09-20 13:00:00', '2022-09-20 14:00:00'),
 
-('Dinner Party', 'https://cdn77-s3.lazycatkitchen.com/wp-content/uploads/2020/09/basil-tofu-steak-dinner-close-up-1024x1536.jpg', 'Come enjoy a nice porkchop entree with a side potatoes and green beans tossed in a cabernet reduction', 6, 1, 1, 49.276189979572884, -123.12153898959998, '2022-09-30 15:00:00', '2022-09-30 17:00:00');
+('Dinner Party', 'https://cdn77-s3.lazycatkitchen.com/wp-content/uploads/2020/09/basil-tofu-steak-dinner-close-up-1024x1536.jpg', 'Come enjoy a nice porkchop entree with a side potatoes and green beans tossed in a cabernet reduction', 6, 1, 1, 49.276189979572884, -123.12153898959998, '2022-09-30 15:00:00', '2022-09-30 17:00:00'),
+
+('Lets talk Shakespeare2', 'https://calhum.org/wp-content/uploads/2017/07/AP_Blog_Enewsjpg.jpg', 'Come discuss classic literature with me and some friends', 6, 5, 6, 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
+
+('Seafood Restaurant', 'https://lh5.googleusercontent.com/p/AF1QipO05bf-v-UnqlrcwtSN85qOHwKr36gBKFQvf4ox=w408-h272-k-no', 'All my friends are allergic to shelfish. Looking forward to eating some delicious oysters', 6, 3, 1, 49.27087406969367, -123.1365432973447, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (1, 1, TRUE),
 (2, 1, TRUE),
+(5, 1, TRUE),
 (3, 2, TRUE),
 (1, 6, TRUE),
 (2, 6, TRUE),
@@ -49,4 +54,7 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (2, 6, TRUE),
 (3, 4, TRUE),
 (5, 2, TRUE),
-(5, 6, TRUE);
+(5, 6, TRUE),
+(3, 3, TRUE),
+(4, 3, TRUE),
+(2, 9, TRUE);
