@@ -8,7 +8,8 @@ import EventCategoryDropdown from "../Events/EventCategoryDropdown";
 import { Container } from "@mui/system";
 
 export default function Userpage(props) {
-  const { eventsData, categoriesData, usersData, setEvent } = props;
+  const { eventsData, categoriesData, usersData, setEvent, joinedEvents } =
+    props;
   const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
   const clearCategories = (selectedCategory) => {
@@ -44,6 +45,7 @@ export default function Userpage(props) {
           usersData={usersData}
           categoriesData={categoriesData}
           setEvent={setEvent}
+          joinedEvents={joinedEvents}
           selectedCategory={selectedCategory}
         />
       </Stack>

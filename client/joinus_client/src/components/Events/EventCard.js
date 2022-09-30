@@ -10,16 +10,18 @@ import { Grid } from "@mui/material";
 
 import moment from "moment";
 import { shortenText } from "../../helpers/helpers";
+import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
 export default function EventCard(props) {
   const {
+    id,
     name,
     image,
     description,
     start_time,
     end_time,
     category,
-    id,
+    attendeelist,
     eventsData,
     setEvent,
   } = props;
@@ -49,8 +51,8 @@ export default function EventCard(props) {
 
   return (
     <Grid item xs={4}>
-      <Card sx={{ maxWidth: 345, maxHeight: 360 }}>
-        <CardMedia component="img" alt={name} height="140" image={image} />
+      <Card sx={{ maxWidth: 380, maxHeight: 380 }}>
+        <CardMedia component="img" alt={name} height="150" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -59,8 +61,9 @@ export default function EventCard(props) {
             {start} - {end} <br />
             Category: {category.name}
           </Typography>
-
-          <Typography paragraph>{shortenText(description)}</Typography>
+          <Typography variant="paragraph">
+            {shortenText(description)}
+          </Typography>
         </CardContent>
         <CardActions>
           <Button onClick={submitHandler} size="small">
@@ -69,6 +72,7 @@ export default function EventCard(props) {
           <Button onClick={() => {}} size="small">
             Join Event
           </Button>
+          <AttendeeNumDisplay attendeelist={attendeelist} />
         </CardActions>
       </Card>
     </Grid>
