@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
+import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
 import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const center = {
@@ -10,11 +11,8 @@ export default function MapComponent() {
   // const [map, setMap] = useState(null);
 
   return (
-    <Box bgcolor="red" flex={"50%"} p={2}>
-
     <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
       <Marker position={center} />
     </GoogleMap >
-    </Box>
   );
 }
