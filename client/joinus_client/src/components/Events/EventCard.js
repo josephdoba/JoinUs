@@ -6,21 +6,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-import moment from "moment";
 import { Grid } from "@mui/material";
 
-// shorten the displayed text to 75 letters including spaces
-const shortenText = (text) => {
-  if (text.length >= 75) {
-    const short = text.slice(0, 75);
-    return `${short}...`;
-  }
+import moment from "moment";
+import { shortenText } from "../../helpers/helpers";
 
-  return text;
-};
-
-export default function Event(props) {
+export default function EventCard(props) {
   const {
     name,
     image,

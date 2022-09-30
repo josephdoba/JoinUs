@@ -1,50 +1,15 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
 import EventCard from "./EventCard";
-import Header from "../Header";
-import moment from "moment";
+
+import { findCategoryByID } from "../../helpers/category_selectors";
+import {
+  upcomingEvents,
+  findEventsByCategory,
+} from "../../helpers/event_selectors";
 
 export default function Events(props) {
   const { eventsData, categoriesData, setEvent, selectedCategory } = props;
-
-  // return new array without past events
-  const upcomingEvents = (events) => {
-    let results = [];
-    const now = moment(Date.now());
-    events.forEach((event) => {
-      const eventEnd = moment(event.end_time);
-      if (now.isBefore(eventEnd)) {
-        results.push(event);
-      }
-    });
-    return results;
-  };
-
-  const findCategoryByID = (categoryNum, categoryData) => {
-    return categoryData.find((category) => category.id === categoryNum);
-  };
-
-  // return an array of selected category obj
-  const findCategoryByARR = (selectedCategoryArr, categoryData, eventsData) => {
-    let arr = [];
-    let results = [];
-
-    for (let categoryObj of categoryData) {
-      for (let name of selectedCategoryArr) {
-        if (categoryObj.name === name) {
-          arr.push(categoryObj.id);
-        }
-      }
-    }
-    for (let eventObj of eventsData) {
-      for (let id of arr) {
-        if (eventObj.category === id) {
-          results.push(eventObj);
-        }
-      }
-    }
-    return results;
-  };
 
   const displayEventCard = (eventArr) => {
     return eventArr.map((e) => {
@@ -67,7 +32,7 @@ export default function Events(props) {
     });
   };
 
-  const filteredEvents = findCategoryByARR(
+  const filteredEvents = findEventsByCategory(
     selectedCategory,
     categoriesData,
     eventsData
@@ -83,8 +48,6 @@ export default function Events(props) {
 
   return (
     <Container>
-      <Header id="events-homepage-title" title="Join an Event!" />
-
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

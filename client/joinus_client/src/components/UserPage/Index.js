@@ -14,13 +14,14 @@ export default function Userpage(props) {
   return (
     <Box>
       <App_navbar />
+      <EventCategoryDropdown
+        list={categoriesData}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar />
-        <EventCategoryDropdown
-          list={categoriesData}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
+
         <Events
           eventsData={eventsData}
           usersData={usersData}
