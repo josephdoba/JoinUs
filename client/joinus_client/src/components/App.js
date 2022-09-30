@@ -24,7 +24,7 @@ const App = function () {
   };
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
-  const { eventsData, usersData, categoriesData, userEvents } = useAppData();
+  const { eventsData, usersData, categoriesData, joinedEvents } = useAppData();
 
   return (
     <Router>
@@ -60,12 +60,13 @@ const App = function () {
             />
             <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
-              path="/user/home"
+              path="/user"
               element={
                 <Userpage
-                  userEvents={userEvents}
+                  joinedEvents={joinedEvents}
                   eventsData={eventsData}
                   user={user}
+                  usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
                 />
