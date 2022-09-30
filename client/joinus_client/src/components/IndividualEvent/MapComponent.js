@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLoadScript, InfoWindow } from "@react-google-maps/api";
 
 const mapContainerStyle = {
   width: "400px",
@@ -9,7 +8,7 @@ const mapContainerStyle = {
 };
 
 export default function MapComponent(props) {
-  const [userCoords, setUserCoords] = useState({});
+  const [userCoords, setUserCoords] = useState(null);
   const { lat, lng } = props;
 
   const onLoad = (marker) => {
@@ -36,7 +35,7 @@ export default function MapComponent(props) {
     <Box bgcolor="red" flex={"50%"} p={2}>
       <GoogleMap
         zoom={12}
-        center={userCoords}
+        center={userCoords ? userCoords : position}
         mapContainerStyle={mapContainerStyle}
       >
         <Marker position={position} onLoad={onLoad} />
