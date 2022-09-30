@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import Feedlist from "./Feedlist";
 import AddEvent from "./AddEvent";
 import App_navbar from "../App_navbar";
 import { Box, Button, Stack } from "@mui/material";
