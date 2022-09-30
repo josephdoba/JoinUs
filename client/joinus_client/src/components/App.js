@@ -14,6 +14,7 @@ import useAppData from "../hooks/useAppData";
 export const ThemeContext = createContext(null);
 
 const App = function () {
+  const { eventsData, usersData, categoriesData, joinedEvents } = useAppData();
   const [theme, setTheme] = useState("light");
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({});
@@ -24,7 +25,6 @@ const App = function () {
   };
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
-  const { eventsData, usersData, categoriesData, joinedEvents } = useAppData();
 
   return (
     <Router>
@@ -40,15 +40,14 @@ const App = function () {
             usersData={usersData}
           />
           <Routes>
-            <Route path="/dashboard" element={<Userpage />}>
+            {/* <Route path="/dashboard" element={<Userpage />}>
               {/* nested route placeholders:  */}
-              {/* <Route index element={<Userpage/>}/>
+            {/* <Route index element={<Userpage/>}/>
               <Route path='/myevents' element={false}/>
               <Route path='/history' element={false}/>
               <Route path='/create' element={false}/>
               <Route path='/join' element={false}/> */}
-            </Route>
-
+            {/* </Route> */}
             <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/"
@@ -58,7 +57,6 @@ const App = function () {
                 </div>
               }
             />
-            <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/user"
               element={
@@ -72,7 +70,16 @@ const App = function () {
                 />
               }
             />
-            <Route path="/event" element={<IndividualEvent event={event} />} />
+            <Route
+              path="/event"
+              element={
+                <IndividualEvent
+                  event={event}
+                  usersData={usersData}
+                  joinedEvents={joinedEvents}
+                />
+              }
+            />
           </Routes>
         </div>
       </ThemeContext.Provider>
