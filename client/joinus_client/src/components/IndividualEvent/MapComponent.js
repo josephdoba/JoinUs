@@ -3,6 +3,7 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const mapContainerStyle = {
+  marginTop: "20px",
   width: "400px",
   height: "400px",
 };
