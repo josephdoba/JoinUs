@@ -3,22 +3,40 @@ import Sidebar from "./Sidebar";
 import Feedlist from "./Feedlist";
 import AddEvent from "./AddEvent";
 import App_navbar from "../App_navbar";
-import { Box, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
+import { Container } from "@mui/system";
 
 export default function Userpage(props) {
   const { eventsData, categoriesData, usersData, setEvent } = props;
   const [selectedCategory, setSelectedCategory] = useState([]); //drop down
 
+  const clearCategories = (selectedCategory) => {
+    if (selectedCategory.length >= 1) {
+      return (
+        <Button
+          variant="text"
+          size="small"
+          onClick={() => setSelectedCategory([])}
+        >
+          Clear
+        </Button>
+      );
+    }
+  };
+
   return (
     <Box>
       <App_navbar />
-      <EventCategoryDropdown
-        list={categoriesData}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
+      <Container sx={{ display: "flex" }}>
+        <EventCategoryDropdown
+          list={categoriesData}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        {clearCategories(selectedCategory)}
+      </Container>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar />
 
