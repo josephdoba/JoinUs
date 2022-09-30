@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import Attendees from "./Atendees";
 
 export default function EventDetails(props) {
@@ -24,22 +25,6 @@ export default function EventDetails(props) {
       setTimeout(resolve, time);
     });
   }
-
-  const attendeeNumDisplay = (attendeelist) => {
-    if (attendeelist.length === 1) {
-      return (
-        <Typography variant="body2" color="text.secondary">
-          {attendeelist.length} Attendee
-        </Typography>
-      );
-    }
-
-    return (
-      <Typography variant="body2" color="text.secondary">
-        {attendeelist.length} Attendees
-      </Typography>
-    );
-  };
 
   return (
     <Box flex={"50%"}>
@@ -69,7 +54,7 @@ export default function EventDetails(props) {
             Details
           </Typography>
 
-          {attendeeNumDisplay(attendeelist)}
+          <AttendeeNumDisplay attendeelist={attendeelist} />
 
           <Attendees attendeelist={attendeelist} />
 
