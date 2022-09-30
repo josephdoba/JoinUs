@@ -1,7 +1,5 @@
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
-import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
   marginTop: "20px",
@@ -34,14 +32,12 @@ export default function MapComponent(props) {
   console.log(`event coords is ${lat}, ${lng}`);
 
   return (
-    <Box bgcolor="red" flex={"50%"} p={2}>
-      <GoogleMap
-        zoom={12}
-        center={userCoords ? userCoords : position}
-        mapContainerStyle={mapContainerStyle}
-      >
-        <Marker position={position} onLoad={onLoad} />
-      </GoogleMap>
-    </Box>
+    <GoogleMap
+      zoom={12}
+      center={userCoords ? userCoords : position}
+      mapContainerStyle={mapContainerStyle}
+    >
+      <Marker position={position} onLoad={onLoad} />
+    </GoogleMap>
   );
 }

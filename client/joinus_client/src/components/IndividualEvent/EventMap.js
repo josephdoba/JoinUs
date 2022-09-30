@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import MapComponent from "./MapComponent";
 import MapError from "./MapError";
-import {
-  useLoadScript,
-  useJsApiLoader,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 const libraries = ["places"];
 

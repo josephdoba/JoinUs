@@ -1,17 +1,19 @@
-import { Box, Card, CardContent, CardHeader, styled, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import React from "react";
 
+// const Card = styled("Card")(({ theme }) => ({
+//   display: "flex",
+//   flexDirection: "column",
+//   alignItems: "center",
+//   margin: 2,
+// }));
+
 export default function EventDetails(props) {
-  const Card = styled("Card")(({ theme }) => ({
-    display: 'flex', flexDirection: "column",
-    alignItems: "center",
-    margin: 2
-  }));
+  const { description } = props;
   return (
-    <Box flex={"50%"} >
+    <Box flex={"50%"}>
       <Card>
-        <CardHeader style={{ textAlign: 'center' }}
-        />
+        <CardHeader style={{ textAlign: "center" }} />
         <Box
           component="img"
           sx={{
@@ -29,16 +31,10 @@ export default function EventDetails(props) {
           </Typography>
 
           <Typography variant="body2" color="text.secondary" m={3}>
-            Text Text Text Text Text Text Text Text Text Textv
-            Text Text Text Text Text Text Text Text Text Text Text Text
-            Text Text Text Text Text Text Text Text Text Text Text Text
-            Text Text Text Text Text Text Text Text Text Text Text Text
-            Text Text Text Text Text Text Text Text Text Text Text Text
+            {description}
           </Typography>
-
         </CardContent>
       </Card>
     </Box>
-  )
-
+  );
 }
