@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAPI } from "../api";
+import { fetchAPI, addData } from "../api";
 
 export default function useAppData() {
   const [eventsData, setEventsData] = useState([]); //api
@@ -27,6 +27,10 @@ export default function useAppData() {
         console.log(err.response.data);
       });
   }, []);
+
+  const joinEvent = (id) => {
+    addData(`users/user_events/${id}`).then();
+  };
 
   return { eventsData, categoriesData, usersData, userEvents };
 }
