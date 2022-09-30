@@ -1,10 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { findEventAttendees } from "../../helpers/user_selectors";
 import EventDetails from "./EventDetails";
 import EventMapDetails from "./EventMapDetails";
 import JoinEventButton from "./JoinEventButton";
 
 export default function IndividualEvent(props) {
-  const { event } = props;
+  const { event, joinedEvents, usersData } = props;
+
+  const attendeelist = findEventAttendees(event.id, usersData, joinedEvents);
 
   return (
     <Box flex={"row"}>
@@ -17,6 +20,7 @@ export default function IndividualEvent(props) {
             description={event.description}
             image={event.image}
             name={event.name}
+            attendeelist={attendeelist}
           />
           <EventMapDetails />
         </Stack>

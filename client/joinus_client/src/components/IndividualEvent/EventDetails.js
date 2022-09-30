@@ -1,14 +1,46 @@
-import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+  Button,
+} from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Attendees from "./Atendees";
 
 export default function EventDetails(props) {
-  // const Card = styled("Card")(({ theme }) => ({
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   alignItems: "center",
-  //   margin: 2,
-  // }));
-  const { description, image, name } = props;
+  const { attendeelist, description, image, name } = props;
+  const navigate = useNavigate();
+
+  async function submitHandler() {
+    await wait(250);
+    navigate("/event/chat");
+  }
+
+  function wait(time) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+  }
+
+  const attendeeNumDisplay = (attendeelist) => {
+    if (attendeelist.length === 1) {
+      return (
+        <Typography variant="body2" color="text.secondary">
+          {attendeelist.length} Attendee
+        </Typography>
+      );
+    }
+
+    return (
+      <Typography variant="body2" color="text.secondary">
+        {attendeelist.length} Attendees
+      </Typography>
+    );
+  };
+
   return (
     <Box flex={"50%"}>
       <Card
@@ -37,7 +69,15 @@ export default function EventDetails(props) {
             Details
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" m={3}>
+          {attendeeNumDisplay(attendeelist)}
+
+          <Attendees attendeelist={attendeelist} />
+
+          <Button size="small" variant="text" onClick={submitHandler}>
+            Join Chat
+          </Button>
+
+          <Typography variant="body1" color="text.secondary" m={3}>
             {description}
           </Typography>
         </CardContent>
