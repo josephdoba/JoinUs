@@ -15,11 +15,10 @@ export default function useAppData() {
       fetchAPI("users/user_events"),
     ])
       .then((all) => {
-        console.log(all[2].data);
         setEventsData((prev) => [...all[0].data]);
         setCategoriesData((prev) => [...all[1].data]);
         setUsersData((prev) => [...all[2].data]);
-        setUserEvents(all[3].data);
+        setUserEvents((prev) => [...all[3].data]);
       })
       .catch((err) => {
         console.log(err.response.status);
