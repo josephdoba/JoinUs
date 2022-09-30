@@ -1,13 +1,11 @@
 import { Container, Grid } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import EventCard from "./EventCard";
 import Header from "../Header";
-import EventCategoryDropdown from "./EventCategoryDropdown";
 import moment from "moment";
 
-export default function Eventlist(props) {
-  const { eventsData, categoriesData, setEvent } = props;
-  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
+export default function Events(props) {
+  const { eventsData, categoriesData, setEvent, selectedCategory } = props;
 
   // return new array without past events
   const upcomingEvents = (events) => {
@@ -86,11 +84,7 @@ export default function Eventlist(props) {
   return (
     <Container>
       <Header id="events-homepage-title" title="Join an Event!" />
-      <EventCategoryDropdown
-        list={categoriesData}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
+
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

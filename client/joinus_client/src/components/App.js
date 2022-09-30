@@ -53,20 +53,22 @@ const App = function () {
               path="/"
               element={
                 <div>
-                  <FunPhoto />{" "}
-                  <Home
-                    eventsData={eventsData}
-                    usersData={usersData}
-                    categoriesData={categoriesData}
-                    setEvent={setEvent}
-                  />{" "}
+                  <FunPhoto /> <Home />{" "}
                 </div>
               }
             />
             <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/user/home"
-              element={<Userpage userEvents={userEvents} />}
+              element={
+                <Userpage
+                  userEvents={userEvents}
+                  eventsData={eventsData}
+                  usersData={usersData}
+                  categoriesData={categoriesData}
+                  setEvent={setEvent}
+                />
+              }
             />
             <Route path="/event" element={<IndividualEvent event={event} />} />
           </Routes>
