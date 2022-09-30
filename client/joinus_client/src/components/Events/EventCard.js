@@ -12,6 +12,7 @@ import moment from "moment";
 import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
+// need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
   const {
     id,
