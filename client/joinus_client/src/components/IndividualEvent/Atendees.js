@@ -1,5 +1,7 @@
 import { Avatar, AvatarGroup } from "@mui/material";
 
+//avatars for the event page
+
 export default function Attendees(props) {
   const { attendeelist } = props;
 
