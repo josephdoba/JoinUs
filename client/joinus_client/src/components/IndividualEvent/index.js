@@ -1,5 +1,4 @@
-import { Box, Fab, Stack, Typography } from "@mui/material";
-import { bgcolor } from "@mui/system";
+import { Box, Stack, Typography } from "@mui/material";
 import EventDetails from "./EventDetails";
 import EventMapDetails from "./EventMapDetails";
 import JoinEventButton from "./JoinEventButton";
@@ -14,7 +13,11 @@ export default function IndividualEvent(props) {
       </Box>
       <Box>
         <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-          <EventDetails description={event.description} />
+          <EventDetails
+            description={event.description}
+            image={event.image}
+            name={event.name}
+          />
           <EventMapDetails />
         </Stack>
       </Box>
