@@ -7,7 +7,6 @@ import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
-import { findUserByID } from "../helpers/user_selectors";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
@@ -28,6 +27,7 @@ const App = function () {
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
   const { eventsData, usersData, categoriesData, userEvents } = useAppData();
+
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -39,6 +39,7 @@ const App = function () {
             setSuccess={setSuccess}
             user={user}
             setUser={setUser}
+            usersData={usersData}
           />
           <Routes>
             <Route path="/dashboard" element={<Userpage />}>
