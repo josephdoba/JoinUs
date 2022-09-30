@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import dayjs from 'dayjs';
+import Link from "react-router-dom";
+// import { userCreateEvent } from "../../api/userEvents";
+
 import {
   Button,
   Fab,
@@ -38,6 +41,10 @@ export default function AddEvent() {
   const handleChange = (newValue) => {
     setValue(newValue);
   };
+
+  const userCreateEventSubmit = () => {
+    console.log("on click from userCreateEventSubmit in AddEvent.js")
+  }
 
   return (
     <>
@@ -110,7 +117,9 @@ export default function AddEvent() {
               <Button onClick={(e) => setOpen(false)} variant="outlined">
                 Cancel
               </Button>
-              <Button variant="contained" endIcon={<AddIcon />}>
+              {/* <Button variant="contained" endIcon={<AddIcon />}> */}
+              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={() => {console.log("On Click")}}> */}
+              <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
                 Create
               </Button>
             </Stack>
