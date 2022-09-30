@@ -8,9 +8,9 @@ export default function IndividualEvent(props) {
   return (
     <Box flex={"row"}>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-        <EventDetails />
+        <EventDetails event={event} />
         <p>{event.name}</p>
-        <EventMap />
+        <EventMap lat={event.lat} lng={event.lng} />
       </Stack>
     </Box>
   );
