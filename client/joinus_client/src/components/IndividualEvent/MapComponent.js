@@ -15,6 +15,7 @@ export default function MapComponent(props) {
     console.log("marker: ", marker);
   };
 
+  // find user's coordinates
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserCoords({
@@ -34,7 +35,7 @@ export default function MapComponent(props) {
   return (
     <GoogleMap
       zoom={12}
-      center={userCoords ? userCoords : position}
+      center={userCoords ? userCoords : position} // set the center to the user's coordinates or pin location
       mapContainerStyle={mapContainerStyle}
     >
       <Marker position={position} onLoad={onLoad} />
