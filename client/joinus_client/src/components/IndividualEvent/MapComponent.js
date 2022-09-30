@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLoadScript, InfoWindow } from "@react-google-maps/api";
 
 const mapContainerStyle = {
@@ -9,19 +9,37 @@ const mapContainerStyle = {
 };
 
 export default function MapComponent(props) {
+  const [userCoords, setUserCoords] = useState({});
   const { lat, lng } = props;
 
-  const center = { lat, lng };
-  console.log(lat);
-  console.log(lng);
+  const onLoad = (marker) => {
+    console.log("marker: ", marker);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserCoords({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+      console.log("user Latitude is :", position.coords.latitude);
+      console.log(" user Longitude is :", position.coords.longitude);
+    });
+  }, []);
+
+  // arggggg why is the marker not workign!!!!!!
+
+  const position = { lat, lng };
+  console.log(`event coords is ${lat}, ${lng}`);
+
   return (
     <Box bgcolor="red" flex={"50%"} p={2}>
       <GoogleMap
         zoom={12}
-        center={center}
+        center={userCoords}
         mapContainerStyle={mapContainerStyle}
       >
-        <Marker position={{ lat, lng }} />
+        <Marker position={position} onLoad={onLoad} />
       </GoogleMap>
     </Box>
   );
