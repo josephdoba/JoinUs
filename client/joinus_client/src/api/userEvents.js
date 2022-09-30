@@ -1,6 +1,14 @@
-const userCreateEvent = () => {
-  console.log("onClick from userCreateEvent")
-};
+
+export default function userEvents() {
+  console.log("onClick from userCreateEvent from userEvents.js")
+  };
+
+    
+
+  const userEditEvent = () => {
+    console.log("api post request for userEditEvent")
+  }
+
 
 // const userCreateEvent = () => {
 //   return db
@@ -9,5 +17,3 @@ const userCreateEvent = () => {
 //     .catch((err) => console.error(err.stack));
 // }
 
-
-module.export = { userCreateEvent }

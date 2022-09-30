@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import dayjs from 'dayjs';
-import Link from "react-router-dom";
-// import { userCreateEvent } from "../../api/userEvents";
+import Route from "react-router-dom";
+import { userEvents } from "../../api/userEvents";
 
 import {
   Button,
@@ -35,15 +35,19 @@ export default function AddEvent() {
   });
 
   const [open, setOpen] = useState(false);
-
   const [value, setValue] = useState(dayjs('2022-09-28T15:00:00'));
 
   const handleChange = (newValue) => {
     setValue(newValue);
   };
 
+  // will be refactoring this into their own files.
+  const userCreateEvent = () => {
+    console.log("api post request for userCreateEvent");
+  };
+  
   const userCreateEventSubmit = () => {
-    console.log("on click from userCreateEventSubmit in AddEvent.js")
+    userCreateEvent()
   }
 
   return (
@@ -120,6 +124,7 @@ export default function AddEvent() {
               {/* <Button variant="contained" endIcon={<AddIcon />}> */}
               {/* <Button variant="contained" endIcon={<AddIcon />} onClick={() => {console.log("On Click")}}> */}
               <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={<Route to="/"/>}> */}
                 Create
               </Button>
             </Stack>
