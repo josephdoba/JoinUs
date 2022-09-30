@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import dayjs from 'dayjs';
 import Route from "react-router-dom";
-import { userEvents } from "../../api/userEvents";
+import userEvents from '../../api/userEvents';
 
 import {
   Button,
@@ -21,6 +21,8 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent() {
+   const { userCreateEventSubmit, userEditEventSubmit } = userEvents()
+
   const StyledModal = styled(Modal)({
     display: "flex",
     alignItems: "center",
@@ -41,14 +43,6 @@ export default function AddEvent() {
     setValue(newValue);
   };
 
-  // will be refactoring this into their own files.
-  const userCreateEvent = () => {
-    console.log("api post request for userCreateEvent");
-  };
-  
-  const userCreateEventSubmit = () => {
-    userCreateEvent()
-  }
 
   return (
     <>
@@ -123,7 +117,8 @@ export default function AddEvent() {
               </Button>
               {/* <Button variant="contained" endIcon={<AddIcon />}> */}
               {/* <Button variant="contained" endIcon={<AddIcon />} onClick={() => {console.log("On Click")}}> */}
-              <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}> */}
+              <Button variant="contained" endIcon={<AddIcon />} onClick={userEditEventSubmit}>
               {/* <Button variant="contained" endIcon={<AddIcon />} onClick={<Route to="/"/>}> */}
                 Create
               </Button>
