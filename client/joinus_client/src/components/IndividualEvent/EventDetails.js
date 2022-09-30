@@ -5,13 +5,12 @@ export default function EventDetails(props) {
   const Card = styled("Card")(({ theme }) => ({
     display: 'flex', flexDirection: "column",
     alignItems: "center",
-    margin: 5
+    margin: 2
   }));
   return (
-    <Box bgcolor="red" flex={"50%"} p={3}>
+    <Box flex={"50%"} >
       <Card>
         <CardHeader style={{ textAlign: 'center' }}
-          title="Celebration Night"
         />
         <Box
           component="img"
@@ -25,11 +24,11 @@ export default function EventDetails(props) {
           src="https://img.freepik.com/free-vector/elegant-event-party-banner-with-black-splash_1361-2171.jpg?w=996&t=st=1664094421~exp=1664095021~hmac=c1927e0282bb72583c2b1a397b5d3981a0505d3c9465026a326870f36250ccde"
         />
         <CardContent>
-          <Typography variant="h6">
+          <Typography variant="h6" m={2}>
             Details
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" m={3}>
             Text Text Text Text Text Text Text Text Text Textv
             Text Text Text Text Text Text Text Text Text Text Text Text
             Text Text Text Text Text Text Text Text Text Text Text Text
