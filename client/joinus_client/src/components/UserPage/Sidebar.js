@@ -12,6 +12,7 @@ import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
 import { styled, Switch } from '@mui/material';
 import Brightness4TwoToneIcon from '@mui/icons-material/Brightness4TwoTone';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -60,7 +61,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Homepage() {
+export default function Homepage(props) {
+
+  const { showUserEvents, setUserEvents } = props
 
   const navigate = useNavigate();
 
@@ -89,7 +92,7 @@ export default function Homepage() {
               <ListItemIcon>
                 <HomeTwoToneIcon />
               </ListItemIcon>
-              <ListItemText primary="Home Page" onClick={submitHandler}/>
+              <ListItemText primary="Home Page" onClick={() => setUserEvents(0)}/>
             </ListItemButton>
           </ListItem>
 
@@ -98,7 +101,7 @@ export default function Homepage() {
               <ListItemIcon>
                 <AutoAwesomeTwoToneIcon />
               </ListItemIcon>
-              <ListItemText primary="My Events" />
+              <ListItemText primary="My Events" onClick={() => setUserEvents(1)}/>
             </ListItemButton>
           </ListItem>
 
@@ -107,7 +110,16 @@ export default function Homepage() {
               <ListItemIcon>
                 <HistoryTwoToneIcon />
               </ListItemIcon>
-              <ListItemText primary="Events History" />
+              <ListItemText primary="Joined Events" onClick={() => setUserEvents(2)}/>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton component="a" href='#'>
+              <ListItemIcon>
+                <HistoryTwoToneIcon />
+              </ListItemIcon>
+              <ListItemText primary="Events History" onClick={() => setUserEvents(3)}/>
             </ListItemButton>
           </ListItem>
 
