@@ -22,7 +22,12 @@ export default function IndividualEvent(props) {
             name={event.name}
             attendeelist={attendeelist}
           />
-          <EventMapDetails />
+          <EventMapDetails
+            start_time={event.start_time}
+            end_time={event.end_time}
+            lat={event.lat}
+            lng={event.lng}
+          />
         </Stack>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
