@@ -15,5 +15,5 @@ export default function EventMap(props) {
   if (loadError) return <MapError />;
   if (!isLoaded) return <div>Loading...</div>;
 
-  if (isLoaded) return <MapComponent lat={lat} lng={lng} />;
+  return <MapComponent lat={lat} lng={lng} />;
 }
