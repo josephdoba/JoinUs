@@ -15,6 +15,7 @@ export default function useAppData() {
       fetchAPI("users/user_events"),
     ])
       .then((all) => {
+        console.log(`ALL: ${all[0]}`);
         setEventsData((prev) => [...all[0].data]);
         setCategoriesData((prev) => [...all[1].data]);
         setUsersData((prev) => [...all[2].data]);
@@ -27,6 +28,5 @@ export default function useAppData() {
       });
   }, []);
 
-  
   return { eventsData, categoriesData, usersData, joinedEvents };
 }
