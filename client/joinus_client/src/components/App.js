@@ -7,6 +7,7 @@ import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
@@ -73,7 +74,7 @@ const App = function () {
                 <Userpage
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
-                  user={user}
+                  user={reactLocalStorage.getObject("userr")}
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
