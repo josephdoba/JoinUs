@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
 import { redirect } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
 import ReactSwitch from "react-switch";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import Login from "./Login";
 

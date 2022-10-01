@@ -1,24 +1,40 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import AddEvent from "./AddEvent";
-import App_navbar from "../App_navbar";
 import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
 import { Container } from "@mui/system";
-import { findUserByID } from "../../helpers/user_selectors";
-import { findUsersCreatedEvents, findUsersJoinedEvents, pastEvents } from '../../helpers/event_selectors';
+import {
+  findUsersCreatedEvents,
+  findUsersJoinedEvents,
+  pastEvents,
+} from "../../helpers/event_selectors";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 export default function Userpage(props) {
-  const { eventsData, categoriesData, usersData, setEvent, joinedEvents, user } =
-    props;
+  const {
+    eventsData,
+    categoriesData,
+    usersData,
+    setEvent,
+    joinedEvents,
+    user,
+  } = props;
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
-  const [showUserEvents, setShowUserEvents] = useState(0)
+  const [showUserEvents, setShowUserEvents] = useState(0);
 
-  const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData)
-  const usersJoinedEvents = findUsersJoinedEvents(user.id, eventsData, joinedEvents)
-  const eventHistory = pastEvents(eventsData)
-  console.log(eventHistory)
+  console.log(`user in user page: ${user}`);
+
+  const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData);
+  const usersJoinedEvents = findUsersJoinedEvents(
+    user.id,
+    eventsData,
+    joinedEvents
+  );
+  const eventHistory = pastEvents(eventsData);
+  console.log(eventHistory);
+
   // if there is a selected category, a button to clear the chips appear
   const clearCategories = (selectedCategory) => {
     if (selectedCategory.length >= 1) {
@@ -45,40 +61,51 @@ export default function Userpage(props) {
         {clearCategories(selectedCategory)}
       </Container>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-        <Sidebar setUserEvents={setShowUserEvents} showUserEvents={showUserEvents}/>
-        {showUserEvents === 0 && <Events
-          eventsData={eventsData}
-          usersData={usersData}
-          categoriesData={categoriesData}
-          setEvent={setEvent}
-          joinedEvents={joinedEvents}
-          selectedCategory={selectedCategory}
-        />}
-        {showUserEvents === 1 && <Events
-        eventsData={usersCreatedEvents}
-        usersData={usersData}
-        categoriesData={categoriesData}
-        setEvent={setEvent}
-        joinedEvents={joinedEvents}
-        selectedCategory={selectedCategory}
-        />}
-        {showUserEvents === 2 && <Events
-        eventsData={usersJoinedEvents}
-        usersData={usersData}
-        categoriesData={categoriesData}
-        setEvent={setEvent}
-        joinedEvents={joinedEvents}
-        selectedCategory={selectedCategory}
-        />}
-         {showUserEvents === 3 && <Events
-        eventsData={eventHistory}
-        usersData={usersData}
-        categoriesData={categoriesData}
-        setEvent={setEvent}
-        joinedEvents={joinedEvents}
-        selectedCategory={selectedCategory}
-        showUserEvents={showUserEvents}
-        />}
+        <Sidebar
+          setUserEvents={setShowUserEvents}
+          showUserEvents={showUserEvents}
+        />
+        {showUserEvents === 0 && (
+          <Events
+            eventsData={eventsData}
+            usersData={usersData}
+            categoriesData={categoriesData}
+            setEvent={setEvent}
+            joinedEvents={joinedEvents}
+            selectedCategory={selectedCategory}
+          />
+        )}
+        {showUserEvents === 1 && (
+          <Events
+            eventsData={usersCreatedEvents}
+            usersData={usersData}
+            categoriesData={categoriesData}
+            setEvent={setEvent}
+            joinedEvents={joinedEvents}
+            selectedCategory={selectedCategory}
+          />
+        )}
+        {showUserEvents === 2 && (
+          <Events
+            eventsData={usersJoinedEvents}
+            usersData={usersData}
+            categoriesData={categoriesData}
+            setEvent={setEvent}
+            joinedEvents={joinedEvents}
+            selectedCategory={selectedCategory}
+          />
+        )}
+        {showUserEvents === 3 && (
+          <Events
+            eventsData={eventHistory}
+            usersData={usersData}
+            categoriesData={categoriesData}
+            setEvent={setEvent}
+            joinedEvents={joinedEvents}
+            selectedCategory={selectedCategory}
+            showUserEvents={showUserEvents}
+          />
+        )}
       </Stack>
       <AddEvent />
     </Box>
