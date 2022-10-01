@@ -116,9 +116,8 @@ export default function AddEvent() {
                 Cancel
               </Button>
               {/* <Button variant="contained" endIcon={<AddIcon />}> */}
-              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={() => {console.log("On Click")}}> */}
-              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}> */}
-              <Button variant="contained" endIcon={<AddIcon />} onClick={userEditEventSubmit}>
+              <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={userEditEventSubmit}> */}
               {/* <Button variant="contained" endIcon={<AddIcon />} onClick={<Route to="/"/>}> */}
                 Create
               </Button>
