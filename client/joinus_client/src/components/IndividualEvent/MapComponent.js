@@ -1,14 +1,15 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, MarkerF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
   marginTop: "20px",
-  width: "400px",
-  height: "400px",
+  width: "500px",
+  height: "500px",
 };
 
 export default function MapComponent(props) {
   const [userCoords, setUserCoords] = useState(null);
+  const [map, setMap] = useState(null);
   const { lat, lng } = props;
 
   const onLoad = (marker) => {
@@ -37,8 +38,12 @@ export default function MapComponent(props) {
       zoom={12}
       center={userCoords ? userCoords : position} // set the center to the user's coordinates or pin location
       mapContainerStyle={mapContainerStyle}
+      options={{
+        streetViewControl: false,
+        mapTypeControl: false,
+      }}
     >
-      <Marker position={position} onLoad={onLoad} />
+      <MarkerF position={position} onLoad={onLoad} />
     </GoogleMap>
   );
 }
