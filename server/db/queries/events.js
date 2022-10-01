@@ -24,7 +24,7 @@ INSERT INTO events(name, image, description, size_limit, owner_id, category, lat
 };
 const editEvent = (eventObject) => {
     return connection_1.db
-        .query(`SELECT * FROM events WHERE event_id = 1`)
+        .query(`SELECT * FROM events WHERE id = 1`)
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };
