@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  ButtonGroup,
-  Modal,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
 
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -28,14 +21,31 @@ const settings = ["Profile", "My Events", "Logout"];
 export default function Nav(props) {
   const { user, setUser, success, setSuccess, usersData } = props;
 
-  const [userID, setUserID] = useState("");
+  const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
+  const [items, setItems] = useState(); // for localStore
+  const currentUser = findUserByID(userID, usersData);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("currentUserID", JSON.stringify(userID));
+  }, [items]);
 
   //for handling the login pop up
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    console.log(userID);
+    e.preventDefault();
+    handleClose();
+    setUserID("");
   };
   // end
 
@@ -137,7 +147,13 @@ export default function Nav(props) {
             </ButtonGroup>
           </Box>
 
-          <Login open={open} setOpen={setOpen} setUserID={setUserID} />
+          <Login
+            open={open}
+            setUserID={setUserID}
+            userID={userID}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+          />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

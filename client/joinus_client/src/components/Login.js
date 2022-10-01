@@ -4,38 +4,23 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Login(props) {
-  const { open, setOpen } = props;
-  const [userID, setUserID] = useState("");
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleLogin = () => {
-    handleClose();
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(userID);
-    // navigate("/user");
-  };
+  const { open, userID, setUserID, handleClose, handleSubmit } = props;
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Log In!</DialogTitle>
         <DialogContent>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <form
+            id="login"
+            noValidate
+            autoComplete="off"
+            action=""
+            onSubmit={handleSubmit}
+          >
             <TextField
               autoFocus
               name="userID"
@@ -57,14 +42,15 @@ export default function Login(props) {
               fullWidth
               variant="standard"
             />
+
+            <Button onClick={handleClose} variant="error">
+              Cancel
+            </Button>
+            <Button type="submit" onClick={handleClose}>
+              Log in
+            </Button>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} variant="error">
-            Cancel
-          </Button>
-          <Button onClick={handleClose}>Log in</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
