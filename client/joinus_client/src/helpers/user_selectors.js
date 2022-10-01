@@ -1,7 +1,3 @@
-export function findUserByID(id, usersData) {
-  return usersData.find((user) => user.id === id);
-}
-
 // using the event id, get array of joinedEvents with the event id matching the event
 // in the joined list, loop through the user array and return the user objects that are attending
 export function findEventAttendees(eventId, usersData, joinedEvents) {

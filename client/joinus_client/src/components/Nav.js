@@ -13,8 +13,6 @@ import ReactSwitch from "react-switch";
 
 import { Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
-import { findUserByID } from "../helpers/user_selectors";
-import { TextField } from "@mui/material";
 import Login from "./Login";
 
 const settings = ["Profile", "My Events", "Logout"];
@@ -23,15 +21,32 @@ export default function Nav(props) {
   const { user, setUser, usersData } = props;
 
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
-  const [items, setItems] = useState(); // for localStore
+
+  const findUserByID = (id, usersData) => {
+    console.log(usersData);
+    const user = usersData.map((u) => {
+      console.log(u.id === id);
+    });
+    console.log(user);
+  };
+
+  // for handling user navbar buttons
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const handleCloseLogout = () => {
+    setUser({});
+    setAnchorElUser(null);
+  };
+  // end of user nav
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    reactLocalStorage.setObject("currentUser", {
-      id: userID,
-    });
-  }, []);
 
   //for handling the login pop up
   const [open, setOpen] = useState(false);
@@ -44,30 +59,19 @@ export default function Nav(props) {
   };
 
   const handleSubmit = (e) => {
-    console.log(userID);
     e.preventDefault();
+    console.log(userID);
+    findUserByID(userID, usersData);
+    reactLocalStorage.setObject("currentUser", {
+      id: userID,
+      name: user.name,
+      picture: user.picture,
+    });
     handleClose();
-    console.log(user);
     setUserID("");
   };
+
   // end
-
-  // for handling user navbar buttons
-  const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    if (anchorElUser === "Logout") {
-      setUser({});
-    }
-    setAnchorElUser(null);
-  };
-  // end of user nav
-
-  const currentUser = findUserByID(userID, usersData);
 
   const loggedIn = () => {
     if (user) {
@@ -159,6 +163,7 @@ export default function Nav(props) {
             open={open}
             setUserID={setUserID}
             userID={userID}
+            usersData={usersData}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
           />
@@ -166,7 +171,7 @@ export default function Nav(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.name} src={user.picture} />
+                <Avatar alt={""} src={""} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -186,7 +191,14 @@ export default function Nav(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={
+                    setting === "Logout"
+                      ? handleCloseLogout
+                      : handleCloseUserMenu
+                  }
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
