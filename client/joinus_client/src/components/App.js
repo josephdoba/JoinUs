@@ -31,15 +31,6 @@ const App = function () {
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div id={theme}>
-          <Navbar
-            toggleTheme={toggleTheme}
-            theme={theme}
-            success={success}
-            setSuccess={setSuccess}
-            user={user}
-            setUser={setUser}
-            usersData={usersData}
-          />
           <Nav
             toggleTheme={toggleTheme}
             theme={theme}
