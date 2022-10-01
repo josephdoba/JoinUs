@@ -57,8 +57,6 @@ io.on('connection', (socket: { on: (arg0: string, arg1: ({ name, message }: { na
   })
 })
 
-
-
 http.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

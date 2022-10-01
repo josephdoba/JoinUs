@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import dayjs from 'dayjs';
 import userEvents from '../../api/userEvents';
 
@@ -12,6 +12,7 @@ import {
   TextField,
   Tooltip,
   Typography
+
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -20,27 +21,50 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent() {
-   const { userCreateEventSubmit } = userEvents()
-
   const StyledModal = styled(Modal)({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   });
-
+  
   const FormBox = styled("Box")({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   });
-
+  
+  const { userCreateEventSubmit } = userEvents()
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(dayjs('2022-09-28T15:00:00'));
+  const [event, setEvent] = useState({
+    eventName: "",
+    eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
+    eventDescription: "Me and my partner are new in town, and invite you to join us over a coffee", // random coffee photo
+    eventSizeLimit: 4,
+    eventCategory: 1, // Food & Dining
+    eventAddress: "", // Somehow needs to become lat & long fields... but for now, we can use these:
+    lat: 51.0233064354121,
+    lng: -114.02369425973428,
+    start_time: "2022-10-13 05:00:00",
+    end_time: "2022-10-13 16:00:00"
+    });
+  
+  // https://reactjs.org/docs/hooks-reference.html#useref
+  const inputEl = useRef(null)
+  const buttonClick = () => {
+    console.log(event)
+    console.log("--------------------")
+    // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
+    console.log(inputEl.current.children[1].children[0].value)
+  }
 
   const handleChange = (newValue) => {
     setValue(newValue);
   };
+  const handlePreventDefault = (e) => {
+    e.preventDefault()
+  }
 
 
   return (
@@ -75,9 +99,10 @@ export default function AddEvent() {
             <Typography variant="h6" color="gray" textAlign="center">
               Create New Event
             </Typography>
-            <FormBox
+        
+      {/* FormBox is a custom style component, not a component from MaterialUI */}
+          <FormBox
               component="form"
-              // 
               sx={{
                 "& > :not(style)": { m: 1, width: "100%" },
               }}
@@ -85,25 +110,21 @@ export default function AddEvent() {
               autoComplete="off"
               >
               {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
-              {/*
-
-              omg Moe help how tf does this form/submit interaction work in MUI?!
-              tried putting "onSubmit={userCreateEventSubmit}" as a property within the <FormBox> component.. wasn't working.  
-
-            Hmmm.. mkay so using "<form onSubmit={userCreateEventSubmit}>" "technically" works at even hitting the "userCreateEventSubmit function", but it breaks the entire layout. 
-
-              */}
-            
+    
               <TextField
                 id="standard-basic"
                 label="Event Name"
                 variant="standard"
+                // ref={inputEl}
+                onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
+                  
               />
 
               <TextField
                 id="standard-basic"
                 label="Full Address"
                 variant="standard"
+                // ref={inputEl}
               />
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -121,6 +142,7 @@ export default function AddEvent() {
                 placeholder="..."
                 multiline
                 inputProps={{ maxLength: 300 }}
+                // ref={inputEl}
               />
 
               <Stack direction="row" spacing={2} justifyContent="center" >
@@ -129,12 +151,14 @@ export default function AddEvent() {
                 </Button>
                 {/* <Button variant="contained" endIcon={<AddIcon />}> */}
                 {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
-                <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+                {/* <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={userCreateEventSubmit}> */}
+                <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={buttonClick}>
                   Create
                 </Button>
               </Stack>
 
             </FormBox>
+
           </Box>
       </StyledModal>
     </>

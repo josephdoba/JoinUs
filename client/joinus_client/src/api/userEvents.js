@@ -20,7 +20,7 @@ export default function userEvents() {
   const userCreateEventSubmit = (req) => {
     console.log("api post request from userCreateEventSubmit", testDummyData);
     // https://masteringjs.io/tutorials/axios/put - It doesnt, it only turns a js object into JSON.
-    axios.post("http://localhost:8080/api/events", testDummyData) // Why doesn't axio's run the SQL statement??
+    axios.post("http://localhost:8080/api/events", testDummyData)
     .then(console.log("-------- data posting to db ------- "))
     .then()
     .then()
