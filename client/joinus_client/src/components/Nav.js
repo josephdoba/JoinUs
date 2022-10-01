@@ -21,30 +21,22 @@ import { Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import { findUserByID } from "../helpers/user_selectors";
 import { TextField } from "@mui/material";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Login from "./Login";
 
 const settings = ["Profile", "My Events", "Logout"];
 
 export default function Nav(props) {
-  const { user, setUser, success, setSuccess } = props;
+  const { user, setUser, success, setSuccess, usersData } = props;
+
+  const [userID, setUserID] = useState("");
 
   const navigate = useNavigate();
 
   //for handling the login pop up
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   // end
 
   // for handling user navbar buttons
@@ -61,47 +53,6 @@ export default function Nav(props) {
     setAnchorElUser(null);
   };
   // end of user nav
-
-  function wait(time) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, time);
-    });
-  }
-
-  const checkForUser = () => {
-    const check = reactLocalStorage.getObject("userr");
-    if (!check.email) {
-      props.setSuccess(false);
-    } else {
-      props.setSuccess(true);
-      props.setUser(reactLocalStorage.getObject("userr"));
-    }
-  };
-
-  useEffect(() => {
-    checkForUser();
-  }, []);
-
-  async function handleSubmit(event) {
-    reactLocalStorage.setObject("userr", {
-      id: 2,
-      email: event.target[0].value,
-      password: event.target[1].value,
-    });
-    navigate("/user");
-  }
-
-  async function logout() {
-    reactLocalStorage.remove("userr");
-    setSuccess(false);
-    await wait(500);
-    navigate("/");
-  }
-
-  async function submit() {
-    await wait(250);
-    navigate("/");
-  }
 
   const loggedIn = () => {
     if (user) {
@@ -181,36 +132,12 @@ export default function Nav(props) {
               variant="outlined"
               aria-label="Disabled elevation buttons"
             >
-              <Button onClick={handleOpen}>Log in</Button>
+              <Button onClick={handleClickOpen}>Log in</Button>
               <Button onClick={() => {}}>Sign Up</Button>
             </ButtonGroup>
           </Box>
 
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Log In!
-              </Typography>
-
-              <Box
-                component="form"
-                sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
-                noValidate
-                autoComplete="off"
-              >
-                <TextField id="outlined" label="Username" />
-                <TextField id="outlined" label="Password" />
-              </Box>
-              <Button onClick={handleClose} variant="outlined" color="error">
-                Cancel
-              </Button>
-            </Box>
-          </Modal>
+          <Login open={open} setOpen={setOpen} setUserID={setUserID} />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
