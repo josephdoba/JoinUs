@@ -11,7 +11,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-import App_navbar from "./App_navbar";
+import Nav from "./Nav";
 
 export const ThemeContext = createContext(null);
 
@@ -41,7 +41,7 @@ const App = function () {
             setUser={setUser}
             usersData={usersData}
           />
-          <App_navbar
+          <Nav
             toggleTheme={toggleTheme}
             theme={theme}
             success={success}

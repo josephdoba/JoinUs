@@ -58,7 +58,6 @@ export default function Login(props) {
               variant="standard"
             />
           </form>
-          ;
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="error">

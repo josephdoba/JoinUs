@@ -43,7 +43,7 @@ const Navbar = function (props) {
 
   async function handleSubmit(event) {
     reactLocalStorage.setObject("userr", {
-      id: 3,
+      id: 2,
       email: event.target[0].value,
       password: event.target[1].value,
     });
