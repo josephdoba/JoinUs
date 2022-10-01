@@ -11,8 +11,10 @@ import PersonPinCircleTwoToneIcon from "@mui/icons-material/PersonPinCircleTwoTo
 
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import EventMap from "./EventMap";
+import { formatTime } from "../../helpers/helpers";
 
-export default function EventMapDetails() {
+export default function EventMapDetails(props) {
+  const { start_time, end_time, lat, lng } = props;
   // const ListItemText = styled("ListItemText")(({ theme }) => ({
   //   listItemText:{
   //     fontSize:'10px',//Insert your required size
@@ -22,7 +24,7 @@ export default function EventMapDetails() {
   return (
     <Box flex={"30%"} p={2}>
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
-        <EventMap />
+        <EventMap lat={lat} lng={lng} />
         <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
           <ListItem>
             <ListItemAvatar>
@@ -46,9 +48,7 @@ export default function EventMapDetails() {
             </ListItemAvatar>
             <ListItemText
               primaryTypographyProps={{ fontSize: "14px" }}
-              secondaryTypographyProps={{ fontSize: "12px" }}
-              primary="5:00 PM"
-              secondary="September 21, 2022"
+              primary={formatTime(start_time, end_time)}
             />
           </ListItem>
         </List>
