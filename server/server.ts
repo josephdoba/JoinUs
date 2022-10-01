@@ -6,6 +6,8 @@ const PORT = process.env.PORT || 8080;
 import express from "express";
 const app = express();
 import morgan from "morgan";
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 import cors from "cors";
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -49,6 +51,14 @@ app.get("/", (req, res) => {
   res.json({});
 });
 
-app.listen(PORT, () => {
+io.on('connection', (socket: { on: (arg0: string, arg1: ({ name, message }: { name: any; message: any; }) => void) => void; }) => {
+  socket.on('message', ({ name, message }) => {
+    io.emit('message', { name, message })
+  })
+})
+
+
+
+http.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

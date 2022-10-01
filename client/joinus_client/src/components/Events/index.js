@@ -6,6 +6,7 @@ import { findCategoryByID } from "../../helpers/category_selectors";
 import {
   upcomingEvents,
   findEventsByCategory,
+  pastEvents
 } from "../../helpers/event_selectors";
 import { findEventAttendees } from "../../helpers/user_selectors";
 
@@ -17,6 +18,7 @@ export default function Events(props) {
     selectedCategory,
     usersData,
     joinedEvents,
+    showUserEvents
   } = props;
 
   const displayEventCard = (eventArr) => {
@@ -51,13 +53,22 @@ export default function Events(props) {
   let event;
 
   //all upcoming events
-  if (selectedCategory.length === 0) {
-    event = displayEventCard(upcomingEvents(eventsData));
+  if(showUserEvents === 3) {
+    if (selectedCategory.length === 0) {
+      event = displayEventCard(pastEvents(eventsData));
+    } else {
+      event = displayEventCard(filteredEvents);
+    }
   } else {
-    event = displayEventCard(filteredEvents);
+    if (selectedCategory.length === 0) {
+      event = displayEventCard(upcomingEvents(eventsData));
+    } else {
+      event = displayEventCard(filteredEvents);
+    }
   }
 
   // user owned events
+  
   // user joined events
   // past events
 

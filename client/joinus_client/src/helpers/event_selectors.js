@@ -13,6 +13,19 @@ export function upcomingEvents(events) {
   return results;
 }
 
+
+export function pastEvents(events) {
+  let results = [];
+  const now = moment(Date.now());
+  events.forEach((event) => {
+    const eventEnd = moment(event.end_time);
+    if (!now.isBefore(eventEnd)) {
+      results.push(event)
+    }
+  });
+  return results
+}
+
 // return an array of selected category obj
 export function findEventsByCategory(categoryArr, categoryData, eventsData) {
   let arr = [];
@@ -33,4 +46,33 @@ export function findEventsByCategory(categoryArr, categoryData, eventsData) {
     }
   }
   return results;
+}
+
+
+export function findUsersCreatedEvents(userID, eventsData) {
+  let data = []
+  for (const i of eventsData) {
+    if (userID === i.owner_id) {
+      data.push(i)
+    }
+  }
+  return data
+}
+
+export function findUsersJoinedEvents(userID, eventsData, joinedEvents) {
+  let eventID = []
+  let finalEvents= []
+  for (const i of joinedEvents) {
+    if (userID === i.user_id) {
+      eventID.push(i.event_id)
+    }
+  }
+
+  for (const prop of eventsData) {
+    for (const prop2 of eventID) {
+      if (prop2 === prop.id)
+      finalEvents.push(prop)
+    }
+  }
+  return finalEvents
 }
