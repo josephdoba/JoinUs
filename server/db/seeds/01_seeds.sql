@@ -33,11 +33,11 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 ('Movie Night', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Top_Gun_Maverick_Poster.jpg/220px-Top_Gun_Maverick_Poster.jpg', 'I am looking for someone to watch Top Gun with! All my friensd have already watched it already', 3, 5, 6, 49.282126, -123.124361, '2022-10-13 18:00:00', '2022-10-13 21:00:00'),
 
-('Board Games', 'https://i.cbc.ca/1.2716999.1406221490!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/135000779-board-games.jpg', 'Come join me for some fun board games this could include battleship, monopoly, and risk!', 8, 2, 2,49.25825320517397, -123.04434376344798, '2022-09-28 12:00:00', '2022-09-28 11:00:00'),
+('Board Games', 'https://i.cbc.ca/1.2716999.1406221490!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/135000779-board-games.jpg', 'Come join me for some fun board games this could include battleship, monopoly, and risk!', 8, 2, 2, 49.25825320517397, -123.04434376344798, '2022-09-28 12:00:00', '2022-09-28 11:00:00'),
 
 ('Tennis', 'https://imageio.forbes.com/specials-images/imageserve//6297a140ad5629573ba5f667/0x0.jpg?format=jpg&width=1200', 'Come play some tennis with me im super good though ill probably mess you up!', 4, 3, 4, 49.15964422830105, -123.13337467011768, '2022-10-13 16:00:00', '2022-10-13 18:00:00'),
 
-('Early Morning Hiking', 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aGlraW5nfGVufDB8fDB8fA%3D%3D&w=1000&q=80', 'come for a nice hike with me but we have to get up at 3am to see sunrise on top of mountain', 10, 4, 5, 49.37341791072464, -123.09637524954998, '2022-09-29 18:00:00', '2022-09-29 20:00:00'),
+('Early Morning Hiking', 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aGlraW5nfGVufDB8fDB8fA%3D%3D&w=1000&q=80', 'come for a nice hike with me but we have to get up at 3am to see sunrise on top of mountain', 10, 4, 4, 49.37341791072464, -123.09637524954998, '2022-09-29 18:00:00', '2022-09-29 20:00:00'),
 
 ('Chess Club', 'https://c4.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_fill,w_695,g_auto,q_auto,dpr_2.6,f_auto,h_460/gxknjgscx8ci7ayvxxve', 'Come play Chess with us! Try new strategies, discuss tactics and meet people. Free admission', 8, 5, 2, 49.282126, -123.124361, '2022-10-13 18:00:00', '2022-10-13 21:00:00'),
 
@@ -61,13 +61,13 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 ('Korean Fried Chicken', 'https://hips.hearstapps.com/hmg-prod/images/190130-korean-fried-chicken-050-1549695542.jpg', 'I have never tried Korean Fried Chicken, and thought it would be fun to invite you!', 6, 1, 1, 49.276189979572884, -123.12153898959998, '2022-09-30 15:00:00', '2022-09-30 17:00:00'),
 
-('Bare Hand Meditation', 'https://images.everydayhealth.com/images/emotional-health/meditation/a-complete-guide-to-meditation-722x406.jpg?w=1110', 'Lets stare at the sun to charge our third eye chakras while inhaling burning sage fumes. Relaxing and wholstic!', 6, 5, 11, 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
+('Bare Hand Meditation', 'https://images.everydayhealth.com/images/emotional-health/meditation/a-complete-guide-to-meditation-722x406.jpg?w=1110', 'Lets stare at the sun to charge our third eye chakras while inhaling burning sage fumes. Relaxing and wholstic!', 6, 5, 12, 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
 
-('Live Grass Drawing', 'https://en.canson.com/sites/default/files/styles/large/public/medias-images/New-Dessin-001-2%20%281%29.jpg?itok=i1oaN4tC', 'Bored of being boring? Come outside where we focus on drawing blades of grass. All experience levels welcome!', 6, 3, 12, 60.76801044773849, -135.3522855246778, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Live Grass Drawing', 'https://en.canson.com/sites/default/files/styles/large/public/medias-images/New-Dessin-001-2%20%281%29.jpg?itok=i1oaN4tC', 'Bored of being boring? Come outside where we focus on drawing blades of grass. All experience levels welcome!', 6, 3, 11, 60.76801044773849, -135.3522855246778, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
 ('Sushi Time', 'https://www.readersdigest.ca/wp-content/uploads/2011/11/japanese-sushi-rolls-scaled.jpg', 'I see you too are a person of culture. Lets get Sushi!', 6, 3, 1, 49.276778603471904, -123.125723820729, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'I see you too are a person of culture. Lets get Sushi!', 8, 8, 1, 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
+('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'Come eat the finest Steak chops with us!', 8, 8, 1, 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES

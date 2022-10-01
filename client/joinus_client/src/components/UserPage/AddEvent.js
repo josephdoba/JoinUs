@@ -11,7 +11,7 @@ import {
   styled,
   TextField,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -20,7 +20,7 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent() {
-   const { userCreateEventSubmit, userEditEventSubmit } = userEvents()
+   const { userCreateEventSubmit } = userEvents()
 
   const StyledModal = styled(Modal)({
     display: "flex",
@@ -68,62 +68,74 @@ export default function AddEvent() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box width={500} height={500} bgcolor="white" p={3} borderRadius={3}>
-          <Typography variant="h6" color="gray" textAlign="center">
-            Create New Event
-          </Typography>
-          <FormBox
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "100%" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
+        {/* https://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components */}
+        {/* https://stackoverflow.com/questions/65531477/how-to-post-form-data-using-material-ui-into-api */}
+        
+          <Box width={500} height={500} bgcolor="white" p={3} borderRadius={3}>
+            <Typography variant="h6" color="gray" textAlign="center">
+              Create New Event
+            </Typography>
+            <FormBox
+              component="form"
+              // 
+              sx={{
+                "& > :not(style)": { m: 1, width: "100%" },
+              }}
+              noValidate
+              autoComplete="off"
+              >
+              {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
+              {/*
 
-            <TextField
-              id="standard-basic"
-              label="Event Name"
-              variant="standard"
-            />
+              omg Moe help how tf does this form/submit interaction work in MUI?!
+              tried putting "onSubmit={userCreateEventSubmit}" as a property within the <FormBox> component.. wasn't working.  
 
-            <TextField
-              id="standard-basic"
-              label="Full Address"
-              variant="standard"
-            />
+            Hmmm.. mkay so using "<form onSubmit={userCreateEventSubmit}>" "technically" works at even hitting the "userCreateEventSubmit function", but it breaks the entire layout. 
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                label="Time"
-                value={value}
-                onChange={(handleChange)}
-                renderInput={(params) => <TextField {...params} />}
+              */}
+            
+              <TextField
+                id="standard-basic"
+                label="Event Name"
+                variant="standard"
               />
-            </LocalizationProvider>
 
-            <TextField
-              id="outlined-textarea"
-              label="Event Details"
-              placeholder="..."
-              multiline
-              inputProps={{ maxLength: 300 }}
-            />
+              <TextField
+                id="standard-basic"
+                label="Full Address"
+                variant="standard"
+              />
 
-            <Stack direction="row" spacing={2} justifyContent="center" >
-              <Button onClick={(e) => setOpen(false)} variant="outlined">
-                Cancel
-              </Button>
-              {/* <Button variant="contained" endIcon={<AddIcon />}> */}
-              <Button variant="contained" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
-              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={userEditEventSubmit}> */}
-              {/* <Button variant="contained" endIcon={<AddIcon />} onClick={<Route to="/"/>}> */}
-                Create
-              </Button>
-            </Stack>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Time"
+                  value={value}
+                  onChange={(handleChange)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
 
-          </FormBox>
-        </Box>
+              <TextField
+                id="outlined-textarea"
+                label="Event Details"
+                placeholder="..."
+                multiline
+                inputProps={{ maxLength: 300 }}
+              />
+
+              <Stack direction="row" spacing={2} justifyContent="center" >
+                <Button onClick={(e) => setOpen(false)} variant="outlined">
+                  Cancel
+                </Button>
+                {/* <Button variant="contained" endIcon={<AddIcon />}> */}
+                {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
+                <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+                  Create
+                </Button>
+              </Stack>
+
+            </FormBox>
+          </Box>
       </StyledModal>
     </>
   );

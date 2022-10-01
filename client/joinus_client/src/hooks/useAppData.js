@@ -27,9 +27,6 @@ export default function useAppData() {
       });
   }, []);
 
-  // const joinEvent = (id) => {
-  //   addData(`users/user_events/${id}`).then();
-  // };
-
+  
   return { eventsData, categoriesData, usersData, joinedEvents };
 }

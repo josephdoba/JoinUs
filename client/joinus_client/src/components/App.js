@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
-import Userpage from "./UserPage/Index";
+import Userpage from "./UserPage/index";
 import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";

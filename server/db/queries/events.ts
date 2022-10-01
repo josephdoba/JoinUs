@@ -32,3 +32,19 @@ const editEvent = (eventObject: any) => {
 };
 
 export default { getCategories, getEvents, createEvent };
+
+/*
+INSERT INTO categories (name) VALUES
+('Food & Dining'), 1
+('Games & Recreation'), 2
+('Fitness'), 3
+('Outdoors'), 4
+('Alcohol & Beverages'), 5
+('Movies & Theatre'), 6
+('Live Music'), 7
+('Chatting & Philosophy'), 8 
+('Water Sports'), 9 
+('Entrepreneurial & Business'), 10
+('Arts'), 11
+('Health & Wellness'); 12
+*/
