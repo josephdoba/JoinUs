@@ -6,12 +6,14 @@ import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
 import { Container } from "@mui/system";
+import { findUserByID } from "../../helpers/user_selectors";
 
 export default function Userpage(props) {
   const { eventsData, categoriesData, usersData, setEvent, joinedEvents } =
     props;
-  const [selectedCategory, setSelectedCategory] = useState([]); //drop down
+  const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
 
+  // if there is a selected category, a button to clear the chips appear
   const clearCategories = (selectedCategory) => {
     if (selectedCategory.length >= 1) {
       return (
@@ -28,7 +30,6 @@ export default function Userpage(props) {
 
   return (
     <Box>
-      <App_navbar />
       <Container sx={{ display: "flex" }}>
         <EventCategoryDropdown
           list={categoriesData}

@@ -10,7 +10,6 @@ export function findEventAttendees(eventId, usersData, joinedEvents) {
 
   for (let users of usersData) {
     for (let user of event) {
-      console.log(user);
       if (user.user_id === users.id) {
         results.push(users);
       }

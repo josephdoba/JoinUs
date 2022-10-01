@@ -50,11 +50,16 @@ export default function Events(props) {
 
   let event;
 
+  //all upcoming events
   if (selectedCategory.length === 0) {
     event = displayEventCard(upcomingEvents(eventsData));
   } else {
     event = displayEventCard(filteredEvents);
   }
+
+  // user owned events
+  // user joined events
+  // past events
 
   return (
     <Container>
