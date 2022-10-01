@@ -6,29 +6,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-import moment from "moment";
 import { Grid } from "@mui/material";
 
-// shorten the displayed text to 75 letters including spaces
-const shortenText = (text) => {
-  if (text.length >= 75) {
-    const short = text.slice(0, 75);
-    return `${short}...`;
-  }
+import moment from "moment";
+import { shortenText } from "../../helpers/helpers";
+import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
-  return text;
-};
-
-export default function Event(props) {
+// need logic to show that 'join chat' link only if user has joined the chat
+export default function EventCard(props) {
   const {
+    id,
     name,
     image,
     description,
     start_time,
     end_time,
     category,
-    id,
+    attendeelist,
     eventsData,
     setEvent,
   } = props;
@@ -58,8 +52,8 @@ export default function Event(props) {
 
   return (
     <Grid item xs={4}>
-      <Card sx={{ maxWidth: 345, maxHeight: 360 }}>
-        <CardMedia component="img" alt={name} height="140" image={image} />
+      <Card sx={{ maxWidth: 380, maxHeight: 380 }}>
+        <CardMedia component="img" alt={name} height="150" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -68,8 +62,9 @@ export default function Event(props) {
             {start} - {end} <br />
             Category: {category.name}
           </Typography>
-
-          <Typography paragraph>{shortenText(description)}</Typography>
+          <Typography variant="paragraph">
+            {shortenText(description)}
+          </Typography>
         </CardContent>
         <CardActions>
           <Button onClick={submitHandler} size="small">
@@ -78,6 +73,7 @@ export default function Event(props) {
           <Button onClick={() => {}} size="small">
             Join Event
           </Button>
+          <AttendeeNumDisplay attendeelist={attendeelist} />
         </CardActions>
       </Card>
     </Grid>

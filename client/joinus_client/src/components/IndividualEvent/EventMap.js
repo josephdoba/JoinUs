@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import MapComponent from "./MapComponent";
 import MapError from "./MapError";
-import { useLoadScript, InfoWindow } from "@react-google-maps/api";
-import "./map.scss";
+import { useJsApiLoader } from "@react-google-maps/api";
 
-export default function EventMap() {
-  const { isLoaded } = useLoadScript({
+const libraries = ["places"];
+
+export default function EventMap(props) {
+  const { lat, lng } = props;
+  const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    libraries,
   });
 
+  if (loadError) return <MapError />;
   if (!isLoaded) return <div>Loading...</div>;
 
-  return <MapComponent />;
+  if (isLoaded) return <MapComponent lat={lat} lng={lng} />;
 }

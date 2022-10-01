@@ -31,7 +31,7 @@ export default function App_navbar() {
       <StyledToolbar>
 
         <Typography color={"#f9a406b0"}>
-        <Avatar sx={{width: 80, height: 80}} alt="Logo" src="https://img.freepik.com/free-vector/hand-drawn-join-us-lettering_23-2148948794.jpg?w=740&t=st=1664077213~exp=1664077813~hmac=06a56276e90c71a05ceaf1919307823d95373c5fac03bf05420df3bf153353cf" />
+        <Avatar sx={{width: 80, height: 80}} alt="Logo" src={logo} />
         </Typography>
 
         <Search>

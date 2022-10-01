@@ -1,0 +1,75 @@
+import { Container, Grid } from "@mui/material";
+import React from "react";
+import EventCard from "./EventCard";
+
+import { findCategoryByID } from "../../helpers/category_selectors";
+import {
+  upcomingEvents,
+  findEventsByCategory,
+} from "../../helpers/event_selectors";
+import { findEventAttendees } from "../../helpers/user_selectors";
+
+export default function Events(props) {
+  const {
+    eventsData,
+    categoriesData,
+    setEvent,
+    selectedCategory,
+    usersData,
+    joinedEvents,
+  } = props;
+
+  const displayEventCard = (eventArr) => {
+    return eventArr.map((e) => {
+      const attendeelist = findEventAttendees(e.id, usersData, joinedEvents);
+      const category = findCategoryByID(e.category, categoriesData);
+
+      return (
+        <EventCard
+          key={e.id}
+          id={e.id}
+          name={e.name}
+          image={e.image}
+          description={e.description}
+          category={category}
+          start_time={e.start_time}
+          end_time={e.end_time}
+          eventsData={eventsData}
+          setEvent={setEvent}
+          attendeelist={attendeelist}
+        />
+      );
+    });
+  };
+
+  const filteredEvents = findEventsByCategory(
+    selectedCategory,
+    categoriesData,
+    eventsData
+  );
+
+  let event;
+
+  //all upcoming events
+  if (selectedCategory.length === 0) {
+    event = displayEventCard(upcomingEvents(eventsData));
+  } else {
+    event = displayEventCard(filteredEvents);
+  }
+
+  // user owned events
+  // user joined events
+  // past events
+
+  return (
+    <Container>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {event}
+      </Grid>
+    </Container>
+  );
+}
