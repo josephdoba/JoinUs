@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
-
+import { redirect } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
@@ -19,16 +19,9 @@ const settings = ["Profile", "My Events", "Logout"];
 
 export default function Nav(props) {
   const { user, setUser, usersData } = props;
-
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
 
-  const findUserByID = (id, usersData) => {
-    console.log(usersData);
-    const user = usersData.map((u) => {
-      console.log(u.id === id);
-    });
-    console.log(user);
-  };
+  const navigate = useNavigate();
 
   // for handling user navbar buttons
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -40,13 +33,14 @@ export default function Nav(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleCloseLogout = () => {
+
+  const logout = () => {
+    reactLocalStorage.remove("currentUser");
     setUser({});
     setAnchorElUser(null);
+    navigate("/");
   };
   // end of user nav
-
-  const navigate = useNavigate();
 
   //for handling the login pop up
   const [open, setOpen] = useState(false);
@@ -58,69 +52,82 @@ export default function Nav(props) {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  // end
+  // Kyler's code
+
+  function wait(time) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(userID);
-    findUserByID(userID, usersData);
     reactLocalStorage.setObject("currentUser", {
       id: userID,
-      name: user.name,
-      picture: user.picture,
     });
-    handleClose();
     setUserID("");
+    await wait(500);
+    navigate("/user");
+  }
+
+  const check = reactLocalStorage.getObject("currentUser");
+  const findUserByID = (id, usersData) => {
+    const current = usersData[id - 1];
+    setUser(current);
+    console.log(current);
   };
 
-  // end
+  findUserByID(check.id, usersData);
 
-  const loggedIn = () => {
-    if (user) {
-      return (
-        <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt={user.name} src={user.picture} />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-      );
-    }
+  // const loggedIn = (user) => {
+  //   if (user) {
+  //     return (
+  //       <Box sx={{ flexGrow: 0 }}>
+  //         <Tooltip title="Open settings">
+  //           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+  //             <Avatar alt={user.name} src={user.picture} />
+  //           </IconButton>
+  //         </Tooltip>
+  //         <Menu
+  //           sx={{ mt: "45px" }}
+  //           id="menu-appbar"
+  //           anchorEl={anchorElUser}
+  //           anchorOrigin={{
+  //             vertical: "top",
+  //             horizontal: "right",
+  //           }}
+  //           keepMounted
+  //           transformOrigin={{
+  //             vertical: "top",
+  //             horizontal: "right",
+  //           }}
+  //           open={Boolean(anchorElUser)}
+  //           onClose={handleCloseUserMenu}
+  //         >
+  //           {settings.map((setting) => (
+  //             <MenuItem key={setting} onClick={handleCloseUserMenu}>
+  //               <Typography textAlign="center">{setting}</Typography>
+  //             </MenuItem>
+  //           ))}
+  //         </Menu>
+  //       </Box>
+  //     );
+  //   }
 
-    return (
-      <Box sx={{ flexGrow: 0 }}>
-        <ButtonGroup
-          disableElevation
-          variant="contained"
-          aria-label="Disabled elevation buttons"
-        >
-          <Button>Log in</Button>
-          <Button>Sign Up</Button>
-        </ButtonGroup>
-      </Box>
-    );
-  };
+  //   return (
+  //     <Box sx={{ flexGrow: 0 }}>
+  //       <ButtonGroup
+  //         disableElevation
+  //         variant="contained"
+  //         aria-label="Disabled elevation buttons"
+  //       >
+  //         <Button>Log in</Button>
+  //         <Button>Sign Up</Button>
+  //       </ButtonGroup>
+  //     </Box>
+  //   );
+  // };
 
   return (
     <AppBar
@@ -171,7 +178,7 @@ export default function Nav(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={""} src={""} />
+                <Avatar alt={"user.name"} src={"user.picture"} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -193,11 +200,7 @@ export default function Nav(props) {
               {settings.map((setting) => (
                 <MenuItem
                   key={setting}
-                  onClick={
-                    setting === "Logout"
-                      ? handleCloseLogout
-                      : handleCloseUserMenu
-                  }
+                  onClick={setting === "Logout" ? logout : handleCloseUserMenu}
                 >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
