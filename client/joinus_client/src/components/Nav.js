@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  ButtonGroup,
+  Modal,
+} from "@mui/material";
 
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -15,6 +22,18 @@ import logo from "../images/logo.png";
 import { findUserByID } from "../helpers/user_selectors";
 import { TextField } from "@mui/material";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const settings = ["Profile", "My Events", "Logout"];
 
 export default function Nav(props) {
@@ -22,7 +41,13 @@ export default function Nav(props) {
 
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState();
+  //for handling the login pop up
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  // end
+
+  // for handling user navbar buttons
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -35,6 +60,7 @@ export default function Nav(props) {
     }
     setAnchorElUser(null);
   };
+  // end of user nav
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -155,10 +181,36 @@ export default function Nav(props) {
               variant="outlined"
               aria-label="Disabled elevation buttons"
             >
-              <Button onClick={() => {}}>Log in</Button>
+              <Button onClick={handleOpen}>Log in</Button>
               <Button onClick={() => {}}>Sign Up</Button>
             </ButtonGroup>
           </Box>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Log In!
+              </Typography>
+
+              <Box
+                component="form"
+                sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField id="outlined" label="Username" />
+                <TextField id="outlined" label="Password" />
+              </Box>
+              <Button onClick={handleClose} variant="outlined" color="error">
+                Cancel
+              </Button>
+            </Box>
+          </Modal>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
