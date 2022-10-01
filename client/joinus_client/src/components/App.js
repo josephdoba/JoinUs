@@ -11,7 +11,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-import App_navbar from "./App_navbar";
+import Nav from "./Nav";
 
 export const ThemeContext = createContext(null);
 
@@ -25,27 +25,15 @@ const App = function () {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-  console.log(user);
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div id={theme}>
-          <Navbar
+          <Nav
             toggleTheme={toggleTheme}
             theme={theme}
-            success={success}
-            setSuccess={setSuccess}
-            user={user}
-            setUser={setUser}
-            usersData={usersData}
-          />
-          <App_navbar
-            toggleTheme={toggleTheme}
-            theme={theme}
-            success={success}
-            setSuccess={setSuccess}
             user={user}
             setUser={setUser}
             usersData={usersData}
@@ -74,10 +62,11 @@ const App = function () {
                 <Userpage
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
-                  user={reactLocalStorage.getObject("userr")}
+                  user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
+                  setUser={setUser}
                 />
               }
             />

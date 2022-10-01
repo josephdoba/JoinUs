@@ -6,7 +6,6 @@ import ReactSwitch from "react-switch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { reactLocalStorage } from "reactjs-localstorage";
-import { findUserByID } from "../helpers/user_selectors";
 
 const Navbar = function (props) {
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ const Navbar = function (props) {
 
   async function handleSubmit(event) {
     reactLocalStorage.setObject("userr", {
-      id: 3,
+      id: 2,
       email: event.target[0].value,
       password: event.target[1].value,
     });
