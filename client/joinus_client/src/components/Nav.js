@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
+import ReactSwitch from "react-switch";
 
 import { Navigate, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
@@ -19,17 +20,18 @@ import Login from "./Login";
 const settings = ["Profile", "My Events", "Logout"];
 
 export default function Nav(props) {
-  const { user, setUser, success, setSuccess, usersData } = props;
+  const { user, setUser, usersData } = props;
 
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
   const [items, setItems] = useState(); // for localStore
-  const currentUser = findUserByID(userID, usersData);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem("currentUserID", JSON.stringify(userID));
-  }, [items]);
+    reactLocalStorage.setObject("currentUser", {
+      id: userID,
+    });
+  }, []);
 
   //for handling the login pop up
   const [open, setOpen] = useState(false);
@@ -45,6 +47,7 @@ export default function Nav(props) {
     console.log(userID);
     e.preventDefault();
     handleClose();
+    console.log(user);
     setUserID("");
   };
   // end
@@ -63,6 +66,8 @@ export default function Nav(props) {
     setAnchorElUser(null);
   };
   // end of user nav
+
+  const currentUser = findUserByID(userID, usersData);
 
   const loggedIn = () => {
     if (user) {
@@ -132,8 +137,11 @@ export default function Nav(props) {
           >
             <Avatar sx={{ width: 80, height: 80 }} alt="Logo" src={logo} />
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}></Box>
+          <ReactSwitch
+            className="toggle-switch"
+            onChange={props.toggleTheme}
+            checked={props.theme === "dark"}
+          />
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <Box sx={{ flexGrow: 0 }}>

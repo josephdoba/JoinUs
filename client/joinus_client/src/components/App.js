@@ -44,8 +44,6 @@ const App = function () {
           <Nav
             toggleTheme={toggleTheme}
             theme={theme}
-            success={success}
-            setSuccess={setSuccess}
             user={user}
             setUser={setUser}
             usersData={usersData}
@@ -74,7 +72,7 @@ const App = function () {
                 <Userpage
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
-                  user={reactLocalStorage.getObject("userr")}
+                  user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
