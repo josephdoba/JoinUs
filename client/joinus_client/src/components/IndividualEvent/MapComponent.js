@@ -1,22 +1,21 @@
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
-import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLoadScript, InfoWindow } from "@react-google-maps/api";
+import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
+  marginTop: "20px",
   width: "400px",
   height: "400px",
 };
 
 export default function MapComponent(props) {
-  const [userCoords, setUserCoords] = useState({});
+  const [userCoords, setUserCoords] = useState(null);
   const { lat, lng } = props;
 
   const onLoad = (marker) => {
     console.log("marker: ", marker);
   };
 
+  // find user's coordinates
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserCoords({
@@ -34,14 +33,12 @@ export default function MapComponent(props) {
   console.log(`event coords is ${lat}, ${lng}`);
 
   return (
-    <Box bgcolor="red" flex={"50%"} p={2}>
-      <GoogleMap
-        zoom={12}
-        center={userCoords}
-        mapContainerStyle={mapContainerStyle}
-      >
-        <Marker position={position} onLoad={onLoad} />
-      </GoogleMap>
-    </Box>
+    <GoogleMap
+      zoom={12}
+      center={userCoords ? userCoords : position} // set the center to the user's coordinates or pin location
+      mapContainerStyle={mapContainerStyle}
+    >
+      <Marker position={position} onLoad={onLoad} />
+    </GoogleMap>
   );
 }

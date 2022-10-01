@@ -7,17 +7,27 @@ import {
   upcomingEvents,
   findEventsByCategory,
 } from "../../helpers/event_selectors";
+import { findEventAttendees } from "../../helpers/user_selectors";
 
 export default function Events(props) {
-  const { eventsData, categoriesData, setEvent, selectedCategory } = props;
+  const {
+    eventsData,
+    categoriesData,
+    setEvent,
+    selectedCategory,
+    usersData,
+    joinedEvents,
+  } = props;
 
   const displayEventCard = (eventArr) => {
     return eventArr.map((e) => {
+      const attendeelist = findEventAttendees(e.id, usersData, joinedEvents);
       const category = findCategoryByID(e.category, categoriesData);
 
       return (
         <EventCard
           key={e.id}
+          id={e.id}
           name={e.name}
           image={e.image}
           description={e.description}
@@ -26,7 +36,7 @@ export default function Events(props) {
           end_time={e.end_time}
           eventsData={eventsData}
           setEvent={setEvent}
-          id={e.id}
+          attendeelist={attendeelist}
         />
       );
     });
@@ -40,11 +50,16 @@ export default function Events(props) {
 
   let event;
 
+  //all upcoming events
   if (selectedCategory.length === 0) {
     event = displayEventCard(upcomingEvents(eventsData));
   } else {
     event = displayEventCard(filteredEvents);
   }
+
+  // user owned events
+  // user joined events
+  // past events
 
   return (
     <Container>

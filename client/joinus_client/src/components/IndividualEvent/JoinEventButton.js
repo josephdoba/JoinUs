@@ -1,21 +1,14 @@
-import { Box, Fab, Stack, Tooltip, Typography } from "@mui/material";
-import { bgcolor } from "@mui/system";
-import EventDetails from "./EventDetails";
-import EventMap from "./EventMap";
-import EventMapDetails from "./EventMapDetails";
-import NavigationIcon from '@mui/icons-material/Navigation';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import { Fab, Tooltip } from "@mui/material";
+
+import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 
 export default function JoinEventButton() {
-
   return (
     <Tooltip
-      onClick={(e) => {
-        
-      }}
+      onClick={(e) => {}}
       title="Create A New Event"
       sx={{
-        position: "inherit",        
+        position: "inherit",
       }}
     >
       <Fab variant="extended">
@@ -25,5 +18,3 @@ export default function JoinEventButton() {
     </Tooltip>
   );
 }
-
-

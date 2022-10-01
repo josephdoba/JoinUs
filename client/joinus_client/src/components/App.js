@@ -10,10 +10,12 @@ import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
+import App_navbar from "./App_navbar";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
+  const { eventsData, usersData, categoriesData, joinedEvents } = useAppData();
   const [theme, setTheme] = useState("light");
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({});
@@ -22,9 +24,8 @@ const App = function () {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-
+  console.log(user);
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
-  const { eventsData, usersData, categoriesData, userEvents } = useAppData();
 
   return (
     <Router>
@@ -39,16 +40,24 @@ const App = function () {
             setUser={setUser}
             usersData={usersData}
           />
+          <App_navbar
+            toggleTheme={toggleTheme}
+            theme={theme}
+            success={success}
+            setSuccess={setSuccess}
+            user={user}
+            setUser={setUser}
+            usersData={usersData}
+          />
           <Routes>
-            <Route path="/dashboard" element={<Userpage />}>
+            {/* <Route path="/dashboard" element={<Userpage />}>
               {/* nested route placeholders:  */}
-              {/* <Route index element={<Userpage/>}/>
+            {/* <Route index element={<Userpage/>}/>
               <Route path='/myevents' element={false}/>
               <Route path='/history' element={false}/>
               <Route path='/create' element={false}/>
               <Route path='/join' element={false}/> */}
-            </Route>
-
+            {/* </Route> */}
             <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/"
@@ -58,20 +67,29 @@ const App = function () {
                 </div>
               }
             />
-            <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
-              path="/user/home"
+              path="/user"
               element={
                 <Userpage
-                  userEvents={userEvents}
+                  joinedEvents={joinedEvents}
                   eventsData={eventsData}
                   user={user}
+                  usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
                 />
               }
             />
-            <Route path="/event" element={<IndividualEvent event={event} />} />
+            <Route
+              path="/event"
+              element={
+                <IndividualEvent
+                  event={event}
+                  usersData={usersData}
+                  joinedEvents={joinedEvents}
+                />
+              }
+            />
           </Routes>
         </div>
       </ThemeContext.Provider>

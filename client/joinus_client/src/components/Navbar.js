@@ -47,7 +47,7 @@ const Navbar = function (props) {
       email: event.target[0].value,
       password: event.target[1].value,
     });
-    navigate("/user/home");
+    navigate("/user");
   }
 
   async function logout() {
