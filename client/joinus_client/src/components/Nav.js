@@ -14,8 +14,7 @@ import ReactSwitch from "react-switch";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import Login from "./Login";
-
-const settings = ["Profile", "My Events", "Logout"];
+import NavDisplay from "./NavDisplay";
 
 export default function Nav(props) {
   const { user, setUser, usersData } = props;
@@ -34,7 +33,7 @@ export default function Nav(props) {
     setAnchorElUser(null);
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     reactLocalStorage.remove("currentUser");
     setUser({});
     setAnchorElUser(null);
@@ -80,55 +79,6 @@ export default function Nav(props) {
 
   findUserByID(check.id, usersData);
 
-  // const loggedIn = (user) => {
-  //   if (user) {
-  //     return (
-  //       <Box sx={{ flexGrow: 0 }}>
-  //         <Tooltip title="Open settings">
-  //           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-  //             <Avatar alt={user.name} src={user.picture} />
-  //           </IconButton>
-  //         </Tooltip>
-  //         <Menu
-  //           sx={{ mt: "45px" }}
-  //           id="menu-appbar"
-  //           anchorEl={anchorElUser}
-  //           anchorOrigin={{
-  //             vertical: "top",
-  //             horizontal: "right",
-  //           }}
-  //           keepMounted
-  //           transformOrigin={{
-  //             vertical: "top",
-  //             horizontal: "right",
-  //           }}
-  //           open={Boolean(anchorElUser)}
-  //           onClose={handleCloseUserMenu}
-  //         >
-  //           {settings.map((setting) => (
-  //             <MenuItem key={setting} onClick={handleCloseUserMenu}>
-  //               <Typography textAlign="center">{setting}</Typography>
-  //             </MenuItem>
-  //           ))}
-  //         </Menu>
-  //       </Box>
-  //     );
-  //   }
-
-  //   return (
-  //     <Box sx={{ flexGrow: 0 }}>
-  //       <ButtonGroup
-  //         disableElevation
-  //         variant="contained"
-  //         aria-label="Disabled elevation buttons"
-  //       >
-  //         <Button>Log in</Button>
-  //         <Button>Sign Up</Button>
-  //       </ButtonGroup>
-  //     </Box>
-  //   );
-  // };
-
   return (
     <AppBar
       position="static"
@@ -155,16 +105,6 @@ export default function Nav(props) {
           />
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <ButtonGroup
-              disableElevation
-              variant="outlined"
-              aria-label="Disabled elevation buttons"
-            >
-              <Button onClick={handleClickOpen}>Log in</Button>
-              <Button onClick={() => {}}>Sign Up</Button>
-            </ButtonGroup>
-          </Box>
 
           <Login
             open={open}
@@ -175,38 +115,14 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={"user.name"} src={"user.picture"} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={setting === "Logout" ? logout : handleCloseUserMenu}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <NavDisplay
+            user={user}
+            handleOpenUserMenu={handleOpenUserMenu}
+            handleLogout={handleLogout}
+            anchorElUser={anchorElUser}
+            handleCloseUserMenu={handleCloseUserMenu}
+            handleClickOpen={handleClickOpen}
+          />
         </Toolbar>
       </Container>
     </AppBar>
