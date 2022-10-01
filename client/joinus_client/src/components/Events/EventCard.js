@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 
-import moment from "moment";
+import { formatTime } from "../../helpers/helpers";
 import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
@@ -26,9 +26,6 @@ export default function EventCard(props) {
     eventsData,
     setEvent,
   } = props;
-
-  const start = moment(start_time).format("llll"); // format: Wed, Sep 28, 2022 12:00 PM
-  const end = moment(end_time).format("LT"); // format: 11:00 AM
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -59,7 +56,7 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-            {start} - {end} <br />
+            {formatTime(start_time, end_time)} <br />
             Category: {category.name}
           </Typography>
           <Typography variant="paragraph">
