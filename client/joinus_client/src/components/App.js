@@ -49,7 +49,7 @@ const App = function () {
               path="/"
               element={
                 <div>
-                  <FunPhoto /> <Home />{" "}
+                  <FunPhoto /> <Home event={event} />{" "}
                 </div>
               }
             />
