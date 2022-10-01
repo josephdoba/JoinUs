@@ -21,6 +21,7 @@ const cors_1 = __importDefault(require("cors"));
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(express_1.default.static("public"));
 // Separated Routes for each Resource
