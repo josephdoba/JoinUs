@@ -18,21 +18,26 @@ const testDummyData = {
 export default function userEvents() {
 
   const userCreateEventSubmit = (req) => {
+    // axios.post(url[, data[, config]]) <- syntax
     console.log("api post request from userCreateEventSubmit", testDummyData);
-    // https://masteringjs.io/tutorials/axios/put - It doesnt, it only turns a js object into JSON.
     axios.post("http://localhost:8080/api/events", testDummyData)
     .then(console.log("-------- data posting to db ------- "))
+    .then(console.log(req.body))
+
+    // both from the same call from the user
+    /*
+    Promise.all([
+      axios.post("the endpoint for the join table", owner_id), 
+      axios.post("the endpoint for the join table", event_id),
+    ])
     .err(err => console.log(err));
-    
-    // axios.post(url[, data[, config]])
-    console.log(req.body)
-    return req.body
-  }
-  
+  }*/
+}
 
   const userEditEventSubmit = () => {
     console.log("api post request for userEditEvent")
   }
 
   return { userCreateEventSubmit, userEditEventSubmit }
+
 }
