@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
@@ -9,7 +9,6 @@ const mapContainerStyle = {
 
 export default function MapComponent(props) {
   const [userCoords, setUserCoords] = useState(null);
-  const [map, setMap] = useState(null);
   const { lat, lng } = props;
 
   const onLoad = (marker) => {

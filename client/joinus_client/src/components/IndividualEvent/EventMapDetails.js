@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Avatar,
   Box,
@@ -8,13 +9,14 @@ import {
   Stack,
 } from "@mui/material";
 import PersonPinCircleTwoToneIcon from "@mui/icons-material/PersonPinCircleTwoTone";
-
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import EventMap from "./EventMap";
 import { formatTime } from "../../helpers/helpers";
+import { GoogleMap, Marker, MarkerF } from "@react-google-maps/api";
 
 export default function EventMapDetails(props) {
   const { start_time, end_time, lat, lng } = props;
+  const [map, setMap] = useState(null);
   // const ListItemText = styled("ListItemText")(({ theme }) => ({
   //   listItemText:{
   //     fontSize:'10px',//Insert your required size
@@ -24,12 +26,12 @@ export default function EventMapDetails(props) {
   return (
     <Box flex={"30%"} p={2}>
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
-        <EventMap lat={lat} lng={lng} />
+        <EventMap lat={lat} lng={lng} map={map} setMap={setMap} />
         <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
           <ListItem>
             <ListItemAvatar>
               <Avatar>
-                <PersonPinCircleTwoToneIcon />
+                {/* <PersonPinCircleTwoToneIcon onClick{() > m }/> */}
               </Avatar>
             </ListItemAvatar>
             <ListItemText
