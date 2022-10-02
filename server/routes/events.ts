@@ -31,6 +31,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// api route for create event
 router.post("/", (req, res) => {
   console.log("-----------------------", req.body)
   eventQueries

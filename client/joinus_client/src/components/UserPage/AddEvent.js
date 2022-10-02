@@ -51,11 +51,6 @@ export default function AddEvent() {
   onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
 */
   
- 
-  const handlePreventDefault = (e) => {
-    
-  }
-  
   // https://reactjs.org/docs/hooks-reference.html#useref
   // const inputEl = useRef(null)
   // const buttonClick = () => {
@@ -244,12 +239,14 @@ export default function AddEvent() {
 
 
 /*
+This code below was reference code while troubleshooting the form.
 
-This was a reference code sample while troubleshooting
-reference: https://github.com/mui/material-ui/blob/v5.10.6/docs/data/material/getting-started/templates/sign-in/SignIn.js
+https://github.com/mui/material-ui/blob/v5.10.6/docs/data/material/getting-started/templates/sign-in/SignIn.js
 
 -Joba
+*/
 
+/*
 import * as React from 'react';
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
