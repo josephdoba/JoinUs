@@ -6,7 +6,9 @@
  * @flow strict-local
  */
 
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {
   SafeAreaView,
@@ -19,8 +21,9 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Herobanner from './src/components/Home/Herobanner';
+import HomeScreen from './src/components/Home/Home';
 import Navbar from './src/components/Navbar';
+import UserScreen from './src/components/User/UserScreen';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -57,27 +60,32 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const Stack = createNativeStackNavigator();
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Navbar />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={
-            (styles.sectionContainer,
-            {
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            })
-          }>
-          <Herobanner />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Navbar />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={backgroundStyle}>
+          <View>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{title: 'Welcome'}}
+              />
+              <Stack.Screen name="User" component={UserScreen} />
+            </Stack.Navigator>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
