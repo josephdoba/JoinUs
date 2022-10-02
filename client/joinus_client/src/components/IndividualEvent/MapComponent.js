@@ -1,4 +1,4 @@
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, DirectionsRenderer } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
@@ -9,7 +9,7 @@ const mapContainerStyle = {
 
 export default function MapComponent(props) {
   const [userCoords, setUserCoords] = useState(null);
-  const { lat, lng, setMap } = props;
+  const { lat, lng, setMap, directions, duration, distance } = props;
 
   const onLoad = (marker) => {
     console.log("marker: ", marker);
@@ -41,9 +41,10 @@ export default function MapComponent(props) {
         streetViewControl: false,
         mapTypeControl: false,
       }}
-      onLoad={(map) => setMap}
+      onLoad={(map) => setMap(map)}
     >
       <MarkerF position={center} onLoad={onLoad} />
+      {directions && <DirectionsRenderer directions={directions} />}
     </GoogleMap>
   );
 }

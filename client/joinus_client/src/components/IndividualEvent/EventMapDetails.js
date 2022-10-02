@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -12,7 +13,7 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { formatTime } from "../../helpers/helpers";
 
 export default function EventMapDetails(props) {
-  const { start_time, end_time, onClick } = props;
+  const { start_time, end_time, handleClick } = props;
   // const ListItemText = styled("ListItemText")(({ theme }) => ({
   //   listItemText:{
   //     fontSize:'10px',//Insert your required size
@@ -23,9 +24,9 @@ export default function EventMapDetails(props) {
     <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
       <ListItem>
         <ListItemAvatar>
-          <Avatar onClick={onClick}>
+          <IconButton onClick={handleClick}>
             <PersonPinCircleTwoToneIcon />
-          </Avatar>
+          </IconButton>
         </ListItemAvatar>
         <ListItemText
           primaryTypographyProps={{ fontSize: "14px" }}
