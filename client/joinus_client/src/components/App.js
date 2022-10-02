@@ -9,6 +9,7 @@ import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
+// import Navbar from "../Navbar.js"
 import Nav from "./Nav";
 
 export const ThemeContext = createContext(null);

@@ -14,7 +14,7 @@ import {
   styled,
   TextField,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -39,7 +39,8 @@ export default function AddEvent() {
   
   const { userCreateEventSubmit } = userEvents()
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
+  const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
+  const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [event, setEvent] = useState({
     eventName: "",
     eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
@@ -50,12 +51,10 @@ export default function AddEvent() {
     lat: 51.0233064354121,
     lng: -114.02369425973428,
     start_time: "2022-10-13 05:00:00",
-    end_time: "2022-10-13 16:00:00"
+    end_time: "2022-10-13 17:00:00"
     });
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
+ 
   const handlePreventDefault = (e) => {
     e.preventDefault()
   }
@@ -93,7 +92,7 @@ export default function AddEvent() {
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-          {/* <form */}
+          <form onSubmit={userCreateEventSubmit}>
            <FormBox
             component="form"
             sx={{
@@ -101,13 +100,12 @@ export default function AddEvent() {
             }}
             noValidate
             autoComplete="off"
-            action={userCreateEventSubmit}
           >
             {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
 
             <TextField
               id="standard-basic"
-              label="Event Name"
+              label="name"
               variant="standard"
               // ref={inputEl}
               // onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
@@ -122,9 +120,19 @@ export default function AddEvent() {
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="Time"
-                value={value}
-                onChange={handleChange}
+                label="start_time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="end_time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -133,7 +141,7 @@ export default function AddEvent() {
 
             <TextField
               id="outlined-textarea"
-              label="Event Details"
+              label="detail"
               placeholder="..."
               multiline
               inputProps={{ maxLength: 300 }}
@@ -163,12 +171,13 @@ export default function AddEvent() {
                 variant="contained"
                 type="submit"
                 endIcon={<AddIcon />}
-                onClick={setOpen(false)}
+                onClick={(e) => setOpen(false)}
               >
                 Create
-              </Button>
-            </Stack>
-          </FormBox>
+                </Button>
+              </Stack>
+            </FormBox>
+          </form>
         </Box>
       </StyledModal>
     </>
