@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-const settings = ["Profile", "Settings", "Logout"];
+const settings = ["Events", "Settings", "Logout"];
 
 export default function NavDisplay(props) {
   const {

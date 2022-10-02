@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import dayjs from 'dayjs';
-import userEvents from '../../api/userEvents';
+import React, { useState } from "react";
+import dayjs from "dayjs";
+import userEvents from "../../api/userEvents";
 import CategoriesList from "./CategoriesList";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import {
   Button,
@@ -14,8 +14,7 @@ import {
   styled,
   TextField,
   Tooltip,
-  Typography
-
+  Typography,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -40,7 +39,7 @@ export default function AddEvent() {
   
   const { userCreateEventSubmit } = userEvents()
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(dayjs('2022-09-28T15:00:00'));
+  const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
   const [event, setEvent] = useState({
     eventName: "",
     eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
@@ -53,15 +52,6 @@ export default function AddEvent() {
     start_time: "2022-10-13 05:00:00",
     end_time: "2022-10-13 16:00:00"
     });
-  
-  // https://reactjs.org/docs/hooks-reference.html#useref
-  const inputEl = useRef(null)
-  const buttonClick = () => {
-    console.log(event)
-    console.log("--------------------")
-    // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
-    console.log(inputEl.current.children[1].children[0].value)
-  }
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -69,7 +59,6 @@ export default function AddEvent() {
   const handlePreventDefault = (e) => {
     e.preventDefault()
   }
-
 
   return (
     <>
@@ -135,12 +124,12 @@ export default function AddEvent() {
               <TimePicker
                 label="Time"
                 value={value}
-                onChange={(handleChange)}
+                onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
-            <CategoriesList/>
+            <CategoriesList />
 
             <TextField
               id="outlined-textarea"
@@ -150,11 +139,10 @@ export default function AddEvent() {
               inputProps={{ maxLength: 300 }}
             />
 
-            <Stack direction="row" justifyContent="left" >
-
+            <Stack direction="row" justifyContent="left">
               <input
                 accept="image/*"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
               />
@@ -163,22 +151,23 @@ export default function AddEvent() {
                   Upload Image
                 </Button>
               </label>
-
             </Stack>
 
-            <Stack direction="row" spacing={2} justifyContent="center" >
+            <Stack direction="row" spacing={2} justifyContent="center">
               <Button onClick={(e) => setOpen(false)} variant="outlined">
                 Cancel
               </Button>
               {/* <Button variant="contained" endIcon={<AddIcon />}> */}
               {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
-              {/* <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={userCreateEventSubmit}> */}
-              <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={buttonClick}>
+              <Button
+                variant="contained"
+                type="submit"
+                endIcon={<AddIcon />}
+                onClick={setOpen(false)}
+              >
                 Create
               </Button>
             </Stack>
-
-          {/* </form> */}
           </FormBox>
         </Box>
       </StyledModal>

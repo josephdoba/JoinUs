@@ -6,7 +6,7 @@ export default function Attendees(props) {
   const { attendeelist } = props;
 
   const avatar = attendeelist.map((person) => {
-    return <Avatar alt={person.name} src={person.picture} />;
+    return <Avatar key={person.id} alt={person.name} src={person.picture} />;
   });
 
   return (

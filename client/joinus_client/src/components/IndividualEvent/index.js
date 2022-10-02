@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { findEventAttendees } from "../../helpers/user_selectors";
 import EventDetails from "./EventDetails";
-import EventMapDetails from "./EventMapDetails";
+import EventMap from "./EventMap";
 import JoinEventButton from "./JoinEventButton";
 
 export default function IndividualEvent(props) {
@@ -22,7 +22,12 @@ export default function IndividualEvent(props) {
             name={event.name}
             attendeelist={attendeelist}
           />
-          <EventMapDetails />
+          <EventMap
+            start_time={event.start_time}
+            end_time={event.end_time}
+            lat={event.lat}
+            lng={event.lng}
+          />
         </Stack>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
