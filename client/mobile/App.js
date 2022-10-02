@@ -8,8 +8,6 @@
 
 import React from 'react';
 import {
-  View,
-  Text,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -23,6 +21,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Navbar from './src/components/Navbar';
 import UserScreen from './src/components/User/UserScreen';
 import HomeScreen from './src/components/Home';
+import EventScreen from './src/components/Event';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -34,13 +33,14 @@ const App = () => {
       {/* <SafeAreaView> */}
       {/* <StatusBar /> */}
       {/* <ScrollView> */}
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Event">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{title: 'Home'}}
         />
         <Stack.Screen name="User" component={UserScreen} />
+        <Stack.Screen name="Event" component={EventScreen} />
       </Stack.Navigator>
       {/* </ScrollView> */}
       {/* </SafeAreaView> */}
