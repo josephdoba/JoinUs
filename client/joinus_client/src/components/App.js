@@ -63,7 +63,7 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setEvent={setEvent}
+                  // setEvent={setEvent}
                   setUser={setUser}
                 />
               }

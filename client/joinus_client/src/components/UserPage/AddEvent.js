@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, setState, useRef } from "react";
 import dayjs from "dayjs";
-import userEvents from "../../api/userEvents";
+import useUserEvents from "../../api/useUserEvents";
 import CategoriesList from "./CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
@@ -37,42 +37,38 @@ export default function AddEvent() {
     justifyContent: "center",
   });
   
-  const { userCreateEventSubmit } = userEvents()
+  const [myEvent, setMyEvent] = useState("")
+  const { userCreateEventSubmit } = useUserEvents()
+
   const [open, setOpen] = useState(false);
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
-  const [event, setEvent] = useState({
-    eventName: "",
-    eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
-    eventDescription: "Me and my partner are new in town, and invite you to join us over a coffee", // random coffee photo
-    eventSizeLimit: 4,
-    eventCategory: 1, // Food & Dining
-    eventAddress: "", // Somehow needs to become lat & long fields... but for now, we can use these:
-    lat: 51.0233064354121,
-    lng: -114.02369425973428,
-    start_time: "2022-10-13 05:00:00",
-    end_time: "2022-10-13 17:00:00"
-    });
+
+  const [eventName, setEventName] = useState("")
+    /*
+  const [location, setLocation]=useState(“”)  
+  
+  onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
+*/
+  
  
   const handlePreventDefault = (e) => {
-    e.preventDefault()
+    
   }
   
   // https://reactjs.org/docs/hooks-reference.html#useref
-  const inputEl = useRef(null)
-  const buttonClick = () => {
-    console.log(event)
-    console.log("--------------------")
-    // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
-    console.log(inputEl.current.children[1].children[0].value)
-  }
+  // const inputEl = useRef(null)
+  // const buttonClick = () => {
+  //   console.log(myEvent)
+  //   console.log("--------------------")
+  //   // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
+  //   // console.log(inputEl.current.children[1].children[0].value)
+  // }
+
 
   return (
     <>
       <Tooltip
-        onClick={(e) => {
-          setOpen(true);
-        }}
         title="Create A New Event"
         sx={{
           position: "fixed",
@@ -80,13 +76,18 @@ export default function AddEvent() {
           left: { xs: "calc(50% - 25px)", md: 30 },
         }}
       >
-        <Fab variant="extended">
+        <Fab variant="extended"
+          onClick={(e) => {
+            setOpen(true);
+        }}
+        >
           <AddIcon sx={{ mr: 1 }} />
           New Event
         </Fab>
       </Tooltip>
 
-      <StyledModal
+{/* IT WAS AN ISSUE WITH <MODALSTYLE/> */}
+      <Modal
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
@@ -98,65 +99,113 @@ export default function AddEvent() {
         {/* https://codevoweb.com/form-validation-react-hook-form-material-ui-react/ */}
         {/* fab, filledInput, formControl, formControlLabel, formGroup, formHelperText, formLabel */}
 
-        <Box width={500} height={700} bgcolor="white" p={3} borderRadius={3}>
+        <Box 
+        width={500} 
+        height={700} 
+        bgcolor="white" 
+        p={3} 
+        borderRadius={3}
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "100%" },
+        }}
+        onSubmit={(event) => {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          const sendDataObj = {
+            eventName: data.get('label_eventName'),
+            eventAddress: data.get('label_eventAddress')
+          };
+          userCreateEventSubmit(sendDataObj)
+        }}
+        noValidate
+        >
+
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-          <form onSubmit={buttonClick}>
-           <FormBox
-            component="form"
+          {/* <form> */}
+           {/* <FormBox
+            // component="form"
             sx={{
               "& > :not(style)": { m: 1, width: "100%" },
             }}
-            noValidate
-            autoComplete="off"
-          >
+            // noValidate
+            // autoComplete="off"
+          > */}
             {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
 
             <TextField
               id="standard-basic"
-              label="name"
+              label="Event Name"
+              name="label_eventName"
               variant="standard"
-              ref={inputEl}
-              onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
+              value={eventName}
+              onChange={
+                (event) => {
+                  // event.preventDefault()
+                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  setEventName(event.target.value)
+                  console.log(event.target.value)
+              }}
+              // ref={inputEl}
+              // onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
+              //
+              
             />
+
 
             <TextField
               id="standard-basic"
               label="Full Address"
+              name="label_eventAddress"
               variant="standard"
+              value={myEvent.eventAddress}
+              onChange={
+                (event) => {
+                  event.preventDefault()
+                  setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  console.log(event)
+              }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="start_time"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
+                label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
+                // value={startTime}
+                // onChange={(e) => setStartTime(e.target.value)}
+                value={myEvent.start_time}
+                 onChange={
+                (event) => {
+                  event.preventDefault()
+                  setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  console.log(event)
+              }}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
             
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="end_time"
+                label="End Time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
                 renderInput={(params) => <TextField {...params} />}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
 
-            <CategoriesList />
+            {/* <CategoriesList /> */}
 
-            <TextField
+            {/* <TextField
               id="outlined-textarea"
-              label="detail"
+              label="Description"
               placeholder="..."
               multiline
               inputProps={{ maxLength: 300 }}
-            />
+            /> */}
 
-            <Stack direction="row" justifyContent="left">
+            {/* <Stack direction="row" justifyContent="left">
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -168,7 +217,7 @@ export default function AddEvent() {
                   Upload Image
                 </Button>
               </label>
-            </Stack>
+            </Stack> */}
 
             <Stack direction="row" spacing={2} justifyContent="center">
               <Button onClick={(e) => setOpen(false)} variant="outlined">
@@ -180,15 +229,162 @@ export default function AddEvent() {
                 variant="contained"
                 type="submit"
                 endIcon={<AddIcon />}
-                onClick={(e) => setOpen(false)}
+                
               >
                 Create
                 </Button>
               </Stack>
-            </FormBox>
-          </form>
+            {/* </FormBox> */}
+          {/* </form> */}
         </Box>
-      </StyledModal>
+      </Modal>
     </>
   );
 }
+
+
+/*
+
+This was a reference code sample while troubleshooting
+reference: https://github.com/mui/material-ui/blob/v5.10.6/docs/data/material/getting-started/templates/sign-in/SignIn.js
+
+-Joba
+
+import * as React from 'react';
+import { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { Modal } from '@mui/material';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+
+export default function SignIn() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [eventName, setEventName] = useState("")
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
+  return (
+    <>
+    <Button onClick={handleOpen}>Open modal</Button>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        >
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+
+
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+          >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={eventName}
+              onChange={
+                (event) => {
+                  // event.preventDefault()
+                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  setEventName(event.target.value)
+                  console.log(event.target.value)
+                }}
+                />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+              />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+    </Modal>
+    </>
+  );
+}
+*/

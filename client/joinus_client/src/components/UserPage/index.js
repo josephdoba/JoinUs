@@ -20,6 +20,7 @@ export default function Userpage(props) {
     joinedEvents,
     user,
   } = props;
+  
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0);
 

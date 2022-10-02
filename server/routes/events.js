@@ -32,18 +32,18 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-// router.post("/", (req, res) => {
-//   console.log("-----------------------", req.body)
-//   eventQueries
-//     .createEvent("Test Data from createEvent")
-//     .then((events) => {
-//       res.json(events);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
-// show event from event owner based on owner_id () -- Commented out for now, may need a similar function later for routing with react router.
+
+router.post("/", (req, res) => {
+  eventQueries
+    .createEvent("Test Data from createEvent")
+    .then((events) => {
+      res.json(events);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+// show event from event owner based on owner_id ()
 // router.get("/:id", (req: any, res: any) => {
 //   eventQueries
 //     .getEventByID(req)
