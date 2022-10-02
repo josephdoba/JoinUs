@@ -21,6 +21,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -30,22 +31,24 @@ import EventScreen from './src/components/Event';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
-    <NavigationContainer>
-      {/* <SafeAreaView> */}
-      {/* <StatusBar /> */}
-      {/* <ScrollView> */}
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Join Us!'}}
-        />
-        <Stack.Screen name="User" component={UserScreen} />
-        <Stack.Screen name="Event" component={EventScreen} />
-      </Stack.Navigator>
-      {/* </ScrollView> */}
-      {/* </SafeAreaView> */}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {/* <SafeAreaView> */}
+        {/* <StatusBar /> */}
+        {/* <ScrollView> */}
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{title: 'Join Us!'}}
+          />
+          <Stack.Screen name="User" component={UserScreen} />
+          <Stack.Screen name="Event" component={EventScreen} />
+        </Stack.Navigator>
+        {/* </ScrollView> */}
+        {/* </SafeAreaView> */}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
