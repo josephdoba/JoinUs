@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import dayjs from "dayjs";
 import userEvents from "../../api/userEvents";
 import CategoriesList from "./CategoriesList";
@@ -53,10 +53,18 @@ export default function AddEvent() {
     start_time: "2022-10-13 05:00:00",
     end_time: "2022-10-13 17:00:00"
     });
-
  
   const handlePreventDefault = (e) => {
     e.preventDefault()
+  }
+  
+  // https://reactjs.org/docs/hooks-reference.html#useref
+  const inputEl = useRef(null)
+  const buttonClick = () => {
+    console.log(event)
+    console.log("--------------------")
+    // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
+    console.log(inputEl.current.children[1].children[0].value)
   }
 
   return (
@@ -86,13 +94,15 @@ export default function AddEvent() {
       >
         {/* https://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components */}
         {/* https://stackoverflow.com/questions/65531477/how-to-post-form-data-using-material-ui-into-api */}
+        {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend */}
+        {/* https://codevoweb.com/form-validation-react-hook-form-material-ui-react/ */}
         {/* fab, filledInput, formControl, formControlLabel, formGroup, formHelperText, formLabel */}
 
         <Box width={500} height={700} bgcolor="white" p={3} borderRadius={3}>
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-          <form onSubmit={userCreateEventSubmit}>
+          <form onSubmit={buttonClick}>
            <FormBox
             component="form"
             sx={{
@@ -107,8 +117,7 @@ export default function AddEvent() {
               id="standard-basic"
               label="name"
               variant="standard"
-              // ref={inputEl}
-              // onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
+              ref={inputEl}
               onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
             />
 
@@ -117,7 +126,7 @@ export default function AddEvent() {
               label="Full Address"
               variant="standard"
             />
-
+{/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="start_time"
