@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import dayjs from 'dayjs';
-import userEvents from '../../api/userEvents';
+import dayjs from "dayjs";
+import userEvents from "../../api/userEvents";
 import CategoriesList from "./CategoriesList";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import {
   Button,
@@ -14,7 +14,7 @@ import {
   styled,
   TextField,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -23,7 +23,7 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent() {
-  const { userCreateEventSubmit } = userEvents()
+  const { userCreateEventSubmit } = userEvents();
 
   const StyledModal = styled(Modal)({
     display: "flex",
@@ -39,12 +39,11 @@ export default function AddEvent() {
   });
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(dayjs('2022-09-28T15:00:00'));
+  const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
 
   const handleChange = (newValue) => {
     setValue(newValue);
   };
-
 
   return (
     <>
@@ -80,7 +79,7 @@ export default function AddEvent() {
           </Typography>
           <FormBox
             component="form"
-            // 
+            //
             sx={{
               "& > :not(style)": { m: 1, width: "100%" },
             }}
@@ -113,12 +112,12 @@ export default function AddEvent() {
               <TimePicker
                 label="Time"
                 value={value}
-                onChange={(handleChange)}
+                onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
-            <CategoriesList/>
+            <CategoriesList />
 
             <TextField
               id="outlined-textarea"
@@ -128,11 +127,10 @@ export default function AddEvent() {
               inputProps={{ maxLength: 300 }}
             />
 
-            <Stack direction="row" justifyContent="left" >
-
+            <Stack direction="row" justifyContent="left">
               <input
                 accept="image/*"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
               />
@@ -141,20 +139,23 @@ export default function AddEvent() {
                   Upload Image
                 </Button>
               </label>
-
             </Stack>
 
-            <Stack direction="row" spacing={2} justifyContent="center" >
+            <Stack direction="row" spacing={2} justifyContent="center">
               <Button onClick={(e) => setOpen(false)} variant="outlined">
                 Cancel
               </Button>
               {/* <Button variant="contained" endIcon={<AddIcon />}> */}
               {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
-              <Button variant="contained" type="submit" endIcon={<AddIcon />} onClick={userCreateEventSubmit}>
+              <Button
+                variant="contained"
+                type="submit"
+                endIcon={<AddIcon />}
+                onClick={userCreateEventSubmit}
+              >
                 Create
               </Button>
             </Stack>
-
           </FormBox>
         </Box>
       </StyledModal>

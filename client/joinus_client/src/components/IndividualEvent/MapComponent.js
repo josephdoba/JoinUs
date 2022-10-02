@@ -1,15 +1,15 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const mapContainerStyle = {
   marginTop: "20px",
-  width: "400px",
-  height: "400px",
+  width: "500px",
+  height: "500px",
 };
 
 export default function MapComponent(props) {
   const [userCoords, setUserCoords] = useState(null);
-  const { lat, lng } = props;
+  const { lat, lng, setMap } = props;
 
   const onLoad = (marker) => {
     console.log("marker: ", marker);
@@ -29,16 +29,21 @@ export default function MapComponent(props) {
 
   // arggggg why is the marker not workign!!!!!!
 
-  const position = { lat, lng };
+  const center = { lat, lng };
   console.log(`event coords is ${lat}, ${lng}`);
 
   return (
     <GoogleMap
       zoom={12}
-      center={userCoords ? userCoords : position} // set the center to the user's coordinates or pin location
+      center={center ? center : userCoords} // set center to event location, or user's location
       mapContainerStyle={mapContainerStyle}
+      options={{
+        streetViewControl: false,
+        mapTypeControl: false,
+      }}
+      onLoad={(map) => setMap}
     >
-      <Marker position={position} onLoad={onLoad} />
+      <MarkerF position={center} onLoad={onLoad} />
     </GoogleMap>
   );
 }
