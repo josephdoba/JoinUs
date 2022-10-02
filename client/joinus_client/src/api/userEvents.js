@@ -22,9 +22,6 @@ export default function userEvents() {
     // https://masteringjs.io/tutorials/axios/put - It doesnt, it only turns a js object into JSON.
     axios.post("http://localhost:8080/api/events", testDummyData)
     .then(console.log("-------- data posting to db ------- "))
-    .then()
-    .then()
-
     .err(err => console.log(err));
     
     // axios.post(url[, data[, config]])
