@@ -34,8 +34,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  console.log("-----------------------", req.body)
   eventQueries
-    .createEvent("Test Data from createEvent")
+    .createEvent(req)
     .then((events) => {
       res.json(events);
     })
