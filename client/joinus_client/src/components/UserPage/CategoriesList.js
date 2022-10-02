@@ -5,13 +5,20 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function CategoriesList() {
+export default function CategoriesList(props) {
   const [category, setCategory] = useState('');
 
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
 
+  const { categoriesData } = props
+
+  const categories = categoriesData.map((category) => {
+    return (
+      <MenuItem value={category.id}>{category.name}</MenuItem>
+    )
+  })
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -23,9 +30,7 @@ export default function CategoriesList() {
           label="Category"
           onChange={handleChange}
         >
-          <MenuItem value={10}>1</MenuItem>
-          <MenuItem value={20}>2</MenuItem>
-          <MenuItem value={30}>3</MenuItem>
+          {categories}
         </Select>
       </FormControl>
     </Box>

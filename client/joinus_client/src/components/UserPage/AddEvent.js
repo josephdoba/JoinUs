@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
-export default function AddEvent() {
+export default function AddEvent(props) {
   const { userCreateEventSubmit } = userEvents();
 
   const StyledModal = styled(Modal)({
@@ -117,7 +117,7 @@ export default function AddEvent() {
               />
             </LocalizationProvider>
 
-            <CategoriesList />
+            <CategoriesList categoriesData={props.categoriesData}/>
 
             <TextField
               id="outlined-textarea"
