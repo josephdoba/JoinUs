@@ -1,12 +1,10 @@
 import {
   Avatar,
-  Box,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Stack,
 } from "@mui/material";
 import PersonPinCircleTwoToneIcon from "@mui/icons-material/PersonPinCircleTwoTone";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
