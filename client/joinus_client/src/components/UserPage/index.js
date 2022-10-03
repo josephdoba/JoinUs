@@ -70,6 +70,7 @@ export default function Userpage(props) {
             setEvent={setEvent}
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
+            user={user}
           />
         )}
         {showUserEvents === 1 && (
@@ -80,6 +81,7 @@ export default function Userpage(props) {
             setEvent={setEvent}
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
+            user={user}
           />
         )}
         {showUserEvents === 2 && (
@@ -90,6 +92,7 @@ export default function Userpage(props) {
             setEvent={setEvent}
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
+            user={user}
           />
         )}
         {showUserEvents === 3 && (
@@ -101,6 +104,7 @@ export default function Userpage(props) {
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
             showUserEvents={showUserEvents}
+            user={user}
           />
         )}
       </Stack>
