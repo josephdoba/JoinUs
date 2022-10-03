@@ -3,7 +3,7 @@ import MapComponent from "./MapComponent";
 import MapError from "./MapError";
 import { useLoadScript } from "@react-google-maps/api";
 import EventMapDetails from "./EventMapDetails";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, ListItemText } from "@mui/material";
 import {
   Combobox,
   ComboboxInput,
@@ -41,7 +41,7 @@ export default function EventMap(props) {
     <Box flex={"30%"} p={2}>
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
         <Search setSelected={setSelected} />
-        <MapComponent lat={lat} lng={lng} setMap={setMap} selected={selected} />
+        <MapComponent lat={lat} lng={lng} setMap={setMap} />
 
         <EventMapDetails
           start_time={start_time}
@@ -57,6 +57,7 @@ export default function EventMap(props) {
   );
 }
 
+// Autocomplete box for search.
 function Search({ setSelected }) {
   const {
     ready,
