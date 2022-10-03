@@ -14,7 +14,7 @@ import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
 import dayjs from "dayjs";
-import userEvents from "../../api/userEvents";
+import userEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
