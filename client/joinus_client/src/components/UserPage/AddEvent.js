@@ -125,8 +125,8 @@ export default function AddEvent(props) {
             // eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2, // error: invalid input syntax for type integer: "fromSizeLimit:2"
-            // eventCategory: data.get('label_eventCategory'),
-            eventCategory: 1,
+            eventCategory: data.get('label_eventCategory'),
+            // eventCategory: 1,
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
             start_time: "2022-10-13 05:00:00",

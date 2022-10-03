@@ -35,7 +35,7 @@ const createEvent = (eventObject: any) => {
         eventObject.body.eventName,
         eventObject.body.eventImage,
         eventObject.body.eventDescription,
-        2,1,// size_limit, owner_id, category (food & dining)
+        2,1,// size_limit, owner_id,
         eventObject.body.Category,
         51.0943441322179,
         -113.99897456996281,
