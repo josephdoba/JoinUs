@@ -6,7 +6,7 @@ import idea from "../../images/Idea.png";
 import chat from "../../images/chat.png";
 import meet from "../../images/meet.png";
 
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import JoinCard from "./JoinCard";
 import Header from "../Header";
 
@@ -57,13 +57,22 @@ export default function HowToJoin(props) {
   });
 
   return (
-    <>
-      <Container className="card-animation">
-        <Header id="how-to-join-title" title="How to use JoinUs!" />
-        <Stack direction="row" spacing={2}>
-          {joinInstructions}
-        </Stack>
-      </Container>
-    </>
+
+    <Container className="card-animation">
+      <Typography component="div" variant="h3" gutterBottom sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          p: 1,
+          m: 1,
+          bgcolor: 'background.paper',
+          borderRadius: 1,
+        }}>
+        How To Join US!
+      </Typography>
+      <Stack direction="row" spacing={2}>
+        {joinInstructions}
+      </Stack>
+    </Container>
+
   );
 }
