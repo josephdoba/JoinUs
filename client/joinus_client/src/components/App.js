@@ -49,7 +49,8 @@ const App = function () {
               path="/"
               element={
                 <div>
-                  <FunPhoto /> <Home event={event} />{" "}
+                  {/* <FunPhoto />  */}
+                  <Home event={event} />{" "}
                 </div>
               }
             />
