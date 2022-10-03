@@ -24,18 +24,35 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent(props) {
 
-  const StyledModal = styled(Modal)({
+  // const StyledModal = styled(Modal)({
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
+  
+  // // represents the elements inside the modal
+  // const FormBox = styled("Box")({
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
+
+  const StyledModal = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  });
+  };
   
-  const FormBox = styled("Box")({
+  // represents the elements inside the modal
+  const FormBox = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  });
+    "& > :not(style)": { m: 1, width: "100%" }
+  };
+
   
   // const [myEvent, setMyEvent] = useState("")
   const { userCreateEventSubmit } = useUserEvents()
@@ -90,12 +107,13 @@ export default function AddEvent(props) {
         </Fab>
       </Tooltip>
 
-{/* IT WAS AN ISSUE WITH <STYLEDMODAL/> (and potentially) <FORMBOX> */}
-      <Modal
+        <Modal
+
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={StyledModal}
       >
         {/* https://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components */}
         {/* https://stackoverflow.com/questions/65531477/how-to-post-form-data-using-material-ui-into-api */}
@@ -112,9 +130,7 @@ export default function AddEvent(props) {
         component="form"
         noValidate
         autoComplete="off"
-        sx={{
-          "& > :not(style)": { m: 1, width: "100%" },
-        }}
+        sx={FormBox}
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
@@ -125,8 +141,8 @@ export default function AddEvent(props) {
             // eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2, // error: invalid input syntax for type integer: "fromSizeLimit:2"
-            // eventCategory: data.get('label_eventCategory'),
-            eventCategory: 1,
+            eventCategory: data.get('label_eventCategory'),
+            // eventCategory: 1,
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
             start_time: "2022-10-13 05:00:00",
@@ -188,7 +204,7 @@ export default function AddEvent(props) {
               }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
@@ -198,12 +214,12 @@ export default function AddEvent(props) {
                 // value={myEvent.start_time}
                 onChange={
                   (event) => {
-                    event.preventDefault()
+                    // event.preventDefault();
                     setStartTime(prev => ({...prev, start_time: event.target.value}))
                     console.log(event)
               }}
               />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
             
             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -229,7 +245,7 @@ export default function AddEvent(props) {
             value={eventCategory}
             onChange={
             (event) => {
-              event.preventDefault()
+              event.preventDefault();
               setEventCategory(event.target.value)
               console.log(event)
           }}/>
@@ -249,8 +265,7 @@ export default function AddEvent(props) {
                   setEventDescription(event.target.value)
                   console.log(event.target.value)
               }}
-              
-            />
+               />
 
             <Stack direction="row" justifyContent="left">
               <input
