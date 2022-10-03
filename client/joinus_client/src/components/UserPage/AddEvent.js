@@ -107,11 +107,7 @@ export default function AddEvent(props) {
         </Fab>
       </Tooltip>
 
-{/* IT WAS AN ISSUE WITH <STYLEDMODAL/> (and potentially) <FORMBOX> */}
-      
-
-
-      <Modal
+        <Modal
 
         open={open}
         onClose={(e) => setOpen(false)}
@@ -208,7 +204,7 @@ export default function AddEvent(props) {
               }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
@@ -218,12 +214,12 @@ export default function AddEvent(props) {
                 // value={myEvent.start_time}
                 onChange={
                   (event) => {
-                    event.preventDefault()
+                    // event.preventDefault();
                     setStartTime(prev => ({...prev, start_time: event.target.value}))
                     console.log(event)
               }}
               />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
             
             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -249,7 +245,7 @@ export default function AddEvent(props) {
             value={eventCategory}
             onChange={
             (event) => {
-              event.preventDefault()
+              event.preventDefault();
               setEventCategory(event.target.value)
               console.log(event)
           }}/>
