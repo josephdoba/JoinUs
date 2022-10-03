@@ -14,29 +14,32 @@ const getEvents = () => {
     .catch((err) => console.error(err.stack));
 };
 
-//     .query(`
-// INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
-// ('coffee test', 'https://ptfc.co.uk/wp-content/uploads/2020/09/PTFC-this-is-a-test-event1090x630.jpg', 'Test description', 3, 1, 1, 51.0233064354121, -114.02369425973428, '2022-10-13 05:00:00', '2022-10-13 16:00:00');
-// `)
+/*
+    .query(`
+INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
+('coffee test', 'https://ptfc.co.uk/wp-content/uploads/2020/09/PTFC-this-is-a-test-event1090x630.jpg', 'Test description', 3, 1, 1, 51.0233064354121, -114.02369425973428, '2022-10-13 05:00:00', '2022-10-13 16:00:00');
+`)
+*/
 const createEvent = (eventObject: object) => {
+
+  // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
   const values = [
-    "fromValuesName",
-    "fromValuesImage",
-    "fromValuesDesc",
-    `fromSizeLimit:${2}`,
-    `fromOwnerId:${1}`,
-    `fromCatagory:${1}`,
-    `fromLat:${50.00}`,
-    `fromLng:${25.00}`,
-    "fromStartTime",
-    "fromEndTime"
-  ]
+      "fromValuesName",
+      "fromValuesImage",
+      "fromValuesDesc",
+      2,1,1,50.00,25.00,
+      '2022-10-13 05:00:00',
+      '2022-10-13 17:00:00'
+    ]
   return db
-  .query(createEventQuery, values)
+      .query(createEventQuery, values)
       .then((data) => data.rows)
-      .catch((err) => console.error(err.stack));
+      .catch((err) => {
+          console.error(err.stack)
+          console.log("error happened")
+        });
 };
 
 // const editEvent = (eventObject) => {

@@ -37,14 +37,23 @@ export default function AddEvent() {
     justifyContent: "center",
   });
   
-  const [myEvent, setMyEvent] = useState("")
+  // const [myEvent, setMyEvent] = useState("")
   const { userCreateEventSubmit } = useUserEvents()
 
   const [open, setOpen] = useState(false);
+  
+  // Form info State declarations:
+  const [eventName, setEventName] = useState("")
+  const [eventImage, setEventImage] = useState("")
+  const [eventDescription, setEventDescription] = useState("")
+  const [eventSizeLimit, setEventSizeLimit] = useState("") // []
+  const [eventCategory, setEventCategory] = useState("")
+  const [eventAddress, setEventAddress] = useState("")
+  const [eventLat, setEventLat] = useState("") // []
+  const [eventLng, setEventLng] = useState("") // []
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
-  const [eventName, setEventName] = useState("")
     /*
   const [location, setLocation]=useState(“”)  
   
@@ -81,7 +90,7 @@ export default function AddEvent() {
         </Fab>
       </Tooltip>
 
-{/* IT WAS AN ISSUE WITH <MODALSTYLE/> */}
+{/* IT WAS AN ISSUE WITH <STYLEDMODAL/> (and potentially) <FORMBOX> */}
       <Modal
         open={open}
         onClose={(e) => setOpen(false)}
@@ -101,6 +110,8 @@ export default function AddEvent() {
         p={3} 
         borderRadius={3}
         component="form"
+        noValidate
+        autoComplete="off"
         sx={{
           "& > :not(style)": { m: 1, width: "100%" },
         }}
@@ -109,32 +120,44 @@ export default function AddEvent() {
           const data = new FormData(event.currentTarget);
           const sendDataObj = {
             eventName: data.get('label_eventName'),
-            eventAddress: data.get('label_eventAddress')
+            eventAddress: data.get('label_eventAddress'),
+            // eventImage: data.get('label_eventImage'),
+            eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
+            eventDescription: data.get('label_eventDescription'),
+            eventSizeLimit: 2, // error: invalid input syntax for type integer: "fromSizeLimit:2"
+            // eventCategory: data.get('label_eventCategory'),
+            eventCategory: 1,
+            lat: 51.0233064354121, // will eventually need to generate these values from address
+            lng: -114.02369425973428,
+            start_time: "2022-10-13 05:00:00",
+            // start_time: data.get('label_start_time'),
+            end_time: "2022-10-13 17:00:00"
+            // end_time: data.get('label_end_time')
           };
+
           userCreateEventSubmit(sendDataObj)
         }}
-        noValidate
         >
 
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
           {/* <form> */}
-           {/* <FormBox
+           {/* <FormBox 
             // component="form"
             sx={{
               "& > :not(style)": { m: 1, width: "100%" },
             }}
             // noValidate
             // autoComplete="off"
-          > */}
+          >*/}
             {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
 
             <TextField
               id="standard-basic"
               label="Event Name"
-              name="label_eventName"
               variant="standard"
+              name="label_eventName"
               value={eventName}
               onChange={
                 (event) => {
@@ -153,14 +176,14 @@ export default function AddEvent() {
             <TextField
               id="standard-basic"
               label="Full Address"
-              name="label_eventAddress"
               variant="standard"
-              value={myEvent.eventAddress}
+              name="label_eventAddress"
+              value={eventAddress}
               onChange={
                 (event) => {
                   event.preventDefault()
-                  setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  console.log(event)
+                  setEventAddress(event.target.value)
+                  console.log(event.target.value)
               }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
@@ -168,14 +191,15 @@ export default function AddEvent() {
               <TimePicker
                 label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
-                // value={startTime}
+                name="label_start_time"
+                value={startTime}
                 // onChange={(e) => setStartTime(e.target.value)}
-                value={myEvent.start_time}
-                 onChange={
-                (event) => {
-                  event.preventDefault()
-                  setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  console.log(event)
+                // value={myEvent.start_time}
+                onChange={
+                  (event) => {
+                    event.preventDefault()
+                    setStartTime(prev => ({...prev, start_time: event.target.value}))
+                    console.log(event)
               }}
               />
             </LocalizationProvider> */}
@@ -183,36 +207,71 @@ export default function AddEvent() {
             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="End Time"
+                name="label_end_time"
                 value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
+                // onChange={(e) => setEndTime(e.target.value)}
+                // value={myEvent.end_time}
+                onChange={
+                  (event) => {
+                    event.preventDefault()
+                    setEndTime(prev => ({...prev, end_time: event.target.value}))
+                    console.log(event)
+              }}
                 // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider> */}
 
-            {/* <CategoriesList /> */}
+            <CategoriesList 
+            name="label_eventCategory"
+            value={eventCategory}
+            onChange={
+            (event) => {
+              event.preventDefault()
+              setEventCategory(event.target.value)
+              console.log(event)
+          }}/>
 
-            {/* <TextField
+            <TextField
               id="outlined-textarea"
               label="Description"
               placeholder="..."
               multiline
               inputProps={{ maxLength: 300 }}
-            /> */}
+              name="label_eventDescription"
+              value={eventDescription}
+              onChange={
+                (event) => {
+                  // event.preventDefault()
+                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  setEventDescription(event.target.value)
+                  console.log(event.target.value)
+              }}
+              
+            />
 
-            {/* <Stack direction="row" justifyContent="left">
+            <Stack direction="row" justifyContent="left">
               <input
                 accept="image/*"
                 style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
+                name="label_eventImage"
+                value={eventImage}
+                onChange={
+                (event) => {
+                  // event.preventDefault()
+                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  setEventImage(event.target.value)
+                  console.log(event.target.value)
+              }}
               />
               <label htmlFor="raised-button-file">
                 <Button variant="text" component="span" endIcon={<AddIcon />}>
                   Upload Image
                 </Button>
               </label>
-            </Stack> */}
+            </Stack>
 
             <Stack direction="row" spacing={2} justifyContent="center">
               <Button onClick={(e) => setOpen(false)} variant="outlined">
@@ -230,7 +289,7 @@ export default function AddEvent() {
                 </Button>
               </Stack>
             {/* </FormBox> */}
-          {/* </form> */}
+
         </Box>
       </Modal>
     </>

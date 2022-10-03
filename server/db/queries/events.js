@@ -26,18 +26,17 @@ const createEvent = (eventObject) => {
         "fromValuesName",
         "fromValuesImage",
         "fromValuesDesc",
-        `fromSizeLimit:${2}`,
-        `fromOwnerId:${1}`,
-        `fromCatagory:${1}`,
-        `fromLat:${50.00}`,
-        `fromLng:${25.00}`,
-        "fromStartTime",
-        "fromEndTime"
+        2,1,1,50.00,25.00,
+        '2022-10-13 05:00:00',
+        '2022-10-13 17:00:00'
       ]
     return connection_1.db
         .query(createEventQuery, values)
         .then((data) => data.rows)
-        .catch((err) => console.error(err.stack));
+        .catch((err) => {
+            console.error(err.stack)
+            console.log("error happened")
+          });
 };
 
 // const editEvent = (eventObject) => {
