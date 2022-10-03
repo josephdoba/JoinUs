@@ -27,10 +27,8 @@ export default function MapComponent(props) {
     });
   }, []);
 
-  // arggggg why is the marker not workign!!!!!!
-
+  // event coordinates
   const center = { lat, lng };
-  console.log(`event coords is ${lat}, ${lng}`);
 
   return (
     <GoogleMap
