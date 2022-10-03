@@ -14,7 +14,6 @@ const express_1 = __importDefault(require("express"));
 // const db = require("../db/connection");
 const events_1 = __importDefault(require("../db/queries/events"));
 const router = express_1.default.Router();
-
 // api route for category list
 router.get("/categories", (req, res) => {
     events_1.default
@@ -22,7 +21,6 @@ router.get("/categories", (req, res) => {
         .then((categories) => res.json(categories))
         .catch((err) => res.status(500).json({ error: err.message }));
 });
-
 // api route for all events
 router.get("/", (req, res) => {
     events_1.default
@@ -34,20 +32,18 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-
 // api route for create event
 router.post("/", (req, res) => {
-  console.log("-----------------------", req.body)
-  events_1.default.createEvent(req)
-    .then((events) => {
-      res.json(events);
+    console.log("-----------------------", req.body);
+    events_1.default
+        .createEvent(req)
+        .then((events) => {
+        res.json(events);
     })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
     });
 });
-
-
 // show event from event owner based on owner_id ()
 // router.get("/:id", (req: any, res: any) => {
 //   eventQueries

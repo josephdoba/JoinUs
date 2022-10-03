@@ -20,19 +20,41 @@ INSERT INTO events(name, image, description, size_limit, owner_id, category, lat
 ('coffee test', 'https://ptfc.co.uk/wp-content/uploads/2020/09/PTFC-this-is-a-test-event1090x630.jpg', 'Test description', 3, 1, 1, 51.0233064354121, -114.02369425973428, '2022-10-13 05:00:00', '2022-10-13 16:00:00');
 `)
 */
-const createEvent = (eventObject: object) => {
+
+/*
+// Ayyyyy so, uh, I tried having this as eventObject: object, however TS decided not to allow that... Had to change it to Any for now.
+https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-request-body-in-typescript
+-Joba
+*/
+const createEvent = (eventObject: any) => {
 
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
-  const values = [
-      "fromValuesName",
-      "fromValuesImage",
-      "fromValuesDesc",
-      2,1,1,50.00,25.00,
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
+    const values = [
+        eventObject.body.eventName,
+        eventObject.body.eventImage,
+        eventObject.body.eventDescription,
+        2,1,// size_limit, owner_id, category (food & dining)
+        eventObject.body.Category,
+        51.0943441322179,
+        -113.99897456996281,
+        '2022-10-13 05:00:00',
+        '2022-10-13 16:00:00'
+      ];
+
+    /*
+    const values = [
+      eventObject.body.eventName,
+      eventObject.body.eventImage,
+      eventObject.body.eventDescription,
+      2,1,1, // size_limit, owner_id, category (food & dining)
+      51.0943441322179,
+      -113.99897456996281,
       '2022-10-13 05:00:00',
-      '2022-10-13 17:00:00'
+      '2022-10-13 16:00:00'
     ]
+    */
   return db
       .query(createEventQuery, values)
       .then((data) => data.rows)

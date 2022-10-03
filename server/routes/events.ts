@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// show event from event owner based on owner_id () 
+// show event from event owner based on owner_id ()
 
 // router.get("/:id", (req: any, res: any) => {
 //   eventQueries
