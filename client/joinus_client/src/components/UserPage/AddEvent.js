@@ -24,18 +24,35 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent(props) {
 
-  const StyledModal = styled(Modal)({
+  // const StyledModal = styled(Modal)({
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
+  
+  // // represents the elements inside the modal
+  // const FormBox = styled("Box")({
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
+
+  const StyledModal = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  });
+  };
   
-  const FormBox = styled("Box")({
+  // represents the elements inside the modal
+  const FormBox = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  });
+    "& > :not(style)": { m: 1, width: "100%" }
+  };
+
   
   // const [myEvent, setMyEvent] = useState("")
   const { userCreateEventSubmit } = useUserEvents()
@@ -91,11 +108,16 @@ export default function AddEvent(props) {
       </Tooltip>
 
 {/* IT WAS AN ISSUE WITH <STYLEDMODAL/> (and potentially) <FORMBOX> */}
+      
+
+
       <Modal
+
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={StyledModal}
       >
         {/* https://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components */}
         {/* https://stackoverflow.com/questions/65531477/how-to-post-form-data-using-material-ui-into-api */}
@@ -112,9 +134,7 @@ export default function AddEvent(props) {
         component="form"
         noValidate
         autoComplete="off"
-        sx={{
-          "& > :not(style)": { m: 1, width: "100%" },
-        }}
+        sx={FormBox}
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
@@ -249,8 +269,7 @@ export default function AddEvent(props) {
                   setEventDescription(event.target.value)
                   console.log(event.target.value)
               }}
-              
-            />
+               />
 
             <Stack direction="row" justifyContent="left">
               <input
