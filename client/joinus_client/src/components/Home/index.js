@@ -1,12 +1,13 @@
+import { Container } from "@mui/material";
 import { Fragment } from "react";
 import Herobanner from "./Herobanner";
 import HowToJoin from "./HowToJoin";
 
 export default function Home() {
   return (
-    <Fragment>
+    <Container maxWidth={"lg"}>
       <Herobanner />
       <HowToJoin />
-    </Fragment>
+    </Container>
   );
 }
