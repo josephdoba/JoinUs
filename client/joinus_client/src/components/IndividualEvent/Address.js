@@ -8,7 +8,6 @@ export default function Address({ lat, lng }) {
   useEffect(() => {
     const location = { lat, lng };
     getGeocode({ location }).then((results) => {
-      console.log(results);
       setAddress(results[0].formatted_address);
     });
   });
