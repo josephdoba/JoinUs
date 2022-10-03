@@ -78,7 +78,7 @@ export default function Nav(props) {
   return (
     <AppBar
       position="static"
-      style={{ background: "#595959", boxShadow: "none" }}
+      style={{ background: "inherit", boxShadow: "none" }}
     >
       <Container maxWidth="100%">
         <Toolbar disableGutters>
