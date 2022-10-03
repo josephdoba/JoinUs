@@ -17,11 +17,11 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Header from './src/components/Header';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -36,6 +36,7 @@ const App = () => {
         {/* <SafeAreaView> */}
         {/* <StatusBar /> */}
         {/* <ScrollView> */}
+        <Header />
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
