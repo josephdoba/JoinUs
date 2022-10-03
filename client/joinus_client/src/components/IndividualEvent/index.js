@@ -21,6 +21,7 @@ export default function IndividualEvent(props) {
             image={event.image}
             name={event.name}
             attendeelist={attendeelist}
+            size_limit={event.size_limit}
           />
           <EventMap
             start_time={event.start_time}

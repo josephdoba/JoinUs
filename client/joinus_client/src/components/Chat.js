@@ -20,7 +20,7 @@ function Chat() {
 
 	async function submitHandler () {
 		await wait(250)
-    navigate('/user/homepage')
+    navigate('/user')
   }
 
 	useEffect(
