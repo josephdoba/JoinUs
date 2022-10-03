@@ -12,7 +12,7 @@ import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import Attendees from "./Atendees";
 
 export default function EventDetails(props) {
-  const { attendeelist, description, image, name } = props;
+  const { attendeelist, description, image, name, size_limit } = props;
   const navigate = useNavigate();
 
   async function submitHandler() {
@@ -54,9 +54,9 @@ export default function EventDetails(props) {
             Details
           </Typography>
 
-          <AttendeeNumDisplay attendeelist={attendeelist} />
+          <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit}/>
 
-          <Attendees attendeelist={attendeelist} />
+          <Attendees attendeelist={attendeelist}/>
 
           <Button size="small" variant="text" onClick={submitHandler}>
             Join Chat

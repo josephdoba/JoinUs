@@ -43,6 +43,7 @@ export default function Events(props) {
           setEvent={setEvent}
           attendeelist={attendeelist}
           categoriesData={categoriesData}
+          size_limit={e.size_limit}
         />
       );
     });

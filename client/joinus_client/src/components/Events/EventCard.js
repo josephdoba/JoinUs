@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
+import Error from './Error'
 
 import { formatTime } from "../../helpers/helpers";
 import { shortenText } from "../../helpers/helpers";
@@ -48,7 +49,8 @@ export default function EventCard(props) {
     eventsData,
     setEvent,
     owner_id,
-    user
+    user,
+    size_limit
   } = props;
 
 
@@ -69,6 +71,7 @@ export default function EventCard(props) {
   });
 
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
   const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
 
   const handleChange = (newValue) => {
@@ -98,6 +101,12 @@ export default function EventCard(props) {
     navigate(`/event`);
   }
 
+  const joinEvent = () => {
+    if (attendeelist.length >= size_limit) {
+      setError(true);
+    }
+  }
+
   return (
     <Grid item xs={4}>
       <Card sx={{ maxWidth: 380, maxHeight: 380 }}>
@@ -122,16 +131,16 @@ export default function EventCard(props) {
                 <Button onClick={(e) => setOpen(true)} size="small">
                   Edit Event
                 </Button>
-                <AttendeeNumDisplay attendeelist={attendeelist} />
+                <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit} />
               </CardActions>
       : <CardActions>
       <Button onClick={submitHandler} size="small">
         Learn More
       </Button>
-      <Button onClick={() => {}} size="small">
+      <Button onClick={joinEvent} size="small">
         Join Event
       </Button>
-      <AttendeeNumDisplay attendeelist={attendeelist} />
+      <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit}/>
     </CardActions> }
       </Card>
       <StyledModal
@@ -220,6 +229,7 @@ export default function EventCard(props) {
           </FormBox>
         </Box>
       </StyledModal>
+        <Error open={error} setOpen={setError}/>
     </Grid>
   );
 }
