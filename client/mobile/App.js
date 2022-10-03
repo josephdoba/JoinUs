@@ -21,7 +21,8 @@ import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import Header from './src/components/Header';
+import Header from './src/components/NavBar';
+import NavBar from './src/components/NavBar';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -36,7 +37,7 @@ const App = () => {
         {/* <SafeAreaView> */}
         {/* <StatusBar /> */}
         {/* <ScrollView> */}
-        <Header />
+        <NavBar />
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
