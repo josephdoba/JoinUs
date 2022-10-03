@@ -18,7 +18,8 @@ export default function Events(props) {
     selectedCategory,
     usersData,
     joinedEvents,
-    showUserEvents
+    showUserEvents,
+    user
   } = props;
 
   const displayEventCard = (eventArr) => {
@@ -33,12 +34,16 @@ export default function Events(props) {
           name={e.name}
           image={e.image}
           description={e.description}
+          user={user}
+          owner_id={e.owner_id}
           category={category}
           start_time={e.start_time}
           end_time={e.end_time}
           eventsData={eventsData}
           setEvent={setEvent}
           attendeelist={attendeelist}
+          categoriesData={categoriesData}
+          size_limit={e.size_limit}
         />
       );
     });
