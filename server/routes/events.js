@@ -32,10 +32,11 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+// api route for create event
 router.post("/", (req, res) => {
     console.log("-----------------------", req.body);
     events_1.default
-        .createEvent("Test Data from createEvent")
+        .createEvent(req)
         .then((events) => {
         res.json(events);
     })
@@ -43,7 +44,7 @@ router.post("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-// show event from event owner based on owner_id () -- Commented out for now, may need a similar function later for routing with react router.
+// show event from event owner based on owner_id ()
 // router.get("/:id", (req: any, res: any) => {
 //   eventQueries
 //     .getEventByID(req)

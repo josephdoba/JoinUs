@@ -9,6 +9,7 @@ import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
+// import Navbar from "../Navbar.js"
 import Nav from "./Nav";
 
 export const ThemeContext = createContext(null);
@@ -63,7 +64,7 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setEvent={setEvent}
+                  // setEvent={setEvent}
                   setUser={setUser}
                 />
               }

@@ -9,12 +9,10 @@ dotenv_1.default.config();
 // Web server config
 const PORT = process.env.PORT || 8080;
 const express_1 = __importDefault(require("express"));
-const http_1 = __importDefault(require("http"));
-const socket_io_1 = __importDefault(require("socket.io"));
 const app = (0, express_1.default)();
 const morgan_1 = __importDefault(require("morgan"));
-const Server = new http_1.default.Server(app);
-const io = (0, socket_io_1.default)(Server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const cors_1 = __importDefault(require("cors"));
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -41,6 +39,6 @@ io.on('connection', (socket) => {
         io.emit('message', { name, message });
     });
 });
-Server.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
 });

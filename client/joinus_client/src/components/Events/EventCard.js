@@ -115,10 +115,10 @@ export default function EventCard(props) {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography gutterBottom variant="body2" color="text.secondary">
+          {/* <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
-          </Typography>
+          </Typography> */}
           <Typography variant="paragraph">
             {shortenText(description)}
           </Typography>

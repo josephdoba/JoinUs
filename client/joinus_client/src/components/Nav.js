@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
+import { redirect } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
 import ReactSwitch from "react-switch";
 
@@ -26,7 +31,6 @@ export default function Nav(props) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    navigate("/user");
   };
 
   const handleLogout = () => {
@@ -47,6 +51,9 @@ export default function Nav(props) {
     setOpen(false);
   };
 
+  // end
+  // Kyler's code
+
   function wait(time) {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
@@ -62,9 +69,7 @@ export default function Nav(props) {
     await wait(500);
     navigate("/user");
   }
-  // end of login popup
 
-  //set the user
   const check = reactLocalStorage.getObject("currentUser");
   const findUserByID = (id, usersData) => {
     const current = usersData[id - 1];
@@ -73,7 +78,6 @@ export default function Nav(props) {
   };
 
   findUserByID(check.id, usersData);
-  // set user end
 
   return (
     <AppBar
