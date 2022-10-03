@@ -15,8 +15,6 @@ import { useState } from "react";
 //   "end_time": "2022-10-13 16:00:00"
 //   };
 
-  
-
 export default function useUserEvents() {
   // const [myEvent, setMyEvent] = useState({
   //   eventName: "",
