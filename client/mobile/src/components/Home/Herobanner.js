@@ -4,7 +4,10 @@ import React from 'react';
 const Herobanner = () => {
   return (
     <>
-      <Text style={styles.title}>Come and Join Us!</Text>
+      <Image
+        style={styles.logo}
+        source={require('../../images/logo_light.png')}
+      />
       <Image
         style={styles.bannerImage}
         source={require('../../images/running.png')}
@@ -35,5 +38,9 @@ const styles = StyleSheet.create({
   bannerImage: {
     height: 350,
     width: 350,
+  },
+  logo: {
+    height: 100,
+    width: 100,
   },
 });

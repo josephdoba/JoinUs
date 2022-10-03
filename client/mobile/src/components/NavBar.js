@@ -6,17 +6,19 @@ import {StyleSheet} from 'react-native';
 const NavBar = ({navigation}) => {
   return (
     <Header
+      style={styles.headerContainer}
+      backgroundColor="#94B49F"
       backgroundImageStyle={{}}
-      barStyle="default"
+      barStyle="light-content"
       centerComponent={{
         text: 'JoinUs!',
-        style: {color: '#fff'},
+        style: styles.heading,
       }}
       centerContainerStyle={{}}
       containerStyle={{width: '100%'}}
       leftComponent={
         <Icon
-          color="#0CC"
+          color="#595959"
           containerStyle={{}}
           disabledStyle={{}}
           iconProps={{}}
@@ -32,7 +34,7 @@ const NavBar = ({navigation}) => {
       placement="center"
       rightComponent={
         <Icon
-          color="#0CC"
+          color="#595959"
           name="home"
           onPress={() => console.log('onPress()')}
           size={30}
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   heading: {
-    color: 'white',
+    color: '#595959',
     fontSize: 22,
     fontWeight: 'bold',
   },
