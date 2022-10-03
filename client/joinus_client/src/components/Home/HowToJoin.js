@@ -64,7 +64,7 @@ export default function HowToJoin(props) {
           justifyContent: 'center',
           p: 1,
           m: 1,
-          bgcolor: 'background.paper',
+          bgcolor: 'inherit',
           borderRadius: 1,
         }}>
         How To Join US!
