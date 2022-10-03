@@ -42,8 +42,8 @@ INSERT INTO categories (name) VALUES
 ('Alcohol & Beverages'), 5
 ('Movies & Theatre'), 6
 ('Live Music'), 7
-('Chatting & Philosophy'), 8 
-('Water Sports'), 9 
+('Chatting & Philosophy'), 8
+('Water Sports'), 9
 ('Entrepreneurial & Business'), 10
 ('Arts'), 11
 ('Health & Wellness'); 12
