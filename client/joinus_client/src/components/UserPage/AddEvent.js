@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
-export default function AddEvent() {
+export default function AddEvent(props) {
 
   const StyledModal = styled(Modal)({
     display: "flex",

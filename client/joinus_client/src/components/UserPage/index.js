@@ -31,7 +31,6 @@ export default function Userpage(props) {
     joinedEvents
   );
   const eventHistory = pastEvents(eventsData);
-  console.log(eventHistory);
 
   // if there is a selected category, a button to clear the chips appear
   const clearCategories = (selectedCategory) => {
@@ -105,7 +104,7 @@ export default function Userpage(props) {
           />
         )}
       </Stack>
-      <AddEvent />
+      <AddEvent categoriesData={categoriesData}/>
     </Box>
   );
 }
