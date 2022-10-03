@@ -121,8 +121,8 @@ export default function AddEvent() {
           const sendDataObj = {
             eventName: data.get('label_eventName'),
             eventAddress: data.get('label_eventAddress'),
-            // eventImage: data.get('label_eventImage'),
-            eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
+            eventImage: data.get('label_eventImage'),
+            // eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2, // error: invalid input syntax for type integer: "fromSizeLimit:2"
             // eventCategory: data.get('label_eventCategory'),
@@ -136,6 +136,7 @@ export default function AddEvent() {
           };
 
           userCreateEventSubmit(sendDataObj)
+          setOpen(false)
         }}
         >
 
@@ -264,6 +265,7 @@ export default function AddEvent() {
                   // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventImage(event.target.value)
                   console.log(event.target.value)
+                  console.log(`from event Image state: ${eventImage}`)
               }}
               />
               <label htmlFor="raised-button-file">
