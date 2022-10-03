@@ -223,7 +223,8 @@ export default function AddEvent(props) {
               />
             </LocalizationProvider> */}
 
-            <CategoriesList 
+            <CategoriesList
+            categoriesData={props.categoriesData}
             name="label_eventCategory"
             value={eventCategory}
             onChange={
