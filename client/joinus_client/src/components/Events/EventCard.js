@@ -153,6 +153,7 @@ export default function EventCard(props) {
         <Box width={500} height={700} bgcolor="white" p={3} borderRadius={3}>
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
+            {/* if  */}
           </Typography>
           <FormBox
             component="form"

@@ -23,20 +23,7 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function AddEvent(props) {
-
-  // const StyledModal = styled(Modal)({
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // });
-  
-  // // represents the elements inside the modal
-  // const FormBox = styled("Box")({
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // });
+  const imageRef = useRef()
 
   const StyledModal = {
     display: "flex",
@@ -77,16 +64,6 @@ export default function AddEvent(props) {
   onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
 */
   
-  // https://reactjs.org/docs/hooks-reference.html#useref
-  // const inputEl = useRef(null)
-  // const buttonClick = () => {
-  //   console.log(myEvent)
-  //   console.log("--------------------")
-  //   // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
-  //   // console.log(inputEl.current.children[1].children[0].value)
-  // }
-
-
   return (
     <>
       <Tooltip
@@ -108,7 +85,6 @@ export default function AddEvent(props) {
       </Tooltip>
 
         <Modal
-
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
@@ -134,10 +110,12 @@ export default function AddEvent(props) {
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
+          console.log(data.get("label_start_time"))
           const sendDataObj = {
             eventName: data.get('label_eventName'),
             eventAddress: data.get('label_eventAddress'),
-            eventImage: data.get('label_eventImage'),
+            // eventImage: data.get('label_eventImage'),
+            eventImage,
             // eventImage: "https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg",
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2, // error: invalid input syntax for type integer: "fromSizeLimit:2"
@@ -145,10 +123,10 @@ export default function AddEvent(props) {
             // eventCategory: 1,
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
-            start_time: "2022-10-13 05:00:00",
-            // start_time: data.get('label_start_time'),
-            end_time: "2022-10-13 17:00:00"
-            // end_time: data.get('label_end_time')
+            // start_time: "2022-10-13 05:00:00",
+            start_time: startTime,
+            // end_time: "2022-10-13 17:00:00"
+            end_time: endTime
           };
 
           userCreateEventSubmit(sendDataObj)
@@ -159,17 +137,6 @@ export default function AddEvent(props) {
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-          {/* <form> */}
-           {/* <FormBox 
-            // component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "100%" },
-            }}
-            // noValidate
-            // autoComplete="off"
-          >*/}
-            {/* https://stackoverflow.com/questions/59862828/how-to-connect-button-to-form-submission-using-material-ui-cards */}
-
             <TextField
               id="standard-basic"
               label="Event Name"
@@ -181,12 +148,8 @@ export default function AddEvent(props) {
                   // event.preventDefault()
                   // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventName(event.target.value)
-                  console.log(event.target.value)
               }}
-              // ref={inputEl}
-              // onChange={(e) => setEvent(e.inputEl.current.children[1].children[0].value)}
-              //
-              
+
             />
 
 
@@ -200,28 +163,30 @@ export default function AddEvent(props) {
                 (event) => {
                   event.preventDefault()
                   setEventAddress(event.target.value)
-                  console.log(event.target.value)
               }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="Start Time"
+                label="label_start_time"
                 renderInput={(params) => <TextField {...params} />}
-                name="label_start_time"
+                // name="label_start_time" // TimePicker does not hav ea name prop
                 value={startTime}
                 // onChange={(e) => setStartTime(e.target.value)}
                 // value={myEvent.start_time}
                 onChange={
                   (event) => {
                     // event.preventDefault();
-                    setStartTime(prev => ({...prev, start_time: event.target.value}))
-                    console.log(event)
+                    // console.log(event)
+                    // console.log(event.$d)
+                    // setStartTime(prev => ({...prev, start_time: event.$d}))
+                    setStartTime(event.$d.toString())
+                    // console.log(startTime)
               }}
               />
             </LocalizationProvider>
             
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="End Time"
                 name="label_end_time"
@@ -230,25 +195,24 @@ export default function AddEvent(props) {
                 // value={myEvent.end_time}
                 onChange={
                   (event) => {
-                    event.preventDefault()
-                    setEndTime(prev => ({...prev, end_time: event.target.value}))
-                    console.log(event)
+                    // event.preventDefault()
+                    // setEndTime(prev => ({...prev, end_time: event.target.value}))
+                    setEndTime(event.$d.toString())
               }}
                 // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
                 renderInput={(params) => <TextField {...params} />}
               />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
 
             <CategoriesList
             categoriesData={props.categoriesData}
-            name="label_eventCategory"
-            value={eventCategory}
-            onChange={
-            (event) => {
-              event.preventDefault();
-              setEventCategory(event.target.value)
-              console.log(event)
-          }}/>
+            eventCategory={eventCategory}
+            setEventCategory={setEventCategory}
+            // onChange={
+            // (event) => {
+            //   event.preventDefault();
+            //   setEventCategory(event.target.value)}
+            />
 
             <TextField
               id="outlined-textarea"
@@ -263,25 +227,33 @@ export default function AddEvent(props) {
                   // event.preventDefault()
                   // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventDescription(event.target.value)
-                  console.log(event.target.value)
               }}
                />
 
             <Stack direction="row" justifyContent="left">
               <input
+                ref={imageRef}
                 accept="image/*"
                 style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
                 name="label_eventImage"
-                value={eventImage}
+                // value={eventImage.toString()}
                 onChange={
                 (event) => {
+                  // let url = URL.createObjectURL(file)
+                  const reader = new FileReader();
+                  // console.log(imageRef)
+                  // console.log(event.target.files)
+                  console.log(URL.createObjectURL(imageRef.current.files[0]).url)
+                  // console.log(imageRef.current.files[0])
+                  // console.log(event.target)
                   // event.preventDefault()
                   // setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  setEventImage(event.target.value)
-                  console.log(event.target.value)
-                  console.log(`from event Image state: ${eventImage}`)
+                  // console.log(`setEventImage to: ${event.target.value}`)
+                  // setEventImage(event.target.value)
+                  setEventImage(URL.createObjectURL(imageRef.current.files[0]))
+                  // console.log(`eventImage state: ${eventImage}`)
               }}
               />
               <label htmlFor="raised-button-file">

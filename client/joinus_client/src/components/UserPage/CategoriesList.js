@@ -6,9 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function CategoriesList(props) {
+  console.log(props)
   const [category, setCategory] = useState('');
 
   const handleChange = (event) => {
+    console.log(event)
     setCategory(event.target.value);
   };
 
@@ -26,6 +28,7 @@ export default function CategoriesList(props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          name="label_eventCategory"
           value={category}
           label="Category"
           onChange={handleChange}

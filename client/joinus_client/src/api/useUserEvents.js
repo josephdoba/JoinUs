@@ -39,8 +39,6 @@ export default function useUserEvents() {
     })
     .catch((err) => {console.log(err)});
 
-    
-
     // both from the same call from the user
     /*
     Promise.all([
