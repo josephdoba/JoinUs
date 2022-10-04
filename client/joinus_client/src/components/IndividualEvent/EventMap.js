@@ -4,7 +4,7 @@ import MapError from "./MapError";
 import { useLoadScript } from "@react-google-maps/api";
 import EventMapDetails from "./EventMapDetails";
 import { Box, Stack, ListItemText } from "@mui/material";
-import Search from "./Search";
+import Search from "../UserPage/Search";
 
 const libraries = ["places"];
 

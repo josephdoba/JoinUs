@@ -10,6 +10,7 @@ import {
   findUsersJoinedEvents,
   pastEvents,
 } from "../../helpers/event_selectors";
+import Search from "./Search";
 
 export default function Userpage(props) {
   const {
@@ -22,6 +23,7 @@ export default function Userpage(props) {
   } = props;
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0);
+  const [selected, setSelected] = useState("");
 
   const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData);
   const usersJoinedEvents = findUsersJoinedEvents(
@@ -55,6 +57,7 @@ export default function Userpage(props) {
           setSelectedCategory={setSelectedCategory}
         />
         {clearCategories(selectedCategory)}
+        <Search setSelected={setSelected} />
       </Container>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar
@@ -107,7 +110,7 @@ export default function Userpage(props) {
           />
         )}
       </Stack>
-      <AddEvent categoriesData={categoriesData}/>
+      <AddEvent categoriesData={categoriesData} />
     </Box>
   );
 }

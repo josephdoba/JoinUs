@@ -7,8 +7,6 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import {
   Button,
   Fab,
-  IconButton,
-  Input,
   Modal,
   Stack,
   styled,
@@ -117,7 +115,7 @@ export default function AddEvent(props) {
               />
             </LocalizationProvider>
 
-            <CategoriesList categoriesData={props.categoriesData}/>
+            <CategoriesList categoriesData={props.categoriesData} />
 
             <TextField
               id="outlined-textarea"
