@@ -148,8 +148,8 @@ export default function AddEvent(props) {
                 Create
               </Button>
             </Stack>
+            <Search setSelected={setSelected} />
           </FormBox>
-          <Search setSelected={setSelected} />
         </Box>
       </StyledModal>
     </>
