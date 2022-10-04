@@ -14,7 +14,7 @@ import Nav from "./Nav";
 export const ThemeContext = createContext(null);
 
 const App = function () {
-  const { eventsData, usersData, categoriesData, joinedEvents } = useAppData();
+  const { eventsData, usersData, categoriesData, joinedEvents, setReload, reload } = useAppData();
   const [theme, setTheme] = useState("light");
   const [user, setUser] = useState({});
   const [event, setEvent] = useState({});
@@ -68,6 +68,8 @@ const App = function () {
                   setUser={setUser}
                   setSelected={setSelected}
                   selected={selected}
+                  setReload={setReload}
+                  reload={reload}
                 />
               }
             />

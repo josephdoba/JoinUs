@@ -6,6 +6,7 @@ export default function useAppData() {
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     Promise.all([
@@ -26,7 +27,7 @@ export default function useAppData() {
         console.log(err.response.headers);
         console.log(err.response.data);
       });
-  }, []);
+  }, [reload]);
 
-  return { eventsData, categoriesData, usersData, joinedEvents };
+  return { eventsData, categoriesData, usersData, joinedEvents, setReload, reload };
 }
