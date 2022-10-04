@@ -91,11 +91,6 @@ export default function AddEvent(props) {
         aria-describedby="modal-modal-description"
         sx={StyledModal}
       >
-        {/* https://stackoverflow.com/questions/29791721/how-get-data-from-material-ui-textfield-dropdownmenu-components */}
-        {/* https://stackoverflow.com/questions/65531477/how-to-post-form-data-using-material-ui-into-api */}
-        {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend */}
-        {/* https://codevoweb.com/form-validation-react-hook-form-material-ui-react/ */}
-        {/* fab, filledInput, formControl, formControlLabel, formGroup, formHelperText, formLabel */}
 
         <Box 
         width={500} 
@@ -175,12 +170,12 @@ export default function AddEvent(props) {
                 // onChange={(e) => setStartTime(e.target.value)}
                 // value={myEvent.start_time}
                 onChange={
-                  (event) => {
+                  (event) => { 
                     // event.preventDefault();
-                    // console.log(event)
+                    console.log(event)
                     // console.log(event.$d)
                     // setStartTime(prev => ({...prev, start_time: event.$d}))
-                    setStartTime(event.$d.toString())
+                    setStartTime(event.$d.toUTCString())
                     // console.log(startTime)
               }}
               />
