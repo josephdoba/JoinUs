@@ -12,6 +12,4 @@ export const addData = (urlEnd) => {
     title: "Checking post requests",
     status: "published"
   });
-
-
 };
