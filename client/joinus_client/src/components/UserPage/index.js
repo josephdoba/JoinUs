@@ -58,6 +58,9 @@ export default function Userpage(props) {
         />
         {clearCategories(selectedCategory)}
         <Search setSelected={setSelected} />
+        <p>
+          lat: {selected.lat}, lng: {selected.lng}
+        </p>
       </Container>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar

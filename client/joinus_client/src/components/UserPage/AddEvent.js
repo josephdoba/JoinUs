@@ -19,9 +19,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import Search from "./Search";
 
 export default function AddEvent(props) {
   const { userCreateEventSubmit } = userEvents();
+  const [selected, setSelected] = useState("");
 
   const StyledModal = styled(Modal)({
     display: "flex",
@@ -94,17 +96,9 @@ export default function AddEvent(props) {
 
               */}
 
-            <TextField
-              id="standard-basic"
-              label="Event Name"
-              variant="standard"
-            />
+            <TextField id="standard-basic" label="name" variant="standard" />
 
-            <TextField
-              id="standard-basic"
-              label="Full Address"
-              variant="standard"
-            />
+            <TextField id="standard-basic" label="address" variant="standard" />
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -155,6 +149,7 @@ export default function AddEvent(props) {
               </Button>
             </Stack>
           </FormBox>
+          <Search setSelected={setSelected} />
         </Box>
       </StyledModal>
     </>
