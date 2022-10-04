@@ -3,8 +3,7 @@ import MapComponent from "./MapComponent";
 import MapError from "./MapError";
 import { useLoadScript } from "@react-google-maps/api";
 import EventMapDetails from "./EventMapDetails";
-import { Box, Stack, ListItemText } from "@mui/material";
-import Search from "../UserPage/Search";
+import { Box, Stack } from "@mui/material";
 
 const libraries = ["places"];
 
@@ -15,7 +14,6 @@ export default function EventMap(props) {
   });
   const { start_time, end_time, lat, lng } = props;
   const [map, setMap] = useState(/** @type googlemaps.Map */ (null));
-  const [selected, setSelected] = useState(null);
 
   if (loadError) return <MapError />;
   if (!isLoaded) return <div>Loading...</div>;
@@ -28,7 +26,6 @@ export default function EventMap(props) {
   return (
     <Box flex={"30%"} p={2}>
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
-        <Search setSelected={setSelected} />
         <MapComponent lat={lat} lng={lng} setMap={setMap} />
 
         <EventMapDetails
@@ -39,8 +36,6 @@ export default function EventMap(props) {
           handleClick={handleClick}
         />
       </Stack>
-      <p>{selected && selected.lat}</p>
-      <p>{selected && selected.lng}</p>
     </Box>
   );
 }
