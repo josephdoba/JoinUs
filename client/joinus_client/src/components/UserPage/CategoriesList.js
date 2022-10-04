@@ -16,7 +16,7 @@ export default function CategoriesList(props) {
 
   const categories = categoriesData.map((category) => {
     return (
-      <MenuItem value={category.id} id={category.id}>
+      <MenuItem value={category.id} key={category.id}>
         {category.name}
       </MenuItem>
     );
