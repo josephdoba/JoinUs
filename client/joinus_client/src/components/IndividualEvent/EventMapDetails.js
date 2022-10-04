@@ -1,18 +1,18 @@
 import {
   Avatar,
-  Box,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Stack,
 } from "@mui/material";
 import PersonPinCircleTwoToneIcon from "@mui/icons-material/PersonPinCircleTwoTone";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { formatTime } from "../../helpers/helpers";
+import Address from "./Address";
 
 export default function EventMapDetails(props) {
-  const { start_time, end_time, onClick } = props;
+  const { start_time, end_time, handleClick, lat, lng } = props;
   // const ListItemText = styled("ListItemText")(({ theme }) => ({
   //   listItemText:{
   //     fontSize:'10px',//Insert your required size
@@ -23,18 +23,16 @@ export default function EventMapDetails(props) {
     <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
       <ListItem>
         <ListItemAvatar>
-          <Avatar onClick={onClick}>
+          <IconButton onClick={handleClick}>
             <PersonPinCircleTwoToneIcon />
-          </Avatar>
+          </IconButton>
         </ListItemAvatar>
         <ListItemText
           primaryTypographyProps={{ fontSize: "14px" }}
           secondaryTypographyProps={{ fontSize: "12px" }}
-          primary="Montréal"
-          secondary="55 rue Ontario Est"
+          primary={<Address lat={lat} lng={lng} />}
         />
       </ListItem>
-
       <ListItem>
         <ListItemAvatar>
           <Avatar>

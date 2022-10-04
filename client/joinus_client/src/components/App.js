@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
-import FunPhoto from "./Home/FunPhotos";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
@@ -19,6 +18,7 @@ const App = function () {
   const [theme, setTheme] = useState("light");
   const [user, setUser] = useState({});
   const [event, setEvent] = useState({});
+  const [selected, setSelected] = useState(null);
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -66,6 +66,8 @@ const App = function () {
                   categoriesData={categoriesData}
                   // setEvent={setEvent}
                   setUser={setUser}
+                  setSelected={setSelected}
+                  selected={selected}
                 />
               }
             />
