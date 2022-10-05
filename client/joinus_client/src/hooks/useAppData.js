@@ -35,14 +35,12 @@ export default function useAppData() {
   const login = (userID) => {
     fetchAPI(`user/${userID}`)
       .then((data) => {
-        console.log(`user json in login ${JSON.stringify(data.data[0])}`);
         const user = data.data[0];
         setUser((prev) => ({
           id: user.id,
           name: user.name,
           picture: user.picture,
         }));
-        console.log(`user in login ${user}}`);
       })
       .catch((err) => {
         console.log(err);
