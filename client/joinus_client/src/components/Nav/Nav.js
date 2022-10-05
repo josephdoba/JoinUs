@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar, Typography, Style } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import { reactLocalStorage } from "reactjs-localstorage";
-import ReactSwitch from "react-switch";
+import useSharedUser from "../../hooks/useSharedUser";
 
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
@@ -12,17 +12,22 @@ import NavDisplayUser from "./NavDisplayUser";
 import NavDisplayLogin from "./NavDisplayLogin";
 
 export default function Nav(props) {
-  const { usersData, login, logout, user, setUser } = props;
+  const { usersData, login, logout } = props;
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
 
-  console.log(`---- ${user.name}`);
+  const { user, setUser } = useSharedUser();
 
+  console.log(`---- ${user.name}`);
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser) {
+    if (!currentUser || currentUser.id === null) {
       return;
     }
-    setUser(currentUser);
+    setUser((prev) => ({
+      id: currentUser.id,
+      name: currentUser.name,
+      picture: currentUser.picture,
+    }));
   }, [setUser]);
 
   const navigate = useNavigate();
@@ -74,6 +79,18 @@ export default function Nav(props) {
     await navigate("/user");
   };
 
+  const findUser = () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser === {}) {
+      return;
+    }
+    setUser(currentUser);
+  };
+
+  useEffect(() => {
+    findUser();
+  }, []);
+
   return (
     <AppBar
       position="static"
@@ -93,13 +110,10 @@ export default function Nav(props) {
           >
             <Avatar sx={{ width: 80, height: 80 }} alt="Logo" src={logo} />
           </Typography>
-          <ReactSwitch
-            className="toggle-switch"
-            onChange={props.toggleTheme}
-            checked={props.theme === "dark"}
-          />
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {user && <p>{user.name}</p>}
+          </Box>
 
           <Login
             open={open}
@@ -110,15 +124,19 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          <NavDisplayLogin handleClickOpen={handleClickOpen} />
+          {user.id === null && (
+            <NavDisplayLogin handleClickOpen={handleClickOpen} />
+          )}
 
-          <NavDisplayUser
-            user={user}
-            handleOpenUserMenu={handleOpenUserMenu}
-            handleLogout={handleLogout}
-            anchorElUser={anchorElUser}
-            handleCloseUserMenu={handleCloseUserMenu}
-          />
+          {user.id !== null && (
+            <NavDisplayUser
+              user={user}
+              handleOpenUserMenu={handleOpenUserMenu}
+              handleLogout={handleLogout}
+              anchorElUser={anchorElUser}
+              handleCloseUserMenu={handleCloseUserMenu}
+            />
+          )}
         </Toolbar>
       </Container>
     </AppBar>

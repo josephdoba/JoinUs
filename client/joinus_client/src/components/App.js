@@ -34,7 +34,6 @@ const App = function () {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (currentUser !== {} || currentUser.id === null) {
@@ -45,7 +44,7 @@ const App = function () {
       name: currentUser.name,
       picture: currentUser.picture,
     }));
-  }, [setUser]);
+  }, []);
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
