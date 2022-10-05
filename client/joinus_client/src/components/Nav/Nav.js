@@ -11,13 +11,17 @@ import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
 import ReactSwitch from "react-switch";
 
+import useUserData from "../../hooks/useUserData";
+
 import { useNavigate } from "react-router-dom";
-import logo from "../images/logo.png";
+import logo from "../../images/logo.png";
 import Login from "./Login";
-import NavDisplay from "./NavDisplay";
+import NavDisplayUser from "./NavDisplayUser";
+import NavDisplayLogin from "./NavDisplayLogin";
 
 export default function Nav(props) {
-  const { user, setUser, usersData } = props;
+  const { usersData } = props;
+  const { user, login, logout } = useUserData();
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
 
   const navigate = useNavigate();
@@ -35,8 +39,9 @@ export default function Nav(props) {
   };
 
   const handleLogout = () => {
-    reactLocalStorage.remove("currentUser");
-    setUser({});
+    // reactLocalStorage.remove("currentUser");
+    // setUser({});
+    logout();
     setAnchorElUser(null);
     navigate("/");
   };
@@ -61,24 +66,26 @@ export default function Nav(props) {
     });
   }
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    reactLocalStorage.setObject("currentUser", {
-      id: userID,
-    });
+
+    login(userID);
+    // reactLocalStorage.setObject("currentUser", {
+    //   id: userID,
+    // });
     setUserID("");
     await wait(500);
     navigate("/user");
-  }
-
-  const check = reactLocalStorage.getObject("currentUser");
-  const findUserByID = (id, usersData) => {
-    const current = usersData[id - 1];
-    setUser(current);
-    console.log(current);
   };
 
-  findUserByID(check.id, usersData);
+  // const check = reactLocalStorage.getObject("currentUser");
+  // const findUserByID = (id, usersData) => {
+  //   const current = usersData[id - 1];
+  //   setUser(current);
+  //   console.log(current);
+  // };
+
+  // findUserByID(check.id, usersData);
 
   return (
     <AppBar
@@ -116,14 +123,14 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          <NavDisplay
+          <NavDisplayUser
             user={user}
             handleOpenUserMenu={handleOpenUserMenu}
             handleLogout={handleLogout}
             anchorElUser={anchorElUser}
             handleCloseUserMenu={handleCloseUserMenu}
-            handleClickOpen={handleClickOpen}
           />
+          <NavDisplayLogin handleClickOpen={handleClickOpen} />
         </Toolbar>
       </Container>
     </AppBar>
