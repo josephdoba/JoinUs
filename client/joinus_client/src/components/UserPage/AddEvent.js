@@ -157,20 +157,13 @@ export default function AddEvent(props) {
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="label_start_time"
+                label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
-                // name="label_start_time" // TimePicker does not hav ea name prop
                 value={startTime}
-                // onChange={(e) => setStartTime(e.target.value)}
-                // value={myEvent.start_time}
                 onChange={
                   (event) => { 
-                    // event.preventDefault();
                     console.log(event)
-                    // console.log(event.$d)
-                    // setStartTime(prev => ({...prev, start_time: event.$d}))
                     setStartTime(event.$d.toUTCString())
-                    // console.log(startTime)
               }}
             />
             </LocalizationProvider>
@@ -178,17 +171,12 @@ export default function AddEvent(props) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="End Time"
-                name="label_end_time"
+                // name="label_end_time"
                 value={endTime}
-                // onChange={(e) => setEndTime(e.target.value)}
-                // value={myEvent.end_time}
                 onChange={
                   (event) => {
-                    // event.preventDefault()
-                    // setEndTime(prev => ({...prev, end_time: event.target.value}))
                     setEndTime(event.$d.toString())
               }}
-                // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
