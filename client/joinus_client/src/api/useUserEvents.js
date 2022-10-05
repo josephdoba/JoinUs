@@ -1,12 +1,13 @@
 // import { addData } from "."; -- Wasn't working.
 import axios from "axios";
 import { useState } from "react";
-import { cleanCreateEvent, cleanEditEvent } from "./cleanEvent";
+import cleanEvent from "./cleanEvent";
 
 export default function useUserEvents() {
+  const { cleanCreateEvent, cleanEditEvent } = cleanEvent();
 
   const userCreateEventSubmit = (event) => {
-    cleanCreateEvent()
+    cleanCreateEvent(event)
     // axios.post(url[, data[, config]]) <- syntax
     console.log("api post request from userCreateEventSubmit", event);
     // axios.post("http://localhost:8080/api/events", testDummyData)
@@ -62,8 +63,9 @@ export default function useUserEvents() {
       });
   };
 
-  const userEditEventSubmit = () => {
+  const userEditEventSubmit = (event) => {
     console.log("api post request for userEditEvent");
+    cleanEditEvent(event)
   };
 
   return {

@@ -45,7 +45,17 @@ export default function AddEvent(props) {
 
   const [open, setOpen] = useState(false);
 
-  // i removed the set lat and long states....should this one giant object instead of separate useStates?
+
+/* 
+"i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
+
+Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently sending as one gigachad state object its an older way of doing things when handling form data in react
+
+We also might need those lng/lat states, but i'll bring em back if we need em -Joba
+
+*/
+
+
   // Form info State declarations:
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState("");

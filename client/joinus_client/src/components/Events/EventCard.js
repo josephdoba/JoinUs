@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -48,21 +48,38 @@ export default function EventCard(props) {
     reload,
   } = props;
 
-  const { userCreateEventSubmit } = userEvents();
+  const { userCreateEventSubmit, userEditEventSubmit } = userEvents();
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
-  const StyledModal = styled(Modal)({
+  const imageRef = useRef()
+
+  const StyledModal = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  });
+  };
 
-  const FormBox = styled("Box")({
+  // represents the elements inside the modal
+  const FormBox = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  });
+    "& > :not(style)": { m: 1, width: "100%" },
+  };
+
+  // const StyledModal = styled(Modal)({
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
+
+  // const FormBox = styled("Box")({
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // });
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -138,10 +155,8 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-            {/* EventCard.js:140 Uncaught TypeError: Cannot read properties of undefined (reading 'name')
-                at EventCard (EventCard.js:140:1) */}
-            {/* {formatTime(start_time, end_time)} <br /> */}
-            {/* Category: {category.name} */}
+            {formatTime(start_time, end_time)} <br />
+             Category: {category.name}
           </Typography>
           <Typography variant="paragraph">
             {shortenText(description)}
@@ -217,18 +232,26 @@ export default function EventCard(props) {
           </CardActions>
         )}
       </Card>
-      <StyledModal
+      <Modal
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
-        <Box width={500} height={700} bgcolor="white" p={3} borderRadius={3}>
+        sx={StyledModal}
+      > 
+        <Box 
+        width={500} 
+        height={700} 
+        bgcolor="white" 
+        p={3} 
+        borderRadius={3}
+        sx={FormBox}
+        >
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
             {/* if  */}
           </Typography>
-          <FormBox
+          <Box
             component="form"
             //
             sx={{
@@ -304,9 +327,9 @@ export default function EventCard(props) {
                 Submit edit
               </Button>
             </Stack>
-          </FormBox>
+          </Box>
         </Box>
-      </StyledModal>
+      </Modal>
       <Error open={error} setOpen={setError} />
     </Grid>
   );
