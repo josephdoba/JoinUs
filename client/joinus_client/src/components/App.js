@@ -5,7 +5,6 @@ import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
-import Sidebar from "../components/UserPage/Sidebar";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
