@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import AddEvent from "./AddEvent";
 import { Box, Button, Stack } from "@mui/material";
@@ -27,12 +27,6 @@ export default function Userpage(props) {
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0);
-  const [selected, setSelected] = useState({ lat: null, lng: null });
-  console.log(`---- ${user}`);
-
-  if (user) {
-    localStorage.setItem("currentUser", JSON.stringify(user));
-  }
 
   const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData);
   const usersJoinedEvents = findUsersJoinedEvents(
@@ -66,10 +60,6 @@ export default function Userpage(props) {
           setSelectedCategory={setSelectedCategory}
         />
         {clearCategories(selectedCategory)}
-        <Search setSelected={setSelected} />
-        <p>
-          lat: {selected.lat}, lng: {selected.lng}
-        </p>
       </Container>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar
