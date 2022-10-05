@@ -20,6 +20,8 @@ export default function Userpage(props) {
     setEvent,
     joinedEvents,
     user,
+    setReload,
+    reload,
   } = props;
   
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
@@ -77,6 +79,8 @@ export default function Userpage(props) {
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
             user={user}
+            setReload={setReload}
+            reload={reload}
           />
         )}
         {showUserEvents === 1 && (
@@ -88,6 +92,9 @@ export default function Userpage(props) {
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
             user={user}
+            showUserEvents={showUserEvents}
+            setReload={setReload}
+            reload={reload}
           />
         )}
         {showUserEvents === 2 && (
@@ -99,6 +106,8 @@ export default function Userpage(props) {
             joinedEvents={joinedEvents}
             selectedCategory={selectedCategory}
             user={user}
+            setReload={setReload}
+            reload={reload}
           />
         )}
         {showUserEvents === 3 && (
@@ -111,6 +120,8 @@ export default function Userpage(props) {
             selectedCategory={selectedCategory}
             showUserEvents={showUserEvents}
             user={user}
+            setReload={setReload}
+            reload={reload}
           />
         )}
       </Stack>

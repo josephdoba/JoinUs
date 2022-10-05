@@ -59,13 +59,56 @@ const createEvent = (eventObject) => {
         console.log("error happened");
     });
 };
+const leaveEvent = (dataObj) => {
+    const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
+    const values = [
+        dataObj.body.user_id,
+        dataObj.body.event_id
+    ];
+    return connection_1.db
+        .query(leaveEventQuery, values)
+        .then((data) => data.rows)
+        .catch((err) => {
+        console.error(err.stack);
+        console.log('error happened deleting event');
+    });
+};
+const joinEvent = (dataObj) => {
+    const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
+    const values = [
+        dataObj.body.user_id,
+        dataObj.body.event_id,
+        true
+    ];
+    return connection_1.db
+        .query(joinEventQuery, values)
+        .then((data) => data.rows)
+        .catch((err) => {
+        console.error(err.stack);
+        console.log('badbad');
+    });
+};
+const deleteEvent = (dataObj) => {
+    const deleteEventQuery = `DELETE FROM events WHERE id=$1 AND owner_id=$2;`;
+    const values = [
+        dataObj.body.event_id,
+        dataObj.body.owner_id
+    ];
+    return connection_1.db
+        .query(deleteEventQuery, values)
+        .then((data) => data.rows)
+        .catch((err) => {
+        console.error(err.stack);
+        console.log('badbad');
+    });
+};
 // const editEvent = (eventObject) => {
 //   return connection_1.db
 //       .query(`SELECT * FROM events WHERE id = 1`)
 //       .then((data) => data.rows)
 //       .catch((err) => console.error(err.stack));
 // };
-exports.default = { getCategories, getEvents, createEvent };
+exports.default = { getCategories, getEvents, createEvent, leaveEvent, joinEvent, deleteEvent };
 /*
 INSERT INTO categories (name) VALUES
 ('Food & Dining'), 1
