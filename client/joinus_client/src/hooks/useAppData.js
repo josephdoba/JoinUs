@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../api";
-import { reactLocalStorage } from "reactjs-localstorage";
+import useSharedUser from "./useSharedUser";
 
 export default function useAppData() {
   const [eventsData, setEventsData] = useState([]); //api for all events
-  const [user, setUser] = useState({});
+
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
   const [reload, setReload] = useState(0);
+
+  const { setUser, user } = useSharedUser();
 
   useEffect(() => {
     Promise.all([
@@ -33,22 +35,22 @@ export default function useAppData() {
   const login = (userID) => {
     fetchAPI(`user/${userID}`)
       .then((data) => {
-        setUser((prev) => JSON.stringify(data.data[0]));
-        console.log(user);
+        console.log(`user json in login ${JSON.stringify(data.data[0])}`);
+        const user = data.data[0];
+        setUser((prev) => ({
+          id: user.id,
+          name: user.name,
+          picture: user.picture,
+        }));
+        console.log(`user in login ${user}}`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // reactLocalStorage.setObject("currentUser", {
-  //   id: user.id,
-  //   name: user.name,
-  //   picture: user.picture,
-  // });
-
   const logout = () => {
-    setUser({});
+    setUser({ id: null, name: null, picture: null });
   };
 
   return {
@@ -60,7 +62,6 @@ export default function useAppData() {
     reload,
     login,
     logout,
-    user,
-    setUser,
+    useSharedUser,
   };
 }
