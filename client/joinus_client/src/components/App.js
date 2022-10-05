@@ -56,7 +56,7 @@ const App = function () {
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>
-              {/* nested route placeholders:  */}
+              {/* nested route placeholders (syntax for later if we decide to refactor front end routes):  */}
             {/* <Route index element={<Userpage/>}/>
               <Route path='/myevents' element={false}/>
               <Route path='/history' element={false}/>

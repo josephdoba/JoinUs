@@ -48,6 +48,10 @@ export default function EventCard(props) {
     reload,
   } = props;
 
+  // We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? 
+
+  
+
   const { userCreateEventSubmit, userEditEventSubmit } = userEvents();
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
@@ -68,22 +72,21 @@ export default function EventCard(props) {
     "& > :not(style)": { m: 1, width: "100%" },
   };
 
-  // const StyledModal = styled(Modal)({
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // });
-
-  // const FormBox = styled("Box")({
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // });
-
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
+
+  // Form info State declarations:
+  const [eventName, setEventName] = useState(name);
+  const [eventImage, setEventImage] = useState(image);
+  const [eventDescription, setEventDescription] = useState(description);
+  const [eventSizeLimit, setEventSizeLimit] = useState(size_limit); // []
+  const [eventCategory, setEventCategory] = useState(category);
+  const [eventAddress, setEventAddress] = useState("");
+  const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
+  const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
+
+    
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -156,7 +159,8 @@ export default function EventCard(props) {
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
-             Category: {category.name}
+             {/*  Getting weird errors with this line after even after reinstalling depedencies, restarting server, reseeding db. tried props.category.name with no luck commented out for now*/}
+             {/* Category: {category.name} */}
           </Typography>
           <Typography variant="paragraph">
             {shortenText(description)}
@@ -246,6 +250,31 @@ export default function EventCard(props) {
         p={3} 
         borderRadius={3}
         sx={FormBox}
+        onSubmit={(event) => {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          const sendDataObj = {
+            eventName: data.get('label_eventName'),
+            eventAddress: data.get('label_eventAddress'),
+            eventImage,
+            eventDescription: data.get('label_eventDescription'),
+            eventSizeLimit: 2,
+            eventOwnerId: 1, // grab owner_id from cookies
+            eventCategory: data.get('label_eventCategory'),
+            lat: 51.0233064354121, // will eventually need to generate these values from address
+            lng: -114.02369425973428,
+            // start_time: "2022-10-13 05:00:00",
+            start_time: startTime,
+            // end_time: "2022-10-13 17:00:00"
+            end_time: endTime
+          };
+          userEditEventSubmit(sendDataObj)
+          setOpen(false)
+
+
+
+
+        }}
         >
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
@@ -264,8 +293,22 @@ export default function EventCard(props) {
               id="standard-basic"
               label="Event Name"
               variant="standard"
-              value={name}
-            />
+              name="label_eventName"
+              value={eventName} // name is the pre-rendered data, so why not try setting your existing state for eventName to equal name on load -- Because name is a prop, its not state. Therefore, when you changed this to use eventName state, it shows up blank, because nothing is stored.
+              // if you try using setState, it re-renders the component.
+              //  the issue is props are being pulled.. which can't be updated? I don't believe that .. nvm props are static https://stackoverflow.com/questions/24939623/can-i-update-a-components-props-in-react-js#:~:text=A%20component%20cannot%20update%20its,the%20props%20of%20its%20children.
+
+              // so on render, we need to assign "name" to eventName state
+
+              // https://www.robinwieruch.de/react-derive-state-props/
+
+              // Yaaas setting them individually on the state declaration worked!
+
+              onChange={
+                (event) => {
+                  setEventName(event.target.value); 
+              }}
+              />
 
             <TextField
               id="standard-basic"
