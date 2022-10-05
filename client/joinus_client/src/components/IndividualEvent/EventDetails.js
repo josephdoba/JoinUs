@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
-import Attendees from "./Atendees";
+import AttendeesAvatar from "./AtendeesAvatar";
 
 export default function EventDetails(props) {
   const { attendeelist, description, image, name, size_limit } = props;
@@ -54,9 +54,12 @@ export default function EventDetails(props) {
             Details
           </Typography>
 
-          <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit}/>
+          <AttendeeNumDisplay
+            attendeelist={attendeelist}
+            size_limit={size_limit}
+          />
 
-          <Attendees attendeelist={attendeelist}/>
+          <AttendeesAvatar attendeelist={attendeelist} />
 
           <Button size="small" variant="text" onClick={submitHandler}>
             Join Chat

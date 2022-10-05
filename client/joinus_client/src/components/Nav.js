@@ -31,6 +31,7 @@ export default function Nav(props) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    navigate("/user");
   };
 
   const handleLogout = () => {
@@ -69,14 +70,14 @@ export default function Nav(props) {
     await wait(500);
     navigate("/user");
   }
-  
+
   const check = reactLocalStorage.getObject("currentUser");
   const findUserByID = (id, usersData) => {
     const current = usersData[id - 1];
     setUser(current);
     console.log(current);
   };
-  
+
   findUserByID(check.id, usersData);
 
   return (
