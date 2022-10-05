@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { fetchAPI, addData } from "../api";
+import { fetchAPI } from "../api";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 export default function useAppData() {
   const [eventsData, setEventsData] = useState([]); //api for all events
-  const [user, setUser] = useState({ id: null, name: null, picture: null });
+  const [user, setUser] = useState({});
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
@@ -40,9 +40,14 @@ export default function useAppData() {
       });
   };
 
+  // reactLocalStorage.setObject("currentUser", {
+  //   id: user.id,
+  //   name: user.name,
+  //   picture: user.picture,
+  // });
+
   const logout = () => {
     setUser({});
-    reactLocalStorage.remove("currentUser");
   };
 
   return {

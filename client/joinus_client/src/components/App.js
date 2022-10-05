@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-import useUserData from "../hooks/useUserData";
 
 import Nav from "./Nav/Nav";
 
@@ -22,10 +22,12 @@ const App = function () {
     joinedEvents,
     setReload,
     reload,
+    user,
+    setUser,
+    login,
+    logout,
   } = useAppData();
-  const { user } = useUserData();
   const [theme, setTheme] = useState("light");
-  // const [user, setUser] = useState({});
   const [event, setEvent] = useState({});
   const [selected, setSelected] = useState(null);
 
@@ -44,6 +46,8 @@ const App = function () {
             theme={theme}
             user={user}
             usersData={usersData}
+            login={login}
+            logout={logout}
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>

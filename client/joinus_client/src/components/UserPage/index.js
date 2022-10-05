@@ -11,6 +11,7 @@ import {
   pastEvents,
 } from "../../helpers/event_selectors";
 import Search from "./Search";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 export default function Userpage(props) {
   const {
@@ -23,10 +24,15 @@ export default function Userpage(props) {
     setReload,
     reload,
   } = props;
-  
+
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0);
   const [selected, setSelected] = useState({ lat: null, lng: null });
+  console.log(`---- ${user}`);
+
+  if (user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
 
   const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData);
   const usersJoinedEvents = findUsersJoinedEvents(

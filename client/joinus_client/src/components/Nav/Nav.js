@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
-import { redirect } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
+import { AppBar, Box, Toolbar, Typography, Style } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
 import ReactSwitch from "react-switch";
-
-import useUserData from "../../hooks/useUserData";
 
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
@@ -20,8 +12,7 @@ import NavDisplayUser from "./NavDisplayUser";
 import NavDisplayLogin from "./NavDisplayLogin";
 
 export default function Nav(props) {
-  const { usersData } = props;
-  const { user, login, logout } = useUserData();
+  const { usersData, user, login, logout } = props;
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
 
   const navigate = useNavigate();
@@ -38,11 +29,11 @@ export default function Nav(props) {
     navigate("/user");
   };
 
-  const handleLogout = () => {
-    // reactLocalStorage.remove("currentUser");
-    // setUser({});
+  const handleLogout = async () => {
     logout();
+    reactLocalStorage.remove("currentUser");
     setAnchorElUser(null);
+    await wait(500);
     navigate("/");
   };
   // end of user nav
@@ -68,24 +59,10 @@ export default function Nav(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     login(userID);
-    // reactLocalStorage.setObject("currentUser", {
-    //   id: userID,
-    // });
     setUserID("");
-    await wait(500);
-    navigate("/user");
+    await navigate("/user");
   };
-
-  // const check = reactLocalStorage.getObject("currentUser");
-  // const findUserByID = (id, usersData) => {
-  //   const current = usersData[id - 1];
-  //   setUser(current);
-  //   console.log(current);
-  // };
-
-  // findUserByID(check.id, usersData);
 
   return (
     <AppBar
@@ -123,13 +100,16 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          <NavDisplayUser
-            user={user}
-            handleOpenUserMenu={handleOpenUserMenu}
-            handleLogout={handleLogout}
-            anchorElUser={anchorElUser}
-            handleCloseUserMenu={handleCloseUserMenu}
-          />
+          {user && (
+            <NavDisplayUser
+              user={user}
+              handleOpenUserMenu={handleOpenUserMenu}
+              handleLogout={handleLogout}
+              anchorElUser={anchorElUser}
+              handleCloseUserMenu={handleCloseUserMenu}
+            />
+          )}
+
           <NavDisplayLogin handleClickOpen={handleClickOpen} />
         </Toolbar>
       </Container>
