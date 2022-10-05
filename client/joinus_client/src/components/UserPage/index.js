@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import AddEvent from "./AddEvent";
 import { Box, Button, Stack } from "@mui/material";
@@ -26,7 +26,7 @@ export default function Userpage(props) {
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
 
-  if (user !== null || user.id !== null) {
+  if (user !== null && user.id !== null) {
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
 

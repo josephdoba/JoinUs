@@ -3,7 +3,6 @@ import { findEventAttendees } from "../../helpers/user_selectors";
 import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
 import JoinEventButton from "./JoinEventButton";
-import Sidebar from "../UserPage/Sidebar";
 
 export default function IndividualEvent(props) {
   const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents } =
@@ -13,10 +12,6 @@ export default function IndividualEvent(props) {
 
   return (
     <Box flex={"row"}>
-      <Sidebar
-        setUserEvents={setShowUserEvents}
-        showUserEvents={showUserEvents}
-      />
       <Box display="flex" justifyContent="center" alignItems="center" m={3}>
         <Typography variant="h4">{event.name}</Typography>
       </Box>
