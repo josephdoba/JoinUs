@@ -4,9 +4,10 @@ import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
 import JoinEventButton from "./JoinEventButton";
 import Sidebar from "../UserPage/Sidebar";
+import CommentBox from "./CommentBox";
 
 export default function IndividualEvent(props) {
-  const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents } =
+  const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents, comments } =
     props;
 
   const attendeelist = findEventAttendees(event.id, usersData, joinedEvents);
@@ -40,6 +41,7 @@ export default function IndividualEvent(props) {
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
         <JoinEventButton />
       </Box>
+      <CommentBox comments={comments}/>
     </Box>
   );
 }

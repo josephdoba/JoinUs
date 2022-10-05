@@ -94,3 +94,6 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (12, 3, TRUE),
 (13, 3, TRUE),
 (2, 9, TRUE);
+
+INSERT INTO comments(user_id, event_id, message) VALUES
+(5, 3, 'I love this event so much!');

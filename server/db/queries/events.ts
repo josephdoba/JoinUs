@@ -14,6 +14,13 @@ const getEvents = () => {
     .catch((err) => console.error(err.stack));
 };
 
+const getComments = () => {
+  return db
+    .query(`SELECT * FROM comments`)
+    .then((data) => data.rows)
+    .catch((err) => console.error(err.stack));
+}
+
 /*
     .query(`
 INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
@@ -117,4 +124,5 @@ export default {
   leaveEvent,
   joinEvent,
   deleteEvent,
+  getComments
 };

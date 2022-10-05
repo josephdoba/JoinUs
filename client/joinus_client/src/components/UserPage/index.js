@@ -22,6 +22,7 @@ export default function Userpage(props) {
     user,
     setReload,
     reload,
+    comments
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
@@ -80,6 +81,7 @@ export default function Userpage(props) {
             user={user}
             setReload={setReload}
             reload={reload}
+            comments={comments}
           />
         )}
         {showUserEvents === 1 && (
@@ -94,6 +96,7 @@ export default function Userpage(props) {
             showUserEvents={showUserEvents}
             setReload={setReload}
             reload={reload}
+            comments={comments}
           />
         )}
         {showUserEvents === 2 && (
@@ -107,6 +110,7 @@ export default function Userpage(props) {
             user={user}
             setReload={setReload}
             reload={reload}
+            comments={comments}
           />
         )}
         {showUserEvents === 3 && (
@@ -121,6 +125,7 @@ export default function Userpage(props) {
             user={user}
             setReload={setReload}
             reload={reload}
+            comments={comments}
           />
         )}
       </Stack>
