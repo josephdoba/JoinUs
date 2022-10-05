@@ -270,10 +270,6 @@ export default function EventCard(props) {
           };
           userEditEventSubmit(sendDataObj)
           setOpen(false)
-
-
-
-
         }}
         >
           <Typography variant="h6" color="gray" textAlign="center">
