@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 8080;
 import express from "express";
 const app = express();
 import morgan from "morgan";
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 
 import cors from "cors";
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -15,7 +15,7 @@ import cors from "cors";
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
@@ -23,18 +23,14 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 import eventsRoutes from "./routes/events";
 import usersRoutes from "./routes/users";
-import leaveEventRoute from './routes/leaveEvent';
-import joinEventRoute from './routes/joinEvent';
-import deleteEventRoute from './routes/deleteEvent';
+import eventRoute from "./routes/event";
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", usersRoutes);
 app.use("/api/events", eventsRoutes);
-app.use('/api/leaveEvent', leaveEventRoute);
-app.use('/api/joinEvent', joinEventRoute);
-app.use('/api/deleteEvent', deleteEventRoute);
+app.use("/event", eventRoute);
 
 // Note: mount other resources here, using the same pattern above
 
@@ -57,11 +53,19 @@ app.get("/", (req, res) => {
   res.json({});
 });
 
-io.on('connection', (socket: { on: (arg0: string, arg1: ({ name, message }: { name: any; message: any; }) => void) => void; }) => {
-  socket.on('message', ({ name, message }) => {
-    io.emit('message', { name, message })
-  })
-})
+io.on(
+  "connection",
+  (socket: {
+    on: (
+      arg0: string,
+      arg1: ({ name, message }: { name: any; message: any }) => void
+    ) => void;
+  }) => {
+    socket.on("message", ({ name, message }) => {
+      io.emit("message", { name, message });
+    });
+  }
+);
 
 http.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

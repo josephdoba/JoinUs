@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 8080;
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const morgan_1 = __importDefault(require("morgan"));
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 const cors_1 = __importDefault(require("cors"));
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -26,23 +26,19 @@ app.use(express_1.default.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const events_1 = __importDefault(require("./routes/events"));
 const users_1 = __importDefault(require("./routes/users"));
-const leaveEvent_1 = __importDefault(require("./routes/leaveEvent"));
-const joinEvent_1 = __importDefault(require("./routes/joinEvent"));
-const deleteEvent_1 = __importDefault(require("./routes/deleteEvent"));
+const event_1 = __importDefault(require("./routes/event"));
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", users_1.default);
 app.use("/api/events", events_1.default);
-app.use('/api/leaveEvent', leaveEvent_1.default);
-app.use('/api/joinEvent', joinEvent_1.default);
-app.use('/api/deleteEvent', deleteEvent_1.default);
+app.use("/event", event_1.default);
 app.get("/", (req, res) => {
     res.json({});
 });
-io.on('connection', (socket) => {
-    socket.on('message', ({ name, message }) => {
-        io.emit('message', { name, message });
+io.on("connection", (socket) => {
+    socket.on("message", ({ name, message }) => {
+        io.emit("message", { name, message });
     });
 });
 http.listen(PORT, () => {
