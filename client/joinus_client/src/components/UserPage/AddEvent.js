@@ -7,20 +7,19 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import {
   Button,
   Fab,
-  IconButton,
-  Input,
   Modal,
   Stack,
   styled,
   TextField,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import Search from "./Search";
 
 export default function AddEvent(props) {
   const imageRef = useRef()
@@ -30,35 +29,34 @@ export default function AddEvent(props) {
     alignItems: "center",
     justifyContent: "center",
   };
-  
+
   // represents the elements inside the modal
   const FormBox = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    "& > :not(style)": { m: 1, width: "100%" }
+    "& > :not(style)": { m: 1, width: "100%" },
   };
 
-  
   // const [myEvent, setMyEvent] = useState("")
-  const { userCreateEventSubmit } = useUserEvents()
+  const { userCreateEventSubmit } = useUserEvents();
+  const [selected, setSelected] = useState({ lat: null, lng: null });
 
   const [open, setOpen] = useState(false);
-  
+
+  // i removed the set lat and long states....should this one giant object instead of separate useStates?
   // Form info State declarations:
-  const [eventName, setEventName] = useState("")
-  const [eventImage, setEventImage] = useState("")
-  const [eventDescription, setEventDescription] = useState("")
-  const [eventSizeLimit, setEventSizeLimit] = useState("") // []
-  const [eventCategory, setEventCategory] = useState("")
-  const [eventAddress, setEventAddress] = useState("")
-  const [eventLat, setEventLat] = useState("") // []
-  const [eventLng, setEventLng] = useState("") // []
+  const [eventName, setEventName] = useState("");
+  const [eventImage, setEventImage] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [eventSizeLimit, setEventSizeLimit] = useState(""); // []
+  const [eventCategory, setEventCategory] = useState("");
+  const [eventAddress, setEventAddress] = useState("");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
-    /*
+  /*
   const [location, setLocation]=useState(“”)  
   
   onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
@@ -74,10 +72,11 @@ export default function AddEvent(props) {
           left: { xs: "calc(50% - 25px)", md: 30 },
         }}
       >
-        <Fab variant="extended"
+        <Fab
+          variant="extended"
           onClick={(e) => {
             setOpen(true);
-        }}
+          }}
         >
           <AddIcon sx={{ mr: 1 }} />
           New Event
@@ -126,7 +125,6 @@ export default function AddEvent(props) {
           setOpen(false)
         }}
         >
-
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
@@ -142,10 +140,8 @@ export default function AddEvent(props) {
                   // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventName(event.target.value)
               }}
-
-            />
-
-
+              />
+              
             <TextField
               id="standard-basic"
               label="Full Address"
@@ -158,7 +154,7 @@ export default function AddEvent(props) {
                   setEventAddress(event.target.value)
               }}
             />
-{/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="label_start_time"
@@ -176,7 +172,7 @@ export default function AddEvent(props) {
                     setStartTime(event.$d.toUTCString())
                     // console.log(startTime)
               }}
-              />
+            />
             </LocalizationProvider>
             
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -197,86 +193,72 @@ export default function AddEvent(props) {
               />
             </LocalizationProvider>
 
-            <CategoriesList
+          <CategoriesList
             categoriesData={props.categoriesData}
-            eventCategory={eventCategory}
-            setEventCategory={setEventCategory}
-            // onChange={
-            // (event) => {
-            //   event.preventDefault();
-            //   setEventCategory(event.target.value)}
+            name="label_eventCategory"
+            value={eventCategory}
+            onChange={(event) => {
+              event.preventDefault();
+              setEventCategory(event.target.value);
+              console.log(event);
+            }}
+          />
+
+          <TextField
+            id="outlined-textarea"
+            label="Description"
+            placeholder="..."
+            multiline
+            inputProps={{ maxLength: 300 }}
+            name="label_eventDescription"
+            value={eventDescription}
+            onChange={(event) => {
+              // event.preventDefault()
+              // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+              setEventDescription(event.target.value);
+              console.log(event.target.value);
+            }}
+          />
+
+          <Stack direction="row" justifyContent="left">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="raised-button-file"
+              type="file"
+              name="label_eventImage"
+              value={eventImage}
+              onChange={(event) => {
+                // event.preventDefault()
+                // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                setEventImage(event.target.value);
+                console.log(event.target.value);
+                console.log(`from event Image state: ${eventImage}`);
+              }}
             />
-
-            <TextField
-              id="outlined-textarea"
-              label="Description"
-              placeholder="..."
-              multiline
-              inputProps={{ maxLength: 300 }}
-              name="label_eventDescription"
-              value={eventDescription}
-              onChange={
-                (event) => {
-                  // event.preventDefault()
-                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  setEventDescription(event.target.value)
-              }}
-               />
-
-            <Stack direction="row" justifyContent="left">
-              <input
-                ref={imageRef}
-                accept="image/*"
-                style={{ display: "none" }}
-                id="raised-button-file"
-                type="file"
-                name="label_eventImage"
-                // value={eventImage.toString()}
-                onChange={
-                (event) => {
-                  // let url = URL.createObjectURL(file)
-                  const reader = new FileReader();
-                  // console.log(imageRef)
-                  // console.log(event.target.files)
-                  console.log(URL.createObjectURL(imageRef.current.files[0]).url)
-                  // console.log(imageRef.current.files[0])
-                  // console.log(event.target)
-                  // event.preventDefault()
-                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  // console.log(`setEventImage to: ${event.target.value}`)
-                  // setEventImage(event.target.value)
-                  setEventImage(URL.createObjectURL(imageRef.current.files[0]))
-                  // console.log(`eventImage state: ${eventImage}`)
-              }}
-              />
-              <label htmlFor="raised-button-file">
-                <Button variant="text" component="span" endIcon={<AddIcon />}>
-                  Upload Image
-                </Button>
-              </label>
-            </Stack>
-
-            <Stack direction="row" spacing={2} justifyContent="center">
-              <Button onClick={(e) => setOpen(false)} variant="outlined">
-                Cancel
+            <label htmlFor="raised-button-file">
+              <Button variant="text" component="span" endIcon={<AddIcon />}>
+                Upload Image
               </Button>
-              {/* <Button variant="contained" endIcon={<AddIcon />}> */}
-              {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
-              <Button
-                variant="contained"
-                type="submit"
-                endIcon={<AddIcon />}
-                
-              >
-                Create
-                </Button>
-              </Stack>
+            </label>
+          </Stack>
+
+          <Stack direction="row" spacing={2} justifyContent="center">
+            <Button onClick={(e) => setOpen(false)} variant="outlined">
+              Cancel
+            </Button>
+            {/* <Button variant="contained" endIcon={<AddIcon />}> */}
+            {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
+            <Button variant="contained" type="submit" endIcon={<AddIcon />}>
+              Create
+            </Button>
+            <Search setSelected={setSelected} />
+          </Stack>
         </Box>
       </Modal>
     </>
   );
 }
-
 
 /*
 The code below was reference code while troubleshooting the form.

@@ -23,12 +23,18 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 import eventsRoutes from "./routes/events";
 import usersRoutes from "./routes/users";
+import leaveEventRoute from './routes/leaveEvent';
+import joinEventRoute from './routes/joinEvent';
+import deleteEventRoute from './routes/deleteEvent';
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", usersRoutes);
 app.use("/api/events", eventsRoutes);
+app.use('/api/leaveEvent', leaveEventRoute);
+app.use('/api/joinEvent', joinEventRoute);
+app.use('/api/deleteEvent', deleteEventRoute);
 
 // Note: mount other resources here, using the same pattern above
 

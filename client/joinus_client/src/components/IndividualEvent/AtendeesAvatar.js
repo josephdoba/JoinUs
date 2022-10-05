@@ -2,7 +2,7 @@ import { Avatar, AvatarGroup } from "@mui/material";
 
 //avatars for the event page
 
-export default function Attendees(props) {
+export default function AttendeesAvatar(props) {
   const { attendeelist } = props;
 
   const avatar = attendeelist.map((person) => {

@@ -1,4 +1,4 @@
-import  React, { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-import Error from './Error'
+import Error from "./Error";
 
 import { formatTime } from "../../helpers/helpers";
 import { shortenText } from "../../helpers/helpers";
@@ -16,18 +16,9 @@ import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import dayjs from "dayjs";
 import userEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import useUserEvents from "../../api/useUserEvents";
 
-import {
-  Fab,
-  IconButton,
-  Input,
-  Modal,
-  Stack,
-  styled,
-  TextField,
-  Tooltip,
-} from "@mui/material";
+import { Modal, Stack, styled, TextField } from "@mui/material";
 
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -50,12 +41,15 @@ export default function EventCard(props) {
     setEvent,
     owner_id,
     user,
-    size_limit
+    size_limit,
+    showUserEvents,
+    joinedEvents,
+    setReload,
+    reload,
   } = props;
 
-
-
   const { userCreateEventSubmit } = userEvents();
+  const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
   const StyledModal = styled(Modal)({
     display: "flex",
@@ -78,9 +72,6 @@ export default function EventCard(props) {
     setValue(newValue);
   };
 
-
-
-
   function wait(time) {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
@@ -101,11 +92,42 @@ export default function EventCard(props) {
     navigate(`/event`);
   }
 
-  const joinEvent = () => {
+  async function leaveEvent(dataObj) {
+    await userLeaveEvent(dataObj);
+    setReload(reload + 1);
+  }
+
+  async function joinEvent(dataObj) {
     if (attendeelist.length >= size_limit) {
       setError(true);
+    } else {
+      await userJoinEvent(dataObj);
+      setReload(reload + 1);
     }
   }
+
+  async function deleteEvent(dataObj) {
+    let answer = prompt("Are you sure you want to delete? type yes or no");
+    if (answer === "yes" || answer === "Yes") {
+      await userDeleteEvent(dataObj);
+      setReload(reload + 1);
+    }
+  }
+
+  const checkIfJoinedEvent = (joinedEvents) => {
+    const events = [];
+    for (const i of joinedEvents) {
+      if (user.id === i.user_id) {
+        events.push(i.event_id);
+      }
+    }
+    for (const prop of events) {
+      if (prop === id) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <Grid item xs={4}>
@@ -116,33 +138,88 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
+<<<<<<< HEAD
             {formatTime(start_time, end_time)} <br /> 
             {/* Uncaught TypeError: Cannot read properties of undefined (reading 'name') */}
             {/* Category: {category.name} */}
+=======
+            {formatTime(start_time, end_time)} <br />
+            Category: {category.name}
+>>>>>>> main
           </Typography>
           <Typography variant="paragraph">
             {shortenText(description)}
           </Typography>
         </CardContent>
-        {user.id === owner_id ? 
-                <CardActions>
-                <Button onClick={submitHandler} size="small">
-                  Learn More
-                </Button>
-                <Button onClick={(e) => setOpen(true)} size="small">
-                  Edit Event
-                </Button>
-                <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit} />
-              </CardActions>
-      : <CardActions>
-      <Button onClick={submitHandler} size="small">
-        Learn More
-      </Button>
-      <Button onClick={joinEvent} size="small">
-        Join Event
-      </Button>
-      <AttendeeNumDisplay attendeelist={attendeelist} size_limit={size_limit}/>
-    </CardActions> }
+
+        {user.id === owner_id && showUserEvents === 1 && (
+          <CardActions>
+            <Button onClick={submitHandler} size="small">
+              Learn More
+            </Button>
+            <Button onClick={(e) => setOpen(true)} size="small">
+              Edit Event
+            </Button>
+            <Button
+              size="small"
+              onClick={(e) => {
+                const dataObj = {
+                  event_id: id,
+                  owner_id: user.id,
+                };
+                deleteEvent(dataObj);
+              }}
+            >
+              Delete Event
+            </Button>
+          </CardActions>
+        )}
+        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) && (
+          <CardActions>
+            <Button onClick={submitHandler} size="small">
+              Learn More
+            </Button>
+            <Button
+              onClick={(e) => {
+                const dataObj = {
+                  user_id: user.id,
+                  event_id: id,
+                };
+                leaveEvent(dataObj);
+              }}
+              size="small"
+            >
+              Leave Event
+            </Button>
+            <AttendeeNumDisplay
+              attendeelist={attendeelist}
+              size_limit={size_limit}
+            />
+          </CardActions>
+        )}
+        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) === false && (
+          <CardActions>
+            <Button onClick={submitHandler} size="small">
+              Learn More
+            </Button>
+            <Button
+              size="small"
+              onClick={(e) => {
+                const dataObj = {
+                  user_id: user.id,
+                  event_id: id,
+                };
+                joinEvent(dataObj);
+              }}
+            >
+              Join Event
+            </Button>
+            <AttendeeNumDisplay
+              attendeelist={attendeelist}
+              size_limit={size_limit}
+            />
+          </CardActions>
+        )}
       </Card>
       <StyledModal
         open={open}
@@ -150,7 +227,6 @@ export default function EventCard(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-
         <Box width={500} height={700} bgcolor="white" p={3} borderRadius={3}>
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
@@ -165,7 +241,6 @@ export default function EventCard(props) {
             noValidate
             autoComplete="off"
           >
-
             <TextField
               id="standard-basic"
               label="Event Name"
@@ -188,7 +263,7 @@ export default function EventCard(props) {
               />
             </LocalizationProvider>
 
-            <CategoriesList categoriesData={props.categoriesData}/>
+            <CategoriesList categoriesData={props.categoriesData} />
 
             <TextField
               id="outlined-textarea"
@@ -207,7 +282,12 @@ export default function EventCard(props) {
                 type="file"
               />
               <label htmlFor="raised-button-file">
-                <Button variant="text" component="span" endIcon={<AddIcon />} value={image}>
+                <Button
+                  variant="text"
+                  component="span"
+                  endIcon={<AddIcon />}
+                  value={image}
+                >
                   Upload Image
                 </Button>
               </label>
@@ -231,7 +311,7 @@ export default function EventCard(props) {
           </FormBox>
         </Box>
       </StyledModal>
-        <Error open={error} setOpen={setError}/>
+      <Error open={error} setOpen={setError} />
     </Grid>
   );
 }

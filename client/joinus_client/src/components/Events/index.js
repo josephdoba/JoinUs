@@ -19,7 +19,9 @@ export default function Events(props) {
     usersData,
     joinedEvents,
     showUserEvents,
-    user
+    user,
+    setReload,
+    reload
   } = props;
 
   const displayEventCard = (eventArr) => {
@@ -44,6 +46,10 @@ export default function Events(props) {
           attendeelist={attendeelist}
           categoriesData={categoriesData}
           size_limit={e.size_limit}
+          showUserEvents={showUserEvents}
+          joinedEvents={joinedEvents}
+          setReload={setReload}
+          reload={reload}
         />
       );
     });

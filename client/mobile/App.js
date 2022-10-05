@@ -7,77 +7,49 @@
  */
 
 import React from 'react';
-
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Herobanner from './src/components/Home/Herobanner';
-import Navbar from './src/components/Navbar';
+import UserScreen from './src/components/User';
+import HomeScreen from './src/components/Home';
+import EventScreen from './src/components/Event';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import NavBar from './src/components/NavBar';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
+// passing additional props to a screne https://reactnavigation.org/docs/hello-react-navigation
+
+const Stack = createNativeStackNavigator();
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Navbar />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={
-            (styles.sectionContainer,
-            {
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            })
-          }>
-          <Herobanner />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {/* <SafeAreaView> */}
+        {/* <StatusBar /> */}
+        {/* <ScrollView> */}
+        <NavBar />
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{title: 'Join Us!'}}
+          />
+          <Stack.Screen name="User" component={UserScreen} />
+          <Stack.Screen name="Event" component={EventScreen} />
+        </Stack.Navigator>
+        {/* </ScrollView> */}
+        {/* </SafeAreaView> */}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

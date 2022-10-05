@@ -31,6 +31,7 @@ export default function Nav(props) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    navigate("/user");
   };
 
   const handleLogout = () => {
