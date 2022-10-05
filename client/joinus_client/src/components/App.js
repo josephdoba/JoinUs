@@ -5,11 +5,13 @@ import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import Sidebar from "../components/UserPage/Sidebar";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
 
 import Nav from "./Nav/Nav";
+import useSharedUser from "../hooks/useSharedUser";
 
 export const ThemeContext = createContext(null);
 
@@ -21,14 +23,13 @@ const App = function () {
     joinedEvents,
     setReload,
     reload,
-    user,
-    setUser,
     login,
     logout,
   } = useAppData();
   const [theme, setTheme] = useState("light");
   const [event, setEvent] = useState({});
   const [selected, setSelected] = useState(null);
+  const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -36,10 +37,14 @@ const App = function () {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser) {
+    if (currentUser !== {} || currentUser.id === null) {
       return;
     }
-    setUser(currentUser);
+    setUser((prev) => ({
+      id: currentUser.id,
+      name: currentUser.name,
+      picture: currentUser.picture,
+    }));
   }, [setUser]);
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
