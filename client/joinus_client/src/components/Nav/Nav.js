@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import { AppBar, Box, Toolbar, Typography, ButtonGroup } from "@mui/material";
-import { redirect } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
+import React, { useEffect, useState } from "react";
+import { AppBar, Box, Toolbar, Typography, Style } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import { reactLocalStorage } from "reactjs-localstorage";
-import ReactSwitch from "react-switch";
+import useSharedUser from "../../hooks/useSharedUser";
 
 import { useNavigate } from "react-router-dom";
-import logo from "../images/logo.png";
+import logo from "../../images/logo.png";
 import Login from "./Login";
-import NavDisplay from "./NavDisplay";
+import NavDisplayUser from "./NavDisplayUser";
+import NavDisplayLogin from "./NavDisplayLogin";
 
 export default function Nav(props) {
-  const { user, setUser, usersData } = props;
+  const { usersData, login, logout } = props;
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
+
+  const { user, setUser } = useSharedUser();
+
+  console.log(`----user in nav ${user.name}`);
 
   const navigate = useNavigate();
 
@@ -34,10 +33,17 @@ export default function Nav(props) {
     navigate("/user");
   };
 
-  const handleLogout = () => {
-    reactLocalStorage.remove("currentUser");
-    setUser({});
+  function wait(time) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+  }
+
+  const handleLogout = async () => {
+    logout();
+    localStorage.removeItem("currentUser");
     setAnchorElUser(null);
+    await wait(500);
     navigate("/");
   };
   // end of user nav
@@ -53,32 +59,30 @@ export default function Nav(props) {
   };
 
   // end
-  // Kyler's code
 
-  function wait(time) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, time);
-    });
-  }
-
-  async function handleSubmit(e) {
+  // log in
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    reactLocalStorage.setObject("currentUser", {
-      id: userID,
-    });
+    login(userID);
     setUserID("");
-    await wait(500);
-    navigate("/user");
-  }
-
-  const check = reactLocalStorage.getObject("currentUser");
-  const findUserByID = (id, usersData) => {
-    const current = usersData[id - 1];
-    setUser(current);
-    console.log(current);
+    await navigate("/user");
   };
 
-  findUserByID(check.id, usersData);
+  // set user as the id in local store
+
+  const findUser = () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser === {}) {
+      return;
+    }
+    setUser((prev) => currentUser);
+  };
+
+  useEffect(() => {
+    findUser();
+  }, []);
+
+  //find user end
 
   return (
     <AppBar
@@ -99,13 +103,10 @@ export default function Nav(props) {
           >
             <Avatar sx={{ width: 80, height: 80 }} alt="Logo" src={logo} />
           </Typography>
-          <ReactSwitch
-            className="toggle-switch"
-            onChange={props.toggleTheme}
-            checked={props.theme === "dark"}
-          />
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {user && <p>{user.name}</p>}
+          </Box>
 
           <Login
             open={open}
@@ -116,14 +117,19 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          <NavDisplay
-            user={user}
-            handleOpenUserMenu={handleOpenUserMenu}
-            handleLogout={handleLogout}
-            anchorElUser={anchorElUser}
-            handleCloseUserMenu={handleCloseUserMenu}
-            handleClickOpen={handleClickOpen}
-          />
+          {user.id === null && (
+            <NavDisplayLogin handleClickOpen={handleClickOpen} />
+          )}
+
+          {user.id !== null && (
+            <NavDisplayUser
+              user={user}
+              handleOpenUserMenu={handleOpenUserMenu}
+              handleLogout={handleLogout}
+              anchorElUser={anchorElUser}
+              handleCloseUserMenu={handleCloseUserMenu}
+            />
+          )}
         </Toolbar>
       </Container>
     </AppBar>

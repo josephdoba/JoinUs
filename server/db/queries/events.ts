@@ -27,23 +27,23 @@ https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-reque
 -Joba
 */
 const createEvent = (eventObject: any) => {
-
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
-    const values = [
-        eventObject.body.eventName,
-        eventObject.body.eventImage,
-        eventObject.body.eventDescription,
-        2,1,// size_limit, owner_id,
-        eventObject.body.Category,
-        51.0943441322179,
-        -113.99897456996281,
-        '2022-10-13 05:00:00',
-        '2022-10-13 16:00:00'
-      ];
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+  const values = [
+    eventObject.body.eventName,
+    eventObject.body.eventImage,
+    eventObject.body.eventDescription,
+    2,
+    1, // size_limit, owner_id,
+    eventObject.body.Category,
+    51.0943441322179,
+    -113.99897456996281,
+    "2022-10-13 05:00:00",
+    "2022-10-13 16:00:00",
+  ];
 
-    /*
+  /*
     const values = [
       eventObject.body.eventName,
       eventObject.body.eventImage,
@@ -56,62 +56,52 @@ const createEvent = (eventObject: any) => {
     ]
     */
   return db
-      .query(createEventQuery, values)
-      .then((data) => data.rows)
-      .catch((err) => {
-          console.error(err.stack)
-          console.log("error happened")
-        });
+    .query(createEventQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("error happened");
+    });
 };
 
 const leaveEvent = (dataObj: any) => {
-  const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`
-  const values = [
-    dataObj.body.user_id,
-    dataObj.body.event_id
-  ];
+  const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
+  const values = [dataObj.body.user_id, dataObj.body.event_id];
 
   return db
-      .query(leaveEventQuery, values)
-      .then((data) => data.rows)
-      .catch((err) => {
-        console.error(err.stack)
-        console.log('error happened deleting event')
-      })
+    .query(leaveEventQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("error happened deleting event");
+    });
 };
 
 const joinEvent = (dataObj: any) => {
-  const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`
-  const values = [
-    dataObj.body.user_id,
-    dataObj.body.event_id,
-    true
-  ];
+  const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
+  const values = [dataObj.body.user_id, dataObj.body.event_id, true];
 
   return db
-      .query(joinEventQuery, values)
-      .then((data) => data.rows)
-      .catch((err) => {
-        console.error(err.stack)
-        console.log('badbad')
-      })
+    .query(joinEventQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("badbad");
+    });
 };
 
 const deleteEvent = (dataObj: any) => {
-  const deleteEventQuery = `DELETE FROM events WHERE id=$1 AND owner_id=$2;`
-  const values = [
-    dataObj.body.event_id,
-    dataObj.body.owner_id
-  ];
+  const deleteEventQuery = `DELETE FROM events WHERE id=$1 AND owner_id=$2;`;
+  const values = [dataObj.body.event_id, dataObj.body.owner_id];
 
   return db
-  .query(deleteEventQuery, values)
-  .then((data) => data.rows)
-  .catch((err) => {
-    console.error(err.stack)
-    console.log('badbad')
-  })
-}
+    .query(deleteEventQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("badbad");
+    });
+};
 
 // const editEvent = (eventObject) => {
 //   return connection_1.db
@@ -120,20 +110,11 @@ const deleteEvent = (dataObj: any) => {
 //       .catch((err) => console.error(err.stack));
 // };
 
-export default { getCategories, getEvents, createEvent, leaveEvent, joinEvent, deleteEvent };
-
-/*
-INSERT INTO categories (name) VALUES
-('Food & Dining'), 1
-('Games & Recreation'), 2
-('Fitness'), 3
-('Outdoors'), 4
-('Alcohol & Beverages'), 5
-('Movies & Theatre'), 6
-('Live Music'), 7
-('Chatting & Philosophy'), 8
-('Water Sports'), 9
-('Entrepreneurial & Business'), 10
-('Arts'), 11
-('Health & Wellness'); 12
-*/
+export default {
+  getCategories,
+  getEvents,
+  createEvent,
+  leaveEvent,
+  joinEvent,
+  deleteEvent,
+};

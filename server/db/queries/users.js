@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = require("../connection");
 // const db = require('../connection');
 const getUsers = () => {
-    return connection_1.db.query("SELECT * FROM users;").then((data) => {
-        return data.rows;
-    });
+    return connection_1.db.query("SELECT * FROM users;").then((data) => data.rows);
+};
+const getUser = (id) => {
+    return connection_1.db
+        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .then((data) => data.rows);
 };
 const getUserJoinedEvents = () => {
-    return connection_1.db
-        .query(`SELECT * FROM joined_events`)
-        .then((data) => data.rows)
-        .catch((err) => console.error(err.stack));
+    return connection_1.db.query(`SELECT * FROM joined_events`).then((data) => data.rows);
 };
-exports.default = { getUsers, getUserJoinedEvents };
+exports.default = { getUsers, getUserJoinedEvents, getUser };

@@ -10,11 +10,14 @@ export default function useUserEvents() {
     // axios.post(url[, data[, config]]) <- syntax
     console.log("api post request from userCreateEventSubmit", event);
     // axios.post("http://localhost:8080/api/events", testDummyData)
-    axios.post("http://localhost:8080/api/events", event)
-    .then(() => {
-      console.log(event)
-    })
-    .catch((err) => {console.log(err)});
+    axios
+      .post("http://localhost:8080/api/events", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // both from the same call from the user
     /*
@@ -24,36 +27,50 @@ export default function useUserEvents() {
     ])
     .err(err => console.log(err));
   }*/
-}
+  };
 
   const userLeaveEvent = (event) => {
-    axios.post('http://localhost:8080/api/leaveEvent', event)
-    .then(() => {
-      console.log(event)
-    })
-    .catch((err) => {console.log(err)})
-  }
+    axios
+      .post("http://localhost:8080/event/leave", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const userJoinEvent = (event) => {
-    axios.post('http://localhost:8080/api/joinEvent', event)
-    .then(() => {
-      console.log(event)
-    })
-    .catch((err) => {console.log(err)})
-  }
+    axios
+      .post("http://localhost:8080/event/join", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const userDeleteEvent = (event) => {
-    axios.post('http://localhost:8080/api/deleteEvent', event)
-    .then(() => {
-      console.log(event)
-    })
-    .catch((err) => {console.log(err)})
-  }
+    axios
+      .post("http://localhost:8080/event/delete", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const userEditEventSubmit = () => {
-    console.log("api post request for userEditEvent")
-  }
+    console.log("api post request for userEditEvent");
+  };
 
-  return { userCreateEventSubmit, userEditEventSubmit, userLeaveEvent, userJoinEvent, userDeleteEvent }
-
+  return {
+    userCreateEventSubmit,
+    userEditEventSubmit,
+    userLeaveEvent,
+    userJoinEvent,
+    userDeleteEvent,
+  };
 }

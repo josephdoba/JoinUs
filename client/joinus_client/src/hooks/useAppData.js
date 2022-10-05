@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { fetchAPI, addData } from "../api";
+import { fetchAPI } from "../api";
+import useSharedUser from "./useSharedUser";
 
 export default function useAppData() {
   const [eventsData, setEventsData] = useState([]); //api for all events
+
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
   const [reload, setReload] = useState(0);
+
+  const { setUser, user } = useSharedUser();
 
   useEffect(() => {
     Promise.all([
@@ -16,7 +20,6 @@ export default function useAppData() {
       fetchAPI("users/user_events"),
     ])
       .then((all) => {
-        console.log(`ALL: ${all[0]}`);
         setEventsData((prev) => [...all[0].data]);
         setCategoriesData((prev) => [...all[1].data]);
         setUsersData((prev) => [...all[2].data]);
@@ -29,5 +32,34 @@ export default function useAppData() {
       });
   }, [reload]);
 
-  return { eventsData, categoriesData, usersData, joinedEvents, setReload, reload };
+  const login = (userID) => {
+    fetchAPI(`user/${userID}`)
+      .then((data) => {
+        const user = data.data[0];
+        setUser((prev) => ({
+          id: user.id,
+          name: user.name,
+          picture: user.picture,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const logout = () => {
+    setUser({ id: null, name: null, picture: null });
+  };
+
+  return {
+    eventsData,
+    categoriesData,
+    usersData,
+    joinedEvents,
+    setReload,
+    reload,
+    login,
+    logout,
+    useSharedUser,
+  };
 }
