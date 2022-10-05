@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppBar, Box, Toolbar, Typography, Style } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -12,8 +12,18 @@ import NavDisplayUser from "./NavDisplayUser";
 import NavDisplayLogin from "./NavDisplayLogin";
 
 export default function Nav(props) {
-  const { usersData, user, login, logout } = props;
+  const { usersData, login, logout, user, setUser } = props;
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
+
+  console.log(`---- ${user.name}`);
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      return;
+    }
+    setUser(currentUser);
+  }, [setUser]);
 
   const navigate = useNavigate();
 
@@ -31,7 +41,7 @@ export default function Nav(props) {
 
   const handleLogout = async () => {
     logout();
-    reactLocalStorage.remove("currentUser");
+    localStorage.removeItem("currentUser");
     setAnchorElUser(null);
     await wait(500);
     navigate("/");
@@ -100,17 +110,15 @@ export default function Nav(props) {
             handleSubmit={handleSubmit}
           />
 
-          {user && (
-            <NavDisplayUser
-              user={user}
-              handleOpenUserMenu={handleOpenUserMenu}
-              handleLogout={handleLogout}
-              anchorElUser={anchorElUser}
-              handleCloseUserMenu={handleCloseUserMenu}
-            />
-          )}
-
           <NavDisplayLogin handleClickOpen={handleClickOpen} />
+
+          <NavDisplayUser
+            user={user}
+            handleOpenUserMenu={handleOpenUserMenu}
+            handleLogout={handleLogout}
+            anchorElUser={anchorElUser}
+            handleCloseUserMenu={handleCloseUserMenu}
+          />
         </Toolbar>
       </Container>
     </AppBar>

@@ -48,6 +48,7 @@ const App = function () {
             usersData={usersData}
             login={login}
             logout={logout}
+            setUser={setUser}
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>

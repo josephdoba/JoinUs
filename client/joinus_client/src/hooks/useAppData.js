@@ -34,6 +34,7 @@ export default function useAppData() {
     fetchAPI(`user/${userID}`)
       .then((data) => {
         setUser((prev) => JSON.stringify(data.data[0]));
+        console.log(user);
       })
       .catch((err) => {
         console.log(err);
