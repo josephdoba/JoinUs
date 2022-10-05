@@ -1,29 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import Sidebar from "../components/UserPage/Sidebar";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-// import Navbar from "../Navbar.js"
-import Nav from "./Nav";
+
+import Nav from "./Nav/Nav";
+import useSharedUser from "../hooks/useSharedUser";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
-  const { eventsData, usersData, categoriesData, joinedEvents, setReload, reload } = useAppData();
+  const {
+    eventsData,
+    usersData,
+    categoriesData,
+    joinedEvents,
+    setReload,
+    reload,
+    login,
+    logout,
+  } = useAppData();
   const [theme, setTheme] = useState("light");
-  const [user, setUser] = useState({});
   const [event, setEvent] = useState({});
   const [selected, setSelected] = useState(null);
+  const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-  
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // need to figure out how to stop local store from setting info to null when refreshing /user
+
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
@@ -34,8 +49,10 @@ const App = function () {
             toggleTheme={toggleTheme}
             theme={theme}
             user={user}
-            setUser={setUser}
             usersData={usersData}
+            login={login}
+            logout={logout}
+            setUser={setUser}
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>
@@ -56,6 +73,7 @@ const App = function () {
                 </div>
               }
             />
+
             <Route
               path="/user"
               element={
@@ -66,7 +84,6 @@ const App = function () {
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
-                  setUser={setUser}
                   setSelected={setSelected}
                   selected={selected}
                   setReload={setReload}

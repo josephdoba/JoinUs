@@ -32,25 +32,26 @@ const createEvent = (eventObject) => {
         eventObject.body.eventName,
         eventObject.body.eventImage,
         eventObject.body.eventDescription,
-        2, 1,
+        2,
+        1,
         eventObject.body.Category,
+        51.0943441322179,
+        -113.99897456996281,
+        "2022-10-13 05:00:00",
+        "2022-10-13 16:00:00",
+    ];
+    /*
+      const values = [
+        eventObject.body.eventName,
+        eventObject.body.eventImage,
+        eventObject.body.eventDescription,
+        2,1,1, // size_limit, owner_id, category (food & dining)
         51.0943441322179,
         -113.99897456996281,
         '2022-10-13 05:00:00',
         '2022-10-13 16:00:00'
-    ];
-    /*
-    const values = [
-      eventObject.body.eventName,
-      eventObject.body.eventImage,
-      eventObject.body.eventDescription,
-      2,1,1, // size_limit, owner_id, category (food & dining)
-      51.0943441322179,
-      -113.99897456996281,
-      '2022-10-13 05:00:00',
-      '2022-10-13 16:00:00'
-    ]
-    */
+      ]
+      */
     return connection_1.db
         .query(createEventQuery, values)
         .then((data) => data.rows)
@@ -61,45 +62,35 @@ const createEvent = (eventObject) => {
 };
 const leaveEvent = (dataObj) => {
     const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
-    const values = [
-        dataObj.body.user_id,
-        dataObj.body.event_id
-    ];
+    const values = [dataObj.body.user_id, dataObj.body.event_id];
     return connection_1.db
         .query(leaveEventQuery, values)
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log('error happened deleting event');
+        console.log("error happened deleting event");
     });
 };
 const joinEvent = (dataObj) => {
     const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
-    const values = [
-        dataObj.body.user_id,
-        dataObj.body.event_id,
-        true
-    ];
+    const values = [dataObj.body.user_id, dataObj.body.event_id, true];
     return connection_1.db
         .query(joinEventQuery, values)
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log('badbad');
+        console.log("badbad");
     });
 };
 const deleteEvent = (dataObj) => {
     const deleteEventQuery = `DELETE FROM events WHERE id=$1 AND owner_id=$2;`;
-    const values = [
-        dataObj.body.event_id,
-        dataObj.body.owner_id
-    ];
+    const values = [dataObj.body.event_id, dataObj.body.owner_id];
     return connection_1.db
         .query(deleteEventQuery, values)
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log('badbad');
+        console.log("badbad");
     });
 };
 // const editEvent = (eventObject) => {
@@ -108,19 +99,11 @@ const deleteEvent = (dataObj) => {
 //       .then((data) => data.rows)
 //       .catch((err) => console.error(err.stack));
 // };
-exports.default = { getCategories, getEvents, createEvent, leaveEvent, joinEvent, deleteEvent };
-/*
-INSERT INTO categories (name) VALUES
-('Food & Dining'), 1
-('Games & Recreation'), 2
-('Fitness'), 3
-('Outdoors'), 4
-('Alcohol & Beverages'), 5
-('Movies & Theatre'), 6
-('Live Music'), 7
-('Chatting & Philosophy'), 8
-('Water Sports'), 9
-('Entrepreneurial & Business'), 10
-('Arts'), 11
-('Health & Wellness'); 12
-*/ 
+exports.default = {
+    getCategories,
+    getEvents,
+    createEvent,
+    leaveEvent,
+    joinEvent,
+    deleteEvent,
+};

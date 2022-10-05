@@ -6,16 +6,27 @@ const PORT = process.env.PORT || 8080;
 import express from "express";
 const app = express();
 import morgan from "morgan";
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-
 import cors from "cors";
+
+import usersQuery from "./db/queries/users";
+
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
+
+declare global {
+  namespace Express {
+    interface Request {
+      secret?: string;
+    }
+  }
+}
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
@@ -23,18 +34,14 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 import eventsRoutes from "./routes/events";
 import usersRoutes from "./routes/users";
-import leaveEventRoute from './routes/leaveEvent';
-import joinEventRoute from './routes/joinEvent';
-import deleteEventRoute from './routes/deleteEvent';
+import eventRoute from "./routes/event";
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", usersRoutes);
 app.use("/api/events", eventsRoutes);
-app.use('/api/leaveEvent', leaveEventRoute);
-app.use('/api/joinEvent', joinEventRoute);
-app.use('/api/deleteEvent', deleteEventRoute);
+app.use("/event", eventRoute);
 
 // Note: mount other resources here, using the same pattern above
 
@@ -53,15 +60,32 @@ interface Event {
   event_end_time: Date | number;
 }
 
-app.get("/", (req, res) => {
-  res.json({});
+// login user
+app.get("/api/user/:user_id", (req, res) => {
+  const userID = req.params.user_id;
+  usersQuery
+    .getUser(userID)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
-io.on('connection', (socket: { on: (arg0: string, arg1: ({ name, message }: { name: any; message: any; }) => void) => void; }) => {
-  socket.on('message', ({ name, message }) => {
-    io.emit('message', { name, message })
-  })
-})
+io.on(
+  "connection",
+  (socket: {
+    on: (
+      arg0: string,
+      arg1: ({ name, message }: { name: any; message: any }) => void
+    ) => void;
+  }) => {
+    socket.on("message", ({ name, message }) => {
+      io.emit("message", { name, message });
+    });
+  }
+);
 
 http.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
