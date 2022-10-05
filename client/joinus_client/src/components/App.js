@@ -8,22 +8,31 @@ import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-// import Navbar from "../Navbar.js"
-import Nav from "./Nav";
+import useUserData from "../hooks/useUserData";
+
+import Nav from "./Nav/Nav";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
-  const { eventsData, usersData, categoriesData, joinedEvents, setReload, reload } = useAppData();
+  const {
+    eventsData,
+    usersData,
+    categoriesData,
+    joinedEvents,
+    setReload,
+    reload,
+  } = useAppData();
+  const { user } = useUserData();
   const [theme, setTheme] = useState("light");
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [event, setEvent] = useState({});
   const [selected, setSelected] = useState(null);
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-  
+
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
@@ -34,7 +43,6 @@ const App = function () {
             toggleTheme={toggleTheme}
             theme={theme}
             user={user}
-            setUser={setUser}
             usersData={usersData}
           />
           <Routes>
@@ -66,7 +74,6 @@ const App = function () {
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
-                  setUser={setUser}
                   setSelected={setSelected}
                   selected={selected}
                   setReload={setReload}
