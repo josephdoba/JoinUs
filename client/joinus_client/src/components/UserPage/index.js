@@ -28,6 +28,10 @@ export default function Userpage(props) {
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0);
 
+  if (user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
+
   const usersCreatedEvents = findUsersCreatedEvents(user.id, eventsData);
   const usersJoinedEvents = findUsersJoinedEvents(
     user.id,
