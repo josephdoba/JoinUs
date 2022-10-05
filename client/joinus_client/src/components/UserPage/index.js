@@ -10,7 +10,6 @@ import {
   findUsersJoinedEvents,
   pastEvents,
 } from "../../helpers/event_selectors";
-import Search from "./Search";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 export default function Userpage(props) {
