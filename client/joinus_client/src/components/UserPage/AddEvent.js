@@ -7,8 +7,6 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import {
   Button,
   Fab,
-  IconButton,
-  Input,
   Modal,
   Stack,
   styled,
@@ -21,8 +19,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import Search from "./Search";
 
 export default function AddEvent(props) {
+
+  const { userCreateEventSubmit } = userEvents();
+  const [selected, setSelected] = useState("");
+
 
   // const StyledModal = styled(Modal)({
   //   display: "flex",
@@ -204,6 +207,7 @@ export default function AddEvent(props) {
               }}
             />
 {/* https://stackoverflow.com/questions/69387824/sending-form-data-onto-backend for time */}
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="Start Time"
@@ -239,6 +243,8 @@ export default function AddEvent(props) {
               />
             </LocalizationProvider> */}
 
+
+   
             <CategoriesList
             categoriesData={props.categoriesData}
             name="label_eventCategory"
@@ -249,6 +255,7 @@ export default function AddEvent(props) {
               setEventCategory(event.target.value)
               console.log(event)
           }}/>
+
 
             <TextField
               id="outlined-textarea"
@@ -304,7 +311,9 @@ export default function AddEvent(props) {
                 
               >
                 Create
+
                 </Button>
+                 <Search setSelected={setSelected} />
               </Stack>
             {/* </FormBox> */}
 
@@ -453,6 +462,7 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
+
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

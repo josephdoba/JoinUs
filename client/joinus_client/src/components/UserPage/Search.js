@@ -10,8 +10,6 @@ import "@reach/combobox/styles.css";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-  geocodeByPlaceId,
-  geocodeByAddress,
 } from "use-places-autocomplete";
 
 export default function Search({ setSelected }) {
