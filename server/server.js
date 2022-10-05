@@ -11,9 +11,10 @@ const PORT = process.env.PORT || 8080;
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
+const users_1 = __importDefault(require("./db/queries/users"));
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-const cors_1 = __importDefault(require("cors"));
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -25,16 +26,25 @@ app.use(express_1.default.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const events_1 = __importDefault(require("./routes/events"));
-const users_1 = __importDefault(require("./routes/users"));
+const users_2 = __importDefault(require("./routes/users"));
 const event_1 = __importDefault(require("./routes/event"));
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use("/api/users", users_1.default);
+app.use("/api/users", users_2.default);
 app.use("/api/events", events_1.default);
 app.use("/event", event_1.default);
-app.get("/", (req, res) => {
-    res.json({});
+// login user
+app.get("/api/user/:user_id", (req, res) => {
+    const userID = req.params.user_id;
+    users_1.default
+        .getUser(userID)
+        .then((user) => {
+        res.json(user);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
 });
 io.on("connection", (socket) => {
     socket.on("message", ({ name, message }) => {

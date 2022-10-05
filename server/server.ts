@@ -6,10 +6,21 @@ const PORT = process.env.PORT || 8080;
 import express from "express";
 const app = express();
 import morgan from "morgan";
+import cors from "cors";
+
+import usersQuery from "./db/queries/users";
+
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
-import cors from "cors";
+declare global {
+  namespace Express {
+    interface Request {
+      secret?: string;
+    }
+  }
+}
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -49,8 +60,17 @@ interface Event {
   event_end_time: Date | number;
 }
 
-app.get("/", (req, res) => {
-  res.json({});
+// login user
+app.get("/api/user/:user_id", (req, res) => {
+  const userID = req.params.user_id;
+  usersQuery
+    .getUser(userID)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 io.on(
