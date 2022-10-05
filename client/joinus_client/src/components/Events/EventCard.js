@@ -138,14 +138,8 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-<<<<<<< HEAD
-            {formatTime(start_time, end_time)} <br /> 
-            {/* Uncaught TypeError: Cannot read properties of undefined (reading 'name') */}
-            {/* Category: {category.name} */}
-=======
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
->>>>>>> main
           </Typography>
           <Typography variant="paragraph">
             {shortenText(description)}
