@@ -14,7 +14,7 @@ import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
 import dayjs from "dayjs";
-import userEvents from "../../api/userEvents";
+import userEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
@@ -115,10 +115,10 @@ export default function EventCard(props) {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography gutterBottom variant="body2" color="text.secondary">
+          {/* <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
-          </Typography>
+          </Typography> */}
           <Typography variant="paragraph">
             {shortenText(description)}
           </Typography>

@@ -8,6 +8,7 @@ import "./app.scss";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
+// import Navbar from "../Navbar.js"
 import Nav from "./Nav";
 
 export const ThemeContext = createContext(null);
@@ -22,6 +23,7 @@ const App = function () {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
+  
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (

@@ -9,10 +9,7 @@ const Herobanner = function () {
   return (
     <Stack direction={"row"} spacing={2} justifyContent={"space-between"} p={5}>
       <Typography p={5}>
-      Text Text Text Text Text Text Text Text Text Text Text Text Text Text 
-      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text 
-      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text 
-      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text 
+      Tired of always having to plan social gatherings weeks in advance only to have them cancel? Look no more! JoinUs brings back the spontaneity into your social life with local short-term meetups. Make new friends wherever you go, on your schedule. Ready to get started? Come JoinUs!
       </Typography>
 
       <Box

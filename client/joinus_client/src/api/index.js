@@ -8,8 +8,8 @@ export const fetchAPI = (urlEnd) => {
 
 // https://stackabuse.com/how-to-make-put-http-request-with-axios/
 export const addData = (urlEnd) => {
-  return axios.put(`${baseURL}${urlEnd}`, {
-    title: "Checking PUT requests",
+  return axios.post(`${baseURL}${urlEnd}`, {
+    title: "Checking post requests",
     status: "published"
   });
 };
