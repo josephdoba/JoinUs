@@ -17,18 +17,7 @@ export default function Nav(props) {
 
   const { user, setUser } = useSharedUser();
 
-  console.log(`---- ${user.name}`);
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser || currentUser.id === null) {
-      return;
-    }
-    setUser((prev) => ({
-      id: currentUser.id,
-      name: currentUser.name,
-      picture: currentUser.picture,
-    }));
-  }, [setUser]);
+  console.log(`----user in nav ${user.name}`);
 
   const navigate = useNavigate();
 
@@ -43,6 +32,12 @@ export default function Nav(props) {
     setAnchorElUser(null);
     navigate("/user");
   };
+
+  function wait(time) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+  }
 
   const handleLogout = async () => {
     logout();
@@ -64,14 +59,8 @@ export default function Nav(props) {
   };
 
   // end
-  // Kyler's code
 
-  function wait(time) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, time);
-    });
-  }
-
+  // log in
   const handleSubmit = async (e) => {
     e.preventDefault();
     login(userID);
@@ -79,17 +68,21 @@ export default function Nav(props) {
     await navigate("/user");
   };
 
+  // set user as the id in local store
+
   const findUser = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser || currentUser === {}) {
       return;
     }
-    setUser(currentUser);
+    setUser((prev) => currentUser);
   };
 
   useEffect(() => {
     findUser();
   }, []);
+
+  //find user end
 
   return (
     <AppBar
