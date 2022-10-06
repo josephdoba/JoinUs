@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import React from "react";
 import EventCard from "./EventCard";
 
@@ -84,14 +84,14 @@ export default function Events(props) {
   // past events
 
   return (
-    <Container>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
+    
+      <Box flex={5} sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      }}>
         {event}
-      </Grid>
-    </Container>
+      </Box>
+    
   );
 }
