@@ -54,7 +54,12 @@ export default function Userpage(props) {
 
   return (
     <Box>
-      <Box sx={{ display: "flex" }} m={2} direction={"row"} justifyContent={"center"}>
+      <Box
+        sx={{ display: "flex" }}
+        m={2}
+        direction={"row"}
+        justifyContent={"center"}
+      >
         <EventCategoryDropdown
           list={categoriesData}
           selectedCategory={selectedCategory}

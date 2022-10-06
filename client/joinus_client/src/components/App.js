@@ -28,7 +28,6 @@ const App = function () {
   } = useAppData();
   const [theme, setTheme] = useState("light");
   const [event, setEvent] = useState({});
-  const [selected, setSelected] = useState(null);
   const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
@@ -82,8 +81,6 @@ const App = function () {
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setEvent={setEvent}
-                  setSelected={setSelected}
-                  selected={selected}
                   setReload={setReload}
                   reload={reload}
                 />
