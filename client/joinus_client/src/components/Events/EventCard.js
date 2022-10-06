@@ -86,6 +86,7 @@ export default function EventCard(props) {
   const [eventAddress, setEventAddress] = useState("");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
+
   // // Form info State declarations:
   // const [eventName, setEventName] = useState(name);
   // const [eventImage, setEventImage] = useState(image);
@@ -175,7 +176,7 @@ export default function EventCard(props) {
           <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
              {/*  Getting weird errors with this line after even after reinstalling depedencies, restarting server, reseeding db. tried props.category.name with no luck commented out for now*/}
-             {/* Category: {category.name} */}
+             Category: {category.name}
           </Typography>
           <Typography  variant="paragraph">
             {shortenText(description)}
@@ -273,13 +274,11 @@ export default function EventCard(props) {
             eventImage,
             eventDescription,
             eventSizeLimit: 2,
-            eventOwnerId: user.id, // grab owner_id from cookies .. just user user.id?
+            eventOwnerId: user.id,
             eventCategory,
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
-            // start_time: "2022-10-13 05:00:00",
             start_time: startTime,
-            // end_time: "2022-10-13 17:00:00"
             end_time: endTime
           };
         // onSubmit={(event) => {
@@ -305,7 +304,7 @@ export default function EventCard(props) {
         }}
         >
           <Typography variant="h6" color="gray" textAlign="center">
-            Create New Event
+            Edit Event {/* was "Create new Event .. renamed*/}
             {/* if  */}
           </Typography>
           <Box
@@ -442,7 +441,7 @@ export default function EventCard(props) {
                 variant="contained"
                 type="submit"
                 endIcon={<AddIcon />}
-                onClick={userCreateEventSubmit}
+                onClick={userEditEventSubmit}
               >
                 Submit edit
               </Button>

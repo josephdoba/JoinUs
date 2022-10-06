@@ -57,6 +57,7 @@ const createEvent = (eventObject: any) => {
     });
 };
 
+
 const leaveEvent = (dataObj: any) => {
   const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
   const values = [dataObj.body.user_id, dataObj.body.event_id];

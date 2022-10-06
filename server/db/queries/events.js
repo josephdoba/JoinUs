@@ -25,8 +25,8 @@ https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-reque
 -Joba
 */
 const createEvent = (eventObject) => {
-    // console.log("event object from queries/events.ts")
-    // console.log(eventObject)
+    console.log("event object from queries/events.ts");
+    console.log(eventObject.body.Category);
     // https://node-postgres.com/features/queries
     const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, address, lat, lng, start_time, end_time) VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
@@ -36,7 +36,7 @@ const createEvent = (eventObject) => {
         eventObject.body.eventDescription,
         eventObject.body.eventSizeLimit,
         eventObject.body.OwnerId,
-        eventObject.body.Category.id,
+        eventObject.body.Category,
         eventObject.body.eventAddress,
         eventObject.body.lat,
         eventObject.body.lng,
