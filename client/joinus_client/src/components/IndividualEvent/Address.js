@@ -10,7 +10,7 @@ export default function Address({ lat, lng }) {
     getGeocode({ location }).then((results) => {
       setAddress(results[0].formatted_address);
     });
-  });
+  }, []);
 
   return address;
 }

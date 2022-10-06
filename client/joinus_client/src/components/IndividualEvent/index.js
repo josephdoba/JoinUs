@@ -1,12 +1,16 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { findEventAttendees } from "../../helpers/user_selectors";
+import useSharedEvent from "../../hooks/useSharedEvent";
+
 import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
 import JoinEventButton from "./JoinEventButton";
 
 export default function IndividualEvent(props) {
-  const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents } =
-    props;
+  const { joinedEvents, usersData } = props;
+  const { event } = useSharedEvent();
+
+  console.log(event);
 
   const attendeelist = findEventAttendees(event.id, usersData, joinedEvents);
 
@@ -17,19 +21,8 @@ export default function IndividualEvent(props) {
       </Box>
       <Box>
         <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-          <EventDetails
-            description={event.description}
-            image={event.image}
-            name={event.name}
-            attendeelist={attendeelist}
-            size_limit={event.size_limit}
-          />
-          <EventMap
-            start_time={event.start_time}
-            end_time={event.end_time}
-            lat={event.lat}
-            lng={event.lng}
-          />
+          <EventDetails attendeelist={attendeelist} />
+          <EventMap />
         </Stack>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>

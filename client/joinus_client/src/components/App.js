@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import Nav from "./Nav/Nav";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-
-import Nav from "./Nav/Nav";
 import useSharedUser from "../hooks/useSharedUser";
+import useSharedEvent from "../hooks/useSharedEvent";
+
 import { Box } from "@mui/material";
 
 export const ThemeContext = createContext(null);
@@ -27,15 +28,12 @@ const App = function () {
     logout,
   } = useAppData();
   const [theme, setTheme] = useState("light");
-  const [event, setEvent] = useState({});
-  const [selected, setSelected] = useState(null);
+
   const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-
-  // need to figure out how to stop local store from setting info to null when refreshing /user
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
@@ -46,11 +44,9 @@ const App = function () {
           <Nav
             toggleTheme={toggleTheme}
             theme={theme}
-            user={user}
             usersData={usersData}
             login={login}
             logout={logout}
-            setUser={setUser}
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>
@@ -67,7 +63,7 @@ const App = function () {
               element={
                 <div>
                   {/* <FunPhoto />  */}
-                  <Home event={event} />{" "}
+                  <Home />{" "}
                 </div>
               }
             />
@@ -81,9 +77,6 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setEvent={setEvent}
-                  setSelected={setSelected}
-                  selected={selected}
                   setReload={setReload}
                   reload={reload}
                 />
@@ -93,7 +86,6 @@ const App = function () {
               path="/event"
               element={
                 <IndividualEvent
-                  event={event}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
                 />
