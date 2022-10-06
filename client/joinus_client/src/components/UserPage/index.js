@@ -4,7 +4,6 @@ import AddEvent from "./AddEvent";
 import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
-import { Container } from "@mui/system";
 import {
   findUsersCreatedEvents,
   findUsersJoinedEvents,
@@ -55,14 +54,14 @@ export default function Userpage(props) {
 
   return (
     <Box>
-      <Container sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }} m={2} direction={"row"} justifyContent={"center"}>
         <EventCategoryDropdown
           list={categoriesData}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
         {clearCategories(selectedCategory)}
-      </Container>
+      </Box>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar
           setUserEvents={setShowUserEvents}

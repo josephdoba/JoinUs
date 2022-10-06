@@ -8,12 +8,18 @@ import bannerImg from "../../images/run.png"
 const Herobanner = function () {
   return (
     <Stack direction={"row"} spacing={2} justifyContent={"space-between"} p={5}>
-      <Typography p={1}>
-      Social without the schedule.
-      </Typography>
-      <Typography p={5}>
-      Make new friends with shared interests using local short-term meetups.
-      </Typography>
+
+      <Box sx={{
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: 'center'
+      }}>
+
+        <Typography p={5} align="center">
+          Make new friends with shared interests using local short-term meetups.
+        </Typography>
+      </Box>
+
 
       <Box
         component="img"
