@@ -75,7 +75,7 @@ export default function Nav(props) {
 
   useEffect(() => {
     findUser();
-  });
+  }, []);
   //find user end
 
   return (
