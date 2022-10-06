@@ -1,18 +1,18 @@
 -- Users table seeds here (Example)
-INSERT INTO users (name, picture) VALUES 
-('Alice', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
-('Bo', 'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png'),
-('Mike', 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80'),
-('Jean', 'https://i.pinimg.com/736x/17/57/1c/17571cdf635b8156272109eaa9cb5900.jpg'),
-('J-wings', 'https://brandyourself.com/blog/wp-content/uploads/linkedin-profile-picture-too-close.png'),
-('Vladimir', 'https://ih1.redbubble.net/image.825519379.2200/aps,504x498,medium,transparent-pad,600x600,f8f8f8.jpg'),
-('Justin', 'https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png'),
-('Jennifer Aniston', 'https://www.seekpng.com/png/detail/506-5061704_cool-profile-avatar-picture-cool-picture-for-profile.png'),
-('Chanel', 'https://i2-prod.walesonline.co.uk/news/uk-news/article23927263.ece/ALTERNATES/s1200c/0_F038F02A-D11F-11EC-A042-0A2111BCB09D.jpg'),
-('Allen', 'https://i2-prod.walesonline.co.uk/news/uk-news/article23927263.ece/ALTERNATES/s1200c/0_F038F02A-D11F-11EC-A042-0A2111BCB09D.jpg'),
-('Timothy Horton', 'https://play-lh.googleusercontent.com/zScFS2Y-H_crW7WbEXz4GbWGv6cuNOg7bWRFs0L19936utOhpDpoEc4qSG6jYNdUYnc'),
-('Chig Bungus', 'https://static.wikia.nocookie.net/supermarioglitchy4/images/f/f3/Big_chungus.png/revision/latest?cb=20200511041102'),
-('Ashley Ketchup', 'https://i.pinimg.com/736x/18/d9/e1/18d9e1307018dbc76750ca7d5124fccd--ash-ketchum-pokemon.jpg');
+INSERT INTO users (name, age, gender, picture) VALUES 
+('Lawrence Orr', 24, 'male', 'https://cdn-icons-png.flaticon.com/128/4333/4333609.png'),
+('Ashley Ketchup',28, 'female', 'https://cdn-icons-png.flaticon.com/128/4140/4140047.png'),
+('Shauna Benton', 18, 'male', 'https://cdn-icons-png.flaticon.com/128/3940/3940403.png'),
+('Millicent Sawyer', 37, 'female', 'https://cdn-icons-png.flaticon.com/128/921/921124.png'),
+('Richard Kim', 32, 'male','https://cdn-icons-png.flaticon.com/128/2202/2202112.png'),
+('Sadie Carrillo', 22, 'male', 'https://cdn-icons-png.flaticon.com/128/219/219969.png'),
+('Geraldo Haley', 30, 'male', 'https://cdn-icons-png.flaticon.com/512/892/892785.png'),
+('Celeste Archer', 20, 'female', 'https://cdn-icons-png.flaticon.com/128/706/706830.png'),
+('Garry Mcclure', 16, 'male', 'https://cdn-icons-png.flaticon.com/128/366/366343.png'),
+('Philip Macias', 18, 'male', 'https://cdn-icons-png.flaticon.com/128/145/145843.png'),
+('Millie Jones', 24, 'female', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
+('Timothy Horton', 32, 'male', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
+('Olivia Maynard', 27, 'female', 'https://cdn-icons-png.flaticon.com/128/1081/1081055.png');
 
 INSERT INTO categories (name) VALUES
 ('Food & Dining'),
@@ -51,7 +51,7 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 ('SmashMouth live', 'https://www.pedestrian.tv/wp-content/uploads/2016/06/shreksmashmouth2-619-386.jpg', 'Come listen to their hit single All Star for 2 full hours nonstop! All Ages Event', 8, 5, 7, 49.25825320517397, -123.04434376344798, '2022-09-28 12:00:00', '2022-09-28 11:00:00'),
 
-('Axe Throwing', 'https://pbs.twimg.com/media/DedVcGiU0AAcu2i.jpg', 'Come throw Axes at Axe & Grind. Rip and Tear!', 4, 3, 2, 49.15964422830105, -123.13337467011768, '2022-10-13 16:00:00', '2022-10-13 18:00:00'),
+('Axe Throwing', 'https://pbs.twimg.com/media/DedVcGiU0AAcu2i.jpg', 'Come throw Axes at Axe & Grind. Rip and Tear! I will try not to hit you', 4, 3, 2, 49.15964422830105, -123.13337467011768, '2022-10-13 16:00:00', '2022-10-13 18:00:00'),
 
 ('Hackathon #26!', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.-88rbxQR_gTJMvLBbUkfDgHaEK%26pid%3DApi&f=1&ipt=88849c2e5f24aee6413de3a7fc4d629a547e4679ba65bfa9c9e2aa0a55861f7c&ipo=images', 'Bring your laptop, and plan out a project! All experience levels welcome', 10, 4, 10, 49.37341791072464, -123.09637524954998, '2022-09-29 18:00:00', '2022-09-29 20:00:00'),
 
@@ -72,16 +72,16 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, la
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (1, 1, TRUE),
-(2, 1, TRUE),
+(2, 1, FALSE),
 (5, 1, TRUE),
 (3, 2, TRUE),
 (1, 6, TRUE),
 (2, 6, TRUE),
-(2, 3, TRUE),
+(2, 3, FALSE),
 (4, 4, TRUE),
 (2, 6, TRUE),
 (3, 4, TRUE),
-(5, 2, TRUE),
+(5, 2, FALSE),
 (5, 6, TRUE),
 (3, 3, TRUE),
 (4, 3, TRUE),
