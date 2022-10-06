@@ -27,6 +27,7 @@ CREATE TABLE events (
   size_limit INTEGER NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  address TEXT NOT NULL,
   lat FLOAT(32) NOT NULL,
   lng FLOAT(32) NOT NULL,
   start_time TIMESTAMP NOT NULL,

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -48,7 +49,7 @@ export default function EventCard(props) {
     reload,
   } = props;
 
-  // We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? 
+  // to duck: We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? why do I need to know? -joba
 
   
 
@@ -78,13 +79,22 @@ export default function EventCard(props) {
 
   // Form info State declarations:
   const [eventName, setEventName] = useState(name);
-  const [eventImage, setEventImage] = useState(image);
+  const [eventImage, setEventImage] = useState(""); // image is breaking this atm
   const [eventDescription, setEventDescription] = useState(description);
-  const [eventSizeLimit, setEventSizeLimit] = useState(size_limit); // []
+  const [eventSizeLimit, setEventSizeLimit] = useState(""); 
   const [eventCategory, setEventCategory] = useState(category);
   const [eventAddress, setEventAddress] = useState("");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
+  // // Form info State declarations:
+  // const [eventName, setEventName] = useState(name);
+  // const [eventImage, setEventImage] = useState(image);
+  // const [eventDescription, setEventDescription] = useState(description);
+  // const [eventSizeLimit, setEventSizeLimit] = useState(size_limit); // []
+  // const [eventCategory, setEventCategory] = useState(category);
+  // const [eventAddress, setEventAddress] = useState("");
+  // const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
+  // const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
     
 
@@ -259,7 +269,7 @@ export default function EventCard(props) {
             eventImage,
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2,
-            eventOwnerId: 1, // grab owner_id from cookies
+            eventOwnerId: user.id, // grab owner_id from cookies .. just user user.id?
             eventCategory: data.get('label_eventCategory'),
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
@@ -310,27 +320,67 @@ export default function EventCard(props) {
               id="standard-basic"
               label="Full Address"
               variant="standard"
+              name="label_eventAddress"
+              value={eventAddress}
+              onChange={
+                (event) => {
+                  event.preventDefault()
+                  setEventAddress(event.target.value)
+              }}
             />
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="Time"
-                value={start_time}
-                onChange={handleChange}
+                label="Start Time"
+                renderInput={(params) => <TextField {...params} />}
+                value={startTime}
+                onChange={
+                  (event) => { 
+                    console.log(event)
+                    setStartTime(event.$d.toUTCString())
+              }}
+            />
+            </LocalizationProvider>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="End Time"
+                // name="label_end_time"
+                value={endTime}
+                onChange={
+                  (event) => {
+                    setEndTime(event.$d.toString())
+              }}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
-            <CategoriesList categoriesData={props.categoriesData} />
+            <CategoriesList
+            categoriesData={props.categoriesData}
+            name="label_eventCategory"
+            value={eventCategory}
+            onChange={(event) => {
+              event.preventDefault();
+              setEventCategory(event.target.value);
+              console.log(event);
+            }}
+          />
 
-            <TextField
-              id="outlined-textarea"
-              label="Event Details"
-              placeholder="..."
-              multiline
-              inputProps={{ maxLength: 300 }}
-              value={description}
-            />
+          <TextField
+            id="outlined-textarea"
+            label="Description"
+            placeholder="..."
+            multiline
+            inputProps={{ maxLength: 300 }}
+            name="label_eventDescription"
+            value={eventDescription}
+            onChange={(event) => {
+              // event.preventDefault()
+              // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+              setEventDescription(event.target.value);
+              console.log(event.target.value);
+            }}
+          />
 
             <Stack direction="row" justifyContent="left">
               <input
@@ -338,6 +388,15 @@ export default function EventCard(props) {
                 style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
+                name="label_eventImage"
+                value={eventImage}
+                onChange={(event) => {
+                  // event.preventDefault()
+                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
+                  setEventImage(event.target.value);
+                  console.log(event.target.value);
+                  console.log(`from event Image state: ${eventImage}`);
+                }}
               />
               <label htmlFor="raised-button-file">
                 <Button

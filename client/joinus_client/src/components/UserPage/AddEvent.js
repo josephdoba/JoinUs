@@ -257,11 +257,3 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
     </>
   );
 }
-
-/*
-The code below was reference code while troubleshooting the form.
-
-https://github.com/mui/material-ui/blob/v5.10.6/docs/data/material/getting-started/templates/sign-in/SignIn.js
-
--Joba
-*/
