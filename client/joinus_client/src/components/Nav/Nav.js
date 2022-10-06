@@ -16,11 +16,6 @@ export default function Nav(props) {
 
   const { user, setUser } = useSharedUser();
 
-<<<<<<< HEAD
-  // console.log(`----user in nav ${user.name}`);
-
-=======
->>>>>>> main
   const navigate = useNavigate();
 
   // for handling user navbar buttons
