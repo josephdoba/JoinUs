@@ -21,6 +21,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
 export default function AddEvent(props) {
+  console.log("Props from AddEvent.js:")
+  console.log(props)
   const imageRef = useRef()
 
   const StyledModal = {
@@ -114,20 +116,17 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
-          console.log(data.get("label_start_time"))
           const sendDataObj = {
             eventName: data.get('label_eventName'),
-            eventAddress: data.get('label_eventAddress'),
             eventImage,
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2,
             eventOwnerId: 1, // grab owner_id from cookies
             eventCategory: data.get('label_eventCategory'),
+            eventAddress: data.get('label_eventAddress'),
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
-            // start_time: "2022-10-13 05:00:00",
             start_time: startTime,
-            // end_time: "2022-10-13 17:00:00"
             end_time: endTime
           };
 
@@ -139,6 +138,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             Create New Event
           </Typography>
             <TextField
+              required
               id="standard-basic"
               label="Event Name"
               variant="standard"
@@ -153,6 +153,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               />
               
             <TextField
+              required
               id="standard-basic"
               label="Full Address"
               variant="standard"
@@ -167,6 +168,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                // required 
                 label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
                 value={startTime}
@@ -180,18 +182,20 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                // required
                 label="End Time"
-                // name="label_end_time"
                 value={endTime}
+                renderInput={(params) => <TextField {...params} />}
                 onChange={
                   (event) => {
-                    setEndTime(event.$d.toString())
+                    // setEndTime(event.$d.toString())
+                    setEndTime(event.$d.toUTCString())
               }}
-                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
           <CategoriesList
+            // required
             categoriesData={props.categoriesData}
             name="label_eventCategory"
             value={eventCategory}
@@ -203,6 +207,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
           />
 
           <TextField
+            required
             id="outlined-textarea"
             label="Description"
             placeholder="..."
@@ -220,6 +225,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
           <Stack direction="row" justifyContent="left">
             <input
+              // required
               accept="image/*"
               style={{ display: "none" }}
               id="raised-button-file"

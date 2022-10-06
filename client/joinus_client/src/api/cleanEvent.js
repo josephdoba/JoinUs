@@ -2,7 +2,11 @@
 export default function cleanEvent (obj) {
   
  const cleanCreateEvent = (obj) => {
-  return console.log(`From createEvent, cleanCreateEvent: ${obj}`)
+  console.log(`------------------------`)
+  console.log(`From createEvent, cleanCreateEvent: ${obj}`)
+  console.log(`------------------------`)
+
+  return obj
 
  }
  const cleanEditEvent = (obj) => {

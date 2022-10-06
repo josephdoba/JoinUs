@@ -7,11 +7,10 @@ export default function useUserEvents() {
 
   const userCreateEventSubmit = (event) => {
     cleanCreateEvent(event)
-    console.log("api post request from userCreateEventSubmit", event);
     axios
       .post("http://localhost:8080/api/events", event)
       .then(() => {
-        console.log(event);
+        console.log("post complete!")
       })
       .catch((err) => {
         console.log(err);

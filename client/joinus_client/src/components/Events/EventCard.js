@@ -16,10 +16,10 @@ import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
 import dayjs from "dayjs";
 import userEvents from "../../api/useUserEvents";
-import CategoriesList from "../UserPage/CategoriesList";
 import useUserEvents from "../../api/useUserEvents";
+import CategoriesList from "../UserPage/CategoriesList";
 
-import { Modal, Stack, styled, TextField } from "@mui/material";
+import { Modal, Stack, TextField } from "@mui/material";
 
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -49,7 +49,7 @@ export default function EventCard(props) {
     reload,
   } = props;
 
-  // to duck: We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? why do I need to know? -joba
+  // to duck: We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? why do I need to know? They're coming in from useAppData as a hook -joba
 
   
 
