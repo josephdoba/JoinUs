@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../api";
+import useSharedEvent from "./useSharedEvent";
 import useSharedUser from "./useSharedUser";
 
 export default function useAppData() {
@@ -8,9 +9,10 @@ export default function useAppData() {
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
-  const [reload, setReload] = useState(0);
+  const [reload, setReload] = useState(0); // reload the api call
 
   const { setUser } = useSharedUser();
+  const { setEvent } = useSharedEvent();
 
   useEffect(() => {
     Promise.all([
@@ -54,6 +56,24 @@ export default function useAppData() {
     setUser({ id: null, name: null, age: null, gender: null, picture: null });
   };
 
+  const findEventByID = (id, eventsData) => {
+    const event = eventsData.find((event) => event.id === id);
+    console.log(`event name in findEvent func: ${event.name}`);
+    setEvent({
+      id: event.id,
+      name: event.name,
+      image: event.image,
+      description: event.description,
+      size_limit: event.size_limit,
+      owner_id: event.owner_id,
+      category: event.category,
+      lat: event.lat,
+      lng: event.lng,
+      start_time: event.start_time,
+      end_time: event.end_time,
+    });
+  };
+
   return {
     eventsData,
     categoriesData,
@@ -63,6 +83,6 @@ export default function useAppData() {
     reload,
     login,
     logout,
-    useSharedUser,
+    findEventByID,
   };
 }
