@@ -10,7 +10,7 @@ export default function useAppData() {
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
   const [reload, setReload] = useState(0);
 
-  const { setUser, user } = useSharedUser();
+  const { user, setUser  } = useSharedUser();
 
   useEffect(() => {
     Promise.all([
