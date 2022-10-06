@@ -51,7 +51,7 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ad
 
 ('SmashMouth live', 'https://www.pedestrian.tv/wp-content/uploads/2016/06/shreksmashmouth2-619-386.jpg', 'Come listen to their hit single All Star for 2 full hours nonstop! All Ages Event', 8, 5, 7, '123 street', 49.25825320517397, -123.04434376344798, '2022-09-28 12:00:00', '2022-09-28 11:00:00'),
 
-('Axe Throwing', 'https://pbs.twimg.com/media/DedVcGiU0AAcu2i.jpg', 'Come throw Axes at Axe & Grind. Rip and Tear!', 4, 3, 2, 49.15964422830105, -123.13337467011768, '2022-10-13 16:00:00', '2022-10-13 18:00:00'),
+('Axe Throwing', 'https://pbs.twimg.com/media/DedVcGiU0AAcu2i.jpg', 'Come throw Axes at Axe & Grind. Rip and Tear!', 4, 3, 2, '123 street', 15964422830105, -123.13337467011768, '2022-10-13 16:00:00', '2022-10-13 18:00:00'),
 
 ('Hackathon #26!', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.-88rbxQR_gTJMvLBbUkfDgHaEK%26pid%3DApi&f=1&ipt=88849c2e5f24aee6413de3a7fc4d629a547e4679ba65bfa9c9e2aa0a55861f7c&ipo=images', 'Bring your laptop, and plan out a project! All experience levels welcome', 10, 4, 10, '123 street', 49.37341791072464, -123.09637524954998, '2022-09-29 18:00:00', '2022-09-29 20:00:00'),
 
