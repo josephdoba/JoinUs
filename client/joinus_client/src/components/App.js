@@ -5,12 +5,13 @@ import Home from "./Home";
 import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
+import Nav from "./Nav/Nav";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-
-import Nav from "./Nav/Nav";
 import useSharedUser from "../hooks/useSharedUser";
+import useSharedEvent from "../hooks/useSharedEvent";
+
 import { Box } from "@mui/material";
 
 export const ThemeContext = createContext(null);
@@ -27,7 +28,7 @@ const App = function () {
     logout,
   } = useAppData();
   const [theme, setTheme] = useState("light");
-  const [event, setEvent] = useState({});
+
   const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
@@ -62,7 +63,7 @@ const App = function () {
               element={
                 <div>
                   {/* <FunPhoto />  */}
-                  <Home event={event} />{" "}
+                  <Home />{" "}
                 </div>
               }
             />
@@ -76,7 +77,6 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setEvent={setEvent}
                   setReload={setReload}
                   reload={reload}
                 />
@@ -86,7 +86,6 @@ const App = function () {
               path="/event"
               element={
                 <IndividualEvent
-                  event={event}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
                 />

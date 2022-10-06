@@ -4,6 +4,7 @@ import MapError from "./MapError";
 import { useLoadScript } from "@react-google-maps/api";
 import EventMapDetails from "./EventMapDetails";
 import { Box, Stack } from "@mui/material";
+import useSharedEvent from "../../hooks/useSharedEvent";
 
 const libraries = ["places"];
 
@@ -12,7 +13,7 @@ export default function EventMap(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries,
   });
-  const { start_time, end_time, lat, lng } = props;
+  const { event } = useSharedEvent();
   const [map, setMap] = useState(/** @type googlemaps.Map */ (null));
 
   if (loadError) return <MapError />;
@@ -20,21 +21,15 @@ export default function EventMap(props) {
 
   // pan back to event location
   const handleClick = () => {
-    map.panTo({ lat, lng });
+    map.panTo({ lat: event.lat, lng: event.lng });
   };
 
   return (
     <Box flex={"30%"} p={2}>
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
-        <MapComponent lat={lat} lng={lng} setMap={setMap} />
+        <MapComponent setMap={setMap} />
 
-        <EventMapDetails
-          start_time={start_time}
-          end_time={end_time}
-          lat={lat}
-          lng={lng}
-          handleClick={handleClick}
-        />
+        <EventMapDetails handleClick={handleClick} />
       </Stack>
     </Box>
   );

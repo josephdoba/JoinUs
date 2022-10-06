@@ -16,6 +16,7 @@ const useEvent = () => {
     end_time: null,
   });
   console.log(`event in shareduser ${event.name}`);
+
   return {
     event,
     setEvent,

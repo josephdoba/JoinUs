@@ -8,13 +8,15 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useSharedEvent from "../../hooks/useSharedEvent";
 import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import AttendeesAvatar from "./AtendeesAvatar";
 import AttendeePopup from "./AttendeePopup";
 
 export default function EventDetails(props) {
-  const { attendeelist, description, image, name, size_limit } = props;
+  const { attendeelist } = props;
   const navigate = useNavigate();
+  const { event } = useSharedEvent();
 
   // for avatar list pop up
   const [open, setOpen] = useState(false);
@@ -58,8 +60,8 @@ export default function EventDetails(props) {
             maxHeight: { xs: 233, md: "100%" },
             maxWidth: { xs: 350, md: "100%" },
           }}
-          alt={name}
-          src={image}
+          alt={event.name}
+          src={event.image}
         />
         <CardContent>
           <Typography variant="h6" m={2}>
@@ -67,7 +69,7 @@ export default function EventDetails(props) {
           </Typography>
           <AttendeeNumDisplay
             attendeelist={attendeelist}
-            size_limit={size_limit}
+            size_limit={event.size_limit}
           />
 
           {/* button to open attendee list */}
@@ -88,7 +90,7 @@ export default function EventDetails(props) {
           </Button>
 
           <Typography variant="body1" color="text.secondary" m={3}>
-            {description}
+            {event.description}
           </Typography>
         </CardContent>
       </Card>

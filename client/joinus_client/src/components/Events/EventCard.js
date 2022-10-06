@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -13,7 +13,7 @@ import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import userEvents from "../../api/useUserEvents";
 import useUserEvents from "../../api/useUserEvents";
 import { Box } from "@mui/system";
-
+import useAppData from "../../hooks/useAppData";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -27,7 +27,6 @@ export default function EventCard(props) {
     category,
     attendeelist,
     eventsData,
-    setEvent,
     owner_id,
     user,
     size_limit,
@@ -37,25 +36,18 @@ export default function EventCard(props) {
     reload,
   } = props;
 
+  const { findEventByID } = useAppData();
   const { userCreateEventSubmit } = userEvents();
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
-
-
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-
 
   function wait(time) {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
     });
   }
-
-  const findEventByID = (id, eventsData) => {
-    const event = eventsData.find((event) => event.id === id);
-    setEvent(event);
-  };
 
   const navigate = useNavigate();
 
@@ -104,23 +96,27 @@ export default function EventCard(props) {
   };
 
   return (
-    <Box p={2} >
+    <Box p={2}>
       <Card sx={{ maxWidth: 330 }}>
         <CardMedia component="img" alt={name} height="140" image={image} />
-        <CardContent >
-          <Typography sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          }}
-            gutterBottom variant="h6" component="div">
+        <CardContent>
+          <Typography
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+            gutterBottom
+            variant="h6"
+            component="div"
+          >
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
           </Typography>
-          <Typography  variant="paragraph">
+          <Typography variant="paragraph">
             {shortenText(description)}
           </Typography>
         </CardContent>
@@ -193,7 +189,6 @@ export default function EventCard(props) {
             />
           </CardActions>
         )}
-
       </Card>
       <Error open={error} setOpen={setError} />
     </Box>
