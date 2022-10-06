@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Box, Toolbar, Typography, Style } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import { reactLocalStorage } from "reactjs-localstorage";
 import useSharedUser from "../../hooks/useSharedUser";
 
 import { useNavigate } from "react-router-dom";
@@ -16,8 +15,6 @@ export default function Nav(props) {
   const [userID, setUserID] = useState(); //value taken from submitting a form in the email field
 
   const { user, setUser } = useSharedUser();
-
-  console.log(`----user in nav ${user.name}`);
 
   const navigate = useNavigate();
 
@@ -57,7 +54,6 @@ export default function Nav(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
   // end
 
   // log in
@@ -69,7 +65,6 @@ export default function Nav(props) {
   };
 
   // set user as the id in local store
-
   const findUser = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser || currentUser === {}) {
@@ -81,7 +76,6 @@ export default function Nav(props) {
   useEffect(() => {
     findUser();
   }, []);
-
   //find user end
 
   return (

@@ -8,9 +8,18 @@ import bannerImg from "../../images/run.png"
 const Herobanner = function () {
   return (
     <Stack direction={"row"} spacing={2} justifyContent={"space-between"} p={5}>
-      <Typography p={5}>
-      Tired of always having to plan social gatherings weeks in advance only to have them cancel? Look no more! JoinUs brings back the spontaneity into your social life with local short-term meetups. Make new friends wherever you go, on your schedule. Ready to get started? Come JoinUs!
-      </Typography>
+
+      <Box sx={{
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: 'center'
+      }}>
+
+        <Typography p={5} align="center">
+          Make new friends with shared interests using local short-term meetups.
+        </Typography>
+      </Box>
+
 
       <Box
         component="img"

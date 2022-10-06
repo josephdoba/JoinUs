@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import AddEvent from "./AddEvent";
 import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
-import { Container } from "@mui/system";
 import {
   findUsersCreatedEvents,
   findUsersJoinedEvents,
   pastEvents,
 } from "../../helpers/event_selectors";
-import { reactLocalStorage } from "reactjs-localstorage";
 
 export default function Userpage(props) {
   const {
@@ -26,9 +24,9 @@ export default function Userpage(props) {
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
-  const [showUserEvents, setShowUserEvents] = useState(0);
+  const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
 
-  if (user !== null || user.id !== null) {
+  if (user !== null && user.id !== null) {
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
 
@@ -57,19 +55,20 @@ export default function Userpage(props) {
 
   return (
     <Box>
-      <Container sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }} m={2} direction={"row"} justifyContent={"center"}>
         <EventCategoryDropdown
           list={categoriesData}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
         {clearCategories(selectedCategory)}
-      </Container>
+      </Box>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar
           setUserEvents={setShowUserEvents}
           showUserEvents={showUserEvents}
         />
+
         {showUserEvents === 0 && (
           <Events
             eventsData={eventsData}

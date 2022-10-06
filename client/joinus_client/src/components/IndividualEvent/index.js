@@ -14,10 +14,6 @@ export default function IndividualEvent(props) {
 
   return (
     <Box flex={"row"}>
-      <Sidebar
-        setUserEvents={setShowUserEvents}
-        showUserEvents={showUserEvents}
-      />
       <Box display="flex" justifyContent="center" alignItems="center" m={3}>
         <Typography variant="h4">{event.name}</Typography>
       </Box>
