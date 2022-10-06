@@ -81,10 +81,11 @@ export default function Homepage(props) {
 
   return (
     <Box
-      flex={1}
+      flex={0.75}
       p={2}
+      
     >
-      <Box position="fixed">
+      <Box position="fixed" >
 
         <List>
           <ListItem disablePadding>
