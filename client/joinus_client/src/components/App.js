@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
@@ -34,8 +34,6 @@ const App = function () {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
 
-  // need to figure out how to stop local store from setting info to null when refreshing /user
-
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
@@ -45,11 +43,9 @@ const App = function () {
           <Nav
             toggleTheme={toggleTheme}
             theme={theme}
-            user={user}
             usersData={usersData}
             login={login}
             logout={logout}
-            setUser={setUser}
           />
           <Routes>
             {/* <Route path="/dashboard" element={<Userpage />}>
