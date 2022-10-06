@@ -8,8 +8,11 @@ import bannerImg from "../../images/run.png"
 const Herobanner = function () {
   return (
     <Stack direction={"row"} spacing={2} justifyContent={"space-between"} p={5}>
+      <Typography p={1}>
+      Social without the schedule.
+      </Typography>
       <Typography p={5}>
-      Tired of always having to plan social gatherings weeks in advance only to have them cancel? Look no more! JoinUs brings back the spontaneity into your social life with local short-term meetups. Make new friends wherever you go, on your schedule. Ready to get started? Come JoinUs!
+      Make new friends with shared interests using local short-term meetups.
       </Typography>
 
       <Box
