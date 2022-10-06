@@ -21,6 +21,8 @@ const getComments = () => {
     .catch((err) => console.error(err.stack));
 }
 
+
+
 /*
     .query(`
 INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
@@ -110,6 +112,32 @@ const deleteEvent = (dataObj: any) => {
     });
 };
 
+const addComments = (dataObj: any) => {
+  const addCommentQuery = `INSERT INTO comments(user_id, event_id, name, message) VALUES ($1, $2, $3, $4);`
+  const values = [dataObj.body.user_id, dataObj.body.event_id, dataObj.body.name, dataObj.body.message];
+
+  return db
+    .query(addCommentQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("badbad");
+    });
+};
+
+const deleteComments = (dataObj: any) => {
+  const deleteCommentQuery = `DELETE FROM comments WHERE id=$1;`
+  const values = [dataObj.body.comment_id]
+
+  return db
+    .query(deleteCommentQuery, values)
+    .then((data) => data.rows)
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("badbad");
+    });
+};
+
 // const editEvent = (eventObject) => {
 //   return connection_1.db
 //       .query(`SELECT * FROM events WHERE id = 1`)
@@ -124,5 +152,7 @@ export default {
   leaveEvent,
   joinEvent,
   deleteEvent,
-  getComments
+  getComments,
+  addComments,
+  deleteComments
 };

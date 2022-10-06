@@ -85,6 +85,30 @@ export default function useUserEvents() {
       });
   };
 
+  const userAddComment = (event) => {
+    axios
+      .post('http://localhost:8080/api/comments/add', event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const userDeleteComment = (event) => {
+    axios
+      .post('http://localhost:8080/api/comments/delete', event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+
   const userEditEventSubmit = () => {
     console.log("api post request for userEditEvent");
   };
@@ -95,5 +119,7 @@ export default function useUserEvents() {
     userLeaveEvent,
     userJoinEvent,
     userDeleteEvent,
+    userAddComment,
+    userDeleteComment
   };
 }

@@ -37,7 +37,6 @@ const App = function () {
   };
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  console.log(comments)
   // need to figure out how to stop local store from setting info to null when refreshing /user
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
@@ -101,6 +100,9 @@ const App = function () {
                   event={event}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
+                  user={user}
+                  reload={reload}
+                  setReload={setReload}
                 />
               }
             />

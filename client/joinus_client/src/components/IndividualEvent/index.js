@@ -7,11 +7,11 @@ import Sidebar from "../UserPage/Sidebar";
 import CommentBox from "./CommentBox";
 
 export default function IndividualEvent(props) {
-  const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents, comments } =
+  const { event, joinedEvents, usersData, setShowUserEvents, showUserEvents, comments, user, reload, setReload } =
     props;
 
   const attendeelist = findEventAttendees(event.id, usersData, joinedEvents);
-
+  
   return (
     <Box flex={"row"}>
       <Box display="flex" justifyContent="center" alignItems="center" m={3}>
@@ -37,7 +37,7 @@ export default function IndividualEvent(props) {
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
         <JoinEventButton />
       </Box>
-      <CommentBox comments={comments}/>
+      <CommentBox comments={comments} event={event} user={user} reload={reload} setReload={setReload} joinedEvents={joinedEvents}/>
     </Box>
   );
 }

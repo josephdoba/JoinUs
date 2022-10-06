@@ -95,5 +95,11 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (13, 3, TRUE),
 (2, 9, TRUE);
 
-INSERT INTO comments(user_id, event_id, message) VALUES
-(5, 3, 'I love this event so much!');
+INSERT INTO comments(user_id, event_id, name, message) VALUES
+(5, 3, 'J-Wings', 'I love this event so much!'),
+(1, 1, 'Alice', 'Great event'),
+(6, 4, 'Vladimir', 'What time we meeting?'),
+(3, 7, 'Mike', 'I love this place!'),
+(3, 3, 'Mike', 'i love board games'),
+(8, 5, 'Jennifer Aniston', 'awesome guys!'),
+(2, 4, 'Bo', 'see you soon Katie');

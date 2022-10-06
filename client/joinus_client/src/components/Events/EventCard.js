@@ -61,6 +61,7 @@ export default function EventCard(props) {
 
   async function submitHandler() {
     findEventByID(id, eventsData);
+    
 
     await wait(250);
     navigate(`/event`);

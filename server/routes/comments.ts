@@ -10,6 +10,28 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
+router.post('/add', (req, res) => {
+  eventQueries
+    .addComments(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post('/delete', (req, res) => {
+  eventQueries
+    .deleteComments(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 
 
 

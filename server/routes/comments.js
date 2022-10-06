@@ -12,4 +12,24 @@ router.get("/", (req, res) => {
         .then((comments) => res.json(comments))
         .catch((err) => res.status(500).json({ error: err.message }));
 });
+router.post('/add', (req, res) => {
+    events_1.default
+        .addComments(req)
+        .then((event) => {
+        res.json(event);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
+router.post('/delete', (req, res) => {
+    events_1.default
+        .deleteComments(req)
+        .then((event) => {
+        res.json(event);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 exports.default = router;
