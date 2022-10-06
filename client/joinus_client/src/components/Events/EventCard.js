@@ -49,6 +49,9 @@ export default function EventCard(props) {
     reload,
   } = props;
 
+  console.log("Props from EventCard.js:")
+  console.log(props)
+
   // to duck: We need an address props - Where would they come from? the db.. yea but.. what fil... the db??.. sigh, what I mean is, what is the parent of where these props are coming in? why do I need to know? They're coming in from useAppData as a hook -joba
 
   
@@ -262,15 +265,14 @@ export default function EventCard(props) {
         sx={FormBox}
         onSubmit={(event) => {
           event.preventDefault();
-          const data = new FormData(event.currentTarget);
           const sendDataObj = {
-            eventName: data.get('label_eventName'),
-            eventAddress: data.get('label_eventAddress'),
+            eventName,
+            eventAddress,
             eventImage,
-            eventDescription: data.get('label_eventDescription'),
+            eventDescription,
             eventSizeLimit: 2,
             eventOwnerId: user.id, // grab owner_id from cookies .. just user user.id?
-            eventCategory: data.get('label_eventCategory'),
+            eventCategory,
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
             // start_time: "2022-10-13 05:00:00",
@@ -278,6 +280,24 @@ export default function EventCard(props) {
             // end_time: "2022-10-13 17:00:00"
             end_time: endTime
           };
+        // onSubmit={(event) => {
+        //   event.preventDefault();
+        //   const data = new FormData(event.currentTarget);
+        //   const sendDataObj = {
+        //     eventName: data.get('label_eventName'),
+        //     eventAddress: data.get('label_eventAddress'),
+        //     eventImage,
+        //     eventDescription: data.get('label_eventDescription'),
+        //     eventSizeLimit: 2,
+        //     eventOwnerId: user.id, // grab owner_id from cookies .. just user user.id?
+        //     eventCategory: data.get('label_eventCategory'),
+        //     lat: 51.0233064354121, // will eventually need to generate these values from address
+        //     lng: -114.02369425973428,
+        //     // start_time: "2022-10-13 05:00:00",
+        //     start_time: startTime,
+        //     // end_time: "2022-10-13 17:00:00"
+        //     end_time: endTime
+        //   };
           userEditEventSubmit(sendDataObj)
           setOpen(false)
         }}
@@ -349,7 +369,7 @@ export default function EventCard(props) {
                 value={endTime}
                 onChange={
                   (event) => {
-                    setEndTime(event.$d.toString())
+                    setEndTime(event.$d.toUTCString())
               }}
                 renderInput={(params) => <TextField {...params} />}
               />

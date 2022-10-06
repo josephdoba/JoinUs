@@ -23,6 +23,8 @@ import Search from "./Search";
 export default function AddEvent(props) {
   console.log("Props from AddEvent.js:")
   console.log(props)
+
+
   const imageRef = useRef()
 
   const StyledModal = {
@@ -55,7 +57,7 @@ Good question! I asked a mentor about the difference of sending it all as one gi
 We also might need those lng/lat states, but i'll bring em back if we need em -Joba
 
 */
-  // Form State
+  // Form State 
   const [eventForm, setEventForm] = useState("");
 
   // Form info State declarations:
