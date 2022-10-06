@@ -21,10 +21,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
 export default function AddEvent(props) {
-  console.log("Props from AddEvent.js:")
-  console.log(props)
 
-
+ // We need this, just need to find how it was implemented before a previous merge wrecked it
   const imageRef = useRef()
 
   const StyledModal = {
@@ -52,7 +50,7 @@ export default function AddEvent(props) {
 /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
 
-Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
+Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states makes sense since its currently working. imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
 
 We also might need those lng/lat states, but i'll bring em back if we need em -Joba
 
@@ -123,7 +121,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             eventImage,
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2,
-            eventOwnerId: 1, // grab owner_id from cookies
+            eventOwnerId: 1,
             eventCategory: data.get('label_eventCategory'),
             eventAddress: data.get('label_eventAddress'),
             lat: 51.0233064354121, // will eventually need to generate these values from address
@@ -148,8 +146,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               value={eventName}
               onChange={
                 (event) => {
-                  // event.preventDefault()
-                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventName(event.target.value)
               }}
               />
@@ -170,7 +166,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                // required 
+                required 
                 label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
                 value={startTime}
@@ -184,20 +180,19 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                // required
+                required
                 label="End Time"
                 value={endTime}
                 renderInput={(params) => <TextField {...params} />}
                 onChange={
                   (event) => {
-                    // setEndTime(event.$d.toString())
                     setEndTime(event.$d.toUTCString())
               }}
               />
             </LocalizationProvider>
 
           <CategoriesList
-            // required
+            required
             categoriesData={props.categoriesData}
             name="label_eventCategory"
             value={eventCategory}
@@ -218,16 +213,13 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             name="label_eventDescription"
             value={eventDescription}
             onChange={(event) => {
-              // event.preventDefault()
-              // setMyEvent(prev => ({...prev, eventName: event.target.value}))
               setEventDescription(event.target.value);
-              console.log(event.target.value);
             }}
           />
 
           <Stack direction="row" justifyContent="left">
             <input
-              // required
+              required
               accept="image/*"
               style={{ display: "none" }}
               id="raised-button-file"
@@ -235,8 +227,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               name="label_eventImage"
               value={eventImage}
               onChange={(event) => {
-                // event.preventDefault()
-                // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                 setEventImage(event.target.value);
                 console.log(event.target.value);
                 console.log(`from event Image state: ${eventImage}`);

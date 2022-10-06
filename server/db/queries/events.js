@@ -36,7 +36,7 @@ const createEvent = (eventObject) => {
         eventObject.body.eventDescription,
         eventObject.body.eventSizeLimit,
         eventObject.body.OwnerId,
-        eventObject.body.Category,
+        eventObject.body.Category.id,
         eventObject.body.eventAddress,
         eventObject.body.lat,
         eventObject.body.lng,
