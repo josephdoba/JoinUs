@@ -23,7 +23,7 @@ export default function Userpage(props) {
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
-  const [showUserEvents, setShowUserEvents] = useState(0);
+  const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
 
   if (user !== null || user.id !== null) {
     localStorage.setItem("currentUser", JSON.stringify(user));
@@ -67,6 +67,7 @@ export default function Userpage(props) {
           setUserEvents={setShowUserEvents}
           showUserEvents={showUserEvents}
         />
+
         {showUserEvents === 0 && (
           <Events
             eventsData={eventsData}
