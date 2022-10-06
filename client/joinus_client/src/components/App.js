@@ -11,6 +11,7 @@ import useAppData from "../hooks/useAppData";
 
 import Nav from "./Nav/Nav";
 import useSharedUser from "../hooks/useSharedUser";
+import { Box } from "@mui/material";
 
 export const ThemeContext = createContext(null);
 
@@ -41,7 +42,7 @@ const App = function () {
   return (
     <Router>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <div id={theme}>
+        <Box id={theme}>
           <Nav
             toggleTheme={toggleTheme}
             theme={theme}
@@ -99,7 +100,7 @@ const App = function () {
               }
             />
           </Routes>
-        </div>
+        </Box>
       </ThemeContext.Provider>
     </Router>
   );
