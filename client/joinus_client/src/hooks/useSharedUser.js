@@ -9,7 +9,7 @@ const useUser = () => {
     gender: null,
     picture: null,
   });
-  console.log(`user in shareduser ${user.id}`);
+
   return {
     user,
     setUser,
