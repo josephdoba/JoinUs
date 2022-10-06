@@ -43,7 +43,7 @@ export default function EventCategoryDropdown(props) {
   };
 
   return (
-    <div>
+    <Box >
       <FormControl sx={{ m: 1, width: 500 }}>
         <InputLabel id="category-dropdown-search">Categories</InputLabel>
         <Select
@@ -73,6 +73,6 @@ export default function EventCategoryDropdown(props) {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 }

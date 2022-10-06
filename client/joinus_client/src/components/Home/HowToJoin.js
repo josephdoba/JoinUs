@@ -56,7 +56,7 @@ export default function HowToJoin(props) {
   });
 
   return (
-    <Container className="card-animation">
+    <Container>
       <Typography
         component="div"
         variant="h3"

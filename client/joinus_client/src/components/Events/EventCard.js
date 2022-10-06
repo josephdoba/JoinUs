@@ -7,14 +7,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
 import Error from "./Error";
-
 import { formatTime } from "../../helpers/helpers";
 import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-
-import dayjs from "dayjs";
 import userEvents from "../../api/useUserEvents";
 import useUserEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
@@ -26,6 +22,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -78,7 +76,6 @@ export default function EventCard(props) {
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState(dayjs("2022-09-28T15:00:00"));
 
   // Form info State declarations:
   const [eventName, setEventName] = useState(name);
@@ -101,9 +98,9 @@ export default function EventCard(props) {
 
     
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (newValue) => {
+  //   setValue(newValue);
+  // };
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -163,11 +160,16 @@ export default function EventCard(props) {
   };
 
   return (
-    <Grid item xs={4}>
-      <Card sx={{ maxWidth: 380, maxHeight: 380 }}>
-        <CardMedia component="img" alt={name} height="150" image={image} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+    <Box p={2} >
+      <Card sx={{ maxWidth: 330 }}>
+        <CardMedia component="img" alt={name} height="140" image={image} />
+        <CardContent >
+          <Typography sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+          }}
+            gutterBottom variant="h6" component="div">
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
@@ -175,7 +177,7 @@ export default function EventCard(props) {
              {/*  Getting weird errors with this line after even after reinstalling depedencies, restarting server, reseeding db. tried props.category.name with no luck commented out for now*/}
              {/* Category: {category.name} */}
           </Typography>
-          <Typography variant="paragraph">
+          <Typography  variant="paragraph">
             {shortenText(description)}
           </Typography>
         </CardContent>
@@ -449,6 +451,6 @@ export default function EventCard(props) {
         </Box>
       </Modal>
       <Error open={error} setOpen={setError} />
-    </Grid>
+    </Box>
   );
 }
