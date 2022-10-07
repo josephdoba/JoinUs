@@ -11,8 +11,9 @@ import Error from "./Error";
 import { formatTime } from "../../helpers/helpers";
 import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import userEvents from "../../api/useUserEvents";
-import useUserEvents from "../../api/useUserEvents";
+
+// import userEvents from "../../api/useUserEvents";
+// import useUserEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
 
 import { Box } from "@mui/system";

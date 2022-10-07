@@ -124,7 +124,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             eventOwnerId: 1,
             eventCategory: data.get('label_eventCategory'),
             eventAddress: data.get('label_eventAddress'),
-            lat: 51.0233064354121, // will eventually need to generate these values from address
+            lat: 51.0233064354121, // use the auto feature from the google api
             lng: -114.02369425973428,
             start_time: startTime,
             end_time: endTime
