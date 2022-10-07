@@ -69,31 +69,11 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
   /*
   const [location, setLocation]=useState(“”)  
-  
   onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
 */
   
   return (
     <>
-      <Tooltip
-        title="Create A New Event"
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          left: { xs: "calc(50% - 25px)", md: 30 },
-        }}
-      >
-        <Fab
-          variant="extended"
-          onClick={(e) => {
-            setOpen(true);
-          }}
-        >
-          <AddIcon sx={{ mr: 1 }} />
-          New Event
-        </Fab>
-      </Tooltip>
-
         <Modal
         open={open}
         onClose={(e) => setOpen(false)}

@@ -126,17 +126,12 @@ export default function EventCard(props) {
             <Button onClick={submitHandler} size="small">
               Learn More
             </Button>
-            <Button>
-            <EventForm />
-            Edit Event
+            {/* <EventForm/> */}
+            <Button size="small">
+              Edit Event
+              <EventForm/>
             </Button>
-            {/* onClick={(e) => {
-              
-              setOpen(true)
-            }} size="small"> */}
 
-              {/* Edit Event
-            </EventForm> */}
             <Button
               size="small"
               onClick={(e) => {
