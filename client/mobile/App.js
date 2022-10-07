@@ -14,7 +14,7 @@ import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import NavBar from './src/components/NavBar';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {ThemeProvider, createTheme} from '@rneui/themed';
 
@@ -37,6 +37,19 @@ const theme = createTheme({
 
 // passing additional props to a screne https://reactnavigation.org/docs/hello-react-navigation
 
+// for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
+const Tab = createBottomTabNavigator();
+
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: '#f9fbe7',
+  },
+  headerTintColor: '#222831',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
@@ -44,8 +57,10 @@ const App = () => {
       <NavigationContainer>
         <StatusBar />
         <ThemeProvider theme={theme}>
-          <NavBar />
-          <Stack.Navigator initialRouteName="Home">
+          {/* <NavBar /> */}
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={headerOptions}>
             <Stack.Screen
               name="Home"
               component={HomeScreen}
