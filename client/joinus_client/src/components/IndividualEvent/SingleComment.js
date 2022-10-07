@@ -1,5 +1,5 @@
 import React from 'react';
-import useUserEvents from "../../api/useUserEvents";
+import useUserEvents from '../../hooks/useUserEvents';
 
 
 export default function SingleComment(props) {
