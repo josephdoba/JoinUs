@@ -6,19 +6,30 @@ import {
   StyleSheet,
   Text,
   StatusBar,
+  Image,
 } from 'react-native';
 
 const INSTRUCTIONS = [
   {
     id: 1,
-    image: signup,
+    image: (
+      <Image
+        style={styles.imageSize}
+        source={require('../../images/join.png')}
+      />
+    ),
     alt: 'how to join',
     title: 'Join Us!',
     description: 'Create an account and see what others around are doing!',
   },
   {
     id: 2,
-    image: idea,
+    image: (
+      <Image
+        style={styles.imageSize}
+        source={require('../../images/idea.png')}
+      />
+    ),
     alt: 'create',
     title: 'Create',
     description:
@@ -26,7 +37,12 @@ const INSTRUCTIONS = [
   },
   {
     id: 3,
-    image: chat,
+    image: (
+      <Image
+        style={styles.imageSize}
+        source={require('../../images/chat.png')}
+      />
+    ),
     alt: 'Chat',
     title: 'Chat',
     description:
@@ -34,7 +50,12 @@ const INSTRUCTIONS = [
   },
   {
     id: 4,
-    image: meet,
+    image: (
+      <Image
+        style={styles.imageSize}
+        source={require('../../images/meet.png')}
+      />
+    ),
     alt: 'Meet',
     title: 'Meet',
     description: 'Head out and do something new with a new friend.',
@@ -43,3 +64,10 @@ const INSTRUCTIONS = [
 const HowTo = ({}) => {};
 
 export default HowTo;
+
+const styles = Stylesheet.create({
+  imageSize: {
+    height: 60,
+    width: 60,
+  },
+});
