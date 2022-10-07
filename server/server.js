@@ -28,12 +28,14 @@ app.use(express_1.default.static("public"));
 const events_1 = __importDefault(require("./routes/events"));
 const users_2 = __importDefault(require("./routes/users"));
 const event_1 = __importDefault(require("./routes/event"));
+const comments_1 = __importDefault(require("./routes/comments"));
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", users_2.default);
 app.use("/api/events", events_1.default);
 app.use("/event", event_1.default);
+app.use("/api/comments", comments_1.default);
 // login user
 app.get("/api/user/:user_id", (req, res) => {
     const userID = req.params.user_id;
