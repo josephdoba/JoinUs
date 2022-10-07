@@ -35,6 +35,7 @@ app.use(express.static("public"));
 import eventsRoutes from "./routes/events";
 import usersRoutes from "./routes/users";
 import eventRoute from "./routes/event";
+import commentRoute from './routes/comments';
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -42,6 +43,7 @@ import eventRoute from "./routes/event";
 app.use("/api/users", usersRoutes);
 app.use("/api/events", eventsRoutes);
 app.use("/event", eventRoute);
+app.use("/api/comments", commentRoute);
 
 // Note: mount other resources here, using the same pattern above
 
