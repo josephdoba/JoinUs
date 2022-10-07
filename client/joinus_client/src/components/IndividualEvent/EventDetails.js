@@ -85,10 +85,6 @@ export default function EventDetails(props) {
             handleClose={handleClose}
           />
 
-          <Button size="small" variant="text" onClick={submitHandler}>
-            Join Chat
-          </Button>
-
           <Typography variant="body1" color="text.secondary" m={3}>
             {event.description}
           </Typography>

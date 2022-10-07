@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import Home from "./Home";
-import Chat from "./Chat";
 import Userpage from "./UserPage/index";
 import "./app.scss";
 import Nav from "./Nav/Nav";
@@ -58,7 +57,6 @@ const App = function () {
               <Route path='/create' element={false}/>
               <Route path='/join' element={false}/> */}
             {/* </Route> */}
-            <Route path="/event/chat" element={<Chat user={user} />} />
             <Route
               path="/"
               element={
