@@ -6,7 +6,7 @@ import { findCategoryByID } from "../../helpers/category_selectors";
 import {
   upcomingEvents,
   findEventsByCategory,
-  pastEvents
+  pastEvents,
 } from "../../helpers/event_selectors";
 import { findEventAttendees } from "../../helpers/user_selectors";
 
@@ -14,14 +14,13 @@ export default function Events(props) {
   const {
     eventsData,
     categoriesData,
-    setEvent,
     selectedCategory,
     usersData,
     joinedEvents,
     showUserEvents,
     user,
     setReload,
-    reload
+    reload,
   } = props;
 
   const displayEventCard = (eventArr) => {
@@ -42,7 +41,6 @@ export default function Events(props) {
           start_time={e.start_time}
           end_time={e.end_time}
           eventsData={eventsData}
-          setEvent={setEvent}
           attendeelist={attendeelist}
           categoriesData={categoriesData}
           size_limit={e.size_limit}
@@ -64,7 +62,7 @@ export default function Events(props) {
   let event;
 
   //all upcoming events
-  if(showUserEvents === 3) {
+  if (showUserEvents === 3) {
     if (selectedCategory.length === 0) {
       event = displayEventCard(pastEvents(eventsData));
     } else {
@@ -79,19 +77,20 @@ export default function Events(props) {
   }
 
   // user owned events
-  
+
   // user joined events
   // past events
 
   return (
-    
-      <Box flex={5} sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
-      }}>
-        {event}
-      </Box>
-    
+    <Box
+      flex={5}
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+    >
+      {event}
+    </Box>
   );
 }

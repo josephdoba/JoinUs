@@ -10,9 +10,11 @@ import PersonPinCircleTwoToneIcon from "@mui/icons-material/PersonPinCircleTwoTo
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { formatTime } from "../../helpers/helpers";
 import Address from "./Address";
+import useSharedEvent from "../../hooks/useSharedEvent";
 
 export default function EventMapDetails(props) {
-  const { start_time, end_time, handleClick, lat, lng } = props;
+  const { handleClick } = props;
+  const { event } = useSharedEvent();
   // const ListItemText = styled("ListItemText")(({ theme }) => ({
   //   listItemText:{
   //     fontSize:'10px',//Insert your required size
@@ -23,14 +25,13 @@ export default function EventMapDetails(props) {
     <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
       <ListItem>
         <ListItemAvatar>
-          <IconButton onClick={handleClick}>
+          <IconButton fontSize="medium" onClick={handleClick}>
             <PersonPinCircleTwoToneIcon />
           </IconButton>
         </ListItemAvatar>
         <ListItemText
           primaryTypographyProps={{ fontSize: "14px" }}
-          secondaryTypographyProps={{ fontSize: "12px" }}
-          primary={<Address lat={lat} lng={lng} />}
+          primary={<Address lat={event.lat} lng={event.lng} />}
         />
       </ListItem>
       <ListItem>
@@ -41,7 +42,7 @@ export default function EventMapDetails(props) {
         </ListItemAvatar>
         <ListItemText
           primaryTypographyProps={{ fontSize: "14px" }}
-          primary={formatTime(start_time, end_time)}
+          primary={formatTime(event.start_time, event.end_time)}
         />
       </ListItem>
     </List>
