@@ -15,15 +15,6 @@ export default function useUserEvents() {
       .catch((err) => {
         console.log(err);
       });
-
-    // both from the same call from the user
-    /*
-    Promise.all([
-      axios.post("the endpoint for the join table", owner_id), 
-      axios.post("the endpoint for the join table", event_id),
-    ])
-    .err(err => console.log(err));
-  }*/
 };
 
 const userEditEventSubmit = (event) => {

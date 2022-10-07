@@ -21,6 +21,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
 export default function EventForm(props) {
+  console.log(props)
 
  // We need this, just need to find how it was implemented before a previous merge wrecked it
   const imageRef = useRef()
@@ -56,13 +57,13 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   // Form State 
   const [eventForm, setEventForm] = useState("");
 
-  // Form info State declarations:
-  const [eventName, setEventName] = useState("");
-  const [eventImage, setEventImage] = useState("");
-  const [eventDescription, setEventDescription] = useState("");
-  const [eventSizeLimit, setEventSizeLimit] = useState(""); // []
-  const [eventCategory, setEventCategory] = useState("");
-  const [eventAddress, setEventAddress] = useState("");
+  // // Form info State declarations:
+  const [eventName, setEventName] = useState(props.name || "");
+  const [eventImage, setEventImage] = useState(""); // image is breaking this atm
+  const [eventDescription, setEventDescription] = useState(props.description || "");
+  const [eventSizeLimit, setEventSizeLimit] = useState("");
+  const [eventCategory, setEventCategory] = useState(props.category || "");
+  const [eventAddress, setEventAddress] = useState(props.address || "");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
@@ -162,6 +163,8 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               }}
             />
 
+            <Search setSelected={setSelected} />
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 required 
@@ -170,7 +173,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
                 value={startTime}
                 onChange={
                   (event) => { 
-                    console.log(event)
                     setStartTime(event.$d.toUTCString())
               }}
             />
@@ -197,7 +199,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             onChange={(event) => {
               event.preventDefault();
               setEventCategory(event.target.value);
-              console.log(event);
             }}
           />
 
@@ -246,7 +247,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             <Button variant="contained" type="submit" endIcon={<AddIcon />}>
               Create
             </Button>
-            <Search setSelected={setSelected} />
+            
           </Stack>
         </Box>
       </Modal>

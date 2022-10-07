@@ -58,7 +58,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   // Form State 
   const [eventForm, setEventForm] = useState("");
 
-  // Form info State declarations:
+  // Form info State declarations for Create Form
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -67,6 +67,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   const [eventAddress, setEventAddress] = useState("");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
+
 
   /*
   const [location, setLocation]=useState(“”)  
@@ -101,7 +102,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={StyledModal}
-      >
+        >
 
         <Box 
         width={500} 
@@ -172,7 +173,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
                 value={startTime}
                 onChange={
                   (event) => { 
-                    console.log(event)
                     setStartTime(event.$d.toUTCString())
               }}
             />

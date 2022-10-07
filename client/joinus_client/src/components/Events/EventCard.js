@@ -18,6 +18,7 @@ import CategoriesList from "../UserPage/CategoriesList";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
+import EventForm from "../UserPage/EventForm";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -125,9 +126,17 @@ export default function EventCard(props) {
             <Button onClick={submitHandler} size="small">
               Learn More
             </Button>
-            <Button onClick={(e) => setOpen(true)} size="small">
-              Edit Event
+            <Button>
+            <EventForm />
+            Edit Event
             </Button>
+            {/* onClick={(e) => {
+              
+              setOpen(true)
+            }} size="small"> */}
+
+              {/* Edit Event
+            </EventForm> */}
             <Button
               size="small"
               onClick={(e) => {
