@@ -26,6 +26,23 @@ export default function Userpage(props) {
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
 
+  const eventsShown = (eventsDataInput) => {
+    return (
+      <Events
+        eventsData={eventsDataInput}
+        usersData={usersData}
+        categoriesData={categoriesData}
+        setEvent={setEvent}
+        joinedEvents={joinedEvents}
+        selectedCategory={selectedCategory}
+        user={user}
+        showUserEvents={showUserEvents}
+        setReload={setReload}
+        reload={reload}
+      />
+    );
+  };
+
   if (user !== null && user.id !== null) {
     localStorage.setItem("currentUser", JSON.stringify(user));
   }
@@ -55,7 +72,12 @@ export default function Userpage(props) {
 
   return (
     <Box>
-      <Box sx={{ display: "flex" }} m={2} direction={"row"} justifyContent={"center"}>
+      <Box
+        sx={{ display: "flex" }}
+        m={2}
+        direction={"row"}
+        justifyContent={"center"}
+      >
         <EventCategoryDropdown
           list={categoriesData}
           selectedCategory={selectedCategory}
@@ -68,65 +90,10 @@ export default function Userpage(props) {
           setUserEvents={setShowUserEvents}
           showUserEvents={showUserEvents}
         />
-
-        {showUserEvents === 0 && (
-          <Events
-            eventsData={eventsData}
-            usersData={usersData}
-            categoriesData={categoriesData}
-            setEvent={setEvent}
-            joinedEvents={joinedEvents}
-            selectedCategory={selectedCategory}
-            user={user}
-            setReload={setReload}
-            reload={reload}
-            comments={comments}
-          />
-        )}
-        {showUserEvents === 1 && (
-          <Events
-            eventsData={usersCreatedEvents}
-            usersData={usersData}
-            categoriesData={categoriesData}
-            setEvent={setEvent}
-            joinedEvents={joinedEvents}
-            selectedCategory={selectedCategory}
-            user={user}
-            showUserEvents={showUserEvents}
-            setReload={setReload}
-            reload={reload}
-            comments={comments}
-          />
-        )}
-        {showUserEvents === 2 && (
-          <Events
-            eventsData={usersJoinedEvents}
-            usersData={usersData}
-            categoriesData={categoriesData}
-            setEvent={setEvent}
-            joinedEvents={joinedEvents}
-            selectedCategory={selectedCategory}
-            user={user}
-            setReload={setReload}
-            reload={reload}
-            comments={comments}
-          />
-        )}
-        {showUserEvents === 3 && (
-          <Events
-            eventsData={eventHistory}
-            usersData={usersData}
-            categoriesData={categoriesData}
-            setEvent={setEvent}
-            joinedEvents={joinedEvents}
-            selectedCategory={selectedCategory}
-            showUserEvents={showUserEvents}
-            user={user}
-            setReload={setReload}
-            reload={reload}
-            comments={comments}
-          />
-        )}
+        {showUserEvents === 0 && eventsShown(eventsData)}
+        {showUserEvents === 1 && eventsShown(usersCreatedEvents)}
+        {showUserEvents === 2 && eventsShown(usersJoinedEvents)}
+        {showUserEvents === 3 && eventsShown(eventHistory)}
       </Stack>
       <AddEvent categoriesData={categoriesData} />
     </Box>

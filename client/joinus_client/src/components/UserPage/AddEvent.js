@@ -9,7 +9,6 @@ import {
   Fab,
   Modal,
   Stack,
-  styled,
   TextField,
   Tooltip,
   Typography,
@@ -22,6 +21,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
 export default function AddEvent(props) {
+
+ // We need this, just need to find how it was implemented before a previous merge wrecked it
   const imageRef = useRef()
 
   const StyledModal = {
@@ -45,7 +46,18 @@ export default function AddEvent(props) {
 
   const [open, setOpen] = useState(false);
 
-  // i removed the set lat and long states....should this one giant object instead of separate useStates?
+
+/* 
+"i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
+
+Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states makes sense since its currently working. imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
+
+We also might need those lng/lat states, but i'll bring em back if we need em -Joba
+
+*/
+  // Form State 
+  const [eventForm, setEventForm] = useState("");
+
   // Form info State declarations:
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState("");
@@ -104,20 +116,17 @@ export default function AddEvent(props) {
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
-          console.log(data.get("label_start_time"))
           const sendDataObj = {
             eventName: data.get('label_eventName'),
-            eventAddress: data.get('label_eventAddress'),
             eventImage,
             eventDescription: data.get('label_eventDescription'),
             eventSizeLimit: 2,
-            eventOwnerId: 1, // grab owner_id from cookies
+            eventOwnerId: 1,
             eventCategory: data.get('label_eventCategory'),
+            eventAddress: data.get('label_eventAddress'),
             lat: 51.0233064354121, // will eventually need to generate these values from address
             lng: -114.02369425973428,
-            // start_time: "2022-10-13 05:00:00",
             start_time: startTime,
-            // end_time: "2022-10-13 17:00:00"
             end_time: endTime
           };
 
@@ -129,6 +138,7 @@ export default function AddEvent(props) {
             Create New Event
           </Typography>
             <TextField
+              required
               id="standard-basic"
               label="Event Name"
               variant="standard"
@@ -136,13 +146,12 @@ export default function AddEvent(props) {
               value={eventName}
               onChange={
                 (event) => {
-                  // event.preventDefault()
-                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                   setEventName(event.target.value)
               }}
               />
               
             <TextField
+              required
               id="standard-basic"
               label="Full Address"
               variant="standard"
@@ -157,43 +166,33 @@ export default function AddEvent(props) {
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                label="label_start_time"
+                required 
+                label="Start Time"
                 renderInput={(params) => <TextField {...params} />}
-                // name="label_start_time" // TimePicker does not hav ea name prop
                 value={startTime}
-                // onChange={(e) => setStartTime(e.target.value)}
-                // value={myEvent.start_time}
                 onChange={
                   (event) => { 
-                    // event.preventDefault();
                     console.log(event)
-                    // console.log(event.$d)
-                    // setStartTime(prev => ({...prev, start_time: event.$d}))
                     setStartTime(event.$d.toUTCString())
-                    // console.log(startTime)
               }}
             />
             </LocalizationProvider>
             
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                required
                 label="End Time"
-                name="label_end_time"
                 value={endTime}
-                // onChange={(e) => setEndTime(e.target.value)}
-                // value={myEvent.end_time}
+                renderInput={(params) => <TextField {...params} />}
                 onChange={
                   (event) => {
-                    // event.preventDefault()
-                    // setEndTime(prev => ({...prev, end_time: event.target.value}))
-                    setEndTime(event.$d.toString())
+                    setEndTime(event.$d.toUTCString())
               }}
-                // (e) => setEvent(e.inputEl.current.children[1].children[0].value)
-                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
           <CategoriesList
+            required
             categoriesData={props.categoriesData}
             name="label_eventCategory"
             value={eventCategory}
@@ -205,6 +204,7 @@ export default function AddEvent(props) {
           />
 
           <TextField
+            required
             id="outlined-textarea"
             label="Description"
             placeholder="..."
@@ -213,15 +213,13 @@ export default function AddEvent(props) {
             name="label_eventDescription"
             value={eventDescription}
             onChange={(event) => {
-              // event.preventDefault()
-              // setMyEvent(prev => ({...prev, eventName: event.target.value}))
               setEventDescription(event.target.value);
-              console.log(event.target.value);
             }}
           />
 
           <Stack direction="row" justifyContent="left">
             <input
+              required
               accept="image/*"
               style={{ display: "none" }}
               id="raised-button-file"
@@ -229,8 +227,6 @@ export default function AddEvent(props) {
               name="label_eventImage"
               value={eventImage}
               onChange={(event) => {
-                // event.preventDefault()
-                // setMyEvent(prev => ({...prev, eventName: event.target.value}))
                 setEventImage(event.target.value);
                 console.log(event.target.value);
                 console.log(`from event Image state: ${eventImage}`);
@@ -259,11 +255,3 @@ export default function AddEvent(props) {
     </>
   );
 }
-
-/*
-The code below was reference code while troubleshooting the form.
-
-https://github.com/mui/material-ui/blob/v5.10.6/docs/data/material/getting-started/templates/sign-in/SignIn.js
-
--Joba
-*/

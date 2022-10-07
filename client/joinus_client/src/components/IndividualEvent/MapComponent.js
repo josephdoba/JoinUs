@@ -1,5 +1,6 @@
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import useSharedEvent from "../../hooks/useSharedEvent";
 
 const mapContainerStyle = {
   marginTop: "20px",
@@ -9,7 +10,8 @@ const mapContainerStyle = {
 
 export default function MapComponent(props) {
   const [userCoords, setUserCoords] = useState(null);
-  const { lat, lng, setMap } = props;
+  const { setMap } = props;
+  const { event } = useSharedEvent();
 
   const onLoad = (marker) => {
     console.log("marker: ", marker);
@@ -28,7 +30,7 @@ export default function MapComponent(props) {
   }, []);
 
   // event coordinates
-  const center = { lat, lng };
+  const center = { lat: event.lat, lng: event.lng };
 
   return (
     <GoogleMap

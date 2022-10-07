@@ -14,6 +14,9 @@ const Herobanner = function () {
         flexDirection: "column",
         justifyContent: 'center'
       }}>
+        <Typography p={1}>
+      Social without the schedule.
+      </Typography>
 
         <Typography p={5} align="center">
           Make new friends with shared interests using local short-term meetups.

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../api";
+import useSharedEvent from "./useSharedEvent";
 import useSharedUser from "./useSharedUser";
 
 export default function useAppData() {
@@ -8,10 +9,11 @@ export default function useAppData() {
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
-  const [reload, setReload] = useState(0);
   const [comments, setComments] = useState([])
+  const [reload, setReload] = useState(0); // reload the api call
 
-  const { setUser, user } = useSharedUser();
+  const { setUser } = useSharedUser();
+  const { setEvent } = useSharedEvent();
 
   useEffect(() => {
     Promise.all([
@@ -39,9 +41,12 @@ export default function useAppData() {
     fetchAPI(`user/${userID}`)
       .then((data) => {
         const user = data.data[0];
+        console.log(user.name);
         setUser((prev) => ({
           id: user.id,
           name: user.name,
+          age: user.age,
+          gender: user.gender,
           picture: user.picture,
         }));
       })
@@ -51,7 +56,25 @@ export default function useAppData() {
   };
 
   const logout = () => {
-    setUser({ id: null, name: null, picture: null });
+    setUser({ id: null, name: null, age: null, gender: null, picture: null });
+  };
+
+  const findEventByID = (id, eventsData) => {
+    const event = eventsData.find((event) => event.id === id);
+    console.log(`event name in findEvent func: ${event.name}`);
+    setEvent({
+      id: event.id,
+      name: event.name,
+      image: event.image,
+      description: event.description,
+      size_limit: event.size_limit,
+      owner_id: event.owner_id,
+      category: event.category,
+      lat: event.lat,
+      lng: event.lng,
+      start_time: event.start_time,
+      end_time: event.end_time,
+    });
   };
 
   return {
@@ -64,6 +87,7 @@ export default function useAppData() {
     login,
     logout,
     useSharedUser,
-    comments
+    comments,
+    findEventByID,
   };
 }

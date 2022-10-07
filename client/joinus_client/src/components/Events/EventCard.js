@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -12,8 +13,10 @@ import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import userEvents from "../../api/useUserEvents";
 import useUserEvents from "../../api/useUserEvents";
-import { Box } from "@mui/system";
+import CategoriesList from "../UserPage/CategoriesList";
 
+import { Box } from "@mui/system";
+import useAppData from "../../hooks/useAppData";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -27,7 +30,6 @@ export default function EventCard(props) {
     category,
     attendeelist,
     eventsData,
-    setEvent,
     owner_id,
     user,
     size_limit,
@@ -37,14 +39,13 @@ export default function EventCard(props) {
     reload,
   } = props;
 
-  const { userCreateEventSubmit } = userEvents();
+  //original
+  const { findEventByID } = useAppData();
+
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
-
-
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -52,26 +53,17 @@ export default function EventCard(props) {
     });
   }
 
-  const findEventByID = (id, eventsData) => {
-    const event = eventsData.find((event) => event.id === id);
-    setEvent(event);
-  };
-
   const navigate = useNavigate();
 
   async function submitHandler() {
     findEventByID(id, eventsData);
-    
-
     await wait(250);
     navigate(`/event`);
   }
-
   async function leaveEvent(dataObj) {
     await userLeaveEvent(dataObj);
     setReload(reload + 1);
   }
-
   async function joinEvent(dataObj) {
     if (attendeelist.length >= size_limit) {
       setError(true);
@@ -80,7 +72,6 @@ export default function EventCard(props) {
       setReload(reload + 1);
     }
   }
-
   async function deleteEvent(dataObj) {
     let answer = prompt("Are you sure you want to delete? type yes or no");
     if (answer === "yes" || answer === "Yes") {
@@ -88,7 +79,6 @@ export default function EventCard(props) {
       setReload(reload + 1);
     }
   }
-
   const checkIfJoinedEvent = (joinedEvents) => {
     const events = [];
     for (const i of joinedEvents) {
@@ -105,27 +95,30 @@ export default function EventCard(props) {
   };
 
   return (
-    <Box p={2} >
+    <Box p={2}>
       <Card sx={{ maxWidth: 330 }}>
         <CardMedia component="img" alt={name} height="140" image={image} />
-        <CardContent >
-          <Typography sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          }}
-            gutterBottom variant="h6" component="div">
+        <CardContent>
+          <Typography
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+            gutterBottom
+            variant="h6"
+            component="div"
+          >
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
           </Typography>
-          <Typography  variant="paragraph">
+          <Typography variant="paragraph">
             {shortenText(description)}
           </Typography>
         </CardContent>
-
         {user.id === owner_id && showUserEvents === 1 && (
           <CardActions>
             <Button onClick={submitHandler} size="small">
@@ -194,7 +187,6 @@ export default function EventCard(props) {
             />
           </CardActions>
         )}
-
       </Card>
       <Error open={error} setOpen={setError} />
     </Box>
