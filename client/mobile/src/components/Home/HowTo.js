@@ -40,31 +40,20 @@ const DATA = [
   },
 ];
 
-const Instructions = ({image, title, description}) => (
-  <Card containerStyle={{}} wrapperStyle={{}}>
-    <Image style={styles.imageSize} resizeMode="contain" source={image} />
-    <Card.Title>{title}</Card.Title>
-    <Text>{description}</Text>
-  </Card>
-);
 const HowTo = () => {
-  const renderInstruction = ({item}) => (
-    <Instructions
-      title={item.title}
-      image={item.image}
-      description={item.description}
-    />
-  );
-
-  return (
-    <>
-      <FlatList
-        data={DATA}
-        renderItem={renderInstruction}
-        keyExtractor={item => item.id}
-      />
-    </>
-  );
+  return DATA.map(card => {
+    return (
+      <Card id={card.id} containerStyle={{}} wrapperStyle={{}}>
+        <Image
+          style={styles.imageSize}
+          resizeMode="contain"
+          source={card.image}
+        />
+        <Card.Title>{card.title}</Card.Title>
+        <Text>{card.description}</Text>
+      </Card>
+    );
+  });
 };
 
 export default HowTo;
