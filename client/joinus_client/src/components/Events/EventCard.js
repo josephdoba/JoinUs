@@ -13,7 +13,7 @@ import { shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 
 // import userEvents from "../../api/useUserEvents";
-// import useUserEvents from "../../api/useUserEvents";
+import useUserEvents from "../../hooks/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
 
 import { Box } from "@mui/system";

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import AddEvent from "./AddEvent";
+// import AddEvent from "./AddEvent";
+import EventForm from "./EventForm";
 import { Box, Button, Stack } from "@mui/material";
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
@@ -95,7 +96,8 @@ export default function Userpage(props) {
         {showUserEvents === 2 && eventsShown(usersJoinedEvents)}
         {showUserEvents === 3 && eventsShown(eventHistory)}
       </Stack>
-      <AddEvent categoriesData={categoriesData} />
+      {/* <AddEvent categoriesData={categoriesData} /> */}
+      <EventForm categoriesData={categoriesData} />
     </Box>
   );
 }

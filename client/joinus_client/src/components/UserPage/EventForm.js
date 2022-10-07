@@ -20,7 +20,7 @@ import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
-export default function AddEvent(props) {
+export default function EventForm(props) {
 
  // We need this, just need to find how it was implemented before a previous merge wrecked it
   const imageRef = useRef()
@@ -31,7 +31,7 @@ export default function AddEvent(props) {
     justifyContent: "center",
   };
 
-  // represents the elements inside the modal
+// styles  the elements inside the modal:
   const FormBox = {
     display: "flex",
     flexDirection: "column",
@@ -41,11 +41,9 @@ export default function AddEvent(props) {
   };
 
   // const [myEvent, setMyEvent] = useState("")
-  const { userCreateEventSubmit } = useUserEvents();
+  const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
   const [selected, setSelected] = useState({ lat: null, lng: null });
-
   const [open, setOpen] = useState(false);
-
 
 /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
