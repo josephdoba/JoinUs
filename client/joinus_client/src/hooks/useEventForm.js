@@ -1,7 +1,7 @@
 import React, { useState, setState, useRef } from "react";
 import dayjs from "dayjs";
-import useUserEvents from "../../hooks/useUserEvents";
-import CategoriesList from "./CategoriesList";
+import useUserEvents from "./useUserEvents";
+import CategoriesList from "../components/UserPage/CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import {
@@ -18,9 +18,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import Search from "./Search";
+import Search from "../components/UserPage/Search";
 
 export default function EventForm(props) {
+  console.log("props on load")
   console.log(props)
 
  // We need this, just need to find how it was implemented before a previous merge wrecked it
@@ -32,8 +33,8 @@ export default function EventForm(props) {
     justifyContent: "center",
   };
 
-// styles  the elements inside the modal:
-  const FormBox = {
+// styles the elements inside the modal:
+  const FormBoxStyles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -45,6 +46,7 @@ export default function EventForm(props) {
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
   const [selected, setSelected] = useState({ lat: null, lng: null });
   const [open, setOpen] = useState(false);
+  const [formMode, setFormMode] = useState("create")
 
 /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
@@ -57,8 +59,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   // Form State 
   const [eventForm, setEventForm] = useState("");
 
-  // // Form info State declarations:
-  const [eventName, setEventName] = useState(props.name || "");
+  const [eventName, setEventName] = useState(formMode === "edit" ? props.name : "");
   const [eventImage, setEventImage] = useState(""); // image is breaking this atm
   const [eventDescription, setEventDescription] = useState(props.description || "");
   const [eventSizeLimit, setEventSizeLimit] = useState("");
@@ -67,19 +68,15 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
-  /*
-  const [location, setLocation]=useState(“”)  
-  onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
-*/
   
   return (
     <>
-        <Modal
-        open={open}
-        onClose={(e) => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={StyledModal}
+      <Modal
+      setOpen={true}
+      onClose={(e) => setOpen(false)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      sx={StyledModal}
       >
 
         <Box 
@@ -91,7 +88,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
         component="form"
         noValidate
         autoComplete="off"
-        sx={FormBox}
+        sx={FormBoxStyles}
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
@@ -108,13 +105,18 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             start_time: startTime,
             end_time: endTime
           };
-
-          userCreateEventSubmit(sendDataObj)
-          setOpen(false)
-        }}
-        >
+            if(formMode === "create") {
+              userCreateEventSubmit(sendDataObj)
+            } else if (formMode === "edit"){
+              userEditEventSubmit(sendDataObj)
+            } else {
+              console.log("something went wrong updating the formMode")
+            }
+            setOpen(false)
+          }}
+          >
           <Typography variant="h6" color="gray" textAlign="center">
-            Create New Event
+          {formMode === "edit" ? 'Create New Event' : 'Edit Event'}
           </Typography>
             <TextField
               required
@@ -171,7 +173,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               />
             </LocalizationProvider>
 
-          <CategoriesList
+          {/* <CategoriesList
             required
             categoriesData={props.categoriesData}
             name="label_eventCategory"
@@ -180,7 +182,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               event.preventDefault();
               setEventCategory(event.target.value);
             }}
-          />
+          /> */}
 
           <TextField
             required
@@ -219,13 +221,16 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
           </Stack>
 
           <Stack direction="row" spacing={2} justifyContent="center">
-            <Button onClick={(e) => setOpen(false)} variant="outlined">
+            <Button onClick={(e) => {
+              console.log("props on click cancel")
+              console.log(props)
+              setOpen(false)
+            }}
+              variant="outlined">
               Cancel
             </Button>
-            {/* <Button variant="contained" endIcon={<AddIcon />}> */}
-            {/* <Button variant="contained" type="submit" endIcon={<AddIcon />}> */}
             <Button variant="contained" type="submit" endIcon={<AddIcon />}>
-              Create
+              {formMode === "edit" ? 'Create' : 'Submit'}
             </Button>
             
           </Stack>

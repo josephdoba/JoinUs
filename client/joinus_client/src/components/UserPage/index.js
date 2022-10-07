@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 // import AddEvent from "./AddEvent";
-import EventForm from "./EventForm";
+import EventForm from "../../hooks/useEventForm";
 import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -24,12 +24,15 @@ export default function Userpage(props) {
     user,
     setReload,
     reload,
-    comments
+    comments,
+    formType
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
   const [open, setOpen] = useState(false);
+
+  // what if you had another function to control the open state instead of just.. state? that way we can export it and implement it into the useEventForm modal file... its already being imported from useEventForm
 
   const eventsShown = (eventsDataInput) => {
     return (
@@ -100,7 +103,6 @@ export default function Userpage(props) {
         {showUserEvents === 2 && eventsShown(usersJoinedEvents)}
         {showUserEvents === 3 && eventsShown(eventHistory)}
       </Stack>
-      {/* <AddEvent categoriesData={categoriesData} /> */}
       <Tooltip
         title="Create A New Event"
         sx={{
@@ -112,14 +114,15 @@ export default function Userpage(props) {
         <Fab
           variant="extended"
           onClick={(e) => {
-            setOpen(true);
+            setOpen(true)
           }}
         >
           <AddIcon sx={{ mr: 1 }} />
           New Event
         </Fab>
       </Tooltip>
-      <EventForm categoriesData={categoriesData}/>
+      {/* <AddEvent categoriesData={categoriesData}/> */}
+      <EventForm categoriesData={categoriesData} />
     </Box>
   );
 }

@@ -17,18 +17,18 @@ export default function useUserEvents() {
       });
 };
 
-const userEditEventSubmit = (event) => {
-  cleanEditEvent(event)
-  console.log("api post request for userEditEvent");
-  axios
-      .post("http://localhost:8080/api/events", event)
-      .then(() => {
-        console.log(event);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-};
+  const userEditEventSubmit = (event) => {
+    cleanEditEvent(event)
+    console.log("api post request for userEditEvent");
+    axios
+        .post("http://localhost:8080/api/events", event)
+        .then(() => {
+          console.log(event);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
 
   const userLeaveEvent = (event) => {
     axios
