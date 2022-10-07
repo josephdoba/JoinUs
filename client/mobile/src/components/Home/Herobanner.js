@@ -21,7 +21,7 @@ export default Herobanner;
 const styles = StyleSheet.create({
   sectionContainer: {
     paddingHorizontal: 24,
-    backgroundColor: 'white',
+    backgroundColor: '#FBFBFF',
     alignItems: 'center',
     position: 'relative',
   },
@@ -29,10 +29,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     color: 'dimgray',
+    textAlign: 'center',
+    marginTop: 20,
   },
   subtitle: {
     fontSize: 20,
     color: 'dimgray',
+    textAlign: 'center',
   },
   bannerImage: {
     height: 350,

@@ -42,13 +42,12 @@ const DATA = [
 const HowTo = () => {
   return DATA.map(item => {
     return (
-      <ListItem key={item.id} style={styles.container}>
+      <ListItem key={item.id} containerStyle={{backgroundColor: '#FBFBFF'}}>
         <Avatar source={item.image} style={styles.imageSize} />
-        <ListItem.Content>
-          <ListItem.Title>{item.title}</ListItem.Title>
+        <ListItem.Content style={styles.content}>
+          <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
           <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Chevron />
       </ListItem>
     );
   });
@@ -58,13 +57,22 @@ export default HowTo;
 
 const styles = StyleSheet.create({
   imageSize: {
-    height: 100,
-    width: 100,
+    height: 150,
+    width: 150,
     marginBottom: 8,
   },
-  container: {
-    flex: 3,
+  content: {
+    flex: 1,
     position: 'relative',
     alignItems: 'center',
+  },
+  // sectionContainer: {
+  //   color: '#FBFBFF',
+  //   position: 'relative',
+  // },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'dimgray',
   },
 });
