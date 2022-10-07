@@ -1,4 +1,4 @@
-import {Button, ButtonGroup} from '@rneui/base';
+import {ButtonGroup} from '@rneui/base';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 
@@ -6,25 +6,21 @@ import Herobanner from './Herobanner';
 import HowTo from './HowTo';
 
 import useAppData from '../../hooks/useAppData';
+import LoginScreen from '../User/Login';
 
 const HomeScreen = ({navigation}) => {
-  const {usersData} = useAppData();
-
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const [user, setUser] = useState({
-    id: null,
-    name: null,
-    age: null,
-    gender: null,
-    picture: null,
-  });
-  console.log(user);
+  const [visible, setVisible] = useState(false);
 
-  const handleSelect = async value => {
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const handleSelect = value => {
     setSelectedIndex(value);
     if (value === 1) {
-      await navigation.navigate('User', {name: 'Carmen'});
+      toggleOverlay();
     }
   };
 
@@ -36,21 +32,29 @@ const HomeScreen = ({navigation}) => {
       <ButtonGroup
         buttons={['Sign Up', 'Log In']}
         selectedIndex={selectedIndex}
-        buttonStyle={elementStyle.signup}
-        selectedButtonStyle={elementStyle.login}
+        buttonStyle={styles.signup}
+        selectedButtonStyle={styles.login}
         onPress={value => {
           handleSelect(value);
         }}
         onPressOut={value => {
           setSelectedIndex(null);
         }}
-        containerStyle={elementStyle.container}
+        containerStyle={styles.container}
       />
+      <LoginScreen toggleOverlay={toggleOverlay} visible={visible} />
     </ScrollView>
   );
 };
 
-const elementStyle = {
+const styles = StyleSheet.create({
+  sectionContainer: {
+    paddingHorizontal: 24,
+    backgroundColor: '#FBFBFF',
+  },
+  text: {
+    fontSize: 42,
+  },
   login: {
     backgroundColor: 'rgba(111, 202, 186, 1)',
     // borderRadius: 5,
@@ -66,16 +70,6 @@ const elementStyle = {
     marginVertical: 10,
     marginBottom: 50,
     marginTop: 20,
-  },
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    paddingHorizontal: 24,
-    backgroundColor: '#FBFBFF',
-  },
-  text: {
-    fontSize: 42,
   },
 });
 
