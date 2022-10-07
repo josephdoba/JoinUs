@@ -5,7 +5,6 @@
  * @format
  * @flow strict-local
  */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -23,8 +22,24 @@ import EventScreen from './src/components/Event';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import NavBar from './src/components/NavBar';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
+import {ThemeProvider, createTheme} from '@rneui/themed';
+
+const theme = createTheme({
+  lightColors: {
+    primary: '#3EB489',
+    secondary: '#00bfa5',
+    success: '#4db6ac',
+    background: '#FBFBFF',
+  },
+  darkColors: {
+    primary: '#000',
+  },
+  components: {
+    Button: {
+      color: 'purple',
+    },
+  },
+});
 
 // passing additional props to a screne https://reactnavigation.org/docs/hello-react-navigation
 
@@ -36,18 +51,20 @@ const App = () => {
         {/* <SafeAreaView> */}
         {/* <StatusBar /> */}
         {/* <ScrollView> */}
-        <NavBar />
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{title: 'Join Us!'}}
-          />
-          <Stack.Screen name="User" component={UserScreen} />
-          <Stack.Screen name="Event" component={EventScreen} />
-        </Stack.Navigator>
-        {/* </ScrollView> */}
-        {/* </SafeAreaView> */}
+        <ThemeProvider theme={theme}>
+          <NavBar />
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Join Us!'}}
+            />
+            <Stack.Screen name="User" component={UserScreen} />
+            <Stack.Screen name="Event" component={EventScreen} />
+          </Stack.Navigator>
+          {/* </ScrollView> */}
+          {/* </SafeAreaView> */}
+        </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
