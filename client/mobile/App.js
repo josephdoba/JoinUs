@@ -13,10 +13,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
+import LoginScreen from './src/components/User/Login';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {ThemeProvider, createTheme} from '@rneui/themed';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const theme = createTheme({
   lightColors: {
@@ -37,9 +38,6 @@ const theme = createTheme({
 
 // passing additional props to a screne https://reactnavigation.org/docs/hello-react-navigation
 
-// for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
-const Tab = createBottomTabNavigator();
-
 const headerOptions = {
   headerStyle: {
     backgroundColor: '#f9fbe7',
@@ -49,27 +47,33 @@ const headerOptions = {
     fontWeight: 'bold',
   },
 };
-
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
+const UserStack = createNativeStackNavigator();
 const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <StatusBar />
-        <ThemeProvider theme={theme}>
-          {/* <NavBar /> */}
-          <Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={headerOptions}>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{title: 'Join Us!'}}
-            />
-            <Stack.Screen name="User" component={UserScreen} />
-            <Stack.Screen name="Event" component={EventScreen} />
-          </Stack.Navigator>
-        </ThemeProvider>
+        <Tab.Navigator screenOptions={{headerShown: false}}>
+          <Tab.Screen name="Public">
+            {() => {
+              <HomeStack.Navigator>
+                <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
+                <HomeStack.Screen name="Log In" component={LoginScreen} />
+              </HomeStack.Navigator>;
+            }}
+          </Tab.Screen>
+
+          <Tab.Screen name="LoggedIn">
+            {() => (
+              <UserStack.Navigator>
+                <UserStack.Screen name="User" component={UserScreen} />
+                <UserStack.Screen name="Event" component={EventScreen} />
+              </UserStack.Navigator>
+            )}
+          </Tab.Screen>
+        </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
