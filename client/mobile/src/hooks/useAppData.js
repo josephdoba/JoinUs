@@ -31,7 +31,7 @@ export default function useAppData() {
   }, []);
 
   const fetchUser = async userID => {
-    const user = await fetchAPI(`user/${userID}`);
+    await fetchAPI(`user/${userID}`);
   };
 
   return {
