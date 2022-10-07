@@ -48,9 +48,7 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {/* <SafeAreaView> */}
-        {/* <StatusBar /> */}
-        {/* <ScrollView> */}
+        <StatusBar />
         <ThemeProvider theme={theme}>
           <NavBar />
           <Stack.Navigator initialRouteName="Home">
@@ -62,8 +60,6 @@ const App = () => {
             <Stack.Screen name="User" component={UserScreen} />
             <Stack.Screen name="Event" component={EventScreen} />
           </Stack.Navigator>
-          {/* </ScrollView> */}
-          {/* </SafeAreaView> */}
         </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>
@@ -74,6 +70,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 50,
     paddingHorizontal: 24,
+    backgroundColor: 'white',
   },
   sectionTitle: {
     fontSize: 24,

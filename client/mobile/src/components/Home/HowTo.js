@@ -8,8 +8,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
-import {Card} from '@rneui/base';
-import Herobanner from './Herobanner';
+import {ListItem, Avatar} from '@rneui/base';
 
 const DATA = [
   {
@@ -41,17 +40,16 @@ const DATA = [
 ];
 
 const HowTo = () => {
-  return DATA.map(card => {
+  return DATA.map(item => {
     return (
-      <Card id={card.id} containerStyle={{}} wrapperStyle={{}}>
-        <Image
-          style={styles.imageSize}
-          resizeMode="contain"
-          source={card.image}
-        />
-        <Card.Title>{card.title}</Card.Title>
-        <Text>{card.description}</Text>
-      </Card>
+      <ListItem key={item.id} style={styles.container}>
+        <Avatar source={item.image} style={styles.imageSize} />
+        <ListItem.Content>
+          <ListItem.Title>{item.title}</ListItem.Title>
+          <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
     );
   });
 };
@@ -61,15 +59,11 @@ export default HowTo;
 const styles = StyleSheet.create({
   imageSize: {
     height: 100,
-    // width: 60,
-    width: '100%',
+    width: 100,
     marginBottom: 8,
   },
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  cardView: {
+    flex: 3,
     position: 'relative',
     alignItems: 'center',
   },

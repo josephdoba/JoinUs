@@ -3,7 +3,7 @@ import React from 'react';
 
 const Herobanner = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.sectionContainer}>
       <Text style={styles.title}>Social without the schedule.</Text>
       <Image
         style={styles.bannerImage}
@@ -19,9 +19,11 @@ const Herobanner = () => {
 export default Herobanner;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
+  sectionContainer: {
+    paddingHorizontal: 24,
+    backgroundColor: 'white',
     alignItems: 'center',
+    position: 'relative',
   },
   title: {
     fontWeight: 'bold',

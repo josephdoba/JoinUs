@@ -1,14 +1,15 @@
 import {Button} from '@rneui/base';
 import React from 'react';
-import {View, ScrollView, StyleSheet, StatusBar} from 'react-native';
+import {ScrollView, StyleSheet, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Herobanner from './Herobanner';
 import HowTo from './HowTo';
 
 const HomeScreen = ({navigation}) => {
   return (
-    <SafeAreaView styles={styles.container}>
-      <ScrollView>
+    <SafeAreaView styles={styles.sectionContainer}>
+      <StatusBar />
+      <ScrollView styles={styles.scrollView}>
         <Herobanner />
         <HowTo />
         <Button
@@ -21,9 +22,10 @@ const HomeScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
+  sectionContainer: {
+    marginTop: 50,
+    paddingHorizontal: 24,
+    backgroundColor: 'white',
   },
   scrollView: {
     backgroundColor: 'pink',
