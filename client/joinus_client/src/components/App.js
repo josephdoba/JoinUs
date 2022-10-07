@@ -26,6 +26,7 @@ const App = function () {
     reload,
     login,
     logout,
+    comments,
   } = useAppData();
   const [theme, setTheme] = useState("light");
 
@@ -79,6 +80,7 @@ const App = function () {
                   categoriesData={categoriesData}
                   setReload={setReload}
                   reload={reload}
+                  comments={comments}
                 />
               }
             />
@@ -86,8 +88,12 @@ const App = function () {
               path="/event"
               element={
                 <IndividualEvent
+                  comments={comments}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
+                  user={user}
+                  reload={reload}
+                  setReload={setReload}
                 />
               }
             />

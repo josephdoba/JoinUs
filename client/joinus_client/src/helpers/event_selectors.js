@@ -76,3 +76,22 @@ export function findUsersJoinedEvents(userID, eventsData, joinedEvents) {
   }
   return finalEvents
 }
+
+export function findCommentsForEvent(eventID, comments) {
+  let comment = []
+  for (const i of comments) {
+    if (i.event_id === eventID) {
+      comments.push(i)
+    }
+  }
+  return comment
+}
+
+export function checkIfUserJoinedSingleEvent(userID, eventID, joinedEvents) {
+  for (const i of joinedEvents) {
+    if (i.user_id === userID && i.event_id === eventID) {
+      return true
+    }
+  }
+  return false
+}
