@@ -121,7 +121,6 @@ export default function Userpage(props) {
           New Event
         </Fab>
       </Tooltip>
-      {/* <AddEvent categoriesData={categoriesData}/> */}
       <EventForm categoriesData={categoriesData} open={open} setOpen={setOpen} eventData={{}} formMode={"create"} />
     </Box>
   );

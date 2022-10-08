@@ -158,83 +158,38 @@ export default function EventCard(props) {
             {shortenText(description)}
           </Typography>
         </CardContent>
-        {user.id === owner_id && showUserEvents === 1 && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            <Button 
-              onClick={() => setOpen(true)} 
+        <Button 
+              onClick={() => setOpen(true)} s
               size="small">
               Edit Event
               {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category }} />}
             </Button>
-
+        <CardActions>
+          <Button onClick={submitHandler} size="small">
+            Learn More
+          </Button>
+          {user.id === owner_id && showUserEvents < 3 && (
+            <Button onClick={(e) => setOpen(true)} size="small">
+              <BorderColorTwoToneIcon />
+            </Button>
+          )}
+          {showUserEvents !== 3 && (
             <Button
               size="small"
               onClick={(e) => {
-                const dataObj = {
-                  event_id: id,
-                  owner_id: user.id,
-                };
-                deleteEvent(dataObj);
+                processEvent(id, user.id);
               }}
             >
-              Delete Event
+              {getButtonText(id, user.id)}
             </Button>
-          </CardActions>
-        )}
-        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            <Button
-              onClick={(e) => {
-                const dataObj = {
-                  user_id: user.id,
-                  event_id: id,
-                };
-                leaveEvent(dataObj);
-              }}
-              size="small"
-            >
-              Leave Event
-            </Button>
-            <AttendeeNumDisplay
-              attendeelist={attendeelist}
-              size_limit={size_limit}
-            />
-          </CardActions>
-        )}
-        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) === false && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            {user.id === owner_id && showUserEvents < 3 && (
-              <Button onClick={(e) => setOpen(true)} size="small">
-                <BorderColorTwoToneIcon />
-              </Button>
-            )}
-            {showUserEvents !== 3 && (
-              <Button
-                size="small"
-                onClick={(e) => {
-                  processEvent(id, user.id);
-                }}
-              >
-                {getButtonText(id, user.id)}
-              </Button>
-            )}
-            <AttendeeNumDisplay
-              attendeelist={attendeelist}
-              size_limit={size_limit}
-            />
-          </CardActions>
-        )}
-        </Card>
-        <Error open={error} setOpen={setError} />
-      </Box>
-    );
+          )}
+          <AttendeeNumDisplay
+            attendeelist={attendeelist}
+            size_limit={size_limit}
+          />
+        </CardActions>
+      </Card>
+      <Error open={error} setOpen={setError} />
+    </Box>
+  );
 }
