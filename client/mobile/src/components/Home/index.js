@@ -38,6 +38,9 @@ const HomeScreen = ({navigation, user}) => {
     if (value === 1) {
       toggleOverlay();
     }
+    if (value === 0) {
+      navigation.navigate('AllEvents');
+    }
   };
 
   return (
