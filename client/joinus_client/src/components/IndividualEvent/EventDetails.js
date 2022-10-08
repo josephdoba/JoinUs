@@ -85,7 +85,7 @@ export default function EventDetails(props) {
             m: 1,
             alignItems: 'center',
           }}>
-
+            {/* button to open attendee list */}
             <AttendeeNumDisplay
               attendeelist={attendeelist}
               size_limit={event.size_limit}
@@ -95,14 +95,11 @@ export default function EventDetails(props) {
               handleClickOpen={handleClickOpen}
             />
 
-            {/* <Button size="small" variant="text" onClick={submitHandler} >
-              Join Chat
-            </Button> */}
             <JoinEventButton />
 
           </Box>
 
-          {/* button to open attendee list */}
+
 
           {/* the pop up */}
           <AttendeePopup
