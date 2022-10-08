@@ -1,12 +1,11 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import MyEvents from './User/MyEvents';
 import AllEvents from './User/AllEvents';
 import InterestedEvents from './User/InterestedEvents';
 import HistoryScreen from './User/EventHistory';
 // for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const EventTabs = () => {
   return (

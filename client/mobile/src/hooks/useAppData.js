@@ -34,7 +34,6 @@ export default function useAppData() {
   const fetchUser = userID => {
     fetchAPI(`user/${userID}`).then(data => {
       const u = data.data[0];
-      console.log(user.name);
       setUser(prev => ({
         id: u.id,
         name: u.name,
@@ -43,6 +42,7 @@ export default function useAppData() {
         picture: u.picture,
       }));
     });
+    return user;
   };
 
   const logout = () => {

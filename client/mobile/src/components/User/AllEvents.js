@@ -8,7 +8,7 @@ import {
 import useAppData from '../../hooks/useAppData';
 import EventsList from '../Events/EventsList';
 
-const AllEventsScreen = ({navigation}) => {
+const AllEvents = ({navigation}) => {
   const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
 
   const displayEvents = eventArr => {
@@ -34,4 +34,4 @@ const AllEventsScreen = ({navigation}) => {
   return <ScrollView>{displayEvents(eventsData)}</ScrollView>;
 };
 
-export default AllEventsScreen;
+export default AllEvents;

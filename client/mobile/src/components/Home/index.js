@@ -7,26 +7,23 @@ import HowTo from './HowTo';
 
 import useAppData from '../../hooks/useAppData';
 import LoginForm from './Login';
+import axios from 'axios';
 
-const HomeScreen = ({navigation, user}) => {
+const HomeScreen = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [visible, setVisible] = useState(false);
   const [userID, setUserID] = useState('');
-  const {fetchLogin} = useAppData();
+  const {fetchUser} = useAppData();
 
-  const handleLogin = async e => {
+  const handleLogin = e => {
     e.preventDefault();
-    fetchLogin(userID)
-      .then(() => {
-        setUserID('');
-        toggleOverlay();
-      })
-      .then(() => {
-        navigation.navigate('User', {name: 'user.name'});
-      })
-      .catch(err => {
-        console.log(err);
-      });
+
+    // axios.get(`http://localhost:8080/api/user/${userID}`).then(data => {});
+    const user = fetchUser(userID);
+
+    setUserID('');
+    toggleOverlay();
+    navigation.navigate('Profile', {user});
   };
 
   const toggleOverlay = () => {
@@ -39,7 +36,7 @@ const HomeScreen = ({navigation, user}) => {
       toggleOverlay();
     }
     if (value === 0) {
-      navigation.navigate('AllEvents');
+      navigation.navigate('MyEvents');
     }
   };
 
