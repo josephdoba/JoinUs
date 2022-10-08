@@ -45,7 +45,6 @@ export default function EventDetails(props) {
   return (
     <Box
       flex={"50%"}
-      bgcolor={"lightgreen"}
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -73,7 +72,7 @@ export default function EventDetails(props) {
           src={event.image}
         />
         <Box>
-          <Box bgcolor={"lightgrey"}>
+          <Box>
             <Typography variant="h6" m={2}>
               Details
             </Typography>
@@ -83,7 +82,6 @@ export default function EventDetails(props) {
           </Box>
 
           <Box
-            bgcolor={"lightsalmon"}
             sx={{
               display: "flex",
               justifyContent: "space-around",

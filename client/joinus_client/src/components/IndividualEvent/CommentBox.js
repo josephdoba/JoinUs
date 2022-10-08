@@ -86,13 +86,12 @@ export default function CommentBox(props) {
   }
 
   return (
-    <Box bgcolor={"lightblue"}>
+    <Box>
       <Box sx={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         padding: 1,
-        bgcolor: 'lightgray'
       }}>
         <Typography>Event Messages</Typography>
       </Box>
