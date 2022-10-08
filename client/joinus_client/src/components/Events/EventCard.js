@@ -14,9 +14,12 @@ import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import userEvents from "../../api/useUserEvents";
 import useUserEvents from "../../api/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
+import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
+import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
+import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -44,6 +47,8 @@ export default function EventCard(props) {
 
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
 
@@ -53,47 +58,59 @@ export default function EventCard(props) {
     });
   }
 
+  // logic for join / edit / delete / leave button
   const processEvent = (event_id, user_id) => {
-    // owner of event
     if (user_id === owner_id && showUserEvents === 1) {
       deleteEvent({ event_id, user_id });
     }
-
-    if (showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents)) {
+    if (
+      user_id !== owner_id &&
+      showUserEvents !== 1 &&
+      checkIfJoinedEvent(user.id, id, joinedEvents)
+    ) {
       leaveEvent({ event_id, user_id });
     }
-
-    if (showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents)) {
+    if (
+      user_id !== owner_id &&
+      showUserEvents !== 1 &&
+      !checkIfJoinedEvent(user.id, id, joinedEvents)
+    ) {
       joinEvent({ event_id, user_id });
     }
   };
 
   const getButtonText = (event_id, user_id) => {
-    // owner of event
     if (user_id === owner_id && showUserEvents === 1) {
-      return "Delete";
+      return <DeleteForeverTwoToneIcon />;
     }
-
-    if (showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents)) {
-      return "Leave";
+    if (
+      user_id !== owner_id &&
+      showUserEvents !== 1 &&
+      checkIfJoinedEvent(user.id, id, joinedEvents)
+    ) {
+      return "Leave Event";
     }
-
-    if (showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents)) {
-      return "Join";
+    if (
+      user_id !== owner_id &&
+      showUserEvents !== 1 &&
+      !checkIfJoinedEvent(user.id, id, joinedEvents)
+    ) {
+      return "Interested";
     }
   };
-
-  const navigate = useNavigate();
+  // end of logic for buttons
 
   async function submitHandler() {
     findEventByID(id, eventsData);
     await wait(250);
     navigate(`/event`);
   }
+
   async function leaveEvent(dataObj) {
     await userLeaveEvent(dataObj);
     setReload(reload + 1);
   }
+
   async function joinEvent(dataObj) {
     if (attendeelist.length >= size_limit) {
       setError(true);
@@ -102,6 +119,7 @@ export default function EventCard(props) {
       setReload(reload + 1);
     }
   }
+
   async function deleteEvent(dataObj) {
     let answer = prompt("Are you sure you want to delete? type yes or no");
     if (answer === "yes" || answer === "Yes") {
@@ -109,20 +127,6 @@ export default function EventCard(props) {
       setReload(reload + 1);
     }
   }
-  const checkIfJoinedEvent = (joinedEvents) => {
-    const events = [];
-    for (const i of joinedEvents) {
-      if (user.id === i.user_id) {
-        events.push(i.event_id);
-      }
-    }
-    for (const prop of events) {
-      if (prop === id) {
-        return true;
-      }
-    }
-    return false;
-  };
 
   return (
     <Box p={2}>
@@ -156,7 +160,7 @@ export default function EventCard(props) {
           </Button>
           {user.id === owner_id && showUserEvents < 3 && (
             <Button onClick={(e) => setOpen(true)} size="small">
-              Edit Event
+              <BorderColorTwoToneIcon />
             </Button>
           )}
           {showUserEvents !== 3 && (
@@ -174,78 +178,6 @@ export default function EventCard(props) {
             size_limit={size_limit}
           />
         </CardActions>
-
-        {/* owner of the event */}
-        {/* {user.id === owner_id && showUserEvents === 1 && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            <Button onClick={(e) => setOpen(true)} size="small">
-              Edit Event
-            </Button>
-            <Button
-              size="small"
-              onClick={(e) => {
-                const dataObj = {
-                  event_id: id,
-                  owner_id: user.id,
-                };
-                deleteEvent(dataObj);
-              }}
-            >
-              Delete Event
-            </Button>
-          </CardActions>
-        )} */}
-        {/* not the owner but have joined */}
-        {/* {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            <Button
-              onClick={(e) => {
-                const dataObj = {
-                  user_id: user.id,
-                  event_id: id,
-                };
-                leaveEvent(dataObj);
-              }}
-              size="small"
-            >
-              Leave Event
-            </Button>
-            <AttendeeNumDisplay
-              attendeelist={attendeelist}
-              size_limit={size_limit}
-            />
-          </CardActions>
-        )} */}
-        {/* not owner and not joined */}
-        {/* {showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents) && (
-          <CardActions>
-            <Button onClick={submitHandler} size="small">
-              Learn More
-            </Button>
-            <Button
-              size="small"
-              onClick={(e) => {
-                const dataObj = {
-                  user_id: user.id,
-                  event_id: id,
-                };
-                joinEvent(dataObj);
-              }}
-            >
-              Join Event
-            </Button>
-            <AttendeeNumDisplay
-              attendeelist={attendeelist}
-              size_limit={size_limit}
-            />
-          </CardActions>
-        )} */}
       </Card>
       <Error open={error} setOpen={setError} />
     </Box>

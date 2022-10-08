@@ -48,34 +48,54 @@ const headerOptions = {
   },
 };
 const Tab = createBottomTabNavigator();
-const HomeStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const UserStack = createNativeStackNavigator();
 const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <StatusBar />
-        <Tab.Navigator screenOptions={{headerShown: false}}>
-          <Tab.Screen name="Public">
-            {() => {
-              <HomeStack.Navigator>
-                <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
-                <HomeStack.Screen name="Log In" component={LoginScreen} />
-              </HomeStack.Navigator>;
-            }}
-          </Tab.Screen>
-
-          <Tab.Screen name="LoggedIn">
-            {() => (
-              <UserStack.Navigator>
-                <UserStack.Screen name="User" component={UserScreen} />
-                <UserStack.Screen name="Event" component={EventScreen} />
-              </UserStack.Navigator>
-            )}
-          </Tab.Screen>
-        </Tab.Navigator>
+        <ThemeProvider theme={theme}>
+          {/* <NavBar /> */}
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={headerOptions}>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Join Us!'}}
+            />
+            <Stack.Screen name="User" component={UserScreen} />
+            <Stack.Screen name="Event" component={EventScreen} />
+          </Stack.Navigator>
+        </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>
+
+    // <SafeAreaProvider>
+    //   <NavigationContainer>
+    //     <StatusBar />
+    //     <Tab.Navigator screenOptions={{headerShown: false}}>
+    //       <Tab.Screen name="Public">
+    //         {() => {
+    //           <HomeStack.Navigator>
+    //             <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
+    //             <HomeStack.Screen name="Log In" component={LoginScreen} />
+    //           </HomeStack.Navigator>;
+    //         }}
+    //       </Tab.Screen>
+
+    //       <Tab.Screen name="LoggedIn">
+    //         {() => (
+    //           <UserStack.Navigator>
+    //             <UserStack.Screen name="User" component={UserScreen} />
+    //             <UserStack.Screen name="Event" component={EventScreen} />
+    //           </UserStack.Navigator>
+    //         )}
+    //       </Tab.Screen>
+    //     </Tab.Navigator>
+    //   </NavigationContainer>
+    // </SafeAreaProvider>
   );
 };
 
