@@ -106,8 +106,8 @@ export default function EventDetails(props) {
               reload={reload}
               setReload={setReload}
               joinedEvents={joinedEvents}
-              usersData={usersData} 
-              />
+              usersData={usersData}
+            />
           </Box>
 
           {/* the pop up */}
