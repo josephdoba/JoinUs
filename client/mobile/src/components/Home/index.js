@@ -6,11 +6,10 @@ import Herobanner from './Herobanner';
 import HowTo from './HowTo';
 
 import useAppData from '../../hooks/useAppData';
-import LoginScreen from '../User/Login';
+import LoginForm from '../User/Login';
 
 const HomeScreen = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
@@ -32,8 +31,8 @@ const HomeScreen = ({navigation}) => {
       <ButtonGroup
         buttons={['Sign Up', 'Log In']}
         selectedIndex={selectedIndex}
-        buttonStyle={styles.signup}
-        selectedButtonStyle={styles.login}
+        buttonStyle={styles.button}
+        selectedButtonStyle={styles.selected}
         onPress={value => {
           handleSelect(value);
         }}
@@ -42,7 +41,7 @@ const HomeScreen = ({navigation}) => {
         }}
         containerStyle={styles.container}
       />
-      <LoginScreen toggleOverlay={toggleOverlay} visible={visible} />
+      <LoginForm toggleOverlay={toggleOverlay} visible={visible} />
     </ScrollView>
   );
 };
@@ -55,13 +54,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
-  login: {
+  selected: {
     backgroundColor: 'rgba(111, 202, 186, 1)',
     // borderRadius: 5,
   },
-  signup: {
+  button: {
     backgroundColor: '#F9CF93',
-    // borderRadius: 5,
   },
   title: {fontWeight: 'bold', fontSize: 23},
   container: {

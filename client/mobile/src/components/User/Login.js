@@ -2,12 +2,15 @@ import React, {useState} from 'react';
 import {Button, Overlay, Icon} from '@rneui/themed';
 import {View, Text, StyleSheet} from 'react-native';
 
-const LoginScreen = ({navigation, visible, toggleOverlay}) => {
+const LoginForm = ({navigation, visible, toggleOverlay}) => {
+  const [userID, getUserID] = useState('');
   return (
     <View>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-        <Text style={styles.textPrimary}>Log in</Text>
-        <Text style={styles.textSecondary}></Text>
+        <Text style={styles.textPrimary}>Hello!</Text>
+        <Text style={styles.textSecondary}>
+          Welcome to React Native Elements
+        </Text>
         <Button
           icon={
             <Icon
@@ -21,17 +24,12 @@ const LoginScreen = ({navigation, visible, toggleOverlay}) => {
           title="Start Building"
           onPress={toggleOverlay}
         />
-        <Button title="Go Back" onPress={() => navigation.goBack()} />
-        <Button
-          title="Log In"
-          onPress={() => navigation.navigate('User', {name: 'Carmen'})}
-        />
       </Overlay>
     </View>
   );
 };
 
-export default LoginScreen;
+export default LoginForm;
 
 const styles = StyleSheet.create({
   button: {
