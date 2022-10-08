@@ -9,6 +9,8 @@ import {
   findUsersJoinedEvents,
   pastEvents,
 } from "../../helpers/event_selectors";
+import ClearCategories from "./CategoryClearButton";
+import useSharedUser from "../../hooks/useSharedUser";
 
 export default function Userpage(props) {
   const {
@@ -17,7 +19,6 @@ export default function Userpage(props) {
     usersData,
     setEvent,
     joinedEvents,
-    user,
     setReload,
     reload,
     comments,
@@ -25,6 +26,7 @@ export default function Userpage(props) {
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
+  const { user } = useSharedUser();
 
   const eventsShown = (eventsDataInput) => {
     return (
@@ -35,7 +37,6 @@ export default function Userpage(props) {
         setEvent={setEvent}
         joinedEvents={joinedEvents}
         selectedCategory={selectedCategory}
-        user={user}
         showUserEvents={showUserEvents}
         setReload={setReload}
         reload={reload}
@@ -56,21 +57,6 @@ export default function Userpage(props) {
 
   const eventHistory = pastEvents(eventsData);
 
-  // if there is a selected category, a button to clear the chips appear
-  const clearCategories = (selectedCategory) => {
-    if (selectedCategory.length >= 1) {
-      return (
-        <Button
-          variant="text"
-          size="small"
-          onClick={() => setSelectedCategory([])}
-        >
-          Clear
-        </Button>
-      );
-    }
-  };
-
   return (
     <Box>
       <Box
@@ -84,7 +70,10 @@ export default function Userpage(props) {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
-        {clearCategories(selectedCategory)}
+        <ClearCategories
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </Box>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar

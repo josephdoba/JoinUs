@@ -16,27 +16,33 @@ import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
+import useSharedUser from "../../hooks/useSharedUser";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
   const {
-    id,
-    name,
-    image,
-    description,
-    start_time,
-    end_time,
     category,
     attendeelist,
     eventsData,
-    owner_id,
-    user,
-    size_limit,
+    thisEvent,
     showUserEvents,
     joinedEvents,
     setReload,
     reload,
   } = props;
+
+  const {
+    id,
+    name,
+    image,
+    start_time,
+    end_time,
+    description,
+    owner_id,
+    size_limit,
+  } = thisEvent;
+
+  const { user } = useSharedUser();
 
   //original
   const { findEventByID } = useAppData();
