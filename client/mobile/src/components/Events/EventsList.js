@@ -1,18 +1,35 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
-import {Card, Text, Badge, Icon, Image, ListItem, Avatar} from '@rneui/themed';
+import {Text, Icon, Image, ListItem, Button, Avatar} from '@rneui/themed';
 import TouchableScale from 'react-native-touchable-scale';
 
 const EventsList = ({event}) => {
+  const user = {id: 1};
+
   const IMAGE_URL = event.image;
   return (
-    <View key={event.id} style={styles.container}>
-      <ListItem
+    <View style={styles.container}>
+      <ListItem.Swipeable
         Component={TouchableScale}
         friction={90} //
         tension={100} // Touchable Scale stuff
         activeScale={0.95} //
-      >
+        leftContent={reset => (
+          <Button
+            title="Info"
+            onPress={() => reset()}
+            icon={{name: 'info', color: 'white'}}
+            buttonStyle={{minHeight: '100%'}}
+          />
+        )}
+        rightContent={reset => (
+          <Button
+            title="Delete"
+            onPress={() => reset()}
+            icon={{name: 'delete', color: 'white'}}
+            buttonStyle={{minHeight: '100%', backgroundColor: 'red'}}
+          />
+        )}>
         <ListItem.Content style={styles.title}>
           <ListItem.Title>{event.name}</ListItem.Title>
           <View style={styles.subtitleView}>
@@ -25,7 +42,7 @@ const EventsList = ({event}) => {
             <Text style={styles.ratingText}>{event.description}</Text>
           </View>
         </ListItem.Content>
-      </ListItem>
+      </ListItem.Swipeable>
     </View>
   );
 };
@@ -57,23 +74,4 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
   },
-  // fonts: {
-  //   marginBottom: 8,
-  // },
-  // user: {
-  //   flexDirection: 'row',
-  //   marginBottom: 6,
-  // },
-  // image: {
-  //   width: 20,
-  //   height: 20,
-  //   marginRight: 10,
-  // },
-  // name: {
-  //   fontSize: 16,
-  //   marginTop: 5,
-  // },
-  // buttonContainer: {
-  //   flex: 1,
-  // },
 });
