@@ -20,6 +20,7 @@ export default function Userpage(props) {
     user,
     setReload,
     reload,
+    comments
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list

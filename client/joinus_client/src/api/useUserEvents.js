@@ -72,6 +72,27 @@ const userEditEventSubmit = (event) => {
       });
   };
 
+  const userAddComment = (event) => {
+    axios
+      .post('http://localhost:8080/api/comments/add', event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const userDeleteComment = (event) => {
+    axios
+      .post('http://localhost:8080/api/comments/delete', event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return {
     userCreateEventSubmit,
@@ -79,5 +100,7 @@ const userEditEventSubmit = (event) => {
     userLeaveEvent,
     userJoinEvent,
     userDeleteEvent,
+    userAddComment,
+    userDeleteComment
   };
 }
