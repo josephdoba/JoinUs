@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Overlay, Input, Icon} from '@rneui/themed';
-import {View, Text, StyleSheet} from 'react-native';
+import {Button, Overlay, Input, Text, Icon} from '@rneui/themed';
+import {View, StyleSheet} from 'react-native';
 
 const LoginForm = ({
   visible,
@@ -24,13 +24,11 @@ const LoginForm = ({
             autoFocus="true"
             type="text"
             placeholder="Email Address"
-            keyboardType="default"
             value={userID}
             onChangeText={value => setUserID(value)}
             leftIcon={{type: 'fontisto', name: 'email'}}
           />
           <Input
-            keyboardType="default"
             type="password"
             secureTextEntry={true}
             leftIcon={{

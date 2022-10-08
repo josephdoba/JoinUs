@@ -13,6 +13,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
+import AllEventsScreen from './src/components/User/AllEvents';
+import HistoryScreen from './src/components/User/EventHistory';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useAppData from './src/hooks/useAppData';
@@ -66,22 +68,37 @@ const App = () => {
           <Stack.Navigator
             initialRouteName="Home"
             screenOptions={headerOptions}>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{title: 'Join Us!'}}
-              setUser={setUser}
-              user={user}
-            />
-            <Stack.Screen
-              name="User"
-              component={UserScreen}
-              options={({route, navigation}) => ({
-                title: route.params.userId,
-              })}
-              eventsData={eventsData}
-            />
-            <Stack.Screen name="Event" component={EventScreen} />
+            <Stack.Group>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{title: 'Join Us!'}}
+                setUser={setUser}
+                user={user}
+              />
+              <Stack.Screen
+                name="User"
+                component={UserScreen}
+                options={({route, navigation}) => ({
+                  title: route.params.userId,
+                })}
+                eventsData={eventsData}
+              />
+            </Stack.Group>
+            <Stack.Group>
+              <Stack.Screen name="Event" component={EventScreen} />
+              <Stack.Screen
+                name="AllEvents"
+                component={AllEventsScreen}
+                eventsData={eventsData}
+              />
+              {/* <Stack.Screen name="MyEvents" component={MyEventsScreen} />
+              <Stack.Screen
+                name="InterestedEvents"
+                component={InterestedScreen}
+              />
+              <Stack.Screen name="EventsHistory" component={HistoryScreen} /> */}
+            </Stack.Group>
           </Stack.Navigator>
         </ThemeProvider>
       </NavigationContainer>
@@ -113,25 +130,5 @@ const App = () => {
     // </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 0,
-    paddingHorizontal: 24,
-    backgroundColor: 'white',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
