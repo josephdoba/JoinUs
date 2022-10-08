@@ -8,14 +8,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Error from "./Error";
-import { formatTime } from "../../helpers/helpers";
-import { shortenText } from "../../helpers/helpers";
+import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import userEvents from "../../api/useUserEvents";
 import useUserEvents from "../../api/useUserEvents";
-import CategoriesList from "../UserPage/CategoriesList";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
+import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
+import NotListedLocationTwoToneIcon from "@mui/icons-material/NotListedLocationTwoTone";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
@@ -88,14 +88,14 @@ export default function EventCard(props) {
       showUserEvents !== 1 &&
       checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return "Leave Event";
+      return <NotInterestedIcon />;
     }
     if (
       user_id !== owner_id &&
       showUserEvents !== 1 &&
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return "Interested";
+      return <AddReactionTwoToneIcon />;
     }
   };
   // end of logic for buttons
@@ -132,7 +132,7 @@ export default function EventCard(props) {
     <Box p={2}>
       <Card sx={{ maxWidth: 330 }}>
         <CardMedia component="img" alt={name} height="140" image={image} />
-        <CardContent>
+        <CardContent sx={{ height: 130 }}>
           <Typography
             sx={{
               display: "flex",
@@ -156,7 +156,7 @@ export default function EventCard(props) {
 
         <CardActions>
           <Button onClick={submitHandler} size="small">
-            Learn More
+            <NotListedLocationTwoToneIcon />
           </Button>
           {user.id === owner_id && showUserEvents < 3 && (
             <Button onClick={(e) => setOpen(true)} size="small">
