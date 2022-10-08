@@ -23,7 +23,7 @@ export default function EventMapDetails(props) {
 
   return (
     <List sx={{
-      width: "100%", maxWidth: "100%", display: "flex", bgcolor: 'lightsalmon'
+      width: "100%", maxWidth: "100%", display: "flex"
     }}>
       <ListItem>
         <ListItemAvatar>

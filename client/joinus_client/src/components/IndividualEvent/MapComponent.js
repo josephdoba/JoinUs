@@ -34,7 +34,7 @@ export default function MapComponent(props) {
   const center = { lat: event.lat, lng: event.lng };
 
   return (
-    <Box bgcolor={"lightsalmon"} sx={{
+    <Box sx={{
       display: 'flex',
       justifyContent: 'space-around',
       alignItems: 'center',
