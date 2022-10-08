@@ -33,58 +33,29 @@ export default function JoinEventButton(props) {
   }
 
   return (
-    // Moe's code
-    // <Button size="medium" color="primary"  endIcon={<LocalActivityIcon />
-    //       Join Event
-    //     </Button>
-
-    //     Kyler's code
-
-    <div>
+    <>
       {checkIfJoinedEvent(user.id, event.id, joinedEvents) ? (
-        <Tooltip
+        <Button size="medium" color="primary" endIcon={<LocalActivityIcon />}
           onClick={(e) => {
             const dataObj = {
               user_id: user.id,
               event_id: event.id,
             };
             leaveEvent(dataObj);
-          }}
-          title="Leave this event!"
-          sx={{
-            position: "fixed",
-            bottom: "45px",
-            right: "45px",
-          }}
-        >
-          <Fab variant="extended">
-            <LocalActivityIcon sx={{ mr: 1 }} />
-            Leave Event
-          </Fab>
-        </Tooltip>
-      ) : (
-        <Tooltip
-          onClick={(e) => {
-            const dataObj = {
-              user_id: user.id,
-              event_id: event.id,
-            };
-            joinEvent(dataObj);
-          }}
-          title="Join an event!"
-          sx={{
-            position: "fixed",
-            bottom: "45px",
-            right: "45px",
-          }}
-        >
-          <Fab variant="extended">
-            <LocalActivityIcon sx={{ mr: 1 }} />
-            Join Event
-          </Fab>
-        </Tooltip>
+          }}>
+          Leave this event!
+        </ Button>
+      ) : (<Button size="medium" color="primary" endIcon={<LocalActivityIcon />}
+        onClick={(e) => {
+          const dataObj = {
+            user_id: user.id,
+            event_id: event.id,
+          };
+          joinEvent(dataObj);
+        }}>
+        Join Event
+      </ Button>
       )}
-      <Error open={error} setOpen={setError} />
-    </div>
+    </>
   );
 }

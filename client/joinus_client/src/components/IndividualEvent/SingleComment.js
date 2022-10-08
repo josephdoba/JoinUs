@@ -1,5 +1,7 @@
+import { Box, Button } from '@mui/material';
 import React from 'react';
 import useUserEvents from '../../hooks/useUserEvents';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 export default function SingleComment(props) {
@@ -13,10 +15,26 @@ export default function SingleComment(props) {
     await userDeleteComment(dataObj)
     setReload(reload + 1)
   }
-  
-return (
-  <div>
-  { userID === user_id ? <div className="message">Me: {message} <button className='DELETE' onClick={handleDeleteComment}>Delete</button></div> : <div className="message">{name}: {message}</div>}
-  </div>
-)
+
+  return (
+    <Box>
+      {userID === user_id ?
+        <Box sx={{
+          display: "flex",
+          flexDirection: 'row',
+          alignItems: "center",
+
+        }}>
+          <Button
+            onClick={handleDeleteComment}
+          >
+            <ClearIcon />
+          </Button>
+          <Box>
+            Me: {message}
+          </Box>
+        </Box> :
+        <Box>{name}: {message}</Box>}
+    </Box>
+  )
 };

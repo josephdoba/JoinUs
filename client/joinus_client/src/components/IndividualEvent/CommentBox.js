@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./commentBox.scss";
-import { Box, Button, Stack } from "@mui/material";
+//import "./commentBox.scss";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import SingleComment from "./SingleComment";
 import useUserEvents from "../../hooks/useUserEvents";
 import { checkIfUserJoinedSingleEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 import useSharedEvent from "../../hooks/useSharedEvent";
+import MessageIcon from '@mui/icons-material/Message';
 
 export default function CommentBox(props) {
   const { userAddComment } = useUserEvents();
@@ -20,6 +21,14 @@ export default function CommentBox(props) {
   const Submit = (e) => {
     e.preventDefault();
     setMessage("");
+  };
+
+  const commonStyles = {
+    bgcolor: '#ffffff59',
+    m: 3,
+    border: 2,
+    width: '70%',
+    height: '70%',
   };
 
   const displayComments = (comment) => {
@@ -77,34 +86,65 @@ export default function CommentBox(props) {
   }
 
   return (
-    <div className="outer-container">
-      <h2 className="header-comment">Leave a comment!</h2>
-      <div className="comment-container">
-        {showComments}
-        <form
-          className="comment-form"
-          autoComplete="off"
-          onSubmit={handleAddComment}
-        >
-          <input
-            size="large"
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="comment-input"
-            id="comment"
-          ></input>
-          <Button
-            type="submit"
-            style={{ position: "relative", top: "50%" }}
-            variant="contained"
-            endIcon={<SendIcon />}
-            size="small"
+    <Box>
+      <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 1,
+      }}>
+        <Typography>Event Messages</Typography>
+      </Box>
+
+      <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+      }}
+      >
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          p: 3,
+          ...commonStyles, borderRadius: '12px'
+        }}>
+
+          {showComments}
+        </Box>
+
+        <Box sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          p: 1,
+          m: 1,
+          alignItems: "center",
+        }}>
+          <form
+            className="comment-form"
+            autoComplete="off"
+            onSubmit={handleAddComment}
           >
-            Add comment
-          </Button>
-        </form>
-      </div>
-    </div>
+
+            <TextField
+              sx={{ width: '500px', }}
+              variant="standard"
+              multiline
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              id="comment"
+              rows={2}
+            ></TextField>
+            <Button sx={{ height: 55 }}
+              type="submit"
+            >
+              <Stack direction="column" alignItems="center" justifyContent={"center"}>
+                <MessageIcon />
+              </Stack>
+            </Button>
+          </form>
+        </Box>
+      </Box>
+    </Box>
   );
 }

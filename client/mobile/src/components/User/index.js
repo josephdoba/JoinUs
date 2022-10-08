@@ -10,7 +10,19 @@ const UserScreen = ({navigation}) => {
         title="Go To Event"
         onPress={() => navigation.navigate('Event')}
       />
-      <Button title="User page again" onPress={() => navigation.push('User')} />
+      <Button
+        title="To My Events"
+        onPress={() => navigation.push('MyEvents')}
+      />
+      <Button title="All Events" onPress={() => navigation.push('AllEvents')} />
+      <Button
+        title="Upcoming Events"
+        onPress={() => navigation.push('JoinedEventScreen')}
+      />
+      <Button
+        title="Upcoming Events"
+        onPress={() => navigation.push('HistoryScreen')}
+      />
     </View>
   );
 };

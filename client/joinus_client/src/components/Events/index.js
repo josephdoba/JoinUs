@@ -18,7 +18,6 @@ export default function Events(props) {
     usersData,
     joinedEvents,
     showUserEvents,
-    user,
     setReload,
     reload,
   } = props;
@@ -31,19 +30,11 @@ export default function Events(props) {
       return (
         <EventCard
           key={e.id}
-          id={e.id}
-          name={e.name}
-          image={e.image}
-          description={e.description}
-          user={user}
-          owner_id={e.owner_id}
+          thisEvent={e}
           category={category}
-          start_time={e.start_time}
-          end_time={e.end_time}
           eventsData={eventsData}
           attendeelist={attendeelist}
           categoriesData={categoriesData}
-          size_limit={e.size_limit}
           showUserEvents={showUserEvents}
           joinedEvents={joinedEvents}
           setReload={setReload}

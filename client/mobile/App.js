@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -13,25 +13,31 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
-import LoginScreen from './src/components/User/Login';
+import AllEventsScreen from './src/components/User/AllEvents';
+import HistoryScreen from './src/components/User/EventHistory';
+
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import useAppData from './src/hooks/useAppData';
 
 import {ThemeProvider, createTheme} from '@rneui/themed';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+// React Native Element Theme
 const theme = createTheme({
   lightColors: {
-    primary: '#3EB489',
-    secondary: '#00bfa5',
+    primary: '#94B49F',
+    secondary: '#B2A4FF ',
     success: '#4db6ac',
     background: '#FBFBFF',
   },
   darkColors: {
-    primary: '#000',
+    primary: '#00ADB5',
+    secondary: '#E94560',
+    background: '#222831',
   },
   components: {
     Button: {
-      color: 'purple',
+      color: 'rgba(111, 202, 186, 1)',
     },
   },
 });
@@ -47,10 +53,12 @@ const headerOptions = {
     fontWeight: 'bold',
   },
 };
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const UserStack = createNativeStackNavigator();
+// const UserStack = createNativeStackNavigator();
 const App = () => {
+  const {eventsData, usersData, user, setUser} = useAppData();
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -60,13 +68,37 @@ const App = () => {
           <Stack.Navigator
             initialRouteName="Home"
             screenOptions={headerOptions}>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{title: 'Join Us!'}}
-            />
-            <Stack.Screen name="User" component={UserScreen} />
-            <Stack.Screen name="Event" component={EventScreen} />
+            <Stack.Group>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{title: 'Join Us!'}}
+                setUser={setUser}
+                user={user}
+              />
+              <Stack.Screen
+                name="User"
+                component={UserScreen}
+                options={({route, navigation}) => ({
+                  title: route.params.userId,
+                })}
+                eventsData={eventsData}
+              />
+            </Stack.Group>
+            <Stack.Group>
+              <Stack.Screen name="Event" component={EventScreen} />
+              <Stack.Screen
+                name="AllEvents"
+                component={AllEventsScreen}
+                eventsData={eventsData}
+              />
+              {/* <Stack.Screen name="MyEvents" component={MyEventsScreen} />
+              <Stack.Screen
+                name="InterestedEvents"
+                component={InterestedScreen}
+              />
+              <Stack.Screen name="EventsHistory" component={HistoryScreen} /> */}
+            </Stack.Group>
           </Stack.Navigator>
         </ThemeProvider>
       </NavigationContainer>
@@ -80,7 +112,7 @@ const App = () => {
     //         {() => {
     //           <HomeStack.Navigator>
     //             <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
-    //             <HomeStack.Screen name="Log In" component={LoginScreen} />
+    //             <HomeStack.Screen name="LogIn" component={LoginScreen} />
     //           </HomeStack.Navigator>;
     //         }}
     //       </Tab.Screen>
@@ -98,25 +130,5 @@ const App = () => {
     // </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 0,
-    paddingHorizontal: 24,
-    backgroundColor: 'white',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
