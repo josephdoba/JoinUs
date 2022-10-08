@@ -219,7 +219,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
           <Stack direction="row" justifyContent="left">
             <input
-              required
               accept="image/*"
               style={{ display: "none" }}
               id="raised-button-file"

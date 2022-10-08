@@ -22,44 +22,47 @@ const getComments = () => {
 }
 
 
-/* 
+/*
 // Ayyyyy so, uh, I know using any is the meme when using TS, but.., we kinda need to use it here. TS doesn't like eventObject: object in this particular instance
 https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-request-body-in-typescript
 -Joba
 */
-const createEvent = (eventObject: any) => {
-  console.log("event object from queries/events.ts")
-  console.log(eventObject.body)
-  
+
+const createEvent = (eventObj: any) => {
+  console.log("event eventObject from queries/events.ts")
+  // console.log(eventObj)
+  console.log(eventObj.body)
+
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
   const values = [
-    eventObject.body.eventName,
-    eventObject.body.eventImage,
-    eventObject.body.eventDescription,
-    eventObject.body.eventSizeLimit,
-    eventObject.body.eventOwnerId,
-    Number(eventObject.body.eventCategory),
-    eventObject.body.eventCity,
-    eventObject.body.lat,
-    eventObject.body.lng,
-    eventObject.body.start_time,
-    eventObject.body.end_time
+    eventObj.body.eventName,
+    eventObj.body.eventImage,
+    eventObj.body.eventDescription,
+    eventObj.body.eventSizeLimit,
+    eventObj.body.eventOwnerId,
+    Number(eventObj.body.eventCategory),
+    eventObj.body.eventCity,
+    eventObj.body.lat,
+    eventObj.body.lng,
+    eventObj.body.start_time,
+    eventObj.body.end_time
   ];
-  
-  
+
+  const joinFromCreate = joinEvent(eventObj)
+  const joinFromCreateValues = [eventObj.body.eventOwnerId, eventObj.body.event_id, true]
+
   return db
   .query(createEventQuery, values)
   .then((data) => data.rows)
   .then(() => console.log(values))
-  .then()
   .catch((err) => {
     console.error(err.stack);
-    console.log("Something went wrong with leaveEvent in events.ts");
+    console.log("Something went wrong with createEvent in events.ts");
   });
-  
-  
+
+
 };
 
 // const editEvent = (eventObject) => {
@@ -133,7 +136,6 @@ const deleteComments = (dataObj: any) => {
       console.log("Something went wrong with deleteComments in events.ts");
     });
 };
-
 
 export default {
   getCategories,

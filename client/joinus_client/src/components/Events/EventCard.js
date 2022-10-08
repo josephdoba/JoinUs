@@ -156,11 +156,11 @@ export default function EventCard(props) {
             {shortenText(description)}
           </Typography>
         </CardContent>
-          <Button 
+          <Button
               onClick={() => setOpen(true)} s
               size="small">
-              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category}} />}
           </Button>
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category}} />}
         <CardActions>
           <Button onClick={submitHandler} size="small">
             Learn More

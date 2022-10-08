@@ -7,7 +7,7 @@ export default function useUserEvents() {
 
   const userCreateEventSubmit = (event) => {
     cleanCreateEvent(event)
-    console.log("api post request for userEditEvent");
+    console.log("api post request for userCreateEvent");
     axios
       .post("http://localhost:8080/api/events", event)
       .then(() => {

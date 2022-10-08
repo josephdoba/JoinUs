@@ -79,6 +79,7 @@ export default function Userpage(props) {
   };
 
   return (
+    <>
     <Box>
       <Box
         sx={{ display: "flex" }}
@@ -122,6 +123,8 @@ export default function Userpage(props) {
         </Fab>
       </Tooltip>
       <EventForm categoriesData={categoriesData} open={open} setOpen={setOpen} eventData={{}} formMode={"create"} />
+
     </Box>
+    </>
   );
 }
