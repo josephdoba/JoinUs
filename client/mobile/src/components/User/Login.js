@@ -6,10 +6,8 @@ const LoginScreen = ({navigation, visible, toggleOverlay}) => {
   return (
     <View>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-        <Text style={styles.textPrimary}>Hello!</Text>
-        <Text style={styles.textSecondary}>
-          Welcome to React Native Elements
-        </Text>
+        <Text style={styles.textPrimary}>Log in</Text>
+        <Text style={styles.textSecondary}></Text>
         <Button
           icon={
             <Icon
