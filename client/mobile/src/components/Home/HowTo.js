@@ -6,40 +6,73 @@ import {
   StyleSheet,
   Text,
   StatusBar,
+  Image,
 } from 'react-native';
+import {ListItem, Avatar} from '@rneui/base';
 
-const INSTRUCTIONS = [
+const DATA = [
   {
     id: 1,
-    image: signup,
-    alt: 'how to join',
-    title: 'Join Us!',
+    image: require('../../images/sign_up.png'),
+    title: 'Join',
     description: 'Create an account and see what others around are doing!',
   },
   {
     id: 2,
-    image: idea,
-    alt: 'create',
+    image: require('../../images/idea.png'),
     title: 'Create',
     description:
       'Think of something fun to do and make an event or join someone in theirs',
   },
   {
     id: 3,
-    image: chat,
-    alt: 'Chat',
+    image: require('../../images/chat.png'),
     title: 'Chat',
     description:
       'Chat with others to make sure you get along and confirm your plans.',
   },
   {
     id: 4,
-    image: meet,
-    alt: 'Meet',
+    image: require('../../images/meet.png'),
     title: 'Meet',
     description: 'Head out and do something new with a new friend.',
   },
 ];
-const HowTo = ({}) => {};
+
+const HowTo = () => {
+  return DATA.map(item => {
+    return (
+      <ListItem key={item.id} containerStyle={{backgroundColor: '#FBFBFF'}}>
+        <Avatar source={item.image} style={styles.imageSize} />
+        <ListItem.Content style={styles.content}>
+          <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
+          <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+    );
+  });
+};
 
 export default HowTo;
+
+const styles = StyleSheet.create({
+  imageSize: {
+    height: 150,
+    width: 150,
+    marginBottom: 8,
+  },
+  content: {
+    flex: 1,
+    position: 'relative',
+    alignItems: 'center',
+  },
+  // sectionContainer: {
+  //   color: '#FBFBFF',
+  //   position: 'relative',
+  // },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'dimgray',
+  },
+});

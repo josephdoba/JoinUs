@@ -5,58 +5,105 @@
  * @format
  * @flow strict-local
  */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
+import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
+import LoginScreen from './src/components/User/Login';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import NavBar from './src/components/NavBar';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
+import {ThemeProvider, createTheme} from '@rneui/themed';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+const theme = createTheme({
+  lightColors: {
+    primary: '#3EB489',
+    secondary: '#00bfa5',
+    success: '#4db6ac',
+    background: '#FBFBFF',
+  },
+  darkColors: {
+    primary: '#000',
+  },
+  components: {
+    Button: {
+      color: 'purple',
+    },
+  },
+});
 
 // passing additional props to a screne https://reactnavigation.org/docs/hello-react-navigation
 
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: '#f9fbe7',
+  },
+  headerTintColor: '#222831',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const UserStack = createNativeStackNavigator();
 const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {/* <SafeAreaView> */}
-        {/* <StatusBar /> */}
-        {/* <ScrollView> */}
-        <NavBar />
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{title: 'Join Us!'}}
-          />
-          <Stack.Screen name="User" component={UserScreen} />
-          <Stack.Screen name="Event" component={EventScreen} />
-        </Stack.Navigator>
-        {/* </ScrollView> */}
-        {/* </SafeAreaView> */}
+        <StatusBar />
+        <ThemeProvider theme={theme}>
+          {/* <NavBar /> */}
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={headerOptions}>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Join Us!'}}
+            />
+            <Stack.Screen name="User" component={UserScreen} />
+            <Stack.Screen name="Event" component={EventScreen} />
+          </Stack.Navigator>
+        </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>
+
+    // <SafeAreaProvider>
+    //   <NavigationContainer>
+    //     <StatusBar />
+    //     <Tab.Navigator screenOptions={{headerShown: false}}>
+    //       <Tab.Screen name="Public">
+    //         {() => {
+    //           <HomeStack.Navigator>
+    //             <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
+    //             <HomeStack.Screen name="Log In" component={LoginScreen} />
+    //           </HomeStack.Navigator>;
+    //         }}
+    //       </Tab.Screen>
+
+    //       <Tab.Screen name="LoggedIn">
+    //         {() => (
+    //           <UserStack.Navigator>
+    //             <UserStack.Screen name="User" component={UserScreen} />
+    //             <UserStack.Screen name="Event" component={EventScreen} />
+    //           </UserStack.Navigator>
+    //         )}
+    //       </Tab.Screen>
+    //     </Tab.Navigator>
+    //   </NavigationContainer>
+    // </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 50,
+    marginTop: 0,
     paddingHorizontal: 24,
+    backgroundColor: 'white',
   },
   sectionTitle: {
     fontSize: 24,
