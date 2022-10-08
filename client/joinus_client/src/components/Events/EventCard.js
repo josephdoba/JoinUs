@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IconButton, Card, CardActions, Typography } from "@mui/material";
+import { CardMedia, CardContent } from "@mui/material";
+import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
+import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
+import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
 
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import useUserEvents from "../../api/useUserEvents";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
-import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
-import NotInterestedIcon from "@mui/icons-material/NotInterested";
-import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
-import NotListedLocationTwoToneIcon from "@mui/icons-material/NotListedLocationTwoTone";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
@@ -155,23 +151,24 @@ export default function EventCard(props) {
         </CardContent>
 
         <CardActions>
-          <Button onClick={submitHandler} size="small">
-            <NotListedLocationTwoToneIcon />
-          </Button>
+          <IconButton onClick={submitHandler} size="small">
+            <ReadMoreTwoToneIcon />
+          </IconButton>
+
           {user.id === owner_id && showUserEvents < 3 && (
-            <Button onClick={(e) => setOpen(true)} size="small">
+            <IconButton onClick={(e) => setOpen(true)} size="small">
               <BorderColorTwoToneIcon />
-            </Button>
+            </IconButton>
           )}
           {showUserEvents !== 3 && (
-            <Button
+            <IconButton
               size="small"
               onClick={(e) => {
                 processEvent(id, user.id);
               }}
             >
               {getButtonText(id, user.id)}
-            </Button>
+            </IconButton>
           )}
           <AttendeeNumDisplay
             attendeelist={attendeelist}
