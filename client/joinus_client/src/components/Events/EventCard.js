@@ -61,8 +61,6 @@ export default function EventCard(props) {
     });
   };
 
-
-
   // logic for join / edit / delete / leave button
   const processEvent = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
@@ -158,12 +156,11 @@ export default function EventCard(props) {
             {shortenText(description)}
           </Typography>
         </CardContent>
-        <Button 
+          <Button 
               onClick={() => setOpen(true)} s
               size="small">
-              Edit Event
-              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category }} />}
-            </Button>
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category}} />}
+          </Button>
         <CardActions>
           <Button onClick={submitHandler} size="small">
             Learn More

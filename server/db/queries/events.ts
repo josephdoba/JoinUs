@@ -22,28 +22,18 @@ const getComments = () => {
 }
 
 
-
-/*
-    .query(`
-INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
-('coffee test', 'https://ptfc.co.uk/wp-content/uploads/2020/09/PTFC-this-is-a-test-event1090x630.jpg', 'Test description', 3, 1, 1, 51.0233064354121, -114.02369425973428, '2022-10-13 05:00:00', '2022-10-13 16:00:00');
-`)
-*/
-
-/*
-// Ayyyyy so, uh, I tried having this as eventObject: object, however TS decided not to allow that... Had to change it to Any for now.
+/* 
+// Ayyyyy so, uh, I know using any is the meme when using TS, but.., we kinda need to use it here. TS doesn't like eventObject: object in this particular instance
 https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-request-body-in-typescript
 -Joba
 */
 const createEvent = (eventObject: any) => {
   console.log("event object from queries/events.ts")
   console.log(eventObject.body)
-  // console.log(eventObject.body.Category)
-
-
+  
   // https://node-postgres.com/features/queries
-  const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, address, lat, lng, start_time, end_time) VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+  const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
   const values = [
     eventObject.body.eventName,
     eventObject.body.eventImage,
@@ -51,24 +41,33 @@ const createEvent = (eventObject: any) => {
     eventObject.body.eventSizeLimit,
     eventObject.body.eventOwnerId,
     Number(eventObject.body.eventCategory),
-    eventObject.body.eventAddress,
+    eventObject.body.eventCity,
     eventObject.body.lat,
     eventObject.body.lng,
     eventObject.body.start_time,
     eventObject.body.end_time
   ];
-
-
+  
+  
   return db
-    .query(createEventQuery, values)
-    .then((data) => data.rows)
-    .then(() => console.log(values))
-    .catch((err) => {
-      console.error(err.stack);
-      console.log("error happened in events.ts");
-    });
+  .query(createEventQuery, values)
+  .then((data) => data.rows)
+  .then(() => console.log(values))
+  .then()
+  .catch((err) => {
+    console.error(err.stack);
+    console.log("Something went wrong with leaveEvent in events.ts");
+  });
+  
+  
 };
 
+// const editEvent = (eventObject) => {
+//   return connection_1.db
+//       .query(`SELECT * FROM events WHERE id = 1`)
+//       .then((data) => data.rows)
+//       .catch((err) => console.error(err.stack));
+// };
 
 const leaveEvent = (dataObj: any) => {
   const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
@@ -79,7 +78,7 @@ const leaveEvent = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("error happened deleting event");
+      console.log("Something went wrong with leaveEvent in events.ts");
     });
 };
 
@@ -92,7 +91,7 @@ const joinEvent = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with joinEvent in events.ts");
     });
 };
 
@@ -105,7 +104,7 @@ const deleteEvent = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with deleteEvent in events.ts");
     });
 };
 
@@ -118,7 +117,7 @@ const addComments = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with addComments in events.ts");
     });
 };
 
@@ -131,16 +130,10 @@ const deleteComments = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with deleteComments in events.ts");
     });
 };
 
-// const editEvent = (eventObject) => {
-//   return connection_1.db
-//       .query(`SELECT * FROM events WHERE id = 1`)
-//       .then((data) => data.rows)
-//       .catch((err) => console.error(err.stack));
-// };
 
 export default {
   getCategories,

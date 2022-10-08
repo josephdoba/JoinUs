@@ -20,22 +20,15 @@ const getComments = () => {
         .catch((err) => console.error(err.stack));
 };
 /*
-    .query(`
-INSERT INTO events(name, image, description, size_limit, owner_id, category, lat, lng, start_time, end_time) VALUES
-('coffee test', 'https://ptfc.co.uk/wp-content/uploads/2020/09/PTFC-this-is-a-test-event1090x630.jpg', 'Test description', 3, 1, 1, 51.0233064354121, -114.02369425973428, '2022-10-13 05:00:00', '2022-10-13 16:00:00');
-`)
-*/
-/*
-// Ayyyyy so, uh, I tried having this as eventObject: object, however TS decided not to allow that... Had to change it to Any for now.
+// Ayyyyy so, uh, I know using any is the meme when using TS, but.., we kinda need to use it. TS doesn't like eventObject: object in this particular instance
 https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-request-body-in-typescript
 -Joba
 */
 const createEvent = (eventObject) => {
     console.log("event object from queries/events.ts");
     console.log(eventObject.body);
-    // console.log(eventObject.body.Category)
     // https://node-postgres.com/features/queries
-    const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, address, lat, lng, start_time, end_time) VALUES
+    const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
     const values = [
         eventObject.body.eventName,
@@ -44,7 +37,7 @@ const createEvent = (eventObject) => {
         eventObject.body.eventSizeLimit,
         eventObject.body.eventOwnerId,
         Number(eventObject.body.eventCategory),
-        eventObject.body.eventAddress,
+        eventObject.body.eventCity,
         eventObject.body.lat,
         eventObject.body.lng,
         eventObject.body.start_time,
@@ -56,7 +49,7 @@ const createEvent = (eventObject) => {
         .then(() => console.log(values))
         .catch((err) => {
         console.error(err.stack);
-        console.log("error happened in events.ts");
+        console.log("Something went wrong with leaveEvent in events.ts");
     });
 };
 const leaveEvent = (dataObj) => {
@@ -67,7 +60,7 @@ const leaveEvent = (dataObj) => {
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log("error happened deleting event");
+        console.log("Something went wrong with leaveEvent in events.ts");
     });
 };
 const joinEvent = (dataObj) => {
@@ -78,7 +71,7 @@ const joinEvent = (dataObj) => {
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log("badbad");
+        console.log("Something went wrong with joinEvent in events.ts");
     });
 };
 const deleteEvent = (dataObj) => {
@@ -89,7 +82,7 @@ const deleteEvent = (dataObj) => {
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log("badbad");
+        console.log("Something went wrong with deleteEvent in events.ts");
     });
 };
 const addComments = (dataObj) => {
@@ -100,7 +93,7 @@ const addComments = (dataObj) => {
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log("badbad");
+        console.log("Something went wrong with addComments in events.ts");
     });
 };
 const deleteComments = (dataObj) => {
@@ -111,7 +104,7 @@ const deleteComments = (dataObj) => {
         .then((data) => data.rows)
         .catch((err) => {
         console.error(err.stack);
-        console.log("badbad");
+        console.log("Something went wrong with deleteComments in events.ts");
     });
 };
 // const editEvent = (eventObject) => {

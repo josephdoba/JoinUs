@@ -30,7 +30,7 @@ export default function EventForm(props) {
   - move eventform out of hooks, and into the events' folder.
   - would have the open state in the component that renders the form
   - move your open/setopen into the parent component, then pass the open state as props to the form component, 
-  - create a function called "toggle form"
+  - create a function called "toggle form" -- we already have this as open? 
   - pass the toggle function as a prop to the eventForm
   - remove the state in the form open, when we click create event, calls toggle form for the create. and the same thing for the edit form.
   - when we click cancel on the form, call props.toggleform to close it.
@@ -57,8 +57,6 @@ export default function EventForm(props) {
   // const [myEvent, setMyEvent] = useState("")
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
   const [selected, setSelected] = useState({ lat: null, lng: null });
-  // const [open, setOpen] = useState(false);
-  // const [formMode, setFormMode] = useState("create")
 
 /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
@@ -111,7 +109,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             eventSizeLimit: 2,
             eventOwnerId: 1,
             eventCategory: data.get('label_eventCategory'),
-            eventCity: data.get('label_EventCity'),
+            eventCity: data.get('label_eventCity'),
             lat: 51.0233064354121, // use the auto feature from the google api
             lng: -114.02369425973428,
             start_time: startTime,
@@ -148,7 +146,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               id="standard-basic"
               label="City"
               variant="standard"
-              name="label_EventCity"
+              name="label_eventCity"
               value={eventCity}
               onChange={
                 (event) => {
@@ -243,7 +241,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             <Button variant="contained" type="submit" endIcon={<AddIcon />}>
               {formMode === "create" ? 'Create' : 'Submit'}
             </Button>
-            
           </Stack>
         </Box>
       </Modal>
