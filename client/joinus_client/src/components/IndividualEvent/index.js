@@ -23,18 +23,15 @@ export default function IndividualEvent(props) {
       </Box>
       <Box>
         <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-          <EventDetails attendeelist={attendeelist} />
+          <EventDetails
+            attendeelist={attendeelist}
+            reload={reload}
+            setReload={setReload}
+            joinedEvents={joinedEvents}
+            usersData={usersData}
+          />
           <EventMap />
         </Stack>
-      </Box>
-
-      <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
-        <JoinEventButton
-          reload={reload}
-          setReload={setReload}
-          joinedEvents={joinedEvents}
-          usersData={usersData}
-        />
       </Box>
       <CommentBox
         comments={comments}
