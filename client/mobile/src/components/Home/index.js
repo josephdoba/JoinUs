@@ -4,10 +4,8 @@ import {ScrollView, StyleSheet} from 'react-native';
 
 import Herobanner from './Herobanner';
 import HowTo from './HowTo';
-
 import useAppData from '../../hooks/useAppData';
 import LoginForm from './Login';
-import axios from 'axios';
 
 const HomeScreen = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -17,8 +15,6 @@ const HomeScreen = ({navigation}) => {
 
   const handleLogin = e => {
     e.preventDefault();
-
-    // axios.get(`http://localhost:8080/api/user/${userID}`).then(data => {});
     const user = fetchUser(userID);
 
     setUserID('');

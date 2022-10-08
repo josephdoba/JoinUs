@@ -7,7 +7,7 @@ import HistoryScreen from './User/EventHistory';
 // for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
 const Tab = createBottomTabNavigator();
 
-const EventTabs = () => {
+const EventTabs = ({eventsData}) => {
   return (
     <Tab.Navigator name="User">
       <Tab.Screen name="All" component={AllEvents} />
