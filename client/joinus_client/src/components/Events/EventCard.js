@@ -53,6 +53,36 @@ export default function EventCard(props) {
     });
   }
 
+  const processEvent = (event_id, user_id) => {
+    // owner of event
+    if (user_id === owner_id && showUserEvents === 1) {
+      deleteEvent({ event_id, user_id });
+    }
+
+    if (showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents)) {
+      leaveEvent({ event_id, user_id });
+    }
+
+    if (showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents)) {
+      joinEvent({ event_id, user_id });
+    }
+  };
+
+  const getButtonText = (event_id, user_id) => {
+    // owner of event
+    if (user_id === owner_id && showUserEvents === 1) {
+      return "Delete";
+    }
+
+    if (showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents)) {
+      return "Leave";
+    }
+
+    if (showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents)) {
+      return "Join";
+    }
+  };
+
   const navigate = useNavigate();
 
   async function submitHandler() {
@@ -119,7 +149,34 @@ export default function EventCard(props) {
             {shortenText(description)}
           </Typography>
         </CardContent>
-        {user.id === owner_id && showUserEvents === 1 && (
+
+        <CardActions>
+          <Button onClick={submitHandler} size="small">
+            Learn More
+          </Button>
+          {user.id === owner_id && showUserEvents < 3 && (
+            <Button onClick={(e) => setOpen(true)} size="small">
+              Edit Event
+            </Button>
+          )}
+          {showUserEvents !== 3 && (
+            <Button
+              size="small"
+              onClick={(e) => {
+                processEvent(id, user.id);
+              }}
+            >
+              {getButtonText(id, user.id)}
+            </Button>
+          )}
+          <AttendeeNumDisplay
+            attendeelist={attendeelist}
+            size_limit={size_limit}
+          />
+        </CardActions>
+
+        {/* owner of the event */}
+        {/* {user.id === owner_id && showUserEvents === 1 && (
           <CardActions>
             <Button onClick={submitHandler} size="small">
               Learn More
@@ -140,8 +197,9 @@ export default function EventCard(props) {
               Delete Event
             </Button>
           </CardActions>
-        )}
-        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) && (
+        )} */}
+        {/* not the owner but have joined */}
+        {/* {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) && (
           <CardActions>
             <Button onClick={submitHandler} size="small">
               Learn More
@@ -163,8 +221,9 @@ export default function EventCard(props) {
               size_limit={size_limit}
             />
           </CardActions>
-        )}
-        {showUserEvents !== 1 && checkIfJoinedEvent(joinedEvents) === false && (
+        )} */}
+        {/* not owner and not joined */}
+        {/* {showUserEvents !== 1 && !checkIfJoinedEvent(joinedEvents) && (
           <CardActions>
             <Button onClick={submitHandler} size="small">
               Learn More
@@ -186,7 +245,7 @@ export default function EventCard(props) {
               size_limit={size_limit}
             />
           </CardActions>
-        )}
+        )} */}
       </Card>
       <Error open={error} setOpen={setError} />
     </Box>
