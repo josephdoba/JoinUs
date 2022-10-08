@@ -3,7 +3,8 @@ import {Button, Overlay, Input, Icon} from '@rneui/themed';
 import {View, Text, StyleSheet} from 'react-native';
 
 const LoginForm = ({navigation, visible, toggleOverlay}) => {
-  const [userID, getUserID] = useState('');
+  const [userID, setUserID] = useState('');
+  console.log(userID);
   return (
     <View>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
@@ -13,10 +14,18 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
         </Text>
         <View>
           <Input
+            containerStyle={{width: 350}}
+            autoFocus="true"
             placeholder="Email Address"
+            keyboardType="default"
+            label="Email Address"
+            value={userID}
+            onChangeText={value => setUserID(value)}
             leftIcon={{type: 'fontisto', name: 'email'}}
           />
           <Input
+            autoFocus="true"
+            keyboardType="default"
             leftIcon={{
               type: 'material-community',
               name: 'form-textbox-password',

@@ -6,7 +6,7 @@ import Herobanner from './Herobanner';
 import HowTo from './HowTo';
 
 import useAppData from '../../hooks/useAppData';
-import LoginForm from '../User/Login';
+import LoginForm from './Login';
 
 const HomeScreen = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);

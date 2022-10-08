@@ -13,25 +13,29 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
-import LoginScreen from './src/components/User/Login';
+
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import useAppData from './src/hooks/useAppData';
 
 import {ThemeProvider, createTheme} from '@rneui/themed';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+// React Native Element Theme
 const theme = createTheme({
   lightColors: {
-    primary: '#3EB489',
-    secondary: '#00bfa5',
+    primary: '#94B49F',
+    secondary: '#B2A4FF ',
     success: '#4db6ac',
     background: '#FBFBFF',
   },
   darkColors: {
-    primary: '#000',
+    primary: '#00ADB5',
+    secondary: '#E94560',
+    background: '#222831',
   },
   components: {
     Button: {
-      color: 'purple',
+      color: 'rgba(111, 202, 186, 1)',
     },
   },
 });
@@ -47,10 +51,11 @@ const headerOptions = {
     fontWeight: 'bold',
   },
 };
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const UserStack = createNativeStackNavigator();
+// const UserStack = createNativeStackNavigator();
 const App = () => {
+  const {eventsData, usersData} = useAppData();
   return (
     <SafeAreaProvider>
       <NavigationContainer>
