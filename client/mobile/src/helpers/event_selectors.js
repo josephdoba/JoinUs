@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-// return new array without past events
+// upcoming Events
 export function upcomingEvents(events) {
   let results = [];
   const now = moment(Date.now());
@@ -25,28 +25,6 @@ export function pastEvents(events) {
   return results;
 }
 
-// return an array of selected category obj
-export function findEventsByCategory(categoryArr, categoryData, eventsData) {
-  let arr = [];
-  let results = [];
-
-  for (let categoryObj of categoryData) {
-    for (let name of categoryArr) {
-      if (categoryObj.name === name) {
-        arr.push(categoryObj.id);
-      }
-    }
-  }
-  for (let eventObj of eventsData) {
-    for (let id of arr) {
-      if (eventObj.category === id) {
-        results.push(eventObj);
-      }
-    }
-  }
-  return results;
-}
-
 export function findUsersCreatedEvents(userID, eventsData) {
   let data = [];
   for (const i of eventsData) {
@@ -66,44 +44,32 @@ export function findUsersJoinedEvents(userID, eventsData, joinedEvents) {
     }
   }
 
-  for (const prop of eventsData) {
-    for (const prop2 of eventID) {
-      if (prop2 === prop.id) finalEvents.push(prop);
+  for (const event of eventsData) {
+    for (const id of eventID) {
+      if (id === event.id) finalEvents.push(event);
     }
   }
   return finalEvents;
 }
 
-export function findCommentsForEvent(eventID, comments) {
-  let comment = [];
-  for (const i of comments) {
-    if (i.event_id === eventID) {
-      comments.push(i);
-    }
-  }
-  return comment;
-}
+// return an array events by selected category
+export function findEventsByCategory(categoryArr, categoryData, eventsData) {
+  let arr = [];
+  let results = [];
 
-export function checkIfUserJoinedSingleEvent(userID, eventID, joinedEvents) {
-  for (const i of joinedEvents) {
-    if (i.user_id === userID && i.event_id === eventID) {
-      return true;
+  for (let categoryObj of categoryData) {
+    for (let name of categoryArr) {
+      if (categoryObj.name === name) {
+        arr.push(categoryObj.id);
+      }
     }
   }
-  return false;
-}
-
-export function checkIfJoinedEvent(userId, eventId, joinedEvents) {
-  const events = [];
-  for (const i of joinedEvents) {
-    if (userId === i.user_id) {
-      events.push(i.event_id);
+  for (let eventObj of eventsData) {
+    for (let id of arr) {
+      if (eventObj.category === id) {
+        results.push(eventObj);
+      }
     }
   }
-  for (const prop of events) {
-    if (prop === eventId) {
-      return true;
-    }
-  }
-  return false;
+  return results;
 }

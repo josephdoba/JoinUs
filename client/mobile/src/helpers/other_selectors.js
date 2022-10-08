@@ -17,3 +17,13 @@ export function findEventAttendees(eventId, usersData, joinedEvents) {
 export function findCategoryByID(categoryNum, categoryData) {
   return categoryData.find(category => category.id === categoryNum);
 }
+
+export function findCommentsForEvent(eventID, comments) {
+  let comment = [];
+  for (const i of comments) {
+    if (i.event_id === eventID) {
+      comments.push(i);
+    }
+  }
+  return comment;
+}
