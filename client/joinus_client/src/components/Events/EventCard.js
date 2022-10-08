@@ -6,11 +6,11 @@ import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
 import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
+import Button from "@mui/material";
 
 import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import Button from "@mui/material";
 
 import useUserEvents from "../../hooks/useUserEvents";
 import CategoriesList from "../UserPage/CategoriesList";
