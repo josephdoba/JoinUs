@@ -1,8 +1,7 @@
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Typography, Box, Button, TextField } from "@mui/material";
 
 export default function Login(props) {
   const { open, userID, setUserID, handleClose, handleSubmit } = props;
@@ -40,13 +39,15 @@ export default function Login(props) {
               fullWidth
               variant="standard"
             />
-
-            <Button onClick={handleClose} variant="error">
-              Cancel
-            </Button>
-            <Button type="submit" onClick={handleClose}>
-              Log in
-            </Button>
+            <Typography variant="caption">Forgot Password?</Typography>
+            <Box sx={{ marginTop: 1 }}>
+              <Button onClick={handleClose} variant="error">
+                Cancel
+              </Button>
+              <Button type="submit" onClick={handleClose}>
+                Log in
+              </Button>
+            </Box>
           </form>
         </DialogContent>
       </Dialog>

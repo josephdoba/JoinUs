@@ -38,6 +38,7 @@ const LoginForm = ({
             placeholder="Password"
           />
         </View>
+        <Text>Forgot Password?</Text>
         <Button
           style={styles.marginBottom}
           icon={
@@ -75,7 +76,7 @@ export default LoginForm;
 
 const styles = StyleSheet.create({
   marginBottom: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   textPrimary: {
     marginVertical: 20,
