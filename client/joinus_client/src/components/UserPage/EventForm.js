@@ -1,7 +1,8 @@
 import React, { useState, setState, useRef } from "react";
 import dayjs from "dayjs";
-import useUserEvents from "./useUserEvents";
-import CategoriesList from "../components/UserPage/CategoriesList";
+import useUserEvents from "../../hooks/useUserEvents";
+import useAppData from "../../hooks/useAppData";
+import CategoriesList from "./CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import {
@@ -18,11 +19,28 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import Search from "../components/UserPage/Search";
+import Search from "./Search";
 
 export default function EventForm(props) {
   console.log("props on load")
   console.log(props)
+  const { open, setOpen, categoriesData, eventData, formMode } = props 
+
+  /*
+
+  - move eventform out of hooks, and into the events' folder.
+  - would have the open state in the component that renders the form
+
+  - move your open/setopen into the parent component, then pass the open state as props to the form component, 
+
+  - create a function called "toggle form"
+  
+  - pass the toggle function as a prop to the eventForm
+
+  - remove the state in the form open, when we click create event, calls toggle form for the create. and the same thing for the edit form.
+
+  - when we click cancel on the form, call props.toggleform to close it.
+  */ 
 
  // We need this, just need to find how it was implemented before a previous merge wrecked it
   const imageRef = useRef()
@@ -45,8 +63,8 @@ export default function EventForm(props) {
   // const [myEvent, setMyEvent] = useState("")
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
   const [selected, setSelected] = useState({ lat: null, lng: null });
-  const [open, setOpen] = useState(false);
-  const [formMode, setFormMode] = useState("create")
+  // const [open, setOpen] = useState(false);
+  // const [formMode, setFormMode] = useState("create")
 
 /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
@@ -59,20 +77,19 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   // Form State 
   const [eventForm, setEventForm] = useState("");
 
-  const [eventName, setEventName] = useState(formMode === "edit" ? props.name : "");
+  const [eventName, setEventName] = useState(formMode === "edit" ? eventData.name : "");
   const [eventImage, setEventImage] = useState(""); // image is breaking this atm
-  const [eventDescription, setEventDescription] = useState(props.description || "");
+  const [eventDescription, setEventDescription] = useState(formMode === "edit" ? eventData.description : "");
   const [eventSizeLimit, setEventSizeLimit] = useState("");
-  const [eventCategory, setEventCategory] = useState(props.category || "");
-  const [eventAddress, setEventAddress] = useState(props.address || "");
+  const [eventCategory, setEventCategory] = useState(formMode === "edit" ? eventData.category : "");
+  const [eventAddress, setEventAddress] = useState(formMode === "edit" ? eventData.address : "");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
-  
   return (
     <>
       <Modal
-      setOpen={true}
+      open={open}
       onClose={(e) => setOpen(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
@@ -116,7 +133,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
           }}
           >
           <Typography variant="h6" color="gray" textAlign="center">
-          {formMode === "edit" ? 'Create New Event' : 'Edit Event'}
+          {formMode === "create" ? 'Create New Event' : 'Edit Event'}
           </Typography>
             <TextField
               required
@@ -134,7 +151,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             <TextField
               required
               id="standard-basic"
-              label="Full Address"
+              label="City"
               variant="standard"
               name="label_eventAddress"
               value={eventAddress}
@@ -173,16 +190,16 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               />
             </LocalizationProvider>
 
-          {/* <CategoriesList
+          <CategoriesList
             required
-            categoriesData={props.categoriesData}
+            categoriesData={categoriesData}
             name="label_eventCategory"
             value={eventCategory}
             onChange={(event) => {
               event.preventDefault();
               setEventCategory(event.target.value);
             }}
-          /> */}
+          />
 
           <TextField
             required
@@ -230,12 +247,13 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               Cancel
             </Button>
             <Button variant="contained" type="submit" endIcon={<AddIcon />}>
-              {formMode === "edit" ? 'Create' : 'Submit'}
+              {formMode === "create" ? 'Create' : 'Submit'}
             </Button>
             
           </Stack>
         </Box>
       </Modal>
     </>
+
   );
 }

@@ -18,7 +18,7 @@ import CategoriesList from "../UserPage/CategoriesList";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
-import EventForm from "../../hooks/useEventForm";
+import EventForm from "../UserPage/EventForm";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
@@ -32,6 +32,7 @@ export default function EventCard(props) {
     category,
     attendeelist,
     eventsData,
+    categoriesData,
     owner_id,
     user,
     size_limit,
@@ -42,11 +43,8 @@ export default function EventCard(props) {
     formType
   } = props;
 
-  //original
   const { findEventByID } = useAppData();
-
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
-
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [formMode, setFormMode] = useState(formType); 
@@ -55,7 +53,9 @@ export default function EventCard(props) {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
     });
-  }
+  };
+
+
 
   const navigate = useNavigate();
 
@@ -132,7 +132,7 @@ export default function EventCard(props) {
               onClick={() => setOpen(true)} 
               size="small">
               Edit Event
-              {open && <EventForm open={true} formMode={"editForm"}/>}
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category }} />}
             </Button>
 
             <Button

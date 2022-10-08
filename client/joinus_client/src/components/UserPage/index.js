@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 // import AddEvent from "./AddEvent";
-import EventForm from "../../hooks/useEventForm";
+import EventForm from "./EventForm";
 import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -85,7 +85,7 @@ export default function Userpage(props) {
         m={2}
         direction={"row"}
         justifyContent={"center"}
-      >
+        >
         <EventCategoryDropdown
           list={categoriesData}
           selectedCategory={selectedCategory}
@@ -122,7 +122,7 @@ export default function Userpage(props) {
         </Fab>
       </Tooltip>
       {/* <AddEvent categoriesData={categoriesData}/> */}
-      <EventForm categoriesData={categoriesData} />
+      <EventForm categoriesData={categoriesData} open={open} setOpen={setOpen} eventData={{}} formMode={"create"} />
     </Box>
   );
 }
