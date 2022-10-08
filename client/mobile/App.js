@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -55,7 +55,8 @@ const headerOptions = {
 const Stack = createNativeStackNavigator();
 // const UserStack = createNativeStackNavigator();
 const App = () => {
-  const {eventsData, usersData} = useAppData();
+  const {eventsData, usersData, user, setUser} = useAppData();
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -69,8 +70,17 @@ const App = () => {
               name="Home"
               component={HomeScreen}
               options={{title: 'Join Us!'}}
+              setUser={setUser}
+              user={user}
             />
-            <Stack.Screen name="User" component={UserScreen} />
+            <Stack.Screen
+              name="User"
+              component={UserScreen}
+              options={({route, navigation}) => ({
+                title: route.params.userId,
+              })}
+              eventsData={eventsData}
+            />
             <Stack.Screen name="Event" component={EventScreen} />
           </Stack.Navigator>
         </ThemeProvider>
@@ -85,7 +95,7 @@ const App = () => {
     //         {() => {
     //           <HomeStack.Navigator>
     //             <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
-    //             <HomeStack.Screen name="Log In" component={LoginScreen} />
+    //             <HomeStack.Screen name="LogIn" component={LoginScreen} />
     //           </HomeStack.Navigator>;
     //         }}
     //       </Tab.Screen>

@@ -1,21 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Overlay, Input, Icon} from '@rneui/themed';
 import {View, Text, StyleSheet} from 'react-native';
 
-const LoginForm = ({navigation, visible, toggleOverlay}) => {
-  const [userID, setUserID] = useState('');
-  console.log(userID);
+const LoginForm = ({
+  visible,
+  toggleOverlay,
+  handleLogin,
+  setUserID,
+  userID,
+}) => {
   return (
-    <View>
+    <View style={styles.marginBottom}>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
         <Text style={styles.textPrimary}>Bored?!</Text>
         <Text style={styles.textSecondary}>
           Sign in and find an activity near you!
         </Text>
+        {/* how do you handle form submits? */}
         <View>
           <Input
             containerStyle={styles.inputBox}
+            autoCorrect="false"
             autoFocus="true"
+            type="text"
             placeholder="Email Address"
             keyboardType="default"
             value={userID}
@@ -23,17 +30,18 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
             leftIcon={{type: 'fontisto', name: 'email'}}
           />
           <Input
-            autoFocus="true"
             keyboardType="default"
+            type="password"
+            secureTextEntry={true}
             leftIcon={{
-              type: 'material-community',
-              name: 'form-textbox-password',
+              type: 'feather',
+              name: 'lock',
             }}
             placeholder="Password"
           />
         </View>
         <Button
-          styles={styles.button}
+          style={styles.marginBottom}
           icon={
             <Icon
               name="doubleright"
@@ -44,10 +52,10 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
             />
           }
           title="Log In"
-          onPress={toggleOverlay}
+          onPress={handleLogin}
         />
         <Button
-          styles={styles.button}
+          style={styles.marginBottom}
           icon={
             <Icon
               name="cancel"
@@ -68,8 +76,8 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
 export default LoginForm;
 
 const styles = StyleSheet.create({
-  button: {
-    marginBottom: 10,
+  marginBottom: {
+    marginBottom: 20,
   },
   textPrimary: {
     marginVertical: 20,

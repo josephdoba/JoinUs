@@ -8,9 +8,26 @@ import HowTo from './HowTo';
 import useAppData from '../../hooks/useAppData';
 import LoginForm from './Login';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, user}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [userID, setUserID] = useState('');
+  const {fetchLogin} = useAppData();
+
+  const handleLogin = async e => {
+    e.preventDefault();
+    fetchLogin(userID)
+      .then(() => {
+        setUserID('');
+        toggleOverlay();
+      })
+      .then(() => {
+        navigation.navigate('User', {name: 'user.name'});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -41,7 +58,12 @@ const HomeScreen = ({navigation}) => {
         }}
         containerStyle={styles.container}
       />
-      <LoginForm toggleOverlay={toggleOverlay} visible={visible} />
+      <LoginForm
+        toggleOverlay={toggleOverlay}
+        visible={visible}
+        setUserID={setUserID}
+        handleLogin={handleLogin}
+      />
     </ScrollView>
   );
 };
