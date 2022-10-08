@@ -22,7 +22,9 @@ export default function EventMapDetails(props) {
   // }));
 
   return (
-    <List sx={{ width: "100%", maxWidth: "100%", display: "flex" }}>
+    <List sx={{
+      width: "100%", maxWidth: "100%", display: "flex", bgcolor: 'lightsalmon'
+    }}>
       <ListItem>
         <ListItemAvatar>
           <IconButton fontSize="medium" onClick={handleClick}>
@@ -30,7 +32,7 @@ export default function EventMapDetails(props) {
           </IconButton>
         </ListItemAvatar>
         <ListItemText
-          primaryTypographyProps={{ fontSize: "14px" }}
+          primaryTypographyProps={{ fontSize: "12px" }}
           primary={<Address lat={event.lat} lng={event.lng} />}
         />
       </ListItem>
@@ -41,7 +43,7 @@ export default function EventMapDetails(props) {
           </Avatar>
         </ListItemAvatar>
         <ListItemText
-          primaryTypographyProps={{ fontSize: "14px" }}
+          primaryTypographyProps={{ fontSize: "12px" }}
           primary={formatTime(event.start_time, event.end_time)}
         />
       </ListItem>

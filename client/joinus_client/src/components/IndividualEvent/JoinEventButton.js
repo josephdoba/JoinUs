@@ -1,5 +1,4 @@
-import { Fab, Tooltip } from "@mui/material";
-
+import { Button, Fab, Tooltip } from "@mui/material";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import useUserEvents from "../../api/useUserEvents";
 import { findEventAttendees } from "../../helpers/user_selectors";
@@ -46,6 +45,14 @@ export default function JoinEventButton(props) {
   }
 
   return (
+  
+  {/* Moe's code  */}
+    {/*<Button size="medium" color="primary"  endIcon={<LocalActivityIcon />}>
+      Join Event
+    </Button> */}
+
+    {/* Kyler's code  */}
+
     <div>
       {checkIfJoinedEvent(joinedEvents) ? <Tooltip
       onClick={(e) => {
