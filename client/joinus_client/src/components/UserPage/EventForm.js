@@ -24,21 +24,15 @@ import Search from "./Search";
 export default function EventForm(props) {
   console.log("props on load")
   console.log(props)
-  const { open, setOpen, categoriesData, eventData, formMode } = props 
+  let { open, setOpen, categoriesData, eventData, formMode } = props 
 
   /*
-
   - move eventform out of hooks, and into the events' folder.
   - would have the open state in the component that renders the form
-
   - move your open/setopen into the parent component, then pass the open state as props to the form component, 
-
   - create a function called "toggle form"
-  
   - pass the toggle function as a prop to the eventForm
-
   - remove the state in the form open, when we click create event, calls toggle form for the create. and the same thing for the edit form.
-
   - when we click cancel on the form, call props.toggleform to close it.
   */ 
 
@@ -74,6 +68,7 @@ Good question! I asked a mentor about the difference of sending it all as one gi
 We also might need those lng/lat states, but i'll bring em back if we need em -Joba
 
 */
+
   // Form State 
   const [eventForm, setEventForm] = useState("");
 
@@ -82,7 +77,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   const [eventDescription, setEventDescription] = useState(formMode === "edit" ? eventData.description : "");
   const [eventSizeLimit, setEventSizeLimit] = useState("");
   const [eventCategory, setEventCategory] = useState(formMode === "edit" ? eventData.category : "");
-  const [eventAddress, setEventAddress] = useState(formMode === "edit" ? eventData.address : "");
+  const [eventCity, setEventCity] = useState(formMode === "edit" ? eventData.address : "");
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
@@ -116,7 +111,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             eventSizeLimit: 2,
             eventOwnerId: 1,
             eventCategory: data.get('label_eventCategory'),
-            eventAddress: data.get('label_eventAddress'),
+            eventCity: data.get('label_EventCity'),
             lat: 51.0233064354121, // use the auto feature from the google api
             lng: -114.02369425973428,
             start_time: startTime,
@@ -153,12 +148,12 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               id="standard-basic"
               label="City"
               variant="standard"
-              name="label_eventAddress"
-              value={eventAddress}
+              name="label_EventCity"
+              value={eventCity}
               onChange={
                 (event) => {
                   event.preventDefault()
-                  setEventAddress(event.target.value)
+                  setEventCity(event.target.value)
               }}
             />
 
@@ -239,8 +234,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button onClick={(e) => {
-              console.log("props on click cancel")
-              console.log(props)
+              formMode = "create"
               setOpen(false)
             }}
               variant="outlined">

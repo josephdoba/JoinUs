@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-// import AddEvent from "./AddEvent";
 import EventForm from "./EventForm";
 import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";

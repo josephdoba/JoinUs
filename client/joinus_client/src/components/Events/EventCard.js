@@ -47,7 +47,7 @@ export default function EventCard(props) {
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [formMode, setFormMode] = useState(formType); 
+  // const [formMode, setFormMode] = useState(formType); 
 
   function wait(time) {
     return new Promise((resolve) => {
