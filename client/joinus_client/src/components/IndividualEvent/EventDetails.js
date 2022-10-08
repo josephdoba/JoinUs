@@ -42,10 +42,14 @@ export default function EventDetails(props) {
   }
 
   return (
-    <Box flex={"50%"} bgcolor={"lightgreen"} sx={{
-      display: 'flex',
-      justifyContent: 'center'
-    }}>
+    <Box
+      flex={"50%"}
+      bgcolor={"lightgreen"}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <Box
         sx={{
           maxWidth: "75%",
@@ -68,8 +72,7 @@ export default function EventDetails(props) {
           src={event.image}
         />
         <Box>
-          <Box bgcolor={"lightgrey"} >
-
+          <Box bgcolor={"lightgrey"}>
             <Typography variant="h6" m={2}>
               Details
             </Typography>
@@ -78,13 +81,16 @@ export default function EventDetails(props) {
             </Typography>
           </Box>
 
-          <Box bgcolor={"lightsalmon"} sx={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            p: 1,
-            m: 1,
-            alignItems: 'center',
-          }}>
+          <Box
+            bgcolor={"lightsalmon"}
+            sx={{
+              display: "flex",
+              justifyContent: "space-around",
+              p: 1,
+              m: 1,
+              alignItems: "center",
+            }}
+          >
             {/* button to open attendee list */}
             <AttendeeNumDisplay
               attendeelist={attendeelist}
@@ -95,11 +101,8 @@ export default function EventDetails(props) {
               handleClickOpen={handleClickOpen}
             />
 
-            <JoinEventButton />
-
+            {/* <JoinEventButton /> */}
           </Box>
-
-
 
           {/* the pop up */}
           <AttendeePopup
@@ -107,8 +110,6 @@ export default function EventDetails(props) {
             open={open}
             handleClose={handleClose}
           />
-
-
         </Box>
       </Box>
     </Box>
