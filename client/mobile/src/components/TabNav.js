@@ -8,10 +8,11 @@ const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="JoinUs!" component={HomeScreen} />
-      <Tab.Screen name="User" component={UserScreen} />
-      <Tab.Screen name="Event" component={EventScreen} />
+    <Tab.Navigator name="User">
+      <Tab.Screen name="AllEvents" component={AllEventsScreen} />
+      <Tab.Screen name="MyEvents" component={CreatedEventsScreen} />
+      <Tab.Screen name="JoinedEvents" component={JoinedEventScreen} />
+      <Tab.Screen name="EventsHistory" component={HistoryScreen} />
     </Tab.Navigator>
   );
 };

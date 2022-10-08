@@ -1,46 +1,48 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Error from "./Error";
-import { formatTime } from "../../helpers/helpers";
-import { shortenText } from "../../helpers/helpers";
-import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import userEvents from "../../api/useUserEvents";
-import useUserEvents from "../../api/useUserEvents";
-import CategoriesList from "../UserPage/CategoriesList";
-import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
+import { IconButton, Card, CardActions, Typography } from "@mui/material";
+import { CardMedia, CardContent } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
+import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
+import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
+
+import Error from "./Error";
+import { formatTime, shortenText } from "../../helpers/helpers";
+import AttendeeNumDisplay from "./AttendeeNumDisplay";
+import useUserEvents from "../../api/useUserEvents";
+import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
+import useSharedUser from "../../hooks/useSharedUser";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
   const {
-    id,
-    name,
-    image,
-    description,
-    start_time,
-    end_time,
     category,
     attendeelist,
     eventsData,
-    owner_id,
-    user,
-    size_limit,
+    thisEvent,
     showUserEvents,
     joinedEvents,
     setReload,
     reload,
   } = props;
+
+  const {
+    id,
+    name,
+    image,
+    start_time,
+    end_time,
+    description,
+    owner_id,
+    size_limit,
+  } = thisEvent;
+
+  const { user } = useSharedUser();
 
   //original
   const { findEventByID } = useAppData();
@@ -88,14 +90,14 @@ export default function EventCard(props) {
       showUserEvents !== 1 &&
       checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return "Leave Event";
+      return <NotInterestedIcon />;
     }
     if (
       user_id !== owner_id &&
       showUserEvents !== 1 &&
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return "Interested";
+      return <AddReactionTwoToneIcon />;
     }
   };
   // end of logic for buttons
@@ -132,7 +134,7 @@ export default function EventCard(props) {
     <Box p={2}>
       <Card sx={{ maxWidth: 330 }}>
         <CardMedia component="img" alt={name} height="140" image={image} />
-        <CardContent>
+        <CardContent sx={{ height: 130 }}>
           <Typography
             sx={{
               display: "flex",
@@ -155,23 +157,24 @@ export default function EventCard(props) {
         </CardContent>
 
         <CardActions>
-          <Button onClick={submitHandler} size="small">
-            Learn More
-          </Button>
+          <IconButton onClick={submitHandler} size="small">
+            <ReadMoreTwoToneIcon />
+          </IconButton>
+
           {user.id === owner_id && showUserEvents < 3 && (
-            <Button onClick={(e) => setOpen(true)} size="small">
+            <IconButton onClick={(e) => setOpen(true)} size="small">
               <BorderColorTwoToneIcon />
-            </Button>
+            </IconButton>
           )}
           {showUserEvents !== 3 && (
-            <Button
+            <IconButton
               size="small"
               onClick={(e) => {
                 processEvent(id, user.id);
               }}
             >
               {getButtonText(id, user.id)}
-            </Button>
+            </IconButton>
           )}
           <AttendeeNumDisplay
             attendeelist={attendeelist}
