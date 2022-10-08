@@ -7,6 +7,7 @@ export default function useAppData() {
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
   const [comments, setComments] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     Promise.all([
@@ -30,8 +31,22 @@ export default function useAppData() {
       });
   }, []);
 
-  const fetchUser = async userID => {
-    await fetchAPI(`user/${userID}`);
+  const fetchUser = userID => {
+    fetchAPI(`user/${userID}`).then(data => {
+      const user = data.data[0];
+      console.log(user.name);
+      setUser(prev => ({
+        id: user.id,
+        name: user.name,
+        age: user.age,
+        gender: user.gender,
+        picture: user.picture,
+      }));
+    });
+  };
+
+  const logout = () => {
+    setUser({id: null, name: null, age: null, gender: null, picture: null});
   };
 
   return {
@@ -41,5 +56,8 @@ export default function useAppData() {
     joinedEvents,
     comments,
     fetchUser,
+    setUser,
+    user,
+    logout,
   };
 }
