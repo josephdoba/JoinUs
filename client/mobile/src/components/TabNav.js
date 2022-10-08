@@ -1,18 +1,22 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from './Home';
 import React from 'react';
-import UserScreen from './User';
-import EventScreen from './Event';
+import MyEvents from './User/MyEvents';
+import AllEvents from './User/AllEvents';
+import InterestedEvents from './User/InterestedEvents';
+import HistoryScreen from './User/EventHistory';
 // for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
-const Tab = createBottomTabNavigator();
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-const TabNav = () => {
+const Tab = createMaterialBottomTabNavigator();
+
+const EventTabs = () => {
   return (
     <Tab.Navigator name="User">
-      <Tab.Screen name="AllEvents" component={AllEventsScreen} />
-      <Tab.Screen name="MyEvents" component={CreatedEventsScreen} />
-      <Tab.Screen name="JoinedEvents" component={JoinedEventScreen} />
-      <Tab.Screen name="EventsHistory" component={HistoryScreen} />
+      <Tab.Screen name="All" component={AllEvents} />
+      <Tab.Screen name="My Events" component={MyEvents} />
+      <Tab.Screen name="Interested" component={InterestedEvents} />
+      <Tab.Screen name="History" component={HistoryScreen} />
     </Tab.Navigator>
   );
 };
+
+export default EventTabs;
