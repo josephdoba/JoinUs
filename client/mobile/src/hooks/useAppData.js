@@ -33,14 +33,14 @@ export default function useAppData() {
 
   const fetchUser = userID => {
     fetchAPI(`user/${userID}`).then(data => {
-      const user = data.data[0];
+      const u = data.data[0];
       console.log(user.name);
       setUser(prev => ({
-        id: user.id,
-        name: user.name,
-        age: user.age,
-        gender: user.gender,
-        picture: user.picture,
+        id: u.id,
+        name: u.name,
+        age: u.age,
+        gender: u.gender,
+        picture: u.picture,
       }));
     });
   };
