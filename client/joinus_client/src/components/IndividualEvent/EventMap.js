@@ -25,7 +25,7 @@ export default function EventMap(props) {
   };
 
   return (
-    <Box flex={"30%"} p={2}>
+    <Box flex={"50%"} >
       <Stack direction={"column"} spacing={2} justifyContent={"space-between"}>
         <MapComponent setMap={setMap} />
 
