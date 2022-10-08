@@ -1,35 +1,53 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet, Image} from 'react-native';
 import {Card, Text, Button, Icon} from '@rneui/themed';
+import {
+  findEventAttendees,
+  findCategoryByID,
+} from '../../helpers/other_selectors';
+import useAppData from '../../hooks/useAppData';
 
-const AllEventsScreen = ({navigation, eventsData}) => {
-  return (
-    <ScrollView>
-      <View>
-        <Card>
-          <Card.Title>HELLO WORLD</Card.Title>
-          <Card.Divider />
-          <Card.Image
-            style={{padding: 0}}
-            source={{
-              uri: 'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
-            }}
-          />
-          <Text style={{marginBottom: 10}}>
-            The idea with React Native Elements is more about component
-            structure than actual design.
-          </Text>
-          <Button
-            icon={
-              <Icon name="code" color="#ffffff" iconStyle={{marginRight: 10}} />
-            }
-            buttonStyle={styles.button}
-            title="VIEW NOW"
-          />
-        </Card>
-      </View>
-    </ScrollView>
-  );
+const AllEventsScreen = ({navigation}) => {
+  const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
+
+  const displayEvents = eventArr => {
+    return eventArr.map(event => {
+      const attendeelist = findEventAttendees(
+        event.id,
+        usersData,
+        joinedEvents,
+      );
+      const category = findCategoryByID(event.category, categoriesData);
+
+      const IMAGE_URL = event.image;
+
+      return (
+        <View key={event.id} style={styles.container}>
+          <Card>
+            <Card.Title style={{flex: 2}}>{event.name}</Card.Title>
+            <Card.Divider />
+            <Card.Image
+              style={{padding: 0, flex: 3}}
+              source={{
+                uri: IMAGE_URL,
+              }}
+            />
+            <View style={{flex: 1}}>
+              <Text style={{marginBottom: 10}}>{event.description}</Text>
+              <Icon name="read-more" color="black" type="material" />
+              <Icon
+                name="emoticon-happy-outline"
+                color="black"
+                type="material-community"
+              />
+            </View>
+          </Card>
+        </View>
+      );
+    });
+  };
+
+  return <ScrollView>{displayEvents(eventsData)}</ScrollView>;
 };
 
 const styles = StyleSheet.create({
@@ -44,19 +62,16 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   image: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     marginRight: 10,
   },
   name: {
     fontSize: 16,
     marginTop: 5,
   },
-  button: {
-    borderRadius: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
+  buttonContainer: {
+    flex: 1,
   },
 });
 
