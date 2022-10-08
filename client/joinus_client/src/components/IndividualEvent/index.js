@@ -28,6 +28,11 @@ export default function IndividualEvent(props) {
           <EventMap />
         </Stack>
       </Box>
+
+      <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
+        <JoinEventButton user={user} reload={reload} setReload={setReload} joinedEvents={joinedEvents} event={event} usersData={usersData}/>
+      </Box>
+      <CommentBox comments={comments} event={event} user={user} reload={reload} setReload={setReload} joinedEvents={joinedEvents}/>
     </Box>
   );
 }

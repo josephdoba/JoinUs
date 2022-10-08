@@ -108,6 +108,7 @@ export default function EventDetails(props) {
             handleClose={handleClose}
           />
 
+
         </Box>
       </Box>
     </Box>
