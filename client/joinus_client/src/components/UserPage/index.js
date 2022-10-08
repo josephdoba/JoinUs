@@ -60,6 +60,7 @@ export default function Userpage(props) {
     eventsData,
     joinedEvents
   );
+
   const eventHistory = pastEvents(eventsData);
 
   // if there is a selected category, a button to clear the chips appear

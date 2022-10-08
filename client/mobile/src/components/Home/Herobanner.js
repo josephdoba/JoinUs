@@ -1,39 +1,41 @@
-import {Text, StyleSheet, Image} from 'react-native';
+import {Text, StyleSheet, Image, View} from 'react-native';
 import React from 'react';
 
 const Herobanner = () => {
   return (
-    <>
-      <Image
-        style={styles.logo}
-        source={require('../../images/logo_light.png')}
-      />
+    <View style={styles.sectionContainer}>
+      <Text style={styles.title}>Social without the schedule.</Text>
       <Image
         style={styles.bannerImage}
         source={require('../../images/running.png')}
       />
-      <Text style={styles.body}>
-        Have you ever been out in public and wanted to experience something new
-        with someone new? Tired of making plans weeks in advance only to have
-        them cancel at the last minute? Do you miss the spontaneity of your
-        childhood?! Well look no further! Our app JoinUs! is a short-term meetup
-        app that allows users to arrange short-term, spontaneous meetups with
-        other like minded individuals. No commitment required!
+      <Text style={styles.subtitle}>
+        Make new friends with shared interests using local short-term meetups.
       </Text>
-    </>
+    </View>
   );
 };
 
 export default Herobanner;
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    paddingHorizontal: 24,
+    backgroundColor: '#FBFBFF',
+    alignItems: 'center',
+    position: 'relative',
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 30,
     color: 'dimgray',
+    textAlign: 'center',
+    marginTop: 20,
   },
-  bodytext: {
+  subtitle: {
+    fontSize: 20,
     color: 'dimgray',
+    textAlign: 'center',
   },
   bannerImage: {
     height: 350,

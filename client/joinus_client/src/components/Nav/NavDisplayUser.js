@@ -46,6 +46,7 @@ export default function NavDisplayUser(props) {
           <MenuItem
             key={setting}
             onClick={setting === "Logout" ? handleLogout : handleCloseUserMenu}
+            h
           >
             <Typography textAlign="center">{setting}</Typography>
           </MenuItem>

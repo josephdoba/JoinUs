@@ -76,11 +76,6 @@ export default function Events(props) {
     }
   }
 
-  // user owned events
-
-  // user joined events
-  // past events
-
   return (
     <Box
       flex={5}

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {Header, Icon} from '@rneui/base';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 
 const NavBar = ({navigation}) => {
   return (
     <Header
       style={styles.headerContainer}
-      backgroundColor="#94B49F"
+      backgroundColor="#f9fbe7"
       backgroundImageStyle={{}}
       barStyle="light-content"
       centerComponent={{
@@ -16,7 +16,7 @@ const NavBar = ({navigation}) => {
       }}
       centerContainerStyle={{}}
       containerStyle={{width: '100%'}}
-      leftComponent={
+      rightComponent={
         <Icon
           color="#595959"
           containerStyle={{}}
@@ -32,13 +32,11 @@ const NavBar = ({navigation}) => {
       leftContainerStyle={{}}
       linearGradientProps={{}}
       placement="center"
-      rightComponent={
-        <Icon
-          color="#595959"
-          name="home"
+      leftComponent={
+        <Image
+          style={styles.logo}
+          source={require('../images/logo_light.png')}
           onPress={() => console.log('onPress()')}
-          size={30}
-          type="ionicons"
         />
       }
       rightContainerStyle={{}}
@@ -72,5 +70,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  logo: {
+    width: 30,
+    height: 30,
   },
 });

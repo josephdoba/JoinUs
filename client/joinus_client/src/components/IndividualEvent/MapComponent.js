@@ -1,11 +1,12 @@
+import { Box } from "@mui/system";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import useSharedEvent from "../../hooks/useSharedEvent";
 
 const mapContainerStyle = {
   marginTop: "20px",
-  width: "500px",
-  height: "500px",
+  width: "400px",
+  height: "400px",
 };
 
 export default function MapComponent(props) {
@@ -33,17 +34,25 @@ export default function MapComponent(props) {
   const center = { lat: event.lat, lng: event.lng };
 
   return (
-    <GoogleMap
-      zoom={12}
-      center={center ? center : userCoords} // set center to event location, or user's location
-      mapContainerStyle={mapContainerStyle}
-      options={{
-        streetViewControl: false,
-        mapTypeControl: false,
-      }}
-      onLoad={(map) => setMap(map)}
-    >
-      <MarkerF position={center} onLoad={onLoad} />
-    </GoogleMap>
+    <Box bgcolor={"lightsalmon"} sx={{
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      margin: 2
+    }}>
+
+      <GoogleMap
+        zoom={10}
+        center={center ? center : userCoords} // set center to event location, or user's location
+        mapContainerStyle={mapContainerStyle}
+        options={{
+          streetViewControl: false,
+          mapTypeControl: false,
+        }}
+        onLoad={(map) => setMap(map)}
+      >
+        <MarkerF position={center} onLoad={onLoad} />
+      </GoogleMap>
+    </Box>
   );
 }

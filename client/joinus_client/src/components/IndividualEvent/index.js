@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { findEventAttendees } from "../../helpers/user_selectors";
 import useSharedEvent from "../../hooks/useSharedEvent";
 
@@ -15,9 +15,9 @@ export default function IndividualEvent(props) {
   console.log(event);
 
   const attendeelist = findEventAttendees(event.id, usersData, joinedEvents);
-  
+
   return (
-    <Box flex={"row"}>
+    <Box flex={"row"} m={2}>
       <Box display="flex" justifyContent="center" alignItems="center" m={3}>
         <Typography variant="h4">{event.name}</Typography>
       </Box>
@@ -27,10 +27,21 @@ export default function IndividualEvent(props) {
           <EventMap />
         </Stack>
       </Box>
+
       <Box sx={{ display: "flex", flexDirection: "row-reverse", m: 5 }}>
-        <JoinEventButton />
+        <JoinEventButton
+          reload={reload}
+          setReload={setReload}
+          joinedEvents={joinedEvents}
+          usersData={usersData}
+        />
       </Box>
-      <CommentBox comments={comments} event={event} user={user} reload={reload} setReload={setReload} joinedEvents={joinedEvents}/>
+      <CommentBox
+        comments={comments}
+        reload={reload}
+        setReload={setReload}
+        joinedEvents={joinedEvents}
+      />
     </Box>
   );
 }

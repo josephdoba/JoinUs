@@ -12,6 +12,7 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import AttendeesAvatar from "./AtendeesAvatar";
 import AttendeePopup from "./AttendeePopup";
+import JoinEventButton from "./JoinEventButton";
 
 export default function EventDetails(props) {
   const { attendeelist } = props;
@@ -29,10 +30,10 @@ export default function EventDetails(props) {
   };
   // avatarlist pop up end
 
-  async function submitHandler() {
-    await wait(250);
-    navigate("/event/chat");
-  }
+  // async function submitHandler() {
+  //   await wait(250);
+  //   navigate("/event/chat");
+  // }
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -41,8 +42,15 @@ export default function EventDetails(props) {
   }
 
   return (
-    <Box flex={"50%"}>
-      <Card
+    <Box
+      flex={"50%"}
+      bgcolor={"lightgreen"}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
           maxWidth: "75%",
           display: "flex",
@@ -63,20 +71,38 @@ export default function EventDetails(props) {
           alt={event.name}
           src={event.image}
         />
-        <CardContent>
-          <Typography variant="h6" m={2}>
-            Details
-          </Typography>
-          <AttendeeNumDisplay
-            attendeelist={attendeelist}
-            size_limit={event.size_limit}
-          />
+        <Box>
+          <Box bgcolor={"lightgrey"}>
+            <Typography variant="h6" m={2}>
+              Details
+            </Typography>
+            <Typography variant="body1" color="text.secondary" m={2}>
+              {event.description}
+            </Typography>
+          </Box>
 
-          {/* button to open attendee list */}
-          <AttendeesAvatar
-            attendeelist={attendeelist}
-            handleClickOpen={handleClickOpen}
-          />
+          <Box
+            bgcolor={"lightsalmon"}
+            sx={{
+              display: "flex",
+              justifyContent: "space-around",
+              p: 1,
+              m: 1,
+              alignItems: "center",
+            }}
+          >
+            {/* button to open attendee list */}
+            <AttendeeNumDisplay
+              attendeelist={attendeelist}
+              size_limit={event.size_limit}
+            />
+            <AttendeesAvatar
+              attendeelist={attendeelist}
+              handleClickOpen={handleClickOpen}
+            />
+
+            {/* <JoinEventButton /> */}
+          </Box>
 
           {/* the pop up */}
           <AttendeePopup
@@ -84,16 +110,8 @@ export default function EventDetails(props) {
             open={open}
             handleClose={handleClose}
           />
-
-          <Button size="small" variant="text" onClick={submitHandler}>
-            Join Chat
-          </Button>
-
-          <Typography variant="body1" color="text.secondary" m={3}>
-            {event.description}
-          </Typography>
-        </CardContent>
-      </Card>
+        </Box>
+      </Box>
     </Box>
   );
 }
