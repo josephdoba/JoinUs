@@ -14,11 +14,10 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
         </Text>
         <View>
           <Input
-            containerStyle={{width: 350}}
+            containerStyle={styles.inputBox}
             autoFocus="true"
             placeholder="Email Address"
             keyboardType="default"
-            label="Email Address"
             value={userID}
             onChangeText={value => setUserID(value)}
             leftIcon={{type: 'fontisto', name: 'email'}}
@@ -31,32 +30,31 @@ const LoginForm = ({navigation, visible, toggleOverlay}) => {
               name: 'form-textbox-password',
             }}
             placeholder="Password"
-            secureTextEntry={true}
           />
         </View>
         <Button
-          style={styles.button}
+          styles={styles.button}
           icon={
             <Icon
               name="doubleright"
               type="antdesign"
               color="white"
               size={25}
-              iconStyle={{marginRight: 10}}
+              iconStyle={styles.buttonIcon}
             />
           }
           title="Log In"
           onPress={toggleOverlay}
         />
         <Button
-          style={styles.button}
+          styles={styles.button}
           icon={
             <Icon
-              name="wrench"
-              type="font-awesome"
+              name="cancel"
+              type="material"
               color="white"
               size={25}
-              iconStyle={{marginRight: 10}}
+              iconStyle={styles.buttonIcon}
             />
           }
           title="Cancel"
@@ -71,7 +69,7 @@ export default LoginForm;
 
 const styles = StyleSheet.create({
   button: {
-    margin: 10,
+    marginBottom: 10,
   },
   textPrimary: {
     marginVertical: 20,
@@ -82,5 +80,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
     fontSize: 17,
+  },
+  buttonIcon: {
+    marginRight: 10,
+  },
+  inputBox: {
+    width: 350,
   },
 });
