@@ -37,12 +37,6 @@ export default function EventDetails(props) {
   //   navigate("/event/chat");
   // }
 
-  function wait(time) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, time);
-    });
-  }
-
   return (
     <Box
       flex={"50%"}

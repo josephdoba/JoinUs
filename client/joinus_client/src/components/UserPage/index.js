@@ -11,6 +11,7 @@ import {
 } from "../../helpers/event_selectors";
 import ClearCategories from "./CategoryClearButton";
 import useSharedUser from "../../hooks/useSharedUser";
+import Error from "../Events/Error";
 
 export default function Userpage(props) {
   const {
@@ -19,9 +20,8 @@ export default function Userpage(props) {
     usersData,
     setEvent,
     joinedEvents,
-    setReload,
-    reload,
-    comments,
+    open,
+    setOpen,
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
@@ -38,8 +38,6 @@ export default function Userpage(props) {
         joinedEvents={joinedEvents}
         selectedCategory={selectedCategory}
         showUserEvents={showUserEvents}
-        setReload={setReload}
-        reload={reload}
       />
     );
   };
@@ -86,6 +84,7 @@ export default function Userpage(props) {
         {showUserEvents === 3 && eventsShown(eventHistory)}
       </Stack>
       <AddEvent categoriesData={categoriesData} />
+      <Error open={open} setOpen={setOpen} />
     </Box>
   );
 }

@@ -1,15 +1,17 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { findEventAttendees } from "../../helpers/user_selectors";
 import useSharedEvent from "../../hooks/useSharedEvent";
+import Error from "../Events/Error";
 
 import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
-import JoinEventButton from "./JoinEventButton";
 import CommentBox from "./CommentBox";
+import useAppData from "../../hooks/useAppData";
 
 export default function IndividualEvent(props) {
-  const { joinedEvents, usersData, comments } = props;
+  const { joinedEvents, usersData, open, setOpen } = props;
   const { event } = useSharedEvent();
+  const { comments } = useAppData();
 
   console.log(event);
 
@@ -31,6 +33,7 @@ export default function IndividualEvent(props) {
         </Stack>
       </Box>
       <CommentBox comments={comments} joinedEvents={joinedEvents} />
+      <Error open={open} setOpen={setOpen} />
     </Box>
   );
 }

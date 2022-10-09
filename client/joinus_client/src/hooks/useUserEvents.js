@@ -96,36 +96,16 @@ export default function useUserEvents() {
       });
   };
 
-  const deleteComment = (comment_id) => {
-    postData("api/comments/delete", { comment_id })
+  const deleteComment = (dataObj) => {
+    postData("api/comments/delete", dataObj)
       .then(() => {
         setReload(reload + 1);
-        console.log({ comment_id });
+        console.log(dataObj);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  // async function handleDeleteComment(e) {
-  //   e.preventDefault();
-  //   const dataObj = {
-  //     comment_id: commentID,
-  //   };
-  //   await userDeleteComment(dataObj);
-  //   setReload(reload + 1);
-  // }
-
-  // const userDeleteComment = (event) => {
-  //   axios
-  //     .post("http://localhost:8080/api/comments/delete", event)
-  //     .then(() => {
-  //       console.log(event);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   return {
     userCreateEventSubmit,

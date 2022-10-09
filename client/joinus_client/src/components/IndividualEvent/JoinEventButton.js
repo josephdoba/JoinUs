@@ -15,8 +15,6 @@ export default function JoinEventButton(props) {
   const { leaveEvent, deleteEvent, joinEvent } = useUserEvents();
   const navigate = useNavigate();
 
-  const [error, setError] = useState(false);
-
   const processEvent = (event_id, user_id) => {
     if (user_id === event.owner_id) {
       deleteEvent({ event_id, user_id });
@@ -26,6 +24,7 @@ export default function JoinEventButton(props) {
       checkIfJoinedEvent(user.id, event.id, joinedEvents)
     ) {
       leaveEvent({ event_id, user_id });
+      navigate("/user");
     }
     if (
       user_id !== event.owner_id &&

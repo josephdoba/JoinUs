@@ -14,7 +14,6 @@ import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
 import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
 
-import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import useUserEvents from "../../hooks/useUserEvents";
@@ -32,8 +31,7 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    setReload,
-    reload,
+    setOpen,
   } = props;
 
   const {
@@ -52,12 +50,9 @@ export default function EventCard(props) {
   //original
   const { findEventByID } = useAppData();
 
-  const { leaveEvent, joinEvent, deleteEvent, error, setError } =
-    useUserEvents();
+  const { leaveEvent, joinEvent, deleteEvent } = useUserEvents();
 
   const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false);
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -113,28 +108,6 @@ export default function EventCard(props) {
     navigate(`/event`);
   }
 
-  // async function leaveEvent(dataObj) {
-  //   await userLeaveEvent(dataObj);
-  //   setReload(reload + 1);
-  // }
-
-  // async function joinEvent(dataObj) {
-  //   if (attendeelist.length >= size_limit) {
-  //     setError(true);
-  //   } else {
-  //     await userJoinEvent(dataObj);
-  //     setReload(reload + 1);
-  //   }
-  // }
-
-  // async function deleteEvent(dataObj) {
-  //   let answer = prompt("Are you sure you want to delete? type yes or no");
-  //   if (answer === "yes" || answer === "Yes") {
-  //     await userDeleteEvent(dataObj);
-  //     setReload(reload + 1);
-  //   }
-  // }
-
   return (
     <Box p={2}>
       <Card sx={{ maxWidth: 330 }}>
@@ -188,7 +161,6 @@ export default function EventCard(props) {
           />
         </CardActions>
       </Card>
-      <Error open={error} setOpen={setError} />
     </Box>
   );
 }

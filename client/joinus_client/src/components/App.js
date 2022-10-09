@@ -16,15 +16,8 @@ import { Box } from "@mui/material";
 export const ThemeContext = createContext(null);
 
 const App = function () {
-  const {
-    eventsData,
-    usersData,
-    categoriesData,
-    joinedEvents,
-    login,
-    logout,
-    comments,
-  } = useAppData();
+  const { eventsData, usersData, categoriesData, joinedEvents, login, logout } =
+    useAppData();
   const [theme, setTheme] = useState("light");
 
   const { user, setUser } = useSharedUser();
@@ -32,6 +25,8 @@ const App = function () {
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
+
+  const [open, setOpen] = useState(false);
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
@@ -74,7 +69,8 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  comments={comments}
+                  setOpen={setOpen}
+                  open={open}
                 />
               }
             />
@@ -82,10 +78,11 @@ const App = function () {
               path="/event"
               element={
                 <IndividualEvent
-                  comments={comments}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
                   user={user}
+                  setOpen={setOpen}
+                  open={open}
                 />
               }
             />

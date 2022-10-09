@@ -1,6 +1,6 @@
 import React, { useState, setState, useRef } from "react";
 import dayjs from "dayjs";
-import useUserEvents from "../../api/useUserEvents";
+import useUserEvents from "../../hooks/useUserEvents";
 import CategoriesList from "./CategoriesList";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
@@ -21,9 +21,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
 
 export default function AddEvent(props) {
-
- // We need this, just need to find how it was implemented before a previous merge wrecked it
-  const imageRef = useRef()
+  // We need this, just need to find how it was implemented before a previous merge wrecked it
+  const imageRef = useRef();
 
   const StyledModal = {
     display: "flex",
@@ -46,8 +45,7 @@ export default function AddEvent(props) {
 
   const [open, setOpen] = useState(false);
 
-
-/* 
+  /* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
 
 Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states makes sense since its currently working. imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
@@ -55,7 +53,7 @@ Good question! I asked a mentor about the difference of sending it all as one gi
 We also might need those lng/lat states, but i'll bring em back if we need em -Joba
 
 */
-  // Form State 
+  // Form State
   const [eventForm, setEventForm] = useState("");
 
   // Form info State declarations:
@@ -73,7 +71,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   
   onSubmit={()=>{const tempObj={eventName: eventName, location: location....}}}}
 */
-  
+
   return (
     <>
       <Tooltip
@@ -95,101 +93,96 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
         </Fab>
       </Tooltip>
 
-        <Modal
+      <Modal
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={StyledModal}
       >
+        <Box
+          width={500}
+          height={700}
+          bgcolor="white"
+          p={3}
+          borderRadius={3}
+          component="form"
+          noValidate
+          autoComplete="off"
+          sx={FormBox}
+          onSubmit={(event) => {
+            event.preventDefault();
+            const data = new FormData(event.currentTarget);
+            const sendDataObj = {
+              eventName: data.get("label_eventName"),
+              eventImage,
+              eventDescription: data.get("label_eventDescription"),
+              eventSizeLimit: 2,
+              eventOwnerId: 1,
+              eventCategory: data.get("label_eventCategory"),
+              eventAddress: data.get("label_eventAddress"),
+              lat: 51.0233064354121, // will eventually need to generate these values from address
+              lng: -114.02369425973428,
+              start_time: startTime,
+              end_time: endTime,
+            };
 
-        <Box 
-        width={500} 
-        height={700} 
-        bgcolor="white" 
-        p={3} 
-        borderRadius={3}
-        component="form"
-        noValidate
-        autoComplete="off"
-        sx={FormBox}
-        onSubmit={(event) => {
-          event.preventDefault();
-          const data = new FormData(event.currentTarget);
-          const sendDataObj = {
-            eventName: data.get('label_eventName'),
-            eventImage,
-            eventDescription: data.get('label_eventDescription'),
-            eventSizeLimit: 2,
-            eventOwnerId: 1,
-            eventCategory: data.get('label_eventCategory'),
-            eventAddress: data.get('label_eventAddress'),
-            lat: 51.0233064354121, // will eventually need to generate these values from address
-            lng: -114.02369425973428,
-            start_time: startTime,
-            end_time: endTime
-          };
-
-          userCreateEventSubmit(sendDataObj)
-          setOpen(false)
-        }}
+            userCreateEventSubmit(sendDataObj);
+            setOpen(false);
+          }}
         >
           <Typography variant="h6" color="gray" textAlign="center">
             Create New Event
           </Typography>
-            <TextField
-              required
-              id="standard-basic"
-              label="Event Name"
-              variant="standard"
-              name="label_eventName"
-              value={eventName}
-              onChange={
-                (event) => {
-                  setEventName(event.target.value)
-              }}
-              />
-              
-            <TextField
-              required
-              id="standard-basic"
-              label="Full Address"
-              variant="standard"
-              name="label_eventAddress"
-              value={eventAddress}
-              onChange={
-                (event) => {
-                  event.preventDefault()
-                  setEventAddress(event.target.value)
-              }}
-            />
+          <TextField
+            required
+            id="standard-basic"
+            label="Event Name"
+            variant="standard"
+            name="label_eventName"
+            value={eventName}
+            onChange={(event) => {
+              setEventName(event.target.value);
+            }}
+          />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                required 
-                label="Start Time"
-                renderInput={(params) => <TextField {...params} />}
-                value={startTime}
-                onChange={
-                  (event) => { 
-                    console.log(event)
-                    setStartTime(event.$d.toUTCString())
+          <TextField
+            required
+            id="standard-basic"
+            label="Full Address"
+            variant="standard"
+            name="label_eventAddress"
+            value={eventAddress}
+            onChange={(event) => {
+              event.preventDefault();
+              setEventAddress(event.target.value);
+            }}
+          />
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              required
+              label="Start Time"
+              renderInput={(params) => <TextField {...params} />}
+              value={startTime}
+              onChange={(event) => {
+                console.log(event);
+                setStartTime(event.$d.toUTCString());
               }}
             />
-            </LocalizationProvider>
-            
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                required
-                label="End Time"
-                value={endTime}
-                renderInput={(params) => <TextField {...params} />}
-                onChange={
-                  (event) => {
-                    setEndTime(event.$d.toUTCString())
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              required
+              label="End Time"
+              value={endTime}
+              renderInput={(params) => <TextField {...params} />}
+              onChange={(event) => {
+                setEndTime(event.$d.toUTCString());
               }}
-              />
-            </LocalizationProvider>
+            />
+          </LocalizationProvider>
 
           <CategoriesList
             required
