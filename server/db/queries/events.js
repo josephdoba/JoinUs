@@ -40,8 +40,6 @@ const createEvent = (eventObj) => {
         eventObj.body.start_time,
         eventObj.body.end_time
     ];
-    // const joinFromCreate = joinEvent(eventObj)
-    // const joinFromCreateValues = [eventObj.body.eventOwnerId, eventObj.body.event_id, true]
     return connection_1.db
         .query(createEventQuery, values)
         .then((data) => data.rows)
@@ -53,10 +51,13 @@ const createEvent = (eventObj) => {
 };
 // make an update call
 const editEvent = (eventObj) => {
-    const editEventQuery = `UPDATE events
-    SET id=$1 name=$2 image=$3, description=$4, size_limit=$5, owner_id=$6, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
-    WHERE id=$1 AND owner_id=$5`;
+    console.log("editEvent call from events.ts");
+    const editEventQuery = `
+  UPDATE events
+    SET name=$2, image=$3, description=$4, size_limit=$5, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
+    WHERE id=$1 AND owner_id=$6`;
     const values = [
+        eventObj.body.eventId,
         eventObj.body.eventName,
         eventObj.body.eventImage,
         eventObj.body.eventDescription,
@@ -71,7 +72,7 @@ const editEvent = (eventObj) => {
     ];
     return connection_1.db
         // .query(`SELECT * FROM events WHERE id = 1`)
-        .query(`SELECT * FROM events WHERE id = $1`)
+        .query(editEventQuery, values)
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };

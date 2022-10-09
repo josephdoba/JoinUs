@@ -24,8 +24,8 @@ import useSharedUser from "../../hooks/useSharedUser";
 
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
-  console.log("props from EventCard")
-  console.log(props)
+  // console.log("props from EventCard")
+  // console.log(props)
   const {
     category,
     attendeelist,
@@ -47,6 +47,8 @@ export default function EventCard(props) {
     owner_id,
     size_limit,
   } = thisEvent;
+
+  // console.log(thisEvent)
 
   const { user } = useSharedUser();
 

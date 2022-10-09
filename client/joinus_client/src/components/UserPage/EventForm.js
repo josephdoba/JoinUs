@@ -29,6 +29,9 @@ export default function EventForm(props) {
   const { user } = useSharedUser();
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
 
+  // console.log("From eventForm.js")
+  // console.log(eventData)
+
   // Stuff for image processing... might still need this 
   const imageRef = useRef(null);
    // https://reactjs.org/docs/hooks-reference.html#useref
@@ -77,6 +80,7 @@ export default function EventForm(props) {
   const submitForm = (event) => {
       event.preventDefault();
       const sendDataObj = {
+        eventId: eventData ? eventData.id : null,
         eventName: form.name,
         eventImage: form.image,
         eventDescription: form.description,
@@ -89,6 +93,8 @@ export default function EventForm(props) {
         start_time: form.start_time,
         end_time: form.end_time,
       };
+      console.log("Form mode:")
+      console.log(formMode);
       if (formMode === "create") {
         userCreateEventSubmit(sendDataObj);
       } else if (formMode === "edit") {
