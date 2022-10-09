@@ -12,7 +12,8 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 
-export default function Search({ setSelected }) {
+
+export default function Search({ handleCoordsSubmit, setSelected }) {
   const {
     ready,
     value,
@@ -34,13 +35,15 @@ export default function Search({ setSelected }) {
     <Combobox onSelect={handleSelect}>
       <ComboboxInput
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleCoordsSubmit}
         disabled={!ready}
         className="combobox-input"
         placeholder="Address"
+        
+        style={{zIndex: 2000}}
       />
       <ComboboxPopover>
-        <ComboboxList>
+        <ComboboxList style={{zIndex: 2000}}>
           {status === "OK" &&
             data.map(({ place_id, description }) => (
               <ComboboxOption key={place_id} value={description} />

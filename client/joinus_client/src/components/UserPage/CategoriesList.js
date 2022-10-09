@@ -8,9 +8,9 @@ import Select from "@mui/material/Select";
 
 
 export default function CategoriesList(props) {
-  console.log("props from CategoriesList:")
-  console.log(props)
-  console.log(props.categories)
+  // console.log("props from CategoriesList:")
+  // console.log(props)
+  // console.log(props.categories)
   
   const [category, setCategory] = useState("");
   // const { categoriesData } = props;
@@ -19,8 +19,6 @@ export default function CategoriesList(props) {
     console.log(event)
     setCategory(event.target.value);
   };
-  console.log("categoriesData destructuring: ")
-  console.log(props.categoriesData)
 
   /*
    categoriesData.map is causing a crash when the form renders: 
@@ -29,7 +27,7 @@ Uncaught TypeError: Cannot read properties of undefined (reading 'map')
   
    why isn't categoriesData showing up here now?
    */
-  const categories = props.categories.map((category) => {
+  const categories = props.categories?.map((category) => {
     return (
       <MenuItem value={category.id} key={category.id}>
         {category.name}

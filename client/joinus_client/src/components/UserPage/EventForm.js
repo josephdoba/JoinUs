@@ -23,26 +23,17 @@ import Search from "./Search";
 import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventForm(props) {
-  console.log("props on load");
-  console.log(props);
-  let { open, setOpen, categoriesData, eventData, formMode } = props;
+
+  const { open, setOpen, categoriesData, eventData, formMode } = props;
   const { usersData } = useAppData();
   const { user } = useSharedUser();
 
-  /*
-  - move eventform out of hooks, and into the events' folder.
-  - would have the open state in the component that renders the form
-  - move your open/setopen into the parent component, then pass the open state as props to the form component, 
-  - create a function called "toggle form" -- we already have this as open? 
-  - pass the toggle function as a prop to the eventForm
-  - remove the state in the form open, when we click create event, calls toggle form for the create. and the same thing for the edit form.
-  - when we click cancel on the form, call props.toggleform to close it.
-  */
-
+  const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
 
   const imageRef = useRef(null);
    // https://reactjs.org/docs/hooks-reference.html#useref
    const inputEl = useRef(null)
+
    const buttonClick = (e) => {
      console.log(e)
      console.log("--------------------")
@@ -50,43 +41,28 @@ export default function EventForm(props) {
      console.log(inputEl.current.children[1].children[0].value)
    }
 
-  const StyledModal = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
 
-  // styles the elements inside the modal:
-  const FormBoxStyles = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    "& > :not(style)": { m: 1, width: "100%" },
-  };
+  const [form, setForm] = useState({
+    name: null,
+    image: null,
+    description: null,
+    size_limit: null,
+    city: null,
+    owner_id: null,
+    category: null,
+    lat: null,
+    lng: null,
+    start_time: null,
+    end_time: null
+  })
 
-  // const [myEvent, setMyEvent] = useState("")
-  const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
-  const [selected, setSelected] = useState({ lat: null, lng: null });
-
-/* 
-"i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
-
-Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states makes sense since its currently working. imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
-
-We also might need those lng/lat states, but i'll bring em back if we need em -Joba
-*/
-
-  // Form State
-  const [eventForm, setEventForm] = useState("");
-
-  const [eventName, setEventName] = useState(
-    formMode === "edit" ? eventData.name : ""
+  // selecting the type of form that will render
+  const [formType, setFormType] = useState(formMode === "edit" ? eventData.name : ""
   );
+
+  const [eventName, setEventName] = useState(""); // image is breaking this atm
   const [eventImage, setEventImage] = useState(""); // image is breaking this atm
-  const [eventDescription, setEventDescription] = useState(
-    formMode === "edit" ? eventData.description : ""
-  );
+  const [eventDescription, setEventDescription] = useState(formMode === "edit" ? eventData.description : "");
   const [eventSizeLimit, setEventSizeLimit] = useState("");
   const [eventCategory, setEventCategory] = useState(
     formMode === "edit" ? eventData.category : ""
@@ -97,22 +73,47 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
+  const [myEvent, setMyEvent] = useState("")
+
+
+ // For Lat lng
+  const [value, setValue] = useState({ lat: null, lng: null });
+  
+  const handleCoordsSubmit = (e) => {
+    setValue(e.target.value)
+    setForm((event) => setForm(prev => ({ ...form, lat: value.lat, lng: value.lng })))
+
+    // (event) => setForm(prev => { ...form, city: event.target.value })
+  }
+
   function handleCancelClick(e) {
     formMode = "create";
     setOpen(false);
   }
 
-  function checker () {
-    console.log("detecting usersData...")
-    if(usersData) {
-      console.log("users data found:")
-      console.log(usersData)
-      return usersData[0].id
-    }
-  }
+  // latlng end
+  console.log(JSON.stringify(value))
+
+  // function checker () {
+  //   console.log("detecting usersData...")
+  //   if(usersData) {
+  //     console.log("users data found:")
+  //     console.log(usersData)
+  //     return usersData[0].id
+  //   }
+  // }
+
+  console.log(form)
+
+  // const submitForm = (event) =>{
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   const sendData = form
+
+  //   })
+  
 
   return (
-    <>
       <Modal
         open={open}
         onClose={(e) => setOpen(false)}
@@ -131,15 +132,15 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
           autoComplete="off"
           sx={FormBoxStyles}
           ref={inputEl}
-          onSubmit={(event) => {
+          onSubmit={  (event) => {
             event.preventDefault();
             const data = new FormData(event.currentTarget);
             const sendDataObj = {
               eventName: data.get("label_eventName"),
               eventImage,
-              eventDescription: data.get("label_eventDescription"),
+              eventDescription: data.get("label_eventName"),
               eventSizeLimit: 2,
-              eventOwnerId: checker(),
+              eventOwnerId: user.id,
               eventCategory: data.get("label_eventCategory"),
               eventCity: data.get("label_eventCity"),
               lat: 51.0233064354121, // use the auto feature from the google api
@@ -155,21 +156,22 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               console.log("something went wrong updating the formMode");
             }
             setOpen(false);
-          }}
+          }
+          }
         >
           <Typography variant="h6" color="gray" textAlign="center">
             {formMode === "create" ? "Create New Event" : "Edit Event"}
           </Typography>
+          
           <TextField
             required
             id="standard-basic"
             label="Event Name"
             variant="standard"
             name="label_eventName"
-            value={eventName}
-            onChange={(event) => {
-              setEventName(event.target.value);
-            }}
+            value={form.name}
+            onChange={(event) => setForm(prev => ({ ...form, name: event.target.value }))}
+            
           />
 
           <TextField
@@ -178,24 +180,29 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             label="City"
             variant="standard"
             name="label_eventCity"
-            value={eventCity}
-            onChange={(event) => {
-              event.preventDefault();
-              setEventCity(event.target.value);
-            }}
+            value={form.city}
+            onChange={(event) => setForm(prev => ({ ...form, city: event.target.value }))}
+
+          />
+          <TextField
+            required
+            id="standard-basic"
+            label="Party Limit"
+            variant="standard"
+            name="label_sizeLimit"
+            value={form.size}
+            onChange={(event) => setForm(prev => ({...form, size_limit: event.target.value}))}
           />
 
-          <Search setSelected={setSelected} />
+         
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker
               required
               label="Start Time"
               renderInput={(params) => <TextField {...params} />}
-              value={startTime}
-              onChange={(event) => {
-                setStartTime(event.$d.toUTCString());
-              }}
+              value={form.start_time}
+              onChange={(event) => setForm(prev => ({ ...form, start_time: dayjs(event.$d.toUTCString()) }))}
             />
           </LocalizationProvider>
 
@@ -203,23 +210,18 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             <TimePicker
               required
               label="End Time"
-              value={endTime}
+              value={form.end_time}
               renderInput={(params) => <TextField {...params} />}
-              onChange={(event) => {
-                setEndTime(event.$d.toUTCString());
-              }}
+              onChange={(event) => setForm(prev => ({ ...form, end_time: dayjs(event.$d.toUTCString()) }))}
             />
           </LocalizationProvider>
 
           <CategoriesList
             required
-            categories={props.categories}
+            categories={categoriesData}
             name="label_eventCategory"
-            value={eventCategory}
-            onChange={(event) => {
-              event.preventDefault();
-              setEventCategory(event.target.value);
-            }}
+            value={form.category}
+            onChange={(event) => setForm(prev => ({ ...form, category: event.target.value }))}
           />
 
           <TextField
@@ -230,10 +232,8 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             multiline
             inputProps={{ maxLength: 300 }}
             name="label_eventDescription"
-            value={eventDescription}
-            onChange={(event) => {
-              setEventDescription(event.target.value);
-            }}
+            value={form.description}
+            onChange={(event) => setForm(prev => ({ ...form, description: event.target.value }))}
           />
 
           <Button variant="text" component="span" endIcon={<AddIcon />}>
@@ -245,20 +245,14 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
                 id="raised-button-file"
                 type="file"
                 name="label_eventImage"
-                value={eventImage}
+                value={form.image}
                 onClick={(e) => {
                   console.log(e)
                   console.log(inputEl.current)
                   // console.log(inputEl.current.children[1].children[0].value)
                   
                 }}
-                onChange={(event) => {
-                  // event.preventDefault()
-                  // setMyEvent(prev => ({...prev, eventName: event.target.value}))
-                  setEventImage(inputEl.current.children[1].children[0].value);
-                  console.log(event.target.value);
-                  console.log(`from event Image state: ${eventImage}`);
-                }}
+                onChange={(event) => setForm(prev => ({...form, image: inputEl.current.children[1].children[0].value}))}
               />
                 Upload Image
               </label>
@@ -273,8 +267,24 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               {formMode === "create" ? "Create" : "Submit"}
             </Button>
           </Stack>
+          <Search value={value} setValue={setValue} />
         </Box>
       </Modal>
-    </>
   );
 }
+
+
+const StyledModal = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+// styles the elements inside the modal:
+const FormBoxStyles = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  "& > :not(style)": { m: 1, width: "100%" },
+};
