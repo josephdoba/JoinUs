@@ -23,63 +23,41 @@ import Search from "./Search";
 import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventForm(props) {
-  
-  
-  let { formMode } = props; // needs to be a let
+  let { formMode } = props; // needs to be a let for it to work
   const { open, setOpen, categoriesData, eventData } = props;
   const { usersData, eventsData } = useAppData();
   const { user } = useSharedUser();
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
 
-
+  // Stuff for image processing... might still need this 
   const imageRef = useRef(null);
    // https://reactjs.org/docs/hooks-reference.html#useref
    const inputEl = useRef(null)
 
-   const buttonClick = (e) => {
-     console.log(e)
-     console.log("--------------------")
-     // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
-     console.log(inputEl.current.children[1].children[0].value)
-   }
-
-  
-  
-
-  // selecting the type of form that will render
-  const [formType, setFormType] = useState(formMode === "edit" ? eventData.name : ""
-  );
-
-  const [eventName, setEventName] = useState(""); // image is breaking this atm
-  const [eventImage, setEventImage] = useState(""); // image is breaking this atm
-  const [eventDescription, setEventDescription] = useState(formMode === "edit" ? eventData.description : "");
-  const [eventSizeLimit, setEventSizeLimit] = useState("");
-  const [eventCategory, setEventCategory] = useState(
-    formMode === "edit" ? eventData.category : ""
-  );
-  const [eventCity, setEventCity] = useState(
-    formMode === "edit" ? eventData.address : ""
-  );
-  const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
-  const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
-
-
- // For Lat lng
-  const [selected, setSelected] = useState({ lat: null, lng: null });
-  
-  // console.log(`${selected.lat}, ${selected.lng}`)
- 
-
-
-  
-  useEffect(() => {
-    setForm(prev => ({ ...form, lat: selected.lat, lng: selected.lng }))
-  }, [])
+  // form mode handling:
 
   function handleCancelClick(e) {
     formMode = "create";
     setOpen(false);
   }
+
+  //  const buttonClick = (e) => {
+  //    console.log(e)
+  //    console.log("--------------------")
+  //    // console.log(inputEl.current.children[1].children[0].value) - correct object pathing we determined with a mentor
+  //    console.log(inputEl.current.children[1].children[0].value)
+  //  }
+
+ // For Lat lng
+  const [selected, setSelected] = useState({ lat: null, lng: null });
+  // console.log(`${selected.lat}, ${selected.lng}`)
+ 
+  useEffect(() => {
+    setForm(prev => ({ ...form, lat: selected.lat, lng: selected.lng }))
+  }, [])
+    // latlng end
+
+
 
   const [form, setForm] = useState({
     name: (eventData ? eventData.name : ""),
@@ -94,26 +72,32 @@ export default function EventForm(props) {
     start_time: (eventData ? eventData.start_time : ""),
     end_time: (eventData ? eventData.end_time : "")
   })
-  // latlng end
 
 
-  // function checker () {
-  //   console.log("detecting usersData...")
-  //   if(usersData) {
-  //     console.log("users data found:")
-  //     console.log(usersData)
-  //     return usersData[0].id
-  //   }
-  // }
-
-  // console.log(form)
-
-  // const submitForm = (event) =>{
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   const sendData = form
-
-  //   })
+  const submitForm = (event) => {
+      event.preventDefault();
+      const sendDataObj = {
+        eventName: form.name,
+        eventImage: form.image,
+        eventDescription: form.description,
+        eventSizeLimit: form.size_limit,
+        eventOwnerId: user.id,
+        eventCategory: form.category,
+        eventCity: form.city,
+        lat: selected.lat,
+        lng: selected.lng,
+        start_time: form.start_time,
+        end_time: form.end_time,
+      };
+      if (formMode === "create") {
+        userCreateEventSubmit(sendDataObj);
+      } else if (formMode === "edit") {
+        userEditEventSubmit(sendDataObj);
+      } else {
+        console.log("something went wrong updating the formMode");
+      }
+      setOpen(false);
+    };
   
 
   return (
@@ -135,33 +119,33 @@ export default function EventForm(props) {
           autoComplete="off"
           sx={FormBoxStyles}
           ref={inputEl}
-          
-          onSubmit={  (event) => {
-            event.preventDefault();
-            const data = new FormData(event.currentTarget);
-            const sendDataObj = {
-              eventName: form.name,
-              eventImage: form.image,
-              eventDescription: form.description,
-              eventSizeLimit: form.size_limit,
-              eventOwnerId: user.id,
-              eventCategory: form.category,
-              eventCity: form.city,
-              lat: selected.lat,
-              lng: selected.lng,
-              start_time: form.start_time,
-              end_time: form.end_time,
-            };
-            if (formMode === "create") {
-              userCreateEventSubmit(sendDataObj);
-            } else if (formMode === "edit") {
-              userEditEventSubmit(sendDataObj);
-            } else {
-              console.log("something went wrong updating the formMode");
-            }
-            setOpen(false);
-          }
-          }
+          onSubmit={submitForm}
+          // onSubmit={  (event) => {
+          //   event.preventDefault();
+          //   const data = new FormData(event.currentTarget);
+          //   const sendDataObj = {
+          //     eventName: form.name,
+          //     eventImage: form.image,
+          //     eventDescription: form.description,
+          //     eventSizeLimit: form.size_limit,
+          //     eventOwnerId: user.id,
+          //     eventCategory: form.category,
+          //     eventCity: form.city,
+          //     lat: selected.lat,
+          //     lng: selected.lng,
+          //     start_time: form.start_time,
+          //     end_time: form.end_time,
+          //   };
+          //   if (formMode === "create") {
+          //     userCreateEventSubmit(sendDataObj);
+          //   } else if (formMode === "edit") {
+          //     userEditEventSubmit(sendDataObj);
+          //   } else {
+          //     console.log("something went wrong updating the formMode");
+          //   }
+          //   setOpen(false);
+          // }
+          // }
         >
           <Typography variant="h6" color="gray" textAlign="center">
             {formMode === "create" ? "Create New Event" : "Edit Event"}
@@ -198,8 +182,6 @@ export default function EventForm(props) {
             onChange={(event) => setForm(prev => ({...prev, size_limit: event.target.value}))}
           />
         </Stack>
-
-         
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker

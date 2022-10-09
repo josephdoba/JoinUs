@@ -51,12 +51,30 @@ const createEvent = (eventObj) => {
         console.log("Something went wrong with createEvent in events.ts");
     });
 };
-// const editEvent = (eventObject) => {
-//   return connection_1.db
-//       .query(`SELECT * FROM events WHERE id = 1`)
-//       .then((data) => data.rows)
-//       .catch((err) => console.error(err.stack));
-// };
+// make an update call
+const editEvent = (eventObj) => {
+    const editEventQuery = `UPDATE events
+    SET id=$1 name=$2 image=$3, description=$4, size_limit=$5, owner_id=$6, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
+    WHERE id=$1 AND owner_id=$5`;
+    const values = [
+        eventObj.body.eventName,
+        eventObj.body.eventImage,
+        eventObj.body.eventDescription,
+        eventObj.body.eventSizeLimit,
+        eventObj.body.eventOwnerId,
+        Number(eventObj.body.eventCategory),
+        eventObj.body.eventCity,
+        eventObj.body.lat,
+        eventObj.body.lng,
+        eventObj.body.start_time,
+        eventObj.body.end_time
+    ];
+    return connection_1.db
+        // .query(`SELECT * FROM events WHERE id = 1`)
+        .query(`SELECT * FROM events WHERE id = $1`)
+        .then((data) => data.rows)
+        .catch((err) => console.error(err.stack));
+};
 const leaveEvent = (dataObj) => {
     const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
     const values = [dataObj.body.user_id, dataObj.body.event_id];
@@ -116,6 +134,7 @@ exports.default = {
     getCategories,
     getEvents,
     createEvent,
+    editEvent,
     leaveEvent,
     joinEvent,
     deleteEvent,
