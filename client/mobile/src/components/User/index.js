@@ -1,7 +1,7 @@
 import {Button, Text, Avatar, Divider} from '@rneui/base';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
-import useAppData from '../../hooks/useAppData';
+
 import {StackActions} from '@react-navigation/native';
 
 const UserScreen = ({route, navigation}) => {
