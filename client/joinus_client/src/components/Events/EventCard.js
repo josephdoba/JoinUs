@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Card, CardActions, Typography } from "@mui/material";
-import { CardMedia, CardContent } from "@mui/material";
+import {
+  IconButton,
+  Card,
+  CardActions,
+  Typography,
+  CardMedia,
+  CardContent,
+  Box,
+} from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
@@ -10,15 +17,13 @@ import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
 import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import useUserEvents from "../../api/useUserEvents";
+import useUserEvents from "../../hooks/useUserEvents";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 
-import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 
-// need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
   const {
     category,
@@ -47,12 +52,12 @@ export default function EventCard(props) {
   //original
   const { findEventByID } = useAppData();
 
-  const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
+  const { leaveEvent, joinEvent, deleteEvent, error, setError } =
+    useUserEvents();
 
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState(false);
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -77,11 +82,11 @@ export default function EventCard(props) {
       showUserEvents !== 1 &&
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      joinEvent({ event_id, user_id });
+      joinEvent(attendeelist, size_limit, { event_id, user_id });
     }
   };
 
-  const getButtonText = (event_id, user_id) => {
+  const getButton = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
       return <DeleteForeverTwoToneIcon />;
     }
@@ -108,27 +113,27 @@ export default function EventCard(props) {
     navigate(`/event`);
   }
 
-  async function leaveEvent(dataObj) {
-    await userLeaveEvent(dataObj);
-    setReload(reload + 1);
-  }
+  // async function leaveEvent(dataObj) {
+  //   await userLeaveEvent(dataObj);
+  //   setReload(reload + 1);
+  // }
 
-  async function joinEvent(dataObj) {
-    if (attendeelist.length >= size_limit) {
-      setError(true);
-    } else {
-      await userJoinEvent(dataObj);
-      setReload(reload + 1);
-    }
-  }
+  // async function joinEvent(dataObj) {
+  //   if (attendeelist.length >= size_limit) {
+  //     setError(true);
+  //   } else {
+  //     await userJoinEvent(dataObj);
+  //     setReload(reload + 1);
+  //   }
+  // }
 
-  async function deleteEvent(dataObj) {
-    let answer = prompt("Are you sure you want to delete? type yes or no");
-    if (answer === "yes" || answer === "Yes") {
-      await userDeleteEvent(dataObj);
-      setReload(reload + 1);
-    }
-  }
+  // async function deleteEvent(dataObj) {
+  //   let answer = prompt("Are you sure you want to delete? type yes or no");
+  //   if (answer === "yes" || answer === "Yes") {
+  //     await userDeleteEvent(dataObj);
+  //     setReload(reload + 1);
+  //   }
+  // }
 
   return (
     <Box p={2}>
@@ -156,6 +161,7 @@ export default function EventCard(props) {
           </Typography>
         </CardContent>
 
+        {/* Learn More */}
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />
@@ -173,7 +179,7 @@ export default function EventCard(props) {
                 processEvent(id, user.id);
               }}
             >
-              {getButtonText(id, user.id)}
+              {getButton(id, user.id)}
             </IconButton>
           )}
           <AttendeeNumDisplay

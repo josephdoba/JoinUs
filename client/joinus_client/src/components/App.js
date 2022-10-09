@@ -21,8 +21,6 @@ const App = function () {
     usersData,
     categoriesData,
     joinedEvents,
-    setReload,
-    reload,
     login,
     logout,
     comments,
@@ -76,8 +74,6 @@ const App = function () {
                   user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setReload={setReload}
-                  reload={reload}
                   comments={comments}
                 />
               }
@@ -90,8 +86,6 @@ const App = function () {
                   usersData={usersData}
                   joinedEvents={joinedEvents}
                   user={user}
-                  reload={reload}
-                  setReload={setReload}
                 />
               }
             />

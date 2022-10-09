@@ -101,8 +101,6 @@ export default function EventDetails(props) {
             />
 
             <JoinEventButton
-              reload={reload}
-              setReload={setReload}
               joinedEvents={joinedEvents}
               usersData={usersData}
             />
