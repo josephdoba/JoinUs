@@ -1,12 +1,12 @@
-import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {Text, Icon, Image, ListItem, Button, Avatar} from '@rneui/themed';
 import TouchableScale from 'react-native-touchable-scale';
+import {formatTime} from '../../helpers/helpers';
 
-const EventsList = ({event}) => {
-  const user = {id: 1};
-
+const EventsList = ({navigation, event}) => {
   const IMAGE_URL = event.image;
+
   return (
     <View style={styles.container}>
       <ListItem.Swipeable
@@ -17,7 +17,8 @@ const EventsList = ({event}) => {
         leftContent={reset => (
           <Button
             title="Info"
-            onPress={() => reset()}
+            onPress={() => navigation.navigate('Event', event)}
+            onPressOut={() => reset()}
             icon={{name: 'info', color: 'white'}}
             buttonStyle={{minHeight: '100%'}}
           />
@@ -30,8 +31,8 @@ const EventsList = ({event}) => {
             buttonStyle={{minHeight: '100%', backgroundColor: 'red'}}
           />
         )}>
-        <ListItem.Content style={styles.title}>
-          <ListItem.Title>{event.name}</ListItem.Title>
+        <ListItem.Content>
+          <ListItem.Title style={styles.title}>{event.name}</ListItem.Title>
           <View style={styles.subtitleView}>
             <Image
               source={{
@@ -39,7 +40,12 @@ const EventsList = ({event}) => {
               }}
               style={styles.image}
             />
-            <Text style={styles.ratingText}>{event.description}</Text>
+            <View>
+              <Text style={styles.ratingText}>
+                {formatTime(event.start_time, event.end_time)}
+              </Text>
+              <Text style={styles.text}>{event.description}</Text>
+            </View>
           </View>
         </ListItem.Content>
       </ListItem.Swipeable>
@@ -56,13 +62,21 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
   },
   ratingText: {
     paddingLeft: 10,
     color: 'grey',
     width: 250,
+    fontSize: 12,
+    paddingBottom: 5,
+  },
+  text: {
+    paddingLeft: 10,
+    color: 'grey',
+    width: 250,
+    fontSize: 16,
   },
   container: {
     flex: 1,
@@ -73,5 +87,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
+    fontSize: 18,
+    justifyContent: 'center',
   },
 });

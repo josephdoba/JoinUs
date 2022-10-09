@@ -4,10 +4,11 @@ import MyEvents from './User/MyEvents';
 import AllEvents from './User/AllEvents';
 import InterestedEvents from './User/InterestedEvents';
 import HistoryScreen from './User/EventHistory';
+import useAppData from '../hooks/useAppData';
 // for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
 const Tab = createBottomTabNavigator();
 
-const EventTabs = ({eventsData}) => {
+const EventTabs = () => {
   return (
     <Tab.Navigator name="User">
       <Tab.Screen name="All" component={AllEvents} />

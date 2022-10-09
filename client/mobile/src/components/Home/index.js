@@ -13,13 +13,13 @@ const HomeScreen = ({navigation}) => {
   const [userID, setUserID] = useState('');
   const {fetchUser} = useAppData();
 
-  const handleLogin = e => {
+  const handleLogin = async e => {
     e.preventDefault();
     const user = fetchUser(userID);
 
     setUserID('');
     toggleOverlay();
-    navigation.navigate('Profile', {user});
+    await navigation.navigate('Profile', {user});
   };
 
   const toggleOverlay = () => {
@@ -32,7 +32,7 @@ const HomeScreen = ({navigation}) => {
       toggleOverlay();
     }
     if (value === 0) {
-      navigation.navigate('MyEvents');
+      navigation.navigate('AllEvents');
     }
   };
 

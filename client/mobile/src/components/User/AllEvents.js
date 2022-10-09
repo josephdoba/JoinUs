@@ -26,6 +26,7 @@ const AllEvents = ({navigation}) => {
           event={event}
           attendeelist={attendeelist}
           category={category}
+          navigation={navigation}
         />
       );
     });

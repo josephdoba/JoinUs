@@ -55,8 +55,6 @@ const headerOptions = {
 const Stack = createNativeStackNavigator();
 // const UserStack = createNativeStackNavigator();
 const App = () => {
-  const {eventsData, usersData, user, setUser} = useAppData();
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -69,14 +67,8 @@ const App = () => {
               name="Home"
               component={HomeScreen}
               options={{title: 'Join Us!'}}
-              setUser={setUser}
-              user={user}
             />
-            <Stack.Screen
-              name="MyEvents"
-              component={EventTabs}
-              eventsData={eventsData}
-            />
+            <Stack.Screen name="AllEvents" component={EventTabs} />
             <Stack.Screen name="Profile" component={UserScreen} />
             <Stack.Screen name="Event" component={EventScreen} />
           </Stack.Navigator>

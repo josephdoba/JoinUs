@@ -5,13 +5,10 @@ import React, {useState} from 'react';
 import {StackActions} from '@react-navigation/native';
 
 const UserScreen = ({route, navigation}) => {
-  const user = route.params.user;
+  const theUser = route.params.user;
+  const [user, setUser] = useState(theUser);
 
-  // console.log(JSON.stringify(route.params));
-
-  const handleLogout = () => {
-    navigation.dispatch(StackActions.replace('Home'));
-  };
+  console.log(JSON.stringify(user));
 
   return (
     <View style={styles.container}>
@@ -50,14 +47,13 @@ const UserScreen = ({route, navigation}) => {
           style={styles.divider}
           color="#94B49F"
           insetType="left"
-          subHeaderStyle={{}}
           width={2}
           orientation="horizontal"
         />
 
         <Button
           title="To My Events"
-          onPress={() => navigation.navigate('MyEvents', {user})}
+          onPress={() => navigation.navigate('AllEvents', {id: user.id})}
         />
 
         <Button
@@ -72,7 +68,7 @@ const UserScreen = ({route, navigation}) => {
 
         <Button
           title="Go To Event"
-          onPress={() => navigation.navigate('Event')}
+          onPress={() => navigation.navigate('Event', {user})}
         />
 
         <Button
@@ -82,7 +78,7 @@ const UserScreen = ({route, navigation}) => {
           buttonStyle={styles.newButton}
           titleStyle={{fontWeight: 'bold', fontSize: 23}}
           containerStyle={styles.buttonContainer}
-          onPress={handleLogout}
+          onPress={() => console.log('aye')}
         />
       </ImageBackground>
     </View>
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 32,
-    marginTop: 10,
+    marginTop: 30,
     fontWeight: 'bold',
     textAlign: 'center',
   },
