@@ -1,4 +1,4 @@
-import React, { useState, setState, useRef } from "react";
+import React, { useState, setState, useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import useUserEvents from "../../hooks/useUserEvents";
 import useAppData from "../../hooks/useAppData";
@@ -25,7 +25,7 @@ import useSharedUser from "../../hooks/useSharedUser";
 export default function EventForm(props) {
 
   const { open, setOpen, categoriesData, eventData, formMode } = props;
-  const { usersData } = useAppData();
+  const { usersData, eventsData } = useAppData();
   const { user } = useSharedUser();
 
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
@@ -41,6 +41,7 @@ export default function EventForm(props) {
      console.log(inputEl.current.children[1].children[0].value)
    }
 
+   
 
   const [form, setForm] = useState({
     name: null,
@@ -48,7 +49,7 @@ export default function EventForm(props) {
     description: null,
     size_limit: null,
     city: null,
-    owner_id: null,
+    owner_id: user.id,
     category: null,
     lat: null,
     lng: null,
@@ -77,14 +78,13 @@ export default function EventForm(props) {
 
 
  // For Lat lng
-  const [value, setValue] = useState({ lat: null, lng: null });
+  const [selected, setSelected] = useState({ lat: null, lng: null });
   
-  const handleCoordsSubmit = (e) => {
-    setValue(e.target.value)
-    setForm((event) => setForm(prev => ({ ...form, lat: value.lat, lng: value.lng })))
-
-    // (event) => setForm(prev => { ...form, city: event.target.value })
-  }
+  console.log(`${selected.lat}, ${selected.lng}`)
+  
+  useEffect(() => {
+    setForm(prev => ({ ...form, lat: selected.lat, lng: selected.lng }))
+  }, [])
 
   function handleCancelClick(e) {
     formMode = "create";
@@ -92,7 +92,7 @@ export default function EventForm(props) {
   }
 
   // latlng end
-  console.log(JSON.stringify(value))
+
 
   // function checker () {
   //   console.log("detecting usersData...")
@@ -221,7 +221,10 @@ export default function EventForm(props) {
             categories={categoriesData}
             name="label_eventCategory"
             value={form.category}
-            onChange={(event) => setForm(prev => ({ ...form, category: event.target.value }))}
+            onChange={(event) => {
+              console.log(event)
+              setForm(prev => ({ ...form, category: event.target.value }))
+            }}
           />
 
           <TextField
@@ -267,7 +270,7 @@ export default function EventForm(props) {
               {formMode === "create" ? "Create" : "Submit"}
             </Button>
           </Stack>
-          <Search value={value} setValue={setValue} />
+          <Search selected={selected} setSelected={setSelected} form={form} setForm={setForm} />
         </Box>
       </Modal>
   );

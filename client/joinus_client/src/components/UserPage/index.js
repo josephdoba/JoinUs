@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import EventForm from "./EventForm";
 import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Search from "./Search";
 
 
 import Events from "../Events";
@@ -32,6 +33,7 @@ export default function Userpage(props) {
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
   const [open, setOpen] = useState(false);
   const { user } = useSharedUser();
+ 
 
   const eventsShown = (eventsDataInput) => {
     return (
@@ -62,6 +64,7 @@ export default function Userpage(props) {
 
   const eventHistory = pastEvents(eventsData);
 
+
   return (
     <>
     <Box>
@@ -80,6 +83,7 @@ export default function Userpage(props) {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
+
       </Box>
       <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
         <Sidebar
