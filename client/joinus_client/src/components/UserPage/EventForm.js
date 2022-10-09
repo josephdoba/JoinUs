@@ -69,13 +69,12 @@ export default function EventForm(props) {
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
   const [selected, setSelected] = useState({ lat: null, lng: null });
 
-  /* 
+/* 
 "i removed the set lat and long states....should this one giant object instead of separate useStates?" -Carmen
 
 Good question! I asked a mentor about the difference of sending it all as one gigachad state object, and apparently its an older way of doing things when handling form data in react. With the scope of our project though, having them as individual states makes sense since its currently working. imho having a Form State object would be great for refactoring and i'm happy to do that once its all working with individual states
 
 We also might need those lng/lat states, but i'll bring em back if we need em -Joba
-
 */
 
   // Form State

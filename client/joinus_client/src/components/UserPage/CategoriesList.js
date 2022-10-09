@@ -4,19 +4,31 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import useAppData from "../../hooks/useAppData";
+
+
 
 export default function CategoriesList(props) {
+  console.log("props from CategoriesList:")
+  console.log(props)
+  
   const [category, setCategory] = useState("");
+  const { categoriesData } = props;
 
   const handleChange = (event) => {
     console.log(event)
     setCategory(event.target.value);
   };
+  console.log("categoriesData destructuring: ")
+  console.log(categoriesData)
 
-  const { categoriesData } = props;
+  /*
+   categoriesData.map is causing a crash when the form renders: 
 
-  const categories = categoriesData.map((category) => {
+Uncaught TypeError: Cannot read properties of undefined (reading 'map')
+  
+   why isn't categoriesData showing up here now?
+   */
+  const categories = categoriesData?.map((category) => {
     return (
       <MenuItem value={category.id} key={category.id}>
         {category.name}
