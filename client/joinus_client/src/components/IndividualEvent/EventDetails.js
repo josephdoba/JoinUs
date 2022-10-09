@@ -18,10 +18,11 @@ export default function EventDetails(props) {
   const { attendeelist } = props;
   const navigate = useNavigate();
   const { event } = useSharedEvent();
-  const { joinedEvents, usersData, reload, setReload } = props;
+  const { joinedEvents, usersData } = props;
 
   // for avatar list pop up
   const [open, setOpen] = useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -103,6 +104,8 @@ export default function EventDetails(props) {
             <JoinEventButton
               joinedEvents={joinedEvents}
               usersData={usersData}
+              attendeelist={attendeelist}
+              event_id={event.id}
             />
           </Box>
 

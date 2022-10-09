@@ -5,11 +5,10 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 import EventDetails from "./EventDetails";
 import EventMap from "./EventMap";
 import JoinEventButton from "./JoinEventButton";
-import Sidebar from "../UserPage/Sidebar";
 import CommentBox from "./CommentBox";
 
 export default function IndividualEvent(props) {
-  const { joinedEvents, usersData, comments, user, reload, setReload } = props;
+  const { joinedEvents, usersData, comments } = props;
   const { event } = useSharedEvent();
 
   console.log(event);
@@ -25,20 +24,13 @@ export default function IndividualEvent(props) {
         <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
           <EventDetails
             attendeelist={attendeelist}
-            reload={reload}
-            setReload={setReload}
             joinedEvents={joinedEvents}
             usersData={usersData}
           />
           <EventMap />
         </Stack>
       </Box>
-      <CommentBox
-        comments={comments}
-        reload={reload}
-        setReload={setReload}
-        joinedEvents={joinedEvents}
-      />
+      <CommentBox comments={comments} joinedEvents={joinedEvents} />
     </Box>
   );
 }
