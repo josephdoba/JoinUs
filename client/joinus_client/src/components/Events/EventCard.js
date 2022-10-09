@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Card, CardActions, Typography } from "@mui/material";
+import { Button, IconButton, Card, CardActions, Typography } from "@mui/material";
 import { CardMedia, CardContent } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
 import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
-import Button from "@mui/material";
 
 import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
@@ -22,20 +21,18 @@ import EventForm from "../UserPage/EventForm";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 
+
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
   const {
     category,
     attendeelist,
     eventsData,
-    categoriesData,
-    user,
     thisEvent,
     showUserEvents,
     joinedEvents,
     setReload,
     reload,
-    formType
   } = props;
 
   const {
@@ -49,17 +46,17 @@ export default function EventCard(props) {
     size_limit,
   } = thisEvent;
 
-  // const { user } = useSharedUser();
+  const { user } = useSharedUser();
 
   //original
   const { findEventByID } = useAppData();
+
   const { userLeaveEvent, userJoinEvent, userDeleteEvent } = useUserEvents();
 
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  // const [formMode, setFormMode] = useState(formType); 
 
   function wait(time) {
     return new Promise((resolve) => {
@@ -166,7 +163,7 @@ export default function EventCard(props) {
               onClick={() => setOpen(true)} s
               size="small">
           </Button>
-              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} categoriesData={categoriesData} eventData={{name, description, category}} />}
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} category={category} eventData={{name, description, category}} />}
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />
