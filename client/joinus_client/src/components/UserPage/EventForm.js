@@ -86,13 +86,13 @@ export default function EventForm(props) {
     image: (eventData ? eventData.image : ""),
     description: (eventData ? eventData.description : ""),
     size_limit: (eventData ? eventData.size_limit : ""),
-    city: (eventData ? eventData.address : ""),
+    city: (eventData ? eventData.city : ""),
     owner_id: user.id,
     category: (eventData ? eventData.category : ""),
     lat: selected.lat,
     lng: selected.lng,
-    start_time: (eventData ? eventData.startTime : ""),
-    end_time: (eventData ? eventData.endTime : "")
+    start_time: (eventData ? eventData.start_time : ""),
+    end_time: (eventData ? eventData.end_time : "")
   })
   // latlng end
 
@@ -138,7 +138,7 @@ export default function EventForm(props) {
           
           onSubmit={  (event) => {
             event.preventDefault();
-            // const data = new FormData(event.currentTarget);
+            const data = new FormData(event.currentTarget);
             const sendDataObj = {
               eventName: form.name,
               eventImage: form.image,
@@ -147,7 +147,7 @@ export default function EventForm(props) {
               eventOwnerId: user.id,
               eventCategory: form.category,
               eventCity: form.city,
-              lat: selected.lat, // use the auto feature from the google api
+              lat: selected.lat,
               lng: selected.lng,
               start_time: form.start_time,
               end_time: form.end_time,

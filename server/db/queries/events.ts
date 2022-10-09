@@ -62,8 +62,8 @@ const createEvent = (eventObj: IEventObject) => {
 
 
 };
-
-// const editEvent = (eventObject) => {
+// make an update call
+// const editEvent = (eventObject) => { 
 //   return connection_1.db
 //       .query(`SELECT * FROM events WHERE id = 1`)
 //       .then((data) => data.rows)
