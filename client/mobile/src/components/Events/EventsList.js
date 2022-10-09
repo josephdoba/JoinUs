@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Icon, Image, ListItem, Button, Avatar} from '@rneui/themed';
+import {Text, Image, ListItem, Button} from '@rneui/themed';
 import TouchableScale from 'react-native-touchable-scale';
 import {formatTime} from '../../helpers/helpers';
 

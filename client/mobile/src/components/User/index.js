@@ -2,8 +2,6 @@ import {Button, Text, Avatar, Divider} from '@rneui/base';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 
-import {StackActions} from '@react-navigation/native';
-
 const UserScreen = ({route, navigation}) => {
   const theUser = route.params.user;
   const [user, setUser] = useState(theUser);
@@ -53,7 +51,7 @@ const UserScreen = ({route, navigation}) => {
 
         <Button
           title="To My Events"
-          onPress={() => navigation.navigate('AllEvents', {id: user.id})}
+          onPress={() => navigation.navigate('AllEvents', {user, setUser})}
         />
 
         <Button

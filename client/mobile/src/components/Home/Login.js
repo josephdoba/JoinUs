@@ -16,7 +16,6 @@ const LoginForm = ({
         <Text style={styles.textSecondary}>
           Sign in and find an activity near you!
         </Text>
-        {/* how do you handle form submits? */}
         <View>
           <Input
             containerStyle={styles.inputBox}
