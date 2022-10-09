@@ -41,21 +41,8 @@ export default function EventForm(props) {
      console.log(inputEl.current.children[1].children[0].value)
    }
 
-   
-
-  const [form, setForm] = useState({
-    name: null,
-    image: null,
-    description: null,
-    size_limit: null,
-    city: null,
-    owner_id: user.id,
-    category: null,
-    lat: null,
-    lng: null,
-    start_time: null,
-    end_time: null
-  })
+  
+  
 
   // selecting the type of form that will render
   const [formType, setFormType] = useState(formMode === "edit" ? eventData.name : ""
@@ -74,13 +61,14 @@ export default function EventForm(props) {
   const [startTime, setStartTime] = useState(dayjs("2022-09-28T15:00:00"));
   const [endTime, setEndTime] = useState(dayjs("2022-09-28T15:00:00"));
 
-  const [myEvent, setMyEvent] = useState("")
-
 
  // For Lat lng
   const [selected, setSelected] = useState({ lat: null, lng: null });
   
   console.log(`${selected.lat}, ${selected.lng}`)
+ 
+
+
   
   useEffect(() => {
     setForm(prev => ({ ...form, lat: selected.lat, lng: selected.lng }))
@@ -91,6 +79,19 @@ export default function EventForm(props) {
     setOpen(false);
   }
 
+  const [form, setForm] = useState({
+    name: null,
+    image: null,
+    description: null,
+    size_limit: null,
+    city: null,
+    owner_id: user.id,
+    category: null,
+    lat: selected.lat,
+    lng: selected.lng,
+    start_time: null,
+    end_time: null
+  })
   // latlng end
 
 
@@ -171,7 +172,6 @@ export default function EventForm(props) {
             name="label_eventName"
             value={form.name}
             onChange={(event) => setForm(prev => ({ ...form, name: event.target.value }))}
-            
           />
 
           <TextField

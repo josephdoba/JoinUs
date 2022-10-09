@@ -6,17 +6,25 @@ export default function useUserEvents() {
   const { cleanCreateEvent, cleanEditEvent } = cleanEvent();
 
   const userCreateEventSubmit = (event) => {
-    cleanCreateEvent(event)
+    // cleanCreateEvent(event)
     console.log("api post request for userCreateEvent");
-    axios
-      .post("http://localhost:8080/api/events", event)
+      axios.post("http://localhost:8080/api/events", event) 
       .then(() => {
         console.log("post complete!")
       })
       .catch((err) => {
         console.log(err);
       });
+
+      axios.post("http://localhost:8080/event/join", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 };
+
 
   const userEditEventSubmit = (event) => {
     cleanEditEvent(event)

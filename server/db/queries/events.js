@@ -19,11 +19,6 @@ const getComments = () => {
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack));
 };
-/*
-// Ayyyyy so, uh, I know using any is the meme when using TS, but.., we kinda need to use it here. TS doesn't like eventObject: object in this particular instance
-https://stackoverflow.com/questions/68998005/how-to-check-object-type-from-request-body-in-typescript
--Joba
-*/
 const createEvent = (eventObj) => {
     console.log("event eventObject from queries/events.ts");
     // console.log(eventObj)
@@ -44,8 +39,8 @@ const createEvent = (eventObj) => {
         eventObj.body.start_time,
         eventObj.body.end_time
     ];
-    const joinFromCreate = joinEvent(eventObj);
-    const joinFromCreateValues = [eventObj.body.eventOwnerId, eventObj.body.event_id, true];
+    // const joinFromCreate = joinEvent(eventObj)
+    // const joinFromCreateValues = [eventObj.body.eventOwnerId, eventObj.body.event_id, true]
     return connection_1.db
         .query(createEventQuery, values)
         .then((data) => data.rows)
