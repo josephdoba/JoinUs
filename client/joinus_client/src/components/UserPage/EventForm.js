@@ -23,12 +23,14 @@ import Search from "./Search";
 import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventForm(props) {
-
-  const { open, setOpen, categoriesData, eventData, formMode } = props;
+  
+  
+  let { formMode } = props; // needs to be a let
+  const { open, setOpen, categoriesData, eventData } = props;
   const { usersData, eventsData } = useAppData();
   const { user } = useSharedUser();
-
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
+
 
   const imageRef = useRef(null);
    // https://reactjs.org/docs/hooks-reference.html#useref
@@ -65,7 +67,7 @@ export default function EventForm(props) {
  // For Lat lng
   const [selected, setSelected] = useState({ lat: null, lng: null });
   
-  console.log(`${selected.lat}, ${selected.lng}`)
+  // console.log(`${selected.lat}, ${selected.lng}`)
  
 
 
@@ -80,17 +82,17 @@ export default function EventForm(props) {
   }
 
   const [form, setForm] = useState({
-    name: null,
-    image: null,
-    description: null,
-    size_limit: null,
-    city: null,
+    name: (eventData ? eventData.name : ""),
+    image: (eventData ? eventData.image : ""),
+    description: (eventData ? eventData.description : ""),
+    size_limit: (eventData ? eventData.size_limit : ""),
+    city: (eventData ? eventData.address : ""),
     owner_id: user.id,
-    category: null,
+    category: (eventData ? eventData.category : ""),
     lat: selected.lat,
     lng: selected.lng,
-    start_time: null,
-    end_time: null
+    start_time: (eventData ? eventData.startTime : ""),
+    end_time: (eventData ? eventData.endTime : "")
   })
   // latlng end
 
@@ -104,7 +106,7 @@ export default function EventForm(props) {
   //   }
   // }
 
-  console.log(form)
+  // console.log(form)
 
   // const submitForm = (event) =>{
   //   event.preventDefault();
@@ -133,21 +135,22 @@ export default function EventForm(props) {
           autoComplete="off"
           sx={FormBoxStyles}
           ref={inputEl}
+          
           onSubmit={  (event) => {
             event.preventDefault();
-            const data = new FormData(event.currentTarget);
+            // const data = new FormData(event.currentTarget);
             const sendDataObj = {
-              eventName: data.get("label_eventName"),
-              eventImage,
-              eventDescription: data.get("label_eventName"),
-              eventSizeLimit: 2,
+              eventName: form.name,
+              eventImage: form.image,
+              eventDescription: form.description,
+              eventSizeLimit: form.size_limit,
               eventOwnerId: user.id,
-              eventCategory: data.get("label_eventCategory"),
-              eventCity: data.get("label_eventCity"),
-              lat: 51.0233064354121, // use the auto feature from the google api
-              lng: -114.02369425973428,
-              start_time: startTime,
-              end_time: endTime,
+              eventCategory: form.category,
+              eventCity: form.city,
+              lat: selected.lat, // use the auto feature from the google api
+              lng: selected.lng,
+              start_time: form.start_time,
+              end_time: form.end_time,
             };
             if (formMode === "create") {
               userCreateEventSubmit(sendDataObj);
@@ -171,9 +174,10 @@ export default function EventForm(props) {
             variant="standard"
             name="label_eventName"
             value={form.name}
-            onChange={(event) => setForm(prev => ({ ...form, name: event.target.value }))}
+            onChange={(event) => setForm(prev => ({ ...prev, name: event.target.value }))}
           />
 
+        <Stack direction="row" spacing={2} justifyContent="space-between">
           <TextField
             required
             id="standard-basic"
@@ -181,7 +185,7 @@ export default function EventForm(props) {
             variant="standard"
             name="label_eventCity"
             value={form.city}
-            onChange={(event) => setForm(prev => ({ ...form, city: event.target.value }))}
+            onChange={(event) => setForm(prev => ({ ...prev, city: event.target.value }))}
 
           />
           <TextField
@@ -190,9 +194,10 @@ export default function EventForm(props) {
             label="Party Limit"
             variant="standard"
             name="label_sizeLimit"
-            value={form.size}
-            onChange={(event) => setForm(prev => ({...form, size_limit: event.target.value}))}
+            value={form.size_limit}
+            onChange={(event) => setForm(prev => ({...prev, size_limit: event.target.value}))}
           />
+        </Stack>
 
          
 
@@ -202,7 +207,7 @@ export default function EventForm(props) {
               label="Start Time"
               renderInput={(params) => <TextField {...params} />}
               value={form.start_time}
-              onChange={(event) => setForm(prev => ({ ...form, start_time: dayjs(event.$d.toUTCString()) }))}
+              onChange={(event) => setForm(prev => ({ ...prev, start_time: dayjs(event.$d.toUTCString()) }))}
             />
           </LocalizationProvider>
 
@@ -212,7 +217,7 @@ export default function EventForm(props) {
               label="End Time"
               value={form.end_time}
               renderInput={(params) => <TextField {...params} />}
-              onChange={(event) => setForm(prev => ({ ...form, end_time: dayjs(event.$d.toUTCString()) }))}
+              onChange={(event) => setForm(prev => ({ ...prev, end_time: dayjs(event.$d.toUTCString()) }))}
             />
           </LocalizationProvider>
 
@@ -222,8 +227,9 @@ export default function EventForm(props) {
             name="label_eventCategory"
             value={form.category}
             onChange={(event) => {
-              console.log(event)
-              setForm(prev => ({ ...form, category: event.target.value }))
+       
+              console.log(`${event}, event from categories list`)
+              setForm(prev => ({ ...prev, category: parseInt(event.target.value) }))
             }}
           />
 
@@ -236,10 +242,22 @@ export default function EventForm(props) {
             inputProps={{ maxLength: 300 }}
             name="label_eventDescription"
             value={form.description}
-            onChange={(event) => setForm(prev => ({ ...form, description: event.target.value }))}
+            onChange={(event) => setForm(prev => ({ ...prev, description: event.target.value }))}
           />
 
-          <Button variant="text" component="span" endIcon={<AddIcon />}>
+          <TextField
+            required
+            id="outlined-textarea"
+            label="Image URL"
+            placeholder="..."
+            multiline
+            inputProps={{ maxLength: 300 }}
+            name="label_eventImage"
+            value={form.image}
+            onChange={(event) => setForm(prev => ({ ...prev, image: event.target.value }))}
+          />
+
+          {/* <Button variant="text" component="span" endIcon={<AddIcon />}>
               <label htmlFor="raised-button-file">
               <input
                 accept="image/*"
@@ -259,8 +277,7 @@ export default function EventForm(props) {
               />
                 Upload Image
               </label>
-
-            </Button>
+            </Button> */}
 
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button onClick={(e) => handleCancelClick(e)} variant="outlined">

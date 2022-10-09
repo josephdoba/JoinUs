@@ -1,5 +1,9 @@
 import { db } from "../connection";
 
+interface IEventObject {
+  body: { eventName: string, eventImage: string, eventDescription: string, eventSizeLimit: number, eventOwnerId: number, eventCategory: string, eventCity: string, lat: number, lng: number, start_time: string, end_time: string }
+}
+
 const getCategories = () => {
   return db
     .query(`SELECT * FROM categories`)
@@ -21,10 +25,11 @@ const getComments = () => {
     .catch((err) => console.error(err.stack));
 }
 
-const createEvent = (eventObj: any) => {
+const createEvent = (eventObj: IEventObject) => {
   console.log("event eventObject from queries/events.ts")
   // console.log(eventObj)
   console.log(eventObj.body)
+  console.log(Number(eventObj.body.eventCategory))
 
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES

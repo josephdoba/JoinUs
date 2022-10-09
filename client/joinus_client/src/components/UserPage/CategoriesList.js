@@ -42,9 +42,9 @@ Uncaught TypeError: Cannot read properties of undefined (reading 'map')
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           name="label_eventCategory"
-          value={category}
+          value={props.category}
           label="Category"
-          onChange={handleChange}
+          onChange={(event) => props.onChange(event)}
         >
           {categories}
         </Select>

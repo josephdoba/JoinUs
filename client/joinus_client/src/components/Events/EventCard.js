@@ -165,7 +165,7 @@ export default function EventCard(props) {
               onClick={() => setOpen(true)} s
               size="small">
           </Button>
-              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} category={category} eventData={{name, description, category}} />}
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} category={category} eventData={thisEvent} categoriesData={props.categoriesData}/>}
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />
