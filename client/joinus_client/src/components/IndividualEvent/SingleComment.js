@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
-import useUserEvents from "../../api/useUserEvents";
+import useUserEvents from '../../hooks/useUserEvents';
 import ClearIcon from '@mui/icons-material/Clear';
 
 

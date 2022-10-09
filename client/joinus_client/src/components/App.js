@@ -27,15 +27,13 @@ const App = function () {
     logout,
     comments,
   } = useAppData();
-  const [theme, setTheme] = useState("light");
 
+  const [theme, setTheme] = useState("light");
   const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
-
-  // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
     <Router>
@@ -49,14 +47,6 @@ const App = function () {
             logout={logout}
           />
           <Routes>
-            {/* <Route path="/dashboard" element={<Userpage />}>
-              {/* nested route placeholders (syntax for later if we decide to refactor front end routes):  */}
-            {/* <Route index element={<Userpage/>}/>
-              <Route path='/myevents' element={false}/>
-              <Route path='/history' element={false}/>
-              <Route path='/create' element={false}/>
-              <Route path='/join' element={false}/> */}
-            {/* </Route> */}
             <Route
               path="/"
               element={

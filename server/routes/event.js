@@ -37,4 +37,14 @@ router.post("/delete", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+// router.put("/events", (req, res) => {
+//   eventQueries
+//     .editEvent(req)
+//     .then((events) => {
+//       res.json(events);
+//     })
+//     .catch((err: any) => {
+//       res.status(500).json({ error: err.message });
+//     });
+// });
 exports.default = router;

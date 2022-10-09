@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Card, CardActions, Typography } from "@mui/material";
+import { Button, IconButton, Card, CardActions, Typography } from "@mui/material";
 import { CardMedia, CardContent } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested";
@@ -10,16 +10,22 @@ import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
 import Error from "./Error";
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
-import useUserEvents from "../../api/useUserEvents";
+
+import useUserEvents from "../../hooks/useUserEvents";
+import CategoriesList from "../UserPage/CategoriesList";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 
 import { Box } from "@mui/system";
 import useAppData from "../../hooks/useAppData";
+import EventForm from "../UserPage/EventForm";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 
+
 // need logic to show that 'join chat' link only if user has joined the chat
 export default function EventCard(props) {
+  // console.log("props from EventCard")
+  // console.log(props)
   const {
     category,
     attendeelist,
@@ -42,6 +48,8 @@ export default function EventCard(props) {
     size_limit,
   } = thisEvent;
 
+  // console.log(thisEvent)
+
   const { user } = useSharedUser();
 
   //original
@@ -58,7 +66,7 @@ export default function EventCard(props) {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
     });
-  }
+  };
 
   // logic for join / edit / delete / leave button
   const processEvent = (event_id, user_id) => {
@@ -155,7 +163,11 @@ export default function EventCard(props) {
             {shortenText(description)}
           </Typography>
         </CardContent>
-
+          <Button
+              onClick={() => setOpen(true)} s
+              size="small">
+          </Button>
+              {open && <EventForm open={open} setOpen={setOpen} formMode={"edit"} category={category} eventData={thisEvent} categoriesData={props.categoriesData}/>}
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />

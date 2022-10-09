@@ -3,7 +3,6 @@ export default function cleanEvent (obj) {
   
  const cleanCreateEvent = (obj) => {
   console.log(`From cleanEvent  ==> cleanCreateEvent: ${obj}`)
-
   return obj
 
  }

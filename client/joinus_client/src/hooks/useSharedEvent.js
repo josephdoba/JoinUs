@@ -8,6 +8,7 @@ const useEvent = () => {
     image: null,
     description: null,
     size_limit: null,
+    city: null,
     owner_id: null,
     category: null,
     lat: null,

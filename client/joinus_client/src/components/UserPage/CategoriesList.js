@@ -5,7 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+
+
 export default function CategoriesList(props) {
+  
   const [category, setCategory] = useState("");
 
   const handleChange = (event) => {
@@ -13,9 +16,7 @@ export default function CategoriesList(props) {
     setCategory(event.target.value);
   };
 
-  const { categoriesData } = props;
-
-  const categories = categoriesData.map((category) => {
+  const categories = props.categories?.map((category) => {
     return (
       <MenuItem value={category.id} key={category.id}>
         {category.name}
@@ -30,9 +31,9 @@ export default function CategoriesList(props) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           name="label_eventCategory"
-          value={category}
+          value={props.value}
           label="Category"
-          onChange={handleChange}
+          onChange={(event) => props.onChange(event)}
         >
           {categories}
         </Select>

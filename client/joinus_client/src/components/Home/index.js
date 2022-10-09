@@ -8,6 +8,13 @@ export default function Home() {
     <Container maxWidth={"lg"}>
       <Herobanner />
       <HowToJoin />
+      
+      <input
+        style={{ display: "none" }}
+        id="raised-button-file"
+        type="file"
+        name="label_eventImage">
+      </input>
     </Container>
   );
 }
