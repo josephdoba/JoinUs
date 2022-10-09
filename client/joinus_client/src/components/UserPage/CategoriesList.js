@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import useAppData from "../../hooks/useAppData";
 
 export default function CategoriesList(props) {
   const [category, setCategory] = useState("");

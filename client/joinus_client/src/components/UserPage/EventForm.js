@@ -20,12 +20,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Search from "./Search";
+import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventForm(props) {
   console.log("props on load");
   console.log(props);
-  let { open, setOpen, categoriesData, eventData, formMode } = props;
-  const { usersData } = useAppData()
+  let { open, setOpen, categories, eventData, formMode } = props;
+  const { usersData } = useAppData();
+  const { user } = useSharedUser();
 
   /*
   - move eventform out of hooks, and into the events' folder.
@@ -102,7 +104,9 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
   }
 
   function checker () {
+    console.log("detecting usersData...")
     if(usersData) {
+      console.log("users data found:")
       console.log(usersData)
       return usersData[0].id
     }
@@ -210,7 +214,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
           <CategoriesList
             required
-            categoriesData={categoriesData}
+            categories={categories}
             name="label_eventCategory"
             value={eventCategory}
             onChange={(event) => {
@@ -233,7 +237,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
             }}
           />
 
-          {/* <Stack direction="row" justifyContent="left"> */}
           <Button variant="text" component="span" endIcon={<AddIcon />}>
               <label htmlFor="raised-button-file">
               <input
@@ -262,7 +265,6 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
               </label>
 
             </Button>
-          {/* </Stack>       */}
 
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button onClick={(e) => handleCancelClick(e)} variant="outlined">
