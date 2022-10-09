@@ -25,7 +25,7 @@ import useSharedUser from "../../hooks/useSharedUser";
 export default function EventForm(props) {
   console.log("props on load");
   console.log(props);
-  let { open, setOpen, categories, eventData, formMode } = props;
+  let { open, setOpen, categoriesData, eventData, formMode } = props;
   const { usersData } = useAppData();
   const { user } = useSharedUser();
 
@@ -213,7 +213,7 @@ We also might need those lng/lat states, but i'll bring em back if we need em -J
 
           <CategoriesList
             required
-            categories={categories}
+            categories={props.categories}
             name="label_eventCategory"
             value={eventCategory}
             onChange={(event) => {
