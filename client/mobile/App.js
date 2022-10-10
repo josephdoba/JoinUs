@@ -13,14 +13,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserScreen from './src/components/User';
 import HomeScreen from './src/components/Home';
 import EventScreen from './src/components/Event';
-import AllEventsScreen from './src/components/User/AllEvents';
-import HistoryScreen from './src/components/User/EventHistory';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useAppData from './src/hooks/useAppData';
 
 import {ThemeProvider, createTheme} from '@rneui/themed';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import EventTabs from './src/components/TabNav';
 
 // React Native Element Theme
 const theme = createTheme({
@@ -57,77 +55,26 @@ const headerOptions = {
 const Stack = createNativeStackNavigator();
 // const UserStack = createNativeStackNavigator();
 const App = () => {
-  const {eventsData, usersData, user, setUser} = useAppData();
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <StatusBar />
         <ThemeProvider theme={theme}>
-          {/* <NavBar /> */}
           <Stack.Navigator
             initialRouteName="Home"
             screenOptions={headerOptions}>
-            <Stack.Group>
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{title: 'Join Us!'}}
-                setUser={setUser}
-                user={user}
-              />
-              <Stack.Screen
-                name="User"
-                component={UserScreen}
-                options={({route, navigation}) => ({
-                  title: route.params.userId,
-                })}
-                eventsData={eventsData}
-              />
-            </Stack.Group>
-            <Stack.Group>
-              <Stack.Screen name="Event" component={EventScreen} />
-              <Stack.Screen
-                name="AllEvents"
-                component={AllEventsScreen}
-                eventsData={eventsData}
-              />
-              {/* <Stack.Screen name="MyEvents" component={MyEventsScreen} />
-              <Stack.Screen
-                name="InterestedEvents"
-                component={InterestedScreen}
-              />
-              <Stack.Screen name="EventsHistory" component={HistoryScreen} /> */}
-            </Stack.Group>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Join Us!'}}
+            />
+            <Stack.Screen name="AllEvents" component={EventTabs} />
+            <Stack.Screen name="Profile" component={UserScreen} />
+            <Stack.Screen name="Event" component={EventScreen} />
           </Stack.Navigator>
         </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>
-
-    // <SafeAreaProvider>
-    //   <NavigationContainer>
-    //     <StatusBar />
-    //     <Tab.Navigator screenOptions={{headerShown: false}}>
-    //       <Tab.Screen name="Public">
-    //         {() => {
-    //           <HomeStack.Navigator>
-    //             <HomeStack.Screen name="JoinUs!" component={HomeScreen} />
-    //             <HomeStack.Screen name="LogIn" component={LoginScreen} />
-    //           </HomeStack.Navigator>;
-    //         }}
-    //       </Tab.Screen>
-
-    //       <Tab.Screen name="LoggedIn">
-    //         {() => (
-    //           <UserStack.Navigator>
-    //             <UserStack.Screen name="User" component={UserScreen} />
-    //             <UserStack.Screen name="Event" component={EventScreen} />
-    //           </UserStack.Navigator>
-    //         )}
-    //       </Tab.Screen>
-    //     </Tab.Navigator>
-    //   </NavigationContainer>
-    // </SafeAreaProvider>
   );
 };
 

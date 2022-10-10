@@ -2,10 +2,10 @@ import {Button} from '@rneui/base';
 import {Text, View} from 'react-native';
 import React from 'react';
 
-const InterestedScreen = ({navigation}) => {
+const InterestedEvents = ({navigation}) => {
   return (
     <View>
-      <Text>All of the Events go here</Text>
+      <Text>Events User is interested in here</Text>
       <Button
         title="Go To Event"
         onPress={() => navigation.navigate('Event')}
@@ -18,4 +18,4 @@ const InterestedScreen = ({navigation}) => {
   );
 };
 
-export default InterestedScreen;
+export default InterestedEvents;

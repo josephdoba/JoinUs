@@ -4,29 +4,22 @@ import {ScrollView, StyleSheet} from 'react-native';
 
 import Herobanner from './Herobanner';
 import HowTo from './HowTo';
-
 import useAppData from '../../hooks/useAppData';
 import LoginForm from './Login';
 
-const HomeScreen = ({navigation, user}) => {
+const HomeScreen = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [visible, setVisible] = useState(false);
   const [userID, setUserID] = useState('');
-  const {fetchLogin} = useAppData();
+  const {fetchUser} = useAppData();
 
   const handleLogin = async e => {
     e.preventDefault();
-    fetchLogin(userID)
-      .then(() => {
-        setUserID('');
-        toggleOverlay();
-      })
-      .then(() => {
-        navigation.navigate('User', {name: 'user.name'});
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const user = fetchUser(userID);
+
+    setUserID('');
+    toggleOverlay();
+    await navigation.navigate('Profile', {user});
   };
 
   const toggleOverlay = () => {

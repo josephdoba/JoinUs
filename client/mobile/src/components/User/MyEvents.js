@@ -2,7 +2,7 @@ import {Button} from '@rneui/base';
 import {Text, View} from 'react-native';
 import React from 'react';
 
-const MyEventsScreen = ({navigation}) => {
+const MyEvents = ({navigation}) => {
   return (
     <View>
       <Text>Events Created by the user </Text>
@@ -11,11 +11,11 @@ const MyEventsScreen = ({navigation}) => {
         onPress={() => navigation.navigate('Event')}
       />
       <Button
-        title="To My Events"
-        onPress={() => navigation.push('MyEvents')}
+        title="To All Events"
+        onPress={() => navigation.navigate('AllEvents')}
       />
     </View>
   );
 };
 
-export default MyEventsScreen;
+export default MyEvents;

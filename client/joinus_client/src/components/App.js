@@ -8,32 +8,25 @@ import Nav from "./Nav/Nav";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-import useSharedUser from "../hooks/useSharedUser";
-import useSharedEvent from "../hooks/useSharedEvent";
 
 import { Box } from "@mui/material";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
-  const {
-    eventsData,
-    usersData,
-    categoriesData,
-    joinedEvents,
-    setReload,
-    reload,
-    login,
-    logout,
-    comments,
-  } = useAppData();
-
+  const { eventsData, usersData, categoriesData, joinedEvents, login, logout } =
+    useAppData();
   const [theme, setTheme] = useState("light");
-  const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
   };
+
+  const [open, setOpen] = useState(false); // for the form. do not change
+
+  const [openError, setOpenError] = useState(false); // for error message
+
+  // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
     <Router>
@@ -63,12 +56,12 @@ const App = function () {
                 <Userpage
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
-                  user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
-                  setReload={setReload}
-                  reload={reload}
-                  comments={comments}
+                  setOpen={setOpen}
+                  open={open}
+                  openError={openError}
+                  setOpenError={setOpenError}
                 />
               }
             />
@@ -76,12 +69,12 @@ const App = function () {
               path="/event"
               element={
                 <IndividualEvent
-                  comments={comments}
                   usersData={usersData}
                   joinedEvents={joinedEvents}
-                  user={user}
-                  reload={reload}
-                  setReload={setReload}
+                  setOpen={setOpen}
+                  open={open}
+                  openError={openError}
+                  setOpenError={setOpenError}
                 />
               }
             />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../api";
 import useSharedEvent from "./useSharedEvent";
+import useSharedReload from "./useSharedReload";
 import useSharedUser from "./useSharedUser";
 
 export default function useAppData() {
@@ -9,11 +10,11 @@ export default function useAppData() {
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
-  const [comments, setComments] = useState([])
-  const [reload, setReload] = useState(0); // reload the api call
+  const [comments, setComments] = useState([]);
 
   const { setUser } = useSharedUser();
   const { setEvent } = useSharedEvent();
+  const { reload } = useSharedReload();
 
   useEffect(() => {
     Promise.all([
@@ -21,7 +22,7 @@ export default function useAppData() {
       fetchAPI("events/categories"),
       fetchAPI("users"),
       fetchAPI("users/user_events"),
-      fetchAPI("comments")
+      fetchAPI("comments"),
     ])
       .then((all) => {
         setEventsData((prev) => [...all[0].data]);
@@ -83,11 +84,8 @@ export default function useAppData() {
     categoriesData,
     usersData,
     joinedEvents,
-    setReload,
-    reload,
     login,
     logout,
-    useSharedUser,
     comments,
     findEventByID,
   };

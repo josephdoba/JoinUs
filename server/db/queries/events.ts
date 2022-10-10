@@ -4,7 +4,19 @@ import { db } from "../connection";
 // https://www.typescriptlang.org/docs/handbook/interfaces.html
 
 interface IEventObject {
-  body: { eventName: string, eventImage: string, eventDescription: string, eventSizeLimit: number, eventOwnerId: number, eventCategory: string, eventCity: string, lat: number, lng: number, start_time: string, end_time: string }
+  body: {
+    eventName: string;
+    eventImage: string;
+    eventDescription: string;
+    eventSizeLimit: number;
+    eventOwnerId: number;
+    eventCategory: string;
+    eventCity: string;
+    lat: number;
+    lng: number;
+    start_time: string;
+    end_time: string;
+  };
 }
 
 const getCategories = () => {
@@ -26,13 +38,13 @@ const getComments = () => {
     .query(`SELECT * FROM comments`)
     .then((data) => data.rows)
     .catch((err) => console.error(err.stack));
-}
+};
 
 const createEvent = (eventObj: IEventObject) => {
-  console.log("event eventObject from queries/events.ts")
+  console.log("event eventObject from queries/events.ts");
   // console.log(eventObj)
-  console.log(eventObj.body)
-  console.log(Number(eventObj.body.eventCategory))
+  console.log(eventObj.body);
+  console.log(Number(eventObj.body.eventCategory));
 
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
@@ -48,24 +60,22 @@ const createEvent = (eventObj: IEventObject) => {
     eventObj.body.lat,
     eventObj.body.lng,
     eventObj.body.start_time,
-    eventObj.body.end_time
+    eventObj.body.end_time,
   ];
 
   return db
-  .query(createEventQuery, values)
-  .then((data) => data.rows)
-  .then(() => console.log(values))
-  .catch((err) => {
-    console.error(err.stack);
-    console.log("Something went wrong with createEvent in events.ts");
-  });
-
-
+    .query(createEventQuery, values)
+    .then((data) => data.rows)
+    .then(() => console.log(values))
+    .catch((err) => {
+      console.error(err.stack);
+      console.log("Something went wrong with createEvent in events.ts");
+    });
 };
 // make an update call
 const editEvent = (eventObj: any) => {
-  console.log("editEvent call from events.ts")
-  const editEventQuery =`
+  console.log("editEvent call from events.ts");
+  const editEventQuery = `
   UPDATE events
     SET name=$2, image=$3, description=$4, size_limit=$5, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
     WHERE id=$1 AND owner_id=$6`;
@@ -82,14 +92,16 @@ const editEvent = (eventObj: any) => {
     eventObj.body.lat,
     eventObj.body.lng,
     eventObj.body.start_time,
-    eventObj.body.end_time
+    eventObj.body.end_time,
   ];
 
-  return db
+  return (
+    db
       // .query(`SELECT * FROM events WHERE id = 1`)
       .query(editEventQuery, values)
       .then((data) => data.rows)
-      .catch((err) => console.error(err.stack));
+      .catch((err) => console.error(err.stack))
+  );
 };
 
 const leaveEvent = (dataObj: any) => {
@@ -107,7 +119,7 @@ const leaveEvent = (dataObj: any) => {
 
 const joinEvent = (dataObj: any) => {
   const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
-  const values = [dataObj.body.user_id, dataObj.body.event_id, true];
+  const values = [dataObj.body.user_id, dataObj.body.event_id, false];
 
   return db
     .query(joinEventQuery, values)
@@ -124,7 +136,10 @@ const deleteEvent = (dataObj: any) => {
 
   return db
     .query(deleteEventQuery, values)
-    .then((data) => data.rows)
+    .then((data) => {
+      console.log(data);
+      return data.rows;
+    })
     .catch((err) => {
       console.error(err.stack);
       console.log("Something went wrong with deleteEvent in events.ts");
@@ -132,8 +147,13 @@ const deleteEvent = (dataObj: any) => {
 };
 
 const addComments = (dataObj: any) => {
-  const addCommentQuery = `INSERT INTO comments(user_id, event_id, name, message) VALUES ($1, $2, $3, $4);`
-  const values = [dataObj.body.user_id, dataObj.body.event_id, dataObj.body.name, dataObj.body.message];
+  const addCommentQuery = `INSERT INTO comments(user_id, event_id, name, message) VALUES ($1, $2, $3, $4);`;
+  const values = [
+    dataObj.body.user_id,
+    dataObj.body.event_id,
+    dataObj.body.name,
+    dataObj.body.message,
+  ];
 
   return db
     .query(addCommentQuery, values)
@@ -145,8 +165,8 @@ const addComments = (dataObj: any) => {
 };
 
 const deleteComments = (dataObj: any) => {
-  const deleteCommentQuery = `DELETE FROM comments WHERE id=$1;`
-  const values = [dataObj.body.comment_id]
+  const deleteCommentQuery = `DELETE FROM comments WHERE id=$1;`;
+  const values = [dataObj.body.comment_id];
 
   return db
     .query(deleteCommentQuery, values)
@@ -167,5 +187,5 @@ export default {
   deleteEvent,
   getComments,
   addComments,
-  deleteComments
+  deleteComments,
 };
