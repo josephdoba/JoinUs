@@ -73,15 +73,16 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: '',
   },
-  ratingText: {
+  subText: {
     paddingRight: 10,
     color: 'grey',
-    width: 160,
+    width: 120,
     fontSize: 12,
     paddingBottom: 5,
     justifyContent: 'flex-end',
+    textAlign: 'center',
   },
   text: {
     paddingLeft: 10,
