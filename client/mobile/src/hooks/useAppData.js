@@ -6,7 +6,7 @@ export default function useAppData() {
   const [categoriesData, setCategoriesData] = useState([]); //api for all categories
   const [usersData, setUsersData] = useState([]); // api for all users
   const [joinedEvents, setJoinedEvents] = useState([]); //api for all joined events
-  const [comments, setComments] = useState([]);
+
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -15,7 +15,6 @@ export default function useAppData() {
       fetchAPI('events/categories'),
       fetchAPI('users'),
       fetchAPI('users/user_events'),
-      fetchAPI('comments'),
     ])
       .then(all => {
         setEventsData(prev => [...all[0].data]);
@@ -31,21 +30,22 @@ export default function useAppData() {
   }, []);
 
   const fetchUser = userID => {
-    fetchAPI(`user/${userID}`)
+    return fetchAPI(`users/${userID}`)
       .then(data => {
+        console.log(`data in fetchuser ${data.data}`);
         const u = data.data[0];
-        setUser(prev => ({
+        setUser({
           id: u.id,
           name: u.name,
           age: u.age,
           gender: u.gender,
           picture: u.picture,
-        }));
+        });
+        return u;
       })
       .catch(err => {
         console.log(err);
       });
-    return user;
   };
 
   return {
