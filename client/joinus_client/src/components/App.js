@@ -18,9 +18,7 @@ const App = function () {
     useAppData();
   const [theme, setTheme] = useState("light");
 
-  const toggleTheme = () => {
-    setTheme((curr) => (curr === "light" ? "dark" : "light"));
-  };
+
 
   const [open, setOpen] = useState(false); // for the form. do not change
 
@@ -30,10 +28,9 @@ const App = function () {
 
   return (
     <Router>
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeContext.Provider value={{ theme }}>
         <Box id={theme}>
           <Nav
-            toggleTheme={toggleTheme}
             theme={theme}
             usersData={usersData}
             login={login}
