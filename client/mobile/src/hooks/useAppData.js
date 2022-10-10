@@ -22,7 +22,6 @@ export default function useAppData() {
         setCategoriesData(prev => [...all[1].data]);
         setUsersData(prev => [...all[2].data]);
         setJoinedEvents(prev => [...all[3].data]);
-        setComments(prev => [...all[4].data]);
       })
       .catch(err => {
         console.log(err.response.status);
@@ -49,19 +48,13 @@ export default function useAppData() {
     return user;
   };
 
-  const logout = () => {
-    setUser({id: null, name: null, age: null, gender: null, picture: null});
-  };
-
   return {
     eventsData,
     categoriesData,
     usersData,
     joinedEvents,
-    comments,
     fetchUser,
     setUser,
     user,
-    logout,
   };
 }
