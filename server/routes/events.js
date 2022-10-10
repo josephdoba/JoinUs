@@ -81,4 +81,35 @@ router.post("/:id", (req: any, res: any) => { // join event route
     });
 });
 */
+router.post("/join", (req, res) => {
+    events_1.default
+        .joinEvent(req)
+        .then((event) => {
+        res.json(event);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
+router.post("/leave", (req, res) => {
+    console.log(req.body);
+    events_1.default
+        .leaveEvent(req)
+        .then((event) => {
+        res.json(event);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
+router.post("/delete", (req, res) => {
+    events_1.default
+        .deleteEvent(req)
+        .then((events) => {
+        res.json(events);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 exports.default = router;

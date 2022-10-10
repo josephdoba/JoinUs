@@ -10,7 +10,7 @@ const getUser = (id) => {
         .query(`SELECT * FROM users WHERE id = $1`, [id])
         .then((data) => data.rows);
 };
-const getUserJoinedEvents = () => {
+const getJoinedEvents = () => {
     return connection_1.db.query(`SELECT * FROM joined_events`).then((data) => data.rows);
 };
-exports.default = { getUsers, getUserJoinedEvents, getUser };
+exports.default = { getUsers, getJoinedEvents, getUser };

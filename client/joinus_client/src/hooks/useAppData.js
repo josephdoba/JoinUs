@@ -21,15 +21,15 @@ export default function useAppData() {
       fetchAPI("events"),
       fetchAPI("events/categories"),
       fetchAPI("users"),
-      fetchAPI("users/user_events"),
+      fetchAPI("users/events"),
       fetchAPI("comments"),
     ])
       .then((all) => {
-        setEventsData((prev) => [...all[0].data]);
-        setCategoriesData((prev) => [...all[1].data]);
-        setUsersData((prev) => [...all[2].data]);
-        setJoinedEvents((prev) => [...all[3].data]);
-        setComments((prev) => [...all[4].data]);
+        setEventsData([all[0].data]);
+        setCategoriesData([all[1].data]);
+        setUsersData([all[2].data]);
+        setJoinedEvents([all[3].data]);
+        setComments([all[4].data]);
       })
       .catch((err) => {
         console.log(err.response.status);
@@ -38,19 +38,20 @@ export default function useAppData() {
       });
   }, [reload]);
 
+  console.log(eventsData);
 
   const login = (userID) => {
-    fetchAPI(`user/${userID}`)
+    return fetchAPI(`users/${userID}`)
       .then((data) => {
-        const user = data.data[0];
-        console.log(user.name);
-        setUser((prev) => ({
-          id: user.id,
-          name: user.name,
-          age: user.age,
-          gender: user.gender,
-          picture: user.picture,
-        }));
+        const u = data.data[0];
+        console.log(u.name);
+        setUser({
+          id: u.id,
+          name: u.name,
+          age: u.age,
+          gender: u.gender,
+          picture: u.picture,
+        });
       })
       .catch((err) => {
         console.log(err);

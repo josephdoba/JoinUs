@@ -23,9 +23,9 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-router.get("/user_events", (req, res) => {
+router.get("/events", (req, res) => {
     users_1.default
-        .getUserJoinedEvents()
+        .getJoinedEvents()
         .then((joinedEvents) => {
         res.json(joinedEvents);
     })
@@ -33,6 +33,16 @@ router.get("/user_events", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-// create api events joined
-// delete route
+// get the user's login
+router.get("/:user_id", (req, res) => {
+    const userID = req.params.user_id;
+    users_1.default
+        .getUser(userID)
+        .then((user) => {
+        res.json(user);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 exports.default = router;

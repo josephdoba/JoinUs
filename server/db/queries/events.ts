@@ -104,7 +104,15 @@ const editEvent = (eventObj: any) => {
   );
 };
 
-const leaveEvent = (dataObj: any) => {
+interface UserEvent {
+  body: {
+    user_id: number;
+    event_id: number;
+  };
+}
+
+// leave event - remove from joined_users table
+const leaveEvent = (dataObj: UserEvent) => {
   const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
   const values = [dataObj.body.user_id, dataObj.body.event_id];
 
@@ -117,6 +125,7 @@ const leaveEvent = (dataObj: any) => {
     });
 };
 
+// add to joined_users table
 const joinEvent = (dataObj: any) => {
   const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
   const values = [dataObj.body.user_id, dataObj.body.event_id, false];

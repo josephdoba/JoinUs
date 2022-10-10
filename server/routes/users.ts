@@ -22,9 +22,9 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/user_events", (req, res) => {
+router.get("/events", (req, res) => {
   userQueries
-    .getUserJoinedEvents()
+    .getJoinedEvents()
     .then((joinedEvents) => {
       res.json(joinedEvents);
     })
@@ -33,7 +33,17 @@ router.get("/user_events", (req, res) => {
     });
 });
 
-// create api events joined
-// delete route
+// get the user's login
+router.get("/:user_id", (req, res) => {
+  const userID = req.params.user_id;
+  userQueries
+    .getUser(userID)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 export default router;

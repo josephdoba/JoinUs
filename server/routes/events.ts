@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
 
 // api route for create event
 router.post("/", (req, res) => {
-  console.log("-----------------------", req.body)
+  console.log("-----------------------", req.body);
   eventQueries
     .createEvent(req)
     .then((events) => {
@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
 
 // api route for edit event
 router.put("/", (req, res) => {
-  console.log("-----------------------", req.body)
+  console.log("-----------------------", req.body);
   eventQueries
     .editEvent(req)
     .then((events) => {
@@ -56,7 +56,6 @@ router.put("/", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 // show event from event owner based on owner_id ()
 
@@ -84,5 +83,39 @@ router.post("/:id", (req: any, res: any) => { // join event route
     });
 });
 */
+
+router.post("/join", (req, res) => {
+  eventQueries
+    .joinEvent(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/leave", (req, res) => {
+  console.log(req.body);
+  eventQueries
+    .leaveEvent(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/delete", (req, res) => {
+  eventQueries
+    .deleteEvent(req)
+    .then((events) => {
+      res.json(events);
+    })
+    .catch((err: any) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 export default router;

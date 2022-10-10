@@ -57,11 +57,11 @@ export default function Nav(props) {
   // end
 
   // log in
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     login(userID);
     setUserID("");
-    await navigate("/user");
+    navigate("/user");
   };
 
   // set user as the id in local store
@@ -80,7 +80,7 @@ export default function Nav(props) {
 
   return (
     <AppBar
-      position= "sticky"
+      position="sticky"
       style={{ background: "#f1d7b1", boxShadow: "none" }}
     >
       <Container maxWidth="100%">
