@@ -7,7 +7,6 @@ import { postData } from "../api/index";
 export default function useUserEvents() {
   const { cleanCreateEvent, cleanEditEvent } = cleanEvent();
   const { reload, setReload } = useSharedReload();
-  const [error, setError] = useState(false);
 
   const userCreateEventSubmit = (event) => {
     // cleanCreateEvent(event)
@@ -55,11 +54,6 @@ export default function useUserEvents() {
   };
 
   const joinEvent = (attendeelist, size_limit, dataObj) => {
-    if (attendeelist.length >= size_limit) {
-      setError(true);
-      return;
-    }
-
     postData("events/join", dataObj)
       .then(() => {
         setReload(reload + 1);
@@ -115,7 +109,5 @@ export default function useUserEvents() {
     deleteEvent,
     userAddComment,
     deleteComment,
-    error,
-    setError,
   };
 }

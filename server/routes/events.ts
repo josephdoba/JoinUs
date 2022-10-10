@@ -42,6 +42,8 @@ router.post("/", (req, res) => {
     .catch((err: any) => {
       res.status(500).json({ error: err.message });
     });
+
+    
 });
 
 // api route for edit event

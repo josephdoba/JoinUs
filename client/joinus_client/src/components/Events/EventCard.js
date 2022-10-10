@@ -35,8 +35,8 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    openError,
-    setOpenError,
+    error, 
+    setError
   } = props;
 
   const {
@@ -86,6 +86,10 @@ export default function EventCard(props) {
       showUserEvents !== 1 &&
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
+      if (attendeelist.length >= size_limit) {
+        setError(true)
+        return
+      }
       joinEvent(attendeelist, size_limit, { event_id, user_id });
     }
   };

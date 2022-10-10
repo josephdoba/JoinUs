@@ -19,8 +19,8 @@ export default function Events(props) {
     usersData,
     joinedEvents,
     showUserEvents,
-    openError,
-    setOpenError,
+    error,
+    setError
   } = props;
   const displayEventCard = (eventArr) => {
     return eventArr.map((e) => {
@@ -37,7 +37,8 @@ export default function Events(props) {
           categoriesData={categoriesData}
           showUserEvents={showUserEvents}
           joinedEvents={joinedEvents}
-          setOpenError={setOpenError}
+          error={error}
+          setError={setError}
         />
       );
     });
@@ -76,7 +77,7 @@ export default function Events(props) {
       }}
     >
       {event}
-      <Error open={openError} setOpenError={setOpenError} />
+      <Error error={error} setError={setError}/>
     </Box>
   );
 }

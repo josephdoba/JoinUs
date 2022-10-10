@@ -7,7 +7,7 @@ import useUserEvents from "../../hooks/useUserEvents";
 import { useNavigate } from "react-router-dom";
 
 export default function JoinEventButton(props) {
-  const { joinedEvents, attendeelist } = props;
+  const { joinedEvents, attendeelist, error, setError } = props;
   const { event } = useSharedEvent();
   const { user } = useSharedUser();
   const { leaveEvent, deleteEvent, joinEvent } = useUserEvents();
@@ -28,6 +28,10 @@ export default function JoinEventButton(props) {
       user_id !== event.owner_id &&
       !checkIfJoinedEvent(user.id, event.id, joinedEvents)
     ) {
+      if (attendeelist.length >= event.size_limit) {
+        setError(true)
+        return
+      }
       joinEvent(attendeelist, event.size_limit, { event_id, user_id });
     }
   };

@@ -9,19 +9,26 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function Error(props) {
-  const { open, setOpenError } = props;
+
+  const {error, setError } = props;
+
+  const handleClick = () => {
+    setError(true);
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpenError(false);
+    setError(false);
   };
+
+  console.log(error)
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar open={error} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           Error: Event is full!
         </Alert>
