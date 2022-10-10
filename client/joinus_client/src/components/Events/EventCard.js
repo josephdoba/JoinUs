@@ -35,8 +35,8 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    error, 
-    setError
+    error,
+    setError,
   } = props;
 
   const {
@@ -46,6 +46,7 @@ export default function EventCard(props) {
     start_time,
     end_time,
     description,
+    city,
     owner_id,
     size_limit,
   } = thisEvent;
@@ -87,8 +88,8 @@ export default function EventCard(props) {
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
       if (attendeelist.length >= size_limit) {
-        setError(true)
-        return
+        setError(true);
+        return;
       }
       joinEvent(attendeelist, size_limit, { event_id, user_id });
     }
@@ -139,6 +140,8 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
+            City: {city}
+            <br />
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
           </Typography>
