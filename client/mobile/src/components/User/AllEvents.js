@@ -7,9 +7,8 @@ import {
 } from '../../helpers/other_selectors';
 import useAppData from '../../hooks/useAppData';
 import DisplayEvents from '../Events/DisplayEvents';
-import EventsList from '../Events/EventsList';
 
-const AllEvents = ({navigation}) => {
+const AllEvents = ({route, navigation}) => {
   const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
 
   const allevents = upcomingEvents(eventsData);

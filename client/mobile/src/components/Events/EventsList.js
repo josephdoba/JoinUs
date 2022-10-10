@@ -2,7 +2,9 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text, Image, ListItem, Button} from '@rneui/themed';
 import TouchableScale from 'react-native-touchable-scale';
-import {formatTime} from '../../helpers/helpers';
+import {formatTime, shortenText} from '../../helpers/helpers';
+
+// display of the individual event item
 
 const EventsList = ({navigation, event}) => {
   const IMAGE_URL = event.image;
@@ -32,7 +34,10 @@ const EventsList = ({navigation, event}) => {
           />
         )}>
         <ListItem.Content>
-          <ListItem.Title style={styles.title}>{event.name}</ListItem.Title>
+          <View style={styles.headerContainer}>
+            <ListItem.Title style={styles.title}> {event.name} </ListItem.Title>
+            <Text style={styles.subText}>{event.city}</Text>
+          </View>
           <View style={styles.subtitleView}>
             <Image
               source={{
@@ -41,10 +46,10 @@ const EventsList = ({navigation, event}) => {
               style={styles.image}
             />
             <View>
-              <Text style={styles.ratingText}>
+              <Text style={styles.subText}>
                 {formatTime(event.start_time, event.end_time)}
               </Text>
-              <Text style={styles.text}>{event.description}</Text>
+              <Text style={styles.text}>{shortenText(event.description)}</Text>
             </View>
           </View>
         </ListItem.Content>
@@ -65,17 +70,23 @@ const styles = StyleSheet.create({
     height: 120,
     width: 120,
   },
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   ratingText: {
-    paddingLeft: 10,
+    paddingRight: 10,
     color: 'grey',
-    width: 250,
+    width: 160,
     fontSize: 12,
     paddingBottom: 5,
+    justifyContent: 'flex-end',
   },
   text: {
     paddingLeft: 10,
     color: 'grey',
-    width: 250,
+    width: 230,
     fontSize: 16,
   },
   container: {
@@ -88,6 +99,5 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
-    justifyContent: 'center',
   },
 });

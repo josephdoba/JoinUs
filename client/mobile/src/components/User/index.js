@@ -50,7 +50,10 @@ const UserScreen = ({route, navigation}) => {
         />
 
         <Button
-          title="To My Events"
+          title="My Events"
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.newButton}
+          titleStyle={styles.buttonTitle}
           onPress={() => navigation.navigate('AllEvents', {user})}
         />
 
@@ -59,14 +62,9 @@ const UserScreen = ({route, navigation}) => {
           loading={false}
           loadingProps={{size: 'small', color: 'white'}}
           buttonStyle={styles.newButton}
-          titleStyle={{fontWeight: 'bold', fontSize: 23}}
+          titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           onPress={() => console.log('aye')}
-        />
-
-        <Button
-          title="Go To Event"
-          onPress={() => navigation.navigate('Event', {user})}
         />
 
         <Button
@@ -74,7 +72,7 @@ const UserScreen = ({route, navigation}) => {
           loading={false}
           loadingProps={{size: 'small', color: 'white'}}
           buttonStyle={styles.newButton}
-          titleStyle={{fontWeight: 'bold', fontSize: 23}}
+          titleStyle={styles.buttonTitle}
           containerStyle={styles.buttonContainer}
           onPress={() => console.log('aye')}
         />
@@ -123,6 +121,10 @@ const styles = StyleSheet.create({
   newButton: {
     backgroundColor: 'rgba(111, 202, 186, 1)',
     borderRadius: 5,
+  },
+  buttonTitle: {
+    fontWeight: 'bold',
+    fontSize: 23,
   },
   buttonContainer: {
     marginHorizontal: 100,
