@@ -24,6 +24,8 @@ export default function Userpage(props) {
     setEvent,
     joinedEvents,
     formType,
+    error,
+    setError
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
@@ -41,6 +43,8 @@ export default function Userpage(props) {
         joinedEvents={joinedEvents}
         selectedCategory={selectedCategory}
         showUserEvents={showUserEvents}
+        error={error}
+        setError={setError}
       />
     );
   };
@@ -88,7 +92,7 @@ export default function Userpage(props) {
           {showUserEvents === 3 && eventsShown(eventHistory)}
         </Stack>
 
-        <Error open={open} setOpen={setOpen} />
+        <Error error={error} setError={setError} />
 
         <Tooltip
           title="Create A New Event"
