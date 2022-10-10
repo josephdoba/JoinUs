@@ -1,6 +1,5 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import "./howToJoin.scss";
 import signup from "../../images/signup.png";
 import idea from "../../images/Idea.png";
 import chat from "../../images/chat.png";
