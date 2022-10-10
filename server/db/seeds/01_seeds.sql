@@ -10,7 +10,7 @@ INSERT INTO users (name, age, gender, picture) VALUES
 ('Celeste Archer', 20, 'female', 'https://cdn-icons-png.flaticon.com/128/706/706830.png'),
 ('Garry Mcclure', 16, 'male', 'https://cdn-icons-png.flaticon.com/128/366/366343.png'),
 ('Philip Macias', 18, 'male', 'https://cdn-icons-png.flaticon.com/128/145/145843.png'),
-('Millie Jones', 24, 'female', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
+('Jennifer Aniston', 24, 'female', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
 ('Timothy Horton', 32, 'male', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
 ('Olivia Maynard', 27, 'female', 'https://cdn-icons-png.flaticon.com/128/1081/1081055.png');
 
@@ -71,48 +71,46 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ci
 
 ('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 3, 1, 'Smallville', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 4, 'Smallville', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 2, 'Smallville', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 4, 'Smallville', 50.0943441322179, -79.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
+('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 2, 'Smallville', 50.0943441322179, -79.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (1, 1, TRUE),
-(2, 1, FALSE),
-(5, 1, TRUE),
-(3, 2, TRUE),
-(1, 6, TRUE),
-(2, 6, TRUE),
-(2, 3, FALSE),
-(4, 4, TRUE),
-(2, 6, TRUE),
+(2, 2, FALSE),
+(5, 3, TRUE),
 (3, 4, TRUE),
-(5, 2, FALSE),
-(5, 6, TRUE),
-(3, 3, TRUE),
-(4, 3, TRUE),
-(6, 3, TRUE),
-(7, 4, TRUE),
-(8, 6, TRUE),
-(9, 4, TRUE),
-(10, 2, TRUE),
-(11, 6, TRUE),
-(12, 3, TRUE),
-(13, 3, TRUE),
-(2, 9, TRUE);
+(1, 5, TRUE),
+(2, 6, TRUE),
+(2, 7, FALSE),
+(4, 8, TRUE),
+(2, 9, TRUE),
+(3, 10, TRUE),
+(5, 11, FALSE),
+(5, 12, TRUE),
+(3, 13, TRUE),
+(4, 14, TRUE),
+(6, 15, TRUE),
+(7, 16, TRUE),
+(8, 17, TRUE),
+(9, 18, TRUE),
+(10, 19, TRUE),
+(11, 20, TRUE),
+(12, 21, TRUE),
+(13, 22, TRUE),
+(2, 23, TRUE);
 
 INSERT INTO comments(user_id, event_id, name, message) VALUES
-(5, 3, 'Jennifer', 'I love this so much!'),
-(1, 1, 'Alice', 'This looks like fun!'),
-(6, 4, 'Boris', 'What time we meeting?'),
-(3, 7, 'Mike', 'I think I forgot my car keys, can someone check for me?'),
-(3, 3, 'Michael', 'Where can I park?'),
-(8, 5, 'Jennifer Aniston', 'Awesome guys!'),
-(2, 4, 'Bethany', 'see you soon Katie'),
-(2, 4, 'Alan', 'Outside with a blue shirt. See you soon!'),
-(2, 5, 'Christine', 'I quite like the food here'),
-(1, 4, 'Bobby', 'One of us'),
-(2, 6, 'Patrick', 'One of us'),
-(2, 6, 'Hank', 'Can we play Cribbage here?'),
-(2, 11, 'Dustin', 'See you soon Katie!'),
-(6, 11, 'Katie', 'Sounds good, can I bring a friend?');
+(1, 1, 'Lawrence', 'Stoked to meet you both. See you soon!'),
+(1, 1, 'Ashley', 'This looks like fun!'),
+(6, 4, 'Shauna', 'What time we meeting?'),
+(3, 7, 'Millicent', 'I think I forgot my car keys, can someone check for me?'),
+(3, 3, 'Richard', 'Where can I park?'),
+(8, 5, 'Sadie', 'Awesome guys!'),
+(2, 4, 'Celeste', 'See you soon Katie!'),
+(2, 4, 'Garry', 'Outside with a blue shirt. See you soon!'),
+(2, 5, 'Philip', 'I quite like the food here'),
+(1, 4, 'Jennifer', 'One of us'),
+(2, 6, 'Timothy', 'One of us'),
+(6, 1, 'Katie', 'Sounds good, can I bring a friend?');
