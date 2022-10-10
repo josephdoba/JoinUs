@@ -35,8 +35,8 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    open,
-    setOpen,
+    openError,
+    setOpenError,
   } = props;
 
   const {
@@ -53,6 +53,8 @@ export default function EventCard(props) {
   // console.log(thisEvent)
 
   const { user } = useSharedUser();
+
+  const [open, setOpen] = useState(false);
 
   //original
   const { findEventByID } = useAppData();
@@ -142,27 +144,29 @@ export default function EventCard(props) {
         </CardContent>
 
         {/* Learn More */}
-        <Button onClick={() => setOpen(true)} s size="small"></Button>
-        {open && (
-          <EventForm
-            open={open}
-            setOpen={setOpen}
-            formMode={"edit"}
-            category={category}
-            eventData={thisEvent}
-            categoriesData={props.categoriesData}
-          />
-        )}
+
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />
           </IconButton>
-
+          {/* User to edit form. will pop up modal */}
           {user.id === owner_id && showUserEvents < 3 && (
             <IconButton onClick={(e) => setOpen(true)} size="small">
               <BorderColorTwoToneIcon />
             </IconButton>
           )}
+
+          {open && (
+            <EventForm
+              open={open}
+              setOpen={setOpen}
+              formMode={"edit"}
+              category={category}
+              eventData={thisEvent}
+              categoriesData={props.categoriesData}
+            />
+          )}
+
           {showUserEvents !== 3 && (
             <IconButton
               size="small"

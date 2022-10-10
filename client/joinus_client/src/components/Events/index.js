@@ -1,5 +1,5 @@
-import { Box, Container, Grid } from "@mui/material";
-import React from "react";
+import { Box } from "@mui/material";
+
 import EventCard from "./EventCard";
 
 import { findCategoryByID } from "../../helpers/category_selectors";
@@ -9,6 +9,7 @@ import {
   pastEvents,
 } from "../../helpers/event_selectors";
 import { findEventAttendees } from "../../helpers/user_selectors";
+import Error from "./Error";
 
 export default function Events(props) {
   const {
@@ -18,8 +19,9 @@ export default function Events(props) {
     usersData,
     joinedEvents,
     showUserEvents,
+    openError,
+    setOpenError,
   } = props;
-
   const displayEventCard = (eventArr) => {
     return eventArr.map((e) => {
       const attendeelist = findEventAttendees(e.id, usersData, joinedEvents);
@@ -35,6 +37,7 @@ export default function Events(props) {
           categoriesData={categoriesData}
           showUserEvents={showUserEvents}
           joinedEvents={joinedEvents}
+          setOpenError={setOpenError}
         />
       );
     });
@@ -73,6 +76,7 @@ export default function Events(props) {
       }}
     >
       {event}
+      <Error open={openError} setOpenError={setOpenError} />
     </Box>
   );
 }

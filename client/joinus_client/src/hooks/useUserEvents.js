@@ -75,8 +75,8 @@ export default function useUserEvents() {
     if (answer === "yes" || answer === "Yes") {
       postData(`event/delete`, dataObj)
         .then(() => {
-          console.log(dataObj);
           setReload(reload + 1);
+          console.log(dataObj);
         })
         .catch((err) => {
           console.log(err);

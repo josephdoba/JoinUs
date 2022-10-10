@@ -15,27 +15,21 @@ import AttendeePopup from "./AttendeePopup";
 import JoinEventButton from "./JoinEventButton";
 
 export default function EventDetails(props) {
-  const { attendeelist } = props;
+  const { attendeelist, openError, setOpenError } = props;
   const navigate = useNavigate();
   const { event } = useSharedEvent();
   const { joinedEvents, usersData } = props;
 
   // for avatar list pop up
-  const [open, setOpen] = useState(false);
+  const [openAttendee, setOpenAttendee] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenAttendee(true);
   };
 
   const handleClose = (value) => {
-    setOpen(false);
+    setOpenAttendee(false);
   };
-  // avatarlist pop up end
-
-  // async function submitHandler() {
-  //   await wait(250);
-  //   navigate("/event/chat");
-  // }
 
   return (
     <Box
@@ -100,13 +94,15 @@ export default function EventDetails(props) {
               usersData={usersData}
               attendeelist={attendeelist}
               event_id={event.id}
+              openError={openError}
+              setOpenError={setOpenError}
             />
           </Box>
 
           {/* the pop up */}
           <AttendeePopup
             attendeelist={attendeelist}
-            open={open}
+            open={openAttendee}
             handleClose={handleClose}
           />
         </Box>

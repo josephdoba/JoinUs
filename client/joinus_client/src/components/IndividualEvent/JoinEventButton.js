@@ -16,13 +16,13 @@ export default function JoinEventButton(props) {
   const processEvent = (event_id, user_id) => {
     if (user_id === event.owner_id) {
       deleteEvent({ event_id, user_id });
+      navigate("/user");
     }
     if (
       user_id !== event.owner_id &&
       checkIfJoinedEvent(user.id, event.id, joinedEvents)
     ) {
       leaveEvent({ event_id, user_id });
-      navigate("/user");
     }
     if (
       user_id !== event.owner_id &&
