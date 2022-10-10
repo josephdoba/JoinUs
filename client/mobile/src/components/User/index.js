@@ -3,10 +3,10 @@ import {ImageBackground, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 
 const UserScreen = ({route, navigation}) => {
-  const theUser = route.params.user;
-  const [user, setUser] = useState(theUser);
+  const user = route.params.user;
 
-  console.log(JSON.stringify(user));
+  console.log(`user in profile: ${JSON.stringify(user)}`);
+  // console.log();
 
   return (
     <View style={styles.container}>
