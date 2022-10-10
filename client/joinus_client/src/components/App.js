@@ -5,7 +5,6 @@ import Home from "./Home";
 import Userpage from "./UserPage/index";
 import "./app.scss";
 import Nav from "./Nav/Nav";
-
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
 
@@ -18,11 +17,8 @@ const App = function () {
     useAppData();
   const [theme, setTheme] = useState("light");
 
-
-
   const [open, setOpen] = useState(false); // for the form. do not change
-
-  const [openError, setOpenError] = useState(false); // for error message
+  const [error, setError ] = useState(false);
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
@@ -57,8 +53,8 @@ const App = function () {
                   categoriesData={categoriesData}
                   setOpen={setOpen}
                   open={open}
-                  openError={openError}
-                  setOpenError={setOpenError}
+                  error={error}
+                  setError={setError}
                 />
               }
             />
@@ -70,8 +66,8 @@ const App = function () {
                   joinedEvents={joinedEvents}
                   setOpen={setOpen}
                   open={open}
-                  openError={openError}
-                  setOpenError={setOpenError}
+                  error={error}
+                  setError={setError}
                 />
               }
             />

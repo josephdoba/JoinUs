@@ -9,7 +9,7 @@ import CommentBox from "./CommentBox";
 import useAppData from "../../hooks/useAppData";
 
 export default function IndividualEvent(props) {
-  const { joinedEvents, usersData, open, setOpen } = props;
+  const { joinedEvents, usersData, open, setOpen, error, setError } = props;
   const { event } = useSharedEvent();
   const { comments } = useAppData();
 
@@ -28,12 +28,14 @@ export default function IndividualEvent(props) {
             attendeelist={attendeelist}
             joinedEvents={joinedEvents}
             usersData={usersData}
+            error={error}
+            setError={setError}
           />
           <EventMap />
         </Stack>
       </Box>
       <CommentBox comments={comments} joinedEvents={joinedEvents} />
-      <Error open={open} setOpen={setOpen} />
+      <Error error={error} setError={setError}/>
     </Box>
   );
 }

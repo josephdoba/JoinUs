@@ -15,7 +15,7 @@ import AttendeePopup from "./AttendeePopup";
 import JoinEventButton from "./JoinEventButton";
 
 export default function EventDetails(props) {
-  const { attendeelist, openError, setOpenError } = props;
+  const { attendeelist, error, setError } = props;
   const navigate = useNavigate();
   const { event } = useSharedEvent();
   const { joinedEvents, usersData } = props;
@@ -94,8 +94,8 @@ export default function EventDetails(props) {
               usersData={usersData}
               attendeelist={attendeelist}
               event_id={event.id}
-              openError={openError}
-              setOpenError={setOpenError}
+              error={error}
+              setError={setError}
             />
           </Box>
 
