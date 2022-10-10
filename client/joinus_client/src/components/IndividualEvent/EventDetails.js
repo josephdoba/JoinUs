@@ -5,6 +5,7 @@ import {
   CardHeader,
   Typography,
   Button,
+  Avatar,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import AttendeesAvatar from "./AtendeesAvatar";
 import AttendeePopup from "./AttendeePopup";
 import JoinEventButton from "./JoinEventButton";
+import { owner } from "../../helpers/user_selectors";
 
 export default function EventDetails(props) {
   const { attendeelist, error, setError } = props;
@@ -22,6 +24,9 @@ export default function EventDetails(props) {
 
   // for avatar list pop up
   const [openAttendee, setOpenAttendee] = useState(false);
+
+  const eventOwner = owner(attendeelist, event);
+  console.log(owner(attendeelist, event));
 
   const handleClickOpen = () => {
     setOpenAttendee(true);
@@ -49,6 +54,17 @@ export default function EventDetails(props) {
         }}
       >
         <CardHeader style={{ textAlign: "center" }} />
+        <Box>
+          <Typography>
+            Organizer:
+            <Avatar
+              alt={eventOwner.name}
+              src={eventOwner.picture}
+              sx={{ width: 56, height: 56 }}
+            />
+            {eventOwner.name}
+          </Typography>
+        </Box>
         <Box
           component="img"
           sx={{

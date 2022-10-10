@@ -38,8 +38,6 @@ export default function useAppData() {
       });
   }, [reload]);
 
-  console.log(eventsData);
-
   const login = (userID) => {
     return fetchAPI(`users/${userID}`)
       .then((data) => {
