@@ -44,6 +44,19 @@ router.post("/", (req, res) => {
     });
 });
 
+// api route for edit event
+router.put("/", (req, res) => {
+  console.log("-----------------------", req.body)
+  eventQueries
+    .editEvent(req)
+    .then((events) => {
+      res.json(events);
+    })
+    .catch((err: any) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 
 // show event from event owner based on owner_id ()
 

@@ -7,6 +7,7 @@ import {
   Typography,
   CardMedia,
   CardContent,
+  Button,
   Box,
 } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
@@ -20,10 +21,13 @@ import useUserEvents from "../../hooks/useUserEvents";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
 
 import useAppData from "../../hooks/useAppData";
+import EventForm from "../UserPage/EventForm";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventCard(props) {
+  // console.log("props from EventCard")
+  // console.log(props)
   const {
     category,
     attendeelist,
@@ -31,6 +35,7 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
+    open,
     setOpen,
   } = props;
 
@@ -44,6 +49,8 @@ export default function EventCard(props) {
     owner_id,
     size_limit,
   } = thisEvent;
+
+  // console.log(thisEvent)
 
   const { user } = useSharedUser();
 
@@ -135,6 +142,17 @@ export default function EventCard(props) {
         </CardContent>
 
         {/* Learn More */}
+        <Button onClick={() => setOpen(true)} s size="small"></Button>
+        {open && (
+          <EventForm
+            open={open}
+            setOpen={setOpen}
+            formMode={"edit"}
+            category={category}
+            eventData={thisEvent}
+            categoriesData={props.categoriesData}
+          />
+        )}
         <CardActions>
           <IconButton onClick={submitHandler} size="small">
             <ReadMoreTwoToneIcon />

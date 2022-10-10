@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import AddEvent from "./AddEvent";
-import { Box, Button, Stack } from "@mui/material";
+import EventForm from "./EventForm";
+import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import Search from "./Search";
+
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
 import {
@@ -20,12 +23,12 @@ export default function Userpage(props) {
     usersData,
     setEvent,
     joinedEvents,
-    open,
-    setOpen,
+    formType,
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
   const [showUserEvents, setShowUserEvents] = useState(0); // 0 for all events, 1 = my events, 2 = joined events, 3 = past events
+  const [open, setOpen] = useState(false);
   const { user } = useSharedUser();
 
   const eventsShown = (eventsDataInput) => {
@@ -56,35 +59,63 @@ export default function Userpage(props) {
   const eventHistory = pastEvents(eventsData);
 
   return (
-    <Box>
-      <Box
-        sx={{ display: "flex" }}
-        m={2}
-        direction={"row"}
-        justifyContent={"center"}
-      >
-        <EventCategoryDropdown
-          list={categoriesData}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <ClearCategories
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+    <>
+      <Box>
+        <Box
+          sx={{ display: "flex" }}
+          m={2}
+          direction={"row"}
+          justifyContent={"center"}
+        >
+          <EventCategoryDropdown
+            list={categoriesData}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          <ClearCategories
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+        </Box>
+        <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
+          <Sidebar
+            setUserEvents={setShowUserEvents}
+            showUserEvents={showUserEvents}
+          />
+          {showUserEvents === 0 && eventsShown(eventsData)}
+          {showUserEvents === 1 && eventsShown(usersCreatedEvents)}
+          {showUserEvents === 2 && eventsShown(usersJoinedEvents)}
+          {showUserEvents === 3 && eventsShown(eventHistory)}
+        </Stack>
+
+        <Error open={open} setOpen={setOpen} />
+
+        <Tooltip
+          title="Create A New Event"
+          sx={{
+            position: "fixed",
+            bottom: 20,
+            left: { xs: "calc(50% - 25px)", md: 30 },
+          }}
+        >
+          <Fab
+            variant="extended"
+            onClick={(e) => {
+              setOpen(true);
+            }}
+          >
+            <AddIcon sx={{ mr: 1 }} />
+            New Event
+          </Fab>
+        </Tooltip>
+        <EventForm
+          categoriesData={categoriesData}
+          open={open}
+          setOpen={setOpen}
+          eventsData={eventsData}
+          formMode={"create"}
         />
       </Box>
-      <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-        <Sidebar
-          setUserEvents={setShowUserEvents}
-          showUserEvents={showUserEvents}
-        />
-        {showUserEvents === 0 && eventsShown(eventsData)}
-        {showUserEvents === 1 && eventsShown(usersCreatedEvents)}
-        {showUserEvents === 2 && eventsShown(usersJoinedEvents)}
-        {showUserEvents === 3 && eventsShown(eventHistory)}
-      </Stack>
-      <AddEvent categoriesData={categoriesData} />
-      <Error open={open} setOpen={setOpen} />
-    </Box>
+    </>
   );
 }

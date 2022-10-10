@@ -1,5 +1,24 @@
 import { db } from "../connection";
 
+// we use interfaces in TS to get around needing to use any
+// https://www.typescriptlang.org/docs/handbook/interfaces.html
+
+interface IEventObject {
+  body: {
+    eventName: string;
+    eventImage: string;
+    eventDescription: string;
+    eventSizeLimit: number;
+    eventOwnerId: number;
+    eventCategory: string;
+    eventCity: string;
+    lat: number;
+    lng: number;
+    start_time: string;
+    end_time: string;
+  };
+}
+
 const getCategories = () => {
   return db
     .query(`SELECT * FROM categories`)
@@ -21,25 +40,27 @@ const getComments = () => {
     .catch((err) => console.error(err.stack));
 };
 
-const createEvent = (eventObject: any) => {
-  console.log("event object from queries/events.ts");
-  console.log(eventObject.body.Category);
+const createEvent = (eventObj: IEventObject) => {
+  console.log("event eventObject from queries/events.ts");
+  // console.log(eventObj)
+  console.log(eventObj.body);
+  console.log(Number(eventObj.body.eventCategory));
 
   // https://node-postgres.com/features/queries
-  const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, address, lat, lng, start_time, end_time) VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+  const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
   const values = [
-    eventObject.body.eventName,
-    eventObject.body.eventImage,
-    eventObject.body.eventDescription,
-    eventObject.body.eventSizeLimit,
-    eventObject.body.OwnerId, // size_limit, owner_id,
-    eventObject.body.Category,
-    eventObject.body.eventAddress,
-    eventObject.body.lat,
-    eventObject.body.lng,
-    eventObject.body.start_time,
-    eventObject.body.end_time,
+    eventObj.body.eventName,
+    eventObj.body.eventImage,
+    eventObj.body.eventDescription,
+    eventObj.body.eventSizeLimit,
+    eventObj.body.eventOwnerId,
+    Number(eventObj.body.eventCategory),
+    eventObj.body.eventCity,
+    eventObj.body.lat,
+    eventObj.body.lng,
+    eventObj.body.start_time,
+    eventObj.body.end_time,
   ];
 
   return db
@@ -48,8 +69,39 @@ const createEvent = (eventObject: any) => {
     .then(() => console.log(values))
     .catch((err) => {
       console.error(err.stack);
-      console.log("error happened in events.ts");
+      console.log("Something went wrong with createEvent in events.ts");
     });
+};
+// make an update call
+const editEvent = (eventObj: any) => {
+  console.log("editEvent call from events.ts");
+  const editEventQuery = `
+  UPDATE events
+    SET name=$2, image=$3, description=$4, size_limit=$5, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
+    WHERE id=$1 AND owner_id=$6`;
+
+  const values = [
+    eventObj.body.eventId,
+    eventObj.body.eventName,
+    eventObj.body.eventImage,
+    eventObj.body.eventDescription,
+    eventObj.body.eventSizeLimit,
+    eventObj.body.eventOwnerId,
+    Number(eventObj.body.eventCategory),
+    eventObj.body.eventCity,
+    eventObj.body.lat,
+    eventObj.body.lng,
+    eventObj.body.start_time,
+    eventObj.body.end_time,
+  ];
+
+  return (
+    db
+      // .query(`SELECT * FROM events WHERE id = 1`)
+      .query(editEventQuery, values)
+      .then((data) => data.rows)
+      .catch((err) => console.error(err.stack))
+  );
 };
 
 const leaveEvent = (dataObj: any) => {
@@ -61,7 +113,7 @@ const leaveEvent = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("error happened deleting event");
+      console.log("Something went wrong with leaveEvent in events.ts");
     });
 };
 
@@ -74,7 +126,7 @@ const joinEvent = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with joinEvent in events.ts");
     });
 };
 
@@ -90,7 +142,7 @@ const deleteEvent = (dataObj: any) => {
     })
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with deleteEvent in events.ts");
     });
 };
 
@@ -108,7 +160,7 @@ const addComments = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with addComments in events.ts");
     });
 };
 
@@ -121,21 +173,15 @@ const deleteComments = (dataObj: any) => {
     .then((data) => data.rows)
     .catch((err) => {
       console.error(err.stack);
-      console.log("badbad");
+      console.log("Something went wrong with deleteComments in events.ts");
     });
 };
-
-// const editEvent = (eventObject) => {
-//   return connection_1.db
-//       .query(`SELECT * FROM events WHERE id = 1`)
-//       .then((data) => data.rows)
-//       .catch((err) => console.error(err.stack));
-// };
 
 export default {
   getCategories,
   getEvents,
   createEvent,
+  editEvent,
   leaveEvent,
   joinEvent,
   deleteEvent,

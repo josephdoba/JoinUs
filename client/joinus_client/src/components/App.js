@@ -8,8 +8,6 @@ import Nav from "./Nav/Nav";
 
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
-import useSharedUser from "../hooks/useSharedUser";
-import useSharedEvent from "../hooks/useSharedEvent";
 
 import { Box } from "@mui/material";
 
@@ -19,8 +17,6 @@ const App = function () {
   const { eventsData, usersData, categoriesData, joinedEvents, login, logout } =
     useAppData();
   const [theme, setTheme] = useState("light");
-
-  const { user, setUser } = useSharedUser();
 
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
@@ -42,14 +38,6 @@ const App = function () {
             logout={logout}
           />
           <Routes>
-            {/* <Route path="/dashboard" element={<Userpage />}>
-              {/* nested route placeholders (syntax for later if we decide to refactor front end routes):  */}
-            {/* <Route index element={<Userpage/>}/>
-              <Route path='/myevents' element={false}/>
-              <Route path='/history' element={false}/>
-              <Route path='/create' element={false}/>
-              <Route path='/join' element={false}/> */}
-            {/* </Route> */}
             <Route
               path="/"
               element={
@@ -66,7 +54,6 @@ const App = function () {
                 <Userpage
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
-                  user={user}
                   usersData={usersData}
                   categoriesData={categoriesData}
                   setOpen={setOpen}
@@ -80,7 +67,6 @@ const App = function () {
                 <IndividualEvent
                   usersData={usersData}
                   joinedEvents={joinedEvents}
-                  user={user}
                   setOpen={setOpen}
                   open={open}
                 />

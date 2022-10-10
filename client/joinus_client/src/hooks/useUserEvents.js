@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import useSharedReload from "./useSharedReload";
-import cleanEvent from "../api/cleanEvent";
+import cleanEvent from "./cleanEvent";
 import { postData } from "../api/index";
 
 export default function useUserEvents() {
@@ -10,7 +10,8 @@ export default function useUserEvents() {
   const [error, setError] = useState(false);
 
   const userCreateEventSubmit = (event) => {
-    cleanCreateEvent(event);
+    // cleanCreateEvent(event)
+    console.log("api post request for userCreateEvent");
     axios
       .post("http://localhost:8080/api/events", event)
       .then(() => {
@@ -20,21 +21,20 @@ export default function useUserEvents() {
         console.log(err);
       });
 
-    // both from the same call from the user
-    /*
-    Promise.all([
-      axios.post("the endpoint for the join table", owner_id), 
-      axios.post("the endpoint for the join table", event_id),
-    ])
-    .err(err => console.log(err));
-  }*/
+    axios
+      .post("http://localhost:8080/event/join", event)
+      .then(() => {
+        console.log(event);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const userEditEventSubmit = (event) => {
-    cleanEditEvent(event);
     console.log("api post request for userEditEvent");
     axios
-      .post("http://localhost:8080/api/events", event)
+      .put("http://localhost:8080/api/events", event)
       .then(() => {
         console.log(event);
       })

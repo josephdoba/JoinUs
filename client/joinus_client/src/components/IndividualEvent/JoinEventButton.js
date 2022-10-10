@@ -1,6 +1,5 @@
-import { Button, Fab, Tooltip } from "@mui/material";
+import { Button } from "@mui/material";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
-import { useState } from "react";
 import useSharedEvent from "../../hooks/useSharedEvent";
 import useSharedUser from "../../hooks/useSharedUser";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
@@ -8,8 +7,7 @@ import useUserEvents from "../../hooks/useUserEvents";
 import { useNavigate } from "react-router-dom";
 
 export default function JoinEventButton(props) {
-  const { joinedEvents, usersData, handleLeave, handleJoin, attendeelist } =
-    props;
+  const { joinedEvents, attendeelist } = props;
   const { event } = useSharedEvent();
   const { user } = useSharedUser();
   const { leaveEvent, deleteEvent, joinEvent } = useUserEvents();

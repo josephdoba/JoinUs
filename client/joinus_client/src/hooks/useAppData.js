@@ -38,6 +38,7 @@ export default function useAppData() {
       });
   }, [reload]);
 
+
   const login = (userID) => {
     fetchAPI(`user/${userID}`)
       .then((data) => {
