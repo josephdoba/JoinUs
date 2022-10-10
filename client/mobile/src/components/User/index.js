@@ -51,7 +51,7 @@ const UserScreen = ({route, navigation}) => {
 
         <Button
           title="To My Events"
-          onPress={() => navigation.navigate('AllEvents', {user, setUser})}
+          onPress={() => navigation.navigate('AllEvents', {user})}
         />
 
         <Button
