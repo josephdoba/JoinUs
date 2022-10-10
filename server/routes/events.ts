@@ -43,7 +43,7 @@ router.post("/", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 
-    
+
 });
 
 // api route for edit event

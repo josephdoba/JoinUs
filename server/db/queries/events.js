@@ -24,9 +24,6 @@ const createEvent = (eventObj) => {
     // console.log(eventObj)
     console.log(eventObj.body);
     console.log(Number(eventObj.body.eventCategory));
-    const event = `GET id FROM events WHERE name=$1`;
-    const values2 = [eventObj.body.eventName];
-    const joinOwnEvent = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
     // https://node-postgres.com/features/queries
     const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
@@ -43,11 +40,13 @@ const createEvent = (eventObj) => {
         eventObj.body.start_time,
         eventObj.body.end_time,
     ];
-    return connection_1.db.query('BEGIN', err => {
-        connection_1.db.query(createEventQuery, values);
-        const eventID = connection_1.db.query(event, values2);
-        const values3 = [eventObj.body.eventOwnerId, eventID, false];
-        connection_1.db.query(joinOwnEvent, values3);
+    return connection_1.db
+        .query(createEventQuery, values)
+        .then((data) => data.rows)
+        .then(() => console.log(values))
+        .catch((err) => {
+        console.error(err.stack);
+        console.log("Something went wrong with createEvent in events.ts");
     });
 };
 // make an update call

@@ -36,7 +36,13 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     console.log("-----------------------", req.body);
     events_1.default
-        .createEvent(req);
+        .createEvent(req)
+        .then((events) => {
+        res.json(events);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
 });
 // api route for edit event
 router.put("/", (req, res) => {
