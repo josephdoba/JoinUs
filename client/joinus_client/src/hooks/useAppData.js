@@ -69,6 +69,7 @@ export default function useAppData() {
       image: event.image,
       description: event.description,
       size_limit: event.size_limit,
+      city: event.city,
       owner_id: event.owner_id,
       category: event.category,
       lat: event.lat,

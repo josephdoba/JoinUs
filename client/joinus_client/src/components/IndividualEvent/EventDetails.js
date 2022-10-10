@@ -54,6 +54,7 @@ export default function EventDetails(props) {
         }}
       >
         <CardHeader style={{ textAlign: "center" }} />
+        {/* Moe this part is new!!! */}
         <Box>
           <Typography>
             Organizer:
@@ -66,6 +67,7 @@ export default function EventDetails(props) {
           </Typography>
         </Box>
         <Box
+          // end of organizer info
           component="img"
           sx={{
             height: 333,
@@ -81,6 +83,10 @@ export default function EventDetails(props) {
             <Typography variant="h6" m={2}>
               Details
             </Typography>
+
+            {/* @Moe THIS PART IS ALSO NEW */}
+            <Typography>City: {event.city}</Typography>
+
             <Typography variant="body1" color="text.secondary" m={2}>
               {event.description}
             </Typography>
