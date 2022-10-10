@@ -1,12 +1,15 @@
 import { Container } from "@mui/material";
+import { Box } from "@mui/system";
 import { Fragment } from "react";
 import Herobanner from "./Herobanner";
 import HowToJoin from "./HowToJoin";
 
 export default function Home() {
   return (
-    <Container maxWidth={"lg"}>
+    <Box>
+
       <Herobanner />
+    <Container maxWidth={"lg"}>
       <HowToJoin />
       
       <input
@@ -16,5 +19,6 @@ export default function Home() {
         name="label_eventImage">
       </input>
     </Container>
+          </Box>
   );
 }
