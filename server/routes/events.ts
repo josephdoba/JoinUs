@@ -5,8 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 import express from "express";
-// const express = require("express");
-// const db = require("../db/connection");
+
 import eventQueries from "../db/queries/events";
 
 const router = express.Router();
@@ -42,8 +41,6 @@ router.post("/", (req, res) => {
     .catch((err: any) => {
       res.status(500).json({ error: err.message });
     });
-
-    
 });
 
 // api route for edit event

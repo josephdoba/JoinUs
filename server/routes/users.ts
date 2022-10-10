@@ -9,7 +9,6 @@ import express from "express";
 import userQueries from "../db/queries/users";
 
 const router = express.Router();
-// const userQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
   userQueries
