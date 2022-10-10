@@ -6,14 +6,8 @@ export default function NavDisplayLogin(props) {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <ButtonGroup
-        disableElevation
-        variant="outlined"
-        aria-label="Disabled elevation buttons"
-      >
-        <Button onClick={handleClickOpen}>Log in</Button>
-        <Button onClick={() => {}}>Sign Up</Button>
-      </ButtonGroup>
+      <Button onClick={handleClickOpen}>Log in</Button>
+      <Button onClick={() => { }}>Sign Up</Button>
     </Box>
   );
 }
