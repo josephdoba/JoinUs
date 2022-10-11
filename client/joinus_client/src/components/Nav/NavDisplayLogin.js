@@ -5,9 +5,9 @@ export default function NavDisplayLogin(props) {
   const { handleClickOpen } = props;
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
-      <Button onClick={handleClickOpen}>Log in</Button>
-      <Button onClick={() => { }}>Sign Up</Button>
+    <Box  sx={{ flexGrow: 0  }}>
+      <Button variant="contained" size="small" onClick={handleClickOpen}>Log in</Button>
+      <Button variant="contained" size="small" onClick={() => { }}>Sign Up</Button>
     </Box>
   );
 }
