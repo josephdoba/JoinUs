@@ -10,7 +10,7 @@ export default function useUserEvents() {
 
   const userCreateEventSubmit = (event) => {
     // cleanCreateEvent(event)
-    console.log("api post request for userCreateEvent");
+    console.log("api post request for userCreateEvent"); 
     axios
       .post("http://localhost:8080/api/events", event)
       .then(() => {
@@ -19,11 +19,12 @@ export default function useUserEvents() {
       .catch((err) => {
         console.log(err);
       });
-
+      // when you create event, find a way to grab the event ID, before posting to the joined_events table.
+      
     axios
       .post("http://localhost:8080/event/join", event)
       .then(() => {
-        console.log(event);
+        console.log("Join from create event:", event);
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +58,7 @@ export default function useUserEvents() {
     postData("event/join", dataObj)
       .then(() => {
         setReload(reload + 1);
-        console.log(dataObj);
+        console.log("from regular join: ", dataObj);
       })
       .catch((err) => {
         console.log(err);

@@ -37,6 +37,8 @@ router.post("/", (req, res) => {
   eventQueries
     .createEvent(req)
     .then((events) => {
+      console.log("router.post: ")
+      console.log(res.json(events));
       res.json(events);
     })
     .catch((err: any) => {

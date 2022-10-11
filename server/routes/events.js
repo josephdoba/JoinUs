@@ -38,6 +38,8 @@ router.post("/", (req, res) => {
     events_1.default
         .createEvent(req)
         .then((events) => {
+        console.log("router.post: ");
+        console.log(res.json(events));
         res.json(events);
     })
         .catch((err) => {
