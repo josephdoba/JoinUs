@@ -73,8 +73,8 @@ export default function EventForm(props) {
       start_time: form.start_time,
       end_time: form.end_time,
     };
-    console.log("Form mode:");
-    console.log(formMode);
+    // console.log("Form mode:");
+    // console.log(formMode);
     if (formMode === "create") {
       userCreateEventSubmit(sendDataObj);
     } else if (formMode === "edit") {
@@ -183,7 +183,7 @@ export default function EventForm(props) {
           name="label_eventCategory"
           value={form.category}
           onChange={(event) => {
-            console.log(`${event}, event from categories list`);
+            // console.log(`${event}, event from categories list`);
             setForm((prev) => ({
               ...prev,
               category: parseInt(event.target.value),

@@ -1,20 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
 import useSharedReload from "./useSharedReload";
+import { useState } from "react";
 import { postData } from "../api/index";
 
 export default function useUserEvents() {
   const { reload, setReload } = useSharedReload();
 
   const userCreateEventSubmit = (event) => {
-    console.log("api post request for userCreateEvent"); 
+    // console.log("api post request for userCreateEvent"); 
     axios
       .post("http://localhost:8080/api/events", event)
       .then((res) => {
-        console.log("from useUserEvents res:")
-        console.log(res);
-        axios.post("http://localhost:8080/event/join", {events_id: res.data[0].id, user_id: res.data[0].owner_id, user_attendance: true })
-      })
+        const eventOwnerCreate = {events_id: res.data[0].id, user_id: res.data[0].owner_id, user_attendance: true }
+        console.log("eventOwnerCreate after created")
+        
+        axios.post("http://localhost:8080/event/join", eventOwnerCreate)
+      }) // gets sent to the then statement on line 62 in queries/events.ts
       .catch((err) => {
         console.log(err);
       });

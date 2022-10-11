@@ -60,6 +60,7 @@ const createEvent = (eventObj: IEventObject) => {
   return db
     .query(createEventQuery, values)
     .then((data) => {
+      console.log("data.rows from queries/events.ts")
       console.log(data.rows)
       return data.rows
     })
@@ -73,7 +74,7 @@ const createEvent = (eventObj: IEventObject) => {
 const editEvent = (eventObj: any) => {
   console.log("editEvent call from events.ts");
   const editEventQuery = `
-  UPDATE events
+    UPDATE events
     SET name=$2, image=$3, description=$4, size_limit=$5, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
     WHERE id=$1 AND owner_id=$6`;
 

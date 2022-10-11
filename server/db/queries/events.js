@@ -20,10 +20,6 @@ const getComments = () => {
         .catch((err) => console.error(err.stack));
 };
 const createEvent = (eventObj) => {
-    // console.log("event eventObject from queries/events.ts");
-    // // console.log(eventObj)
-    // console.log(eventObj.body);
-    // console.log(Number(eventObj.body.eventCategory));
     // https://node-postgres.com/features/queries
     const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
@@ -44,10 +40,10 @@ const createEvent = (eventObj) => {
     return connection_1.db
         .query(createEventQuery, values)
         .then((data) => {
+        console.log("data.rows from queries/events.ts");
         console.log(data.rows);
         return data.rows;
     })
-        // .then(() => console.log(values))
         .catch((err) => {
         console.error(err.stack);
         console.log("Something went wrong with createEvent in events.ts");
@@ -57,7 +53,7 @@ const createEvent = (eventObj) => {
 const editEvent = (eventObj) => {
     console.log("editEvent call from events.ts");
     const editEventQuery = `
-  UPDATE events
+    UPDATE events
     SET name=$2, image=$3, description=$4, size_limit=$5, category=$7, city=$8, lat=$9, lng=$10, start_time=$11, end_time=$12
     WHERE id=$1 AND owner_id=$6`;
     const values = [
