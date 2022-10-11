@@ -1,9 +1,3 @@
-/*
- * All routes for Widget Data are defined here
- * Since this file is loaded in server.js into api/widgets,
- *   these routes are mounted onto /api/widgets
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
 import express from "express";
 
 import eventQueries from "../db/queries/events";
@@ -55,8 +49,6 @@ router.put("/", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
-// show event from event owner based on owner_id ()
 
 // router.get("/:id", (req: any, res: any) => {
 //   eventQueries
