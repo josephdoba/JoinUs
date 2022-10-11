@@ -15,7 +15,6 @@ router.post("/join", (req, res) => {
 });
 
 // inside .joinevent
-
 router.post("/leave", (req, res) => {
   console.log(req.body);
   eventQueries

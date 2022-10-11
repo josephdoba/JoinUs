@@ -34,15 +34,13 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 import eventsRoutes from "./routes/events";
 import usersRoutes from "./routes/users";
-import eventRoute from "./routes/event";
-import commentRoute from './routes/comments';
+import commentRoute from "./routes/comments";
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", usersRoutes);
 app.use("/api/events", eventsRoutes);
-app.use("/event", eventRoute);
 app.use("/api/comments", commentRoute);
 
 // Note: mount other resources here, using the same pattern above
@@ -50,30 +48,6 @@ app.use("/api/comments", commentRoute);
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-interface Event {
-  id: number;
-  event_name: string;
-  event_image: string;
-  event_description: string;
-  owner_id: number;
-  event_latitude: number;
-  event_longitude: number;
-  event_start_time: Date | number;
-  event_end_time: Date | number;
-}
-
-// login user
-app.get("/api/user/:user_id", (req, res) => {
-  const userID = req.params.user_id;
-  usersQuery
-    .getUser(userID)
-    .then((user) => {
-      res.json(user);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-});
 
 io.on(
   "connection",

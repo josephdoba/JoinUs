@@ -11,9 +11,9 @@ import {
   Box,
 } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
-import NotInterestedIcon from "@mui/icons-material/NotInterested";
-import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
-import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
+import NotInterestedIcon from "@mui/icons-material/NotInterested"; // not interested
+import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone"; // interested in event
+import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone"; // learn more
 
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
@@ -35,8 +35,8 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    error, 
-    setError
+    error,
+    setError,
   } = props;
 
   const {
@@ -46,6 +46,7 @@ export default function EventCard(props) {
     start_time,
     end_time,
     description,
+    city,
     owner_id,
     size_limit,
   } = thisEvent;
@@ -69,7 +70,7 @@ export default function EventCard(props) {
     });
   }
 
-  // logic for join / edit / delete / leave button
+  // logic for delete / leave / join
   const processEvent = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
       deleteEvent({ event_id, user_id });
@@ -87,8 +88,8 @@ export default function EventCard(props) {
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
       if (attendeelist.length >= size_limit) {
-        setError(true)
-        return
+        setError(true);
+        return;
       }
       joinEvent(attendeelist, size_limit, { event_id, user_id });
     }
@@ -139,6 +140,8 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
+            City: {city}
+            <br />
             {formatTime(start_time, end_time)} <br />
             Category: {category.name}
           </Typography>
@@ -154,7 +157,7 @@ export default function EventCard(props) {
             <ReadMoreTwoToneIcon />
           </IconButton>
           {/* User to edit form. will pop up modal */}
-          {user.id === owner_id && showUserEvents < 3 && (
+          {user.id === owner_id && showUserEvents === 1 && (
             <IconButton onClick={(e) => setOpen(true)} size="small">
               <BorderColorTwoToneIcon />
             </IconButton>

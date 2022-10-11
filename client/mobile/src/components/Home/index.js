@@ -13,13 +13,14 @@ const HomeScreen = ({navigation}) => {
   const [userID, setUserID] = useState('');
   const {fetchUser} = useAppData();
 
-  const handleLogin = async e => {
+  const handleLogin = e => {
     e.preventDefault();
-    const user = fetchUser(userID);
-
-    setUserID('');
-    toggleOverlay();
-    await navigation.navigate('Profile', {user});
+    fetchUser(userID).then(user => {
+      console.log(user);
+      setUserID('');
+      toggleOverlay();
+      navigation.navigate('Profile', {user});
+    });
   };
 
   const toggleOverlay = () => {

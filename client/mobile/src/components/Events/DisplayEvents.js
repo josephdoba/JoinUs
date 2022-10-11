@@ -1,7 +1,12 @@
 import EventsList from './EventsList';
 import React from 'react';
-import {findEventAttendees} from '../../helpers/other_selectors';
-import {findCategoryByID} from '../../helpers/other_selectors';
+import {
+  findCategoryByID,
+  findEventAttendees,
+} from '../../helpers/other_selectors';
+
+// maps the events array that is passed in.
+
 const DisplayEvents = ({
   eventsArr,
   usersData,

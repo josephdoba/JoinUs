@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Image, ListItem, Button} from '@rneui/themed';
+import {Text, Image, Icon, ListItem, Button} from '@rneui/themed';
 import TouchableScale from 'react-native-touchable-scale';
-import {formatTime} from '../../helpers/helpers';
+import {formatTime, shortenText} from '../../helpers/helpers';
 
-const EventsList = ({navigation, event}) => {
+// display of the individual event item
+
+const EventsList = ({navigation, event, attendeelist, category}) => {
   const IMAGE_URL = event.image;
 
   return (
@@ -17,7 +19,9 @@ const EventsList = ({navigation, event}) => {
         leftContent={reset => (
           <Button
             title="Info"
-            onPress={() => navigation.navigate('Event', event)}
+            onPress={() =>
+              navigation.navigate('Event', {event, attendeelist, category})
+            }
             onPressOut={() => reset()}
             icon={{name: 'info', color: 'white'}}
             buttonStyle={{minHeight: '100%'}}
@@ -25,14 +29,25 @@ const EventsList = ({navigation, event}) => {
         )}
         rightContent={reset => (
           <Button
-            title="Delete"
+            title="Interested"
             onPress={() => reset()}
-            icon={{name: 'delete', color: 'white'}}
-            buttonStyle={{minHeight: '100%', backgroundColor: 'red'}}
+            icon={
+              <Icon
+                name="smiley"
+                type="octicon"
+                color="white"
+                size={25}
+                style={{marginRight: 5}}
+              />
+            }
+            buttonStyle={{minHeight: '100%', backgroundColor: 'orange'}}
           />
         )}>
         <ListItem.Content>
-          <ListItem.Title style={styles.title}>{event.name}</ListItem.Title>
+          <View style={styles.headerContainer}>
+            <ListItem.Title style={styles.title}> {event.name} </ListItem.Title>
+            <Text style={styles.cityText}>{event.city}</Text>
+          </View>
           <View style={styles.subtitleView}>
             <Image
               source={{
@@ -41,10 +56,10 @@ const EventsList = ({navigation, event}) => {
               style={styles.image}
             />
             <View>
-              <Text style={styles.ratingText}>
+              <Text style={styles.date}>
                 {formatTime(event.start_time, event.end_time)}
               </Text>
-              <Text style={styles.text}>{event.description}</Text>
+              <Text style={styles.text}>{shortenText(event.description)}</Text>
             </View>
           </View>
         </ListItem.Content>
@@ -65,17 +80,37 @@ const styles = StyleSheet.create({
     height: 120,
     width: 120,
   },
-  ratingText: {
-    paddingLeft: 10,
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: '',
+    width: 800,
+  },
+  cityText: {
+    paddingRight: 15,
     color: 'grey',
-    width: 250,
+    width: 120,
     fontSize: 12,
     paddingBottom: 5,
+    marginTop: 5,
+    justifyContent: 'flex-end',
+    textAlign: 'right',
+    fontWeight: 'bold',
+  },
+  date: {
+    paddingLeft: 10,
+    marginLeft: 35,
+    color: 'grey',
+    width: 120,
+    fontSize: 12,
+    paddingBottom: 5,
+    // justifyContent: '',
+    textAlign: 'center',
   },
   text: {
     paddingLeft: 10,
     color: 'grey',
-    width: 250,
+    width: 230,
     fontSize: 16,
   },
   container: {
@@ -88,6 +123,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
-    justifyContent: 'center',
+    width: 250,
   },
 });

@@ -5,8 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 import express from "express";
-// const express = require("express");
-// const db = require("../db/connection");
+
 import eventQueries from "../db/queries/events";
 
 const router = express.Router();
@@ -43,8 +42,6 @@ router.post("/", (req, res) => {
     .catch((err: any) => {
       res.status(500).json({ error: err.message });
     });
-
-
 });
 
 // api route for edit event
@@ -59,7 +56,6 @@ router.put("/", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 // show event from event owner based on owner_id ()
 
@@ -87,5 +83,39 @@ router.post("/:id", (req: any, res: any) => { // join event route
     });
 });
 */
+
+router.post("/join", (req, res) => {
+  eventQueries
+    .joinEvent(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/leave", (req, res) => {
+  console.log(req.body);
+  eventQueries
+    .leaveEvent(req)
+    .then((event) => {
+      res.json(event);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/delete", (req, res) => {
+  eventQueries
+    .deleteEvent(req)
+    .then((events) => {
+      res.json(events);
+    })
+    .catch((err: any) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 export default router;

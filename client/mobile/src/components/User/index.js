@@ -3,10 +3,7 @@ import {ImageBackground, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 
 const UserScreen = ({route, navigation}) => {
-  const theUser = route.params.user;
-  const [user, setUser] = useState(theUser);
-
-  console.log(JSON.stringify(user));
+  const user = route.params.user;
 
   return (
     <View style={styles.container}>
@@ -41,43 +38,41 @@ const UserScreen = ({route, navigation}) => {
             />
           </View>
         </View>
+
         <Divider
           style={styles.divider}
           color="#94B49F"
-          insetType="left"
+          insetType="center"
           width={2}
           orientation="horizontal"
         />
-
-        <Button
-          title="To My Events"
-          onPress={() => navigation.navigate('AllEvents', {user, setUser})}
-        />
-
-        <Button
-          title="New Event"
-          loading={false}
-          loadingProps={{size: 'small', color: 'white'}}
-          buttonStyle={styles.newButton}
-          titleStyle={{fontWeight: 'bold', fontSize: 23}}
-          containerStyle={styles.buttonContainer}
-          onPress={() => console.log('aye')}
-        />
-
-        <Button
-          title="Go To Event"
-          onPress={() => navigation.navigate('Event', {user})}
-        />
-
-        <Button
-          title="Logout"
-          loading={false}
-          loadingProps={{size: 'small', color: 'white'}}
-          buttonStyle={styles.newButton}
-          titleStyle={{fontWeight: 'bold', fontSize: 23}}
-          containerStyle={styles.buttonContainer}
-          onPress={() => console.log('aye')}
-        />
+        <View style={styles.container}>
+          <Button
+            title="My Events"
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.newButton}
+            titleStyle={styles.buttonTitle}
+            onPress={() => navigation.navigate('AllEvents', {user})}
+          />
+          <Button
+            title="New Event"
+            loading={false}
+            loadingProps={{size: 'small', color: 'white'}}
+            buttonStyle={styles.newButton}
+            titleStyle={styles.buttonTitle}
+            containerStyle={styles.buttonContainer}
+            onPress={() => console.log('aye')}
+          />
+          <Button
+            title="Logout"
+            loading={false}
+            loadingProps={{size: 'small', color: 'white'}}
+            buttonStyle={styles.newButton}
+            titleStyle={styles.buttonTitle}
+            containerStyle={styles.buttonContainer}
+            onPress={() => console.log('aye')}
+          />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -100,14 +95,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
   },
   header: {
-    fontSize: 32,
+    fontSize: 28,
     marginTop: 30,
+    marginBottom: 15,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   divider: {
     width: '80%',
     margin: 20,
+    marginLeft: 35,
   },
   editButton: {
     backgroundColor: 'rgba(199, 43, 98, 1)',
@@ -124,10 +121,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(111, 202, 186, 1)',
     borderRadius: 5,
   },
+  buttonTitle: {
+    fontWeight: 'bold',
+    fontSize: 23,
+  },
   buttonContainer: {
-    marginHorizontal: 100,
+    marginHorizontal: 40,
     height: 50,
-    width: 200,
+    width: 300,
     marginVertical: 10,
   },
 });

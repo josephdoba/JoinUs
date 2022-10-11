@@ -80,6 +80,7 @@ const editEvent = (eventObj) => {
         .then((data) => data.rows)
         .catch((err) => console.error(err.stack)));
 };
+// leave event - remove from joined_users table
 const leaveEvent = (dataObj) => {
     const leaveEventQuery = `DELETE FROM joined_events WHERE user_id=$1 AND event_id=$2;`;
     const values = [dataObj.body.user_id, dataObj.body.event_id];
@@ -91,6 +92,7 @@ const leaveEvent = (dataObj) => {
         console.log("Something went wrong with leaveEvent in events.ts");
     });
 };
+// add to joined_users table
 const joinEvent = (dataObj) => {
     const joinEventQuery = `INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES ($1, $2, $3);`;
     const values = [dataObj.body.user_id, dataObj.body.event_id, false];

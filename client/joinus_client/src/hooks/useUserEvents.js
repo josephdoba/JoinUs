@@ -33,7 +33,7 @@ export default function useUserEvents() {
   };
 
   const leaveEvent = (dataObj) => {
-    postData("event/leave", dataObj)
+    postData("events/leave", dataObj)
       .then(() => {
         console.log(dataObj);
         setReload(reload + 1);
@@ -44,7 +44,7 @@ export default function useUserEvents() {
   };
 
   const joinEvent = (attendeelist, size_limit, dataObj) => {
-    postData("event/join", dataObj)
+    postData("events/join", dataObj)
       .then(() => {
         setReload(reload + 1);
         console.log("from regular join: ", dataObj);
@@ -57,7 +57,7 @@ export default function useUserEvents() {
   const deleteEvent = (dataObj) => {
     let answer = prompt("Are you sure you want to delete? type yes or no");
     if (answer === "yes" || answer === "Yes") {
-      postData(`event/delete`, dataObj)
+      postData(`events/delete`, dataObj)
         .then(() => {
           setReload(reload + 1);
           console.log(dataObj);
