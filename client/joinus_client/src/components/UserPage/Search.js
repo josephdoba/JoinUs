@@ -52,7 +52,9 @@ export default function Search({ setForm, form, setSelected, selected }) {
         placeholder="Address"
         // style={{  position: 'relative', width: 300, maxWidth: "90%" }}
 
-        style={FormBoxStyles}
+        sx={
+          {font: "Roboto"}
+        }
       />
       <ComboboxPopover
       style={{zIndex: '2000'}}
