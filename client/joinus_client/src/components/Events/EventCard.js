@@ -21,6 +21,7 @@ import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
 import useUserEvents from "../../hooks/useUserEvents";
 import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
+import DeleteConfirm from "./DeleteConfirm";
 
 import useAppData from "../../hooks/useAppData";
 import EventForm from "../UserPage/EventForm";
@@ -59,6 +60,8 @@ export default function EventCard(props) {
 
   const [open, setOpen] = useState(false);
 
+  const [confirm, setConfirm] = useState(false);
+
   //original
   const { findEventByID } = useAppData();
 
@@ -75,7 +78,8 @@ export default function EventCard(props) {
   // logic for delete / leave / join
   const processEvent = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
-      deleteEvent({ event_id, user_id });
+      //deleteEvent({ event_id, owner_id });
+      setConfirm(true);
     }
     if (
       user_id !== owner_id &&
@@ -210,6 +214,7 @@ export default function EventCard(props) {
             size_limit={size_limit}
           />
         </CardActions>
+        <DeleteConfirm confirm={confirm} setConfirm={setConfirm} deleteEvent={deleteEvent} event_id={id} owner_id={owner_id}/>
       </Card>
     </Box>
   );
