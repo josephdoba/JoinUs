@@ -34,12 +34,11 @@ router.get("/", (req, res) => {
 });
 // api route for create event
 router.post("/", (req, res) => {
-    console.log("-----------------------", req.body);
+    // console.log("-----------------------", req.body)
     events_1.default
         .createEvent(req)
         .then((events) => {
-        console.log("router.post: ");
-        console.log(res.json(events));
+        // console.log(events);
         res.json(events);
     })
         .catch((err) => {
@@ -48,7 +47,7 @@ router.post("/", (req, res) => {
 });
 // api route for edit event
 router.put("/", (req, res) => {
-    console.log("-----------------------", req.body);
+    // console.log("-----------------------", req.body)
     events_1.default
         .editEvent(req)
         .then((events) => {

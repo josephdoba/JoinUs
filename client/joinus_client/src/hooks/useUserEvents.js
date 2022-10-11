@@ -5,7 +5,7 @@ import cleanEvent from "./cleanEvent";
 import { postData } from "../api/index";
 
 export default function useUserEvents() {
-  const { cleanCreateEvent, cleanEditEvent } = cleanEvent();
+  // const { cleanCreateEvent, cleanEditEvent } = cleanEvent();
   const { reload, setReload } = useSharedReload();
 
   const userCreateEventSubmit = (event) => {
@@ -13,22 +13,17 @@ export default function useUserEvents() {
     console.log("api post request for userCreateEvent"); 
     axios
       .post("http://localhost:8080/api/events", event)
-      .then(() => {
-        console.log("post complete!");
+      .then((res) => {
+        console.log("from useUserEvents res:")
+        console.log(res);
+        axios.post("http://localhost:8080/event/join", res.data[0])
       })
       .catch((err) => {
         console.log(err);
       });
       // when you create event, find a way to grab the event ID, before posting to the joined_events table.
       
-    axios
-      .post("http://localhost:8080/event/join", event)
-      .then(() => {
-        console.log("Join from create event:", event);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
   };
 
   const userEditEventSubmit = (event) => {
