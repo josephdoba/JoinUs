@@ -8,26 +8,61 @@ import Nav from "./Nav/Nav";
 import IndividualEvent from "./IndividualEvent";
 import useAppData from "../hooks/useAppData";
 
-import { Box } from "@mui/material";
+import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 export const ThemeContext = createContext(null);
 
 const App = function () {
+
+  const [mode, setMode] = useState("light")
+  const darkTheme = createTheme({
+    palette: {
+      mode,
+      ...(mode === 'light'
+        ? {
+          // palette values for light mode
+          mode: 'light',
+          primary: {
+            main: '#ffac33',
+          },
+          secondary: {
+            main: '#f50057',
+          },
+          background: {
+            default: '#fdf3e4',
+          },
+        }
+        : {
+          // palette values for dark mode
+          mode: 'dark',
+          primary: {
+            main: '#ffac33',
+          },
+          secondary: {
+            main: '#f50057',
+          },
+          background: {
+            default: '#424242',
+          },
+        }),
+    },
+  });
+
   const { eventsData, usersData, categoriesData, joinedEvents, login, logout } =
     useAppData();
-  const [theme, setTheme] = useState("light");
+
 
   const [open, setOpen] = useState(false); // for the form. do not change
-  const [error, setError ] = useState(false);
+  const [error, setError] = useState(false);
 
   // https://www.digitalocean.com/community/tutorials/how-to-handle-routing-in-react-apps-with-react-router#:~:text=That%20also%20means%20that%20order%20is%20important
 
   return (
-    <Router>
-      <ThemeContext.Provider value={{ theme }}>
-        <Box id={theme}>
+    <ThemeProvider theme={darkTheme}>
+      <Router>
+
+        <Box bgcolor={"background.default"} color={"text.primary"}>
           <Nav
-            theme={theme}
             usersData={usersData}
             login={login}
             logout={logout}
@@ -47,6 +82,8 @@ const App = function () {
               path="/user"
               element={
                 <Userpage
+                  setMode={setMode}
+                  mode={mode}
                   joinedEvents={joinedEvents}
                   eventsData={eventsData}
                   usersData={usersData}
@@ -73,8 +110,9 @@ const App = function () {
             />
           </Routes>
         </Box>
-      </ThemeContext.Provider>
-    </Router>
+
+      </Router>
+    </ThemeProvider>
   );
 };
 
