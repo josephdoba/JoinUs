@@ -5,8 +5,8 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 
 const mapContainerStyle = {
   marginTop: "20px",
-  width: "400px",
-  height: "400px",
+  width: "450px",
+  height: "333px",
 };
 
 export default function MapComponent(props) {
