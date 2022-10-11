@@ -32,7 +32,6 @@ export default function useAppData() {
   const fetchUser = userID => {
     return fetchAPI(`users/${userID}`)
       .then(data => {
-        console.log(`data in fetchuser ${data.data}`);
         const u = data.data[0];
         setUser({
           id: u.id,
@@ -47,6 +46,8 @@ export default function useAppData() {
         console.log(err);
       });
   };
+
+  console.log(`user in useAppData ${JSON.stringify(user)}`);
 
   return {
     eventsData,

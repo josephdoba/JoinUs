@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ListItem, Avatar} from '@rneui/base';
 
 const DATA = [
@@ -42,7 +34,7 @@ const DATA = [
 const HowTo = () => {
   return DATA.map(item => {
     return (
-      <ListItem key={item.id} containerStyle={{backgroundColor: '#FBFBFF'}}>
+      <ListItem key={item.id} containerStyle={{backgroundColor: '#fdf3e4'}}>
         <Avatar source={item.image} style={styles.imageSize} />
         <ListItem.Content style={styles.content}>
           <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
@@ -66,10 +58,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
   },
-  // sectionContainer: {
-  //   color: '#FBFBFF',
-  //   position: 'relative',
-  // },
+
   title: {
     fontWeight: 'bold',
     fontSize: 18,

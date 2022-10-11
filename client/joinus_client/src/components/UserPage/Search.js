@@ -42,24 +42,17 @@ export default function Search({ setForm, form, setSelected, selected }) {
     <Combobox onSelect={handleSelect}>
       <ComboboxInput
         value={value}
-        onChange={e => {
-          setValue(e.target.value)
+        onChange={(e) => {
+          setValue(e.target.value);
           // setForm(prev => ({ ...form, lat: selected.lat, lng: selected.lng }))
-          
         }}
         disabled={!ready}
         className="combobox-input"
         placeholder="Address"
-        // style={{  position: 'relative', width: 300, maxWidth: "90%" }}
-
-        sx={
-          {font: "Roboto"}
-        }
+        style={combobox}
       />
-      <ComboboxPopover
-      style={{zIndex: '2000'}}
-      >
-        <ComboboxList >
+      <ComboboxPopover style={popover}>
+        <ComboboxList>
           {status === "OK" &&
             data.map(({ place_id, description }) => (
               <ComboboxOption key={place_id} value={description} />
@@ -69,3 +62,22 @@ export default function Search({ setForm, form, setSelected, selected }) {
     </Combobox>
   );
 }
+
+const combobox = {
+  position: "relative",
+  width: 492,
+  height: 50,
+  maxWidth: "100%",
+  fontSize: "100%",
+  borderRadius: 5,
+  border: "1px solid #BDBDBD",
+};
+
+const popover = {
+  zIndex: "2000",
+  borderBottomLeftRadius: 5,
+  borderBottomRightRadius: 5,
+  border: "1px solid #BDBDBD",
+  borderTop: "none",
+  fontSize: "100%",
+};

@@ -80,8 +80,8 @@ export default function Nav(props) {
 
   return (
     <AppBar
-      position="sticky"
-      style={{ background: "#f1d7b1", boxShadow: "none" }}
+      position="stick"
+      style={{ background: "#ffac33", boxShadow: "none" }}
     >
       <Container maxWidth="100%">
         <Toolbar disableGutters>
@@ -95,7 +95,7 @@ export default function Nav(props) {
               display: { xs: "none", md: "flex" },
             }}
           >
-            <Avatar sx={{ width: 80, height: 80 }} alt="Logo" src={logo} />
+            <Avatar sx={{ width: 60, height: 60 }} alt="Logo" src={logo} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

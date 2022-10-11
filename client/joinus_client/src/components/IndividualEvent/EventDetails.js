@@ -25,8 +25,8 @@ export default function EventDetails(props) {
   // for avatar list pop up
   const [openAttendee, setOpenAttendee] = useState(false);
 
-  const eventOwner = owner(attendeelist, event);
-  console.log(owner(attendeelist, event));
+  const eventOwner = owner(usersData, event);
+  console.log(owner(usersData, event));
 
   const handleClickOpen = () => {
     setOpenAttendee(true);
@@ -50,22 +50,10 @@ export default function EventDetails(props) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          margin: 2,
+
         }}
       >
         <CardHeader style={{ textAlign: "center" }} />
-        {/* Moe this part is new!!! */}
-        <Box>
-          <Typography>
-            Organizer:
-            <Avatar
-              alt={eventOwner.name}
-              src={eventOwner.picture}
-              sx={{ width: 56, height: 56 }}
-            />
-            {eventOwner.name}
-          </Typography>
-        </Box>
         <Box
           // end of organizer info
           component="img"
@@ -80,12 +68,27 @@ export default function EventDetails(props) {
         />
         <Box>
           <Box>
+            <Box sx={{
+              display: "flex",
+              justifyContent: "center",
+              m: 1,
+              alignItems: "center",
+            }}>
+              <Avatar
+                alt={eventOwner.name}
+                src={eventOwner.picture}
+                sx={{ width: 26, height: 26, marginRight: 1 }}
+              />
+              <Typography variant="overline" display="block" >
+                Organizer: {eventOwner.name}
+              </Typography>
+
+            </Box>
+
             <Typography variant="h6" m={2}>
               Details
             </Typography>
 
-            {/* @Moe THIS PART IS ALSO NEW */}
-            <Typography>City: {event.city}</Typography>
 
             <Typography variant="body1" color="text.secondary" m={2}>
               {event.description}

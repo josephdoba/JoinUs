@@ -9,7 +9,9 @@ import {
   CardContent,
   Button,
   Box,
+  Tooltip,
 } from "@mui/material";
+import moment from "moment";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested"; // not interested
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone"; // interested in event
@@ -97,21 +99,33 @@ export default function EventCard(props) {
 
   const getButton = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
-      return <DeleteForeverTwoToneIcon />;
+      return (
+        <Tooltip title="Delete Event">
+          <DeleteForeverTwoToneIcon />
+        </Tooltip>
+      )
     }
     if (
       user_id !== owner_id &&
       showUserEvents !== 1 &&
       checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return <NotInterestedIcon />;
+      return (
+        <Tooltip title="Not Interested">
+          <NotInterestedIcon />
+        </Tooltip>
+      )
     }
     if (
       user_id !== owner_id &&
       showUserEvents !== 1 &&
       !checkIfJoinedEvent(user.id, id, joinedEvents)
     ) {
-      return <AddReactionTwoToneIcon />;
+      return (
+        <Tooltip title="Interested">
+          <AddReactionTwoToneIcon />
+        </Tooltip>
+      )
     }
   };
   // end of logic for buttons
@@ -140,9 +154,10 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-            City: {city}
+            
+            {formatTime(start_time, end_time)} 
             <br />
-            {formatTime(start_time, end_time)} <br />
+            City: {city}
             Category: {category.name}
           </Typography>
           <Typography variant="paragraph">
@@ -152,10 +167,16 @@ export default function EventCard(props) {
 
         {/* Learn More */}
 
-        <CardActions>
-          <IconButton onClick={submitHandler} size="small">
-            <ReadMoreTwoToneIcon />
-          </IconButton>
+        <CardActions sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}>
+          <Tooltip title="Learn More">
+            <IconButton onClick={submitHandler} size="small">
+              <ReadMoreTwoToneIcon />
+            </IconButton>
+          </Tooltip>
           {/* User to edit form. will pop up modal */}
           {user.id === owner_id && showUserEvents === 1 && (
             <IconButton onClick={(e) => setOpen(true)} size="small">

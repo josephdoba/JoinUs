@@ -40,7 +40,7 @@ const EventsList = ({navigation, event, attendeelist, category}) => {
                 style={{marginRight: 5}}
               />
             }
-            buttonStyle={{minHeight: '100%', backgroundColor: 'orange'}}
+            buttonStyle={{minHeight: '100%', backgroundColor: '#ffac33'}}
           />
         )}>
         <ListItem.Content>
