@@ -11,9 +11,9 @@ import {
   Box,
 } from "@mui/material";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
-import NotInterestedIcon from "@mui/icons-material/NotInterested";
-import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone";
-import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone";
+import NotInterestedIcon from "@mui/icons-material/NotInterested"; // not interested
+import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone"; // interested in event
+import ReadMoreTwoToneIcon from "@mui/icons-material/ReadMoreTwoTone"; // learn more
 
 import { formatTime, shortenText } from "../../helpers/helpers";
 import AttendeeNumDisplay from "./AttendeeNumDisplay";
@@ -70,7 +70,7 @@ export default function EventCard(props) {
     });
   }
 
-  // logic for join / edit / delete / leave button
+  // logic for delete / leave / join
   const processEvent = (event_id, user_id) => {
     if (user_id === owner_id && showUserEvents === 1) {
       deleteEvent({ event_id, user_id });
@@ -157,7 +157,7 @@ export default function EventCard(props) {
             <ReadMoreTwoToneIcon />
           </IconButton>
           {/* User to edit form. will pop up modal */}
-          {user.id === owner_id && showUserEvents < 3 && (
+          {user.id === owner_id && showUserEvents === 1 && (
             <IconButton onClick={(e) => setOpen(true)} size="small">
               <BorderColorTwoToneIcon />
             </IconButton>
