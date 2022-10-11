@@ -11,10 +11,22 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { formatTime } from "../../helpers/helpers";
 import Address from "./Address";
 import useSharedEvent from "../../hooks/useSharedEvent";
+import { useState } from "react";
+import TimePopover from "./TimePopover";
 
 export default function EventMapDetails(props) {
   const { handleClick } = props;
   const { event } = useSharedEvent();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClickTime = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseTime = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <List
@@ -26,7 +38,7 @@ export default function EventMapDetails(props) {
     >
       <ListItem>
         <ListItemAvatar>
-          <IconButton fontSize="medium" onClick={handleClick}>
+          <IconButton fontSize="32" onClick={handleClick}>
             <PersonPinCircleTwoToneIcon />
           </IconButton>
         </ListItemAvatar>
@@ -36,14 +48,17 @@ export default function EventMapDetails(props) {
         />
       </ListItem>
       <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <AccessTimeFilledIcon />
-          </Avatar>
-        </ListItemAvatar>
+        <IconButton fontSize="32" onClick={handleClickTime}>
+          <AccessTimeFilledIcon />
+        </IconButton>
         <ListItemText
           primaryTypographyProps={{ fontSize: "12px" }}
           primary={formatTime(event.start_time, event.end_time)}
+        />
+        <TimePopover
+          handleCloseTime={handleCloseTime}
+          anchorEl={anchorEl}
+          start={event.start_time}
         />
       </ListItem>
     </List>
