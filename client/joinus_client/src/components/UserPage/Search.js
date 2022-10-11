@@ -12,6 +12,14 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 
+const FormBoxStyles = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  "& > :not(style)": { m: 1, width: "100%" },
+};
+
 export default function Search({ setForm, form, setSelected, selected }) {
   const {
     ready,
@@ -42,7 +50,9 @@ export default function Search({ setForm, form, setSelected, selected }) {
         disabled={!ready}
         className="combobox-input"
         placeholder="Address"
-        style={{  position: 'relative', width: 300, maxWidth: "90%" }}
+        // style={{  position: 'relative', width: 300, maxWidth: "90%" }}
+
+        style={FormBoxStyles}
       />
       <ComboboxPopover
       style={{zIndex: '2000'}}

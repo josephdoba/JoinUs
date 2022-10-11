@@ -134,6 +134,12 @@ export default function EventForm(props) {
               setForm((prev) => ({ ...prev, city: event.target.value }))
             }
           />
+          <Search
+          selected={selected}
+          setSelected={setSelected}
+          form={form}
+          setForm={setForm}
+        />
           <TextField
             required
             id="standard-basic"
@@ -227,12 +233,7 @@ export default function EventForm(props) {
             {formMode === "create" ? "Create" : "Submit"}
           </Button>
         </Stack>
-        <Search
-          selected={selected}
-          setSelected={setSelected}
-          form={form}
-          setForm={setForm}
-        />
+        
       </Box>
     </Modal>
   );
