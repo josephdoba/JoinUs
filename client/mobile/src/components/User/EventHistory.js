@@ -1,4 +1,3 @@
-import {Button, Text} from '@rneui/base';
 import React from 'react';
 import {ScrollView} from 'react-native';
 import useAppData from '../../hooks/useAppData';
