@@ -5,8 +5,8 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 
 const mapContainerStyle = {
   marginTop: "20px",
-  width: "400px",
-  height: "400px",
+  width: "450px",
+  height: "333px",
 };
 
 export default function MapComponent(props) {
@@ -42,7 +42,7 @@ export default function MapComponent(props) {
     }}>
 
       <GoogleMap
-        zoom={10}
+        zoom={12}
         center={center ? center : userCoords} // set center to event location, or user's location
         mapContainerStyle={mapContainerStyle}
         options={{
