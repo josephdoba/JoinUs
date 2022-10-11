@@ -22,9 +22,13 @@ export default function EventMapDetails(props) {
   // }));
 
   return (
-    <List sx={{
-      width: "100%", maxWidth: "100%", display: "flex"
-    }}>
+    <List
+      sx={{
+        width: "100%",
+        maxWidth: "100%",
+        display: "flex",
+      }}
+    >
       <ListItem>
         <ListItemAvatar>
           <IconButton fontSize="medium" onClick={handleClick}>

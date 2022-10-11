@@ -25,8 +25,8 @@ export default function EventDetails(props) {
   // for avatar list pop up
   const [openAttendee, setOpenAttendee] = useState(false);
 
-  const eventOwner = owner(attendeelist, event);
-  console.log(owner(attendeelist, event));
+  const eventOwner = owner(usersData, event);
+  console.log(owner(usersData, event));
 
   const handleClickOpen = () => {
     setOpenAttendee(true);

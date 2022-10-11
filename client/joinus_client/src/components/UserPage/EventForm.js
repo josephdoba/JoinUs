@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import useUserEvents from "../../hooks/useUserEvents";
-import useAppData from "../../hooks/useAppData";
+import moment from "moment";
 import CategoriesList from "./CategoriesList";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -36,8 +38,7 @@ export default function EventForm(props) {
 
   // For Lat lng
   const [selected, setSelected] = useState({ lat: null, lng: null });
-  // console.log(`${selected.lat}, ${selected.lng}`)
-
+  console.log(moment("2022-10-11T17:03:57.765Z"));
   useEffect(() => {
     setForm((prev) => ({ ...form, lat: selected.lat, lng: selected.lng }));
   }, []);
@@ -56,6 +57,8 @@ export default function EventForm(props) {
     start_time: eventData ? eventData.start_time : "",
     end_time: eventData ? eventData.end_time : "",
   });
+
+  console.log(`log in form ${form.start_time}`);
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -109,26 +112,24 @@ export default function EventForm(props) {
         <Typography variant="h6" color="gray" textAlign="center">
           {formMode === "create" ? "Create New Event" : "Edit Event"}
         </Typography>
-
         <TextField
           required
           id="standard-basic"
           label="Event Name"
           variant="standard"
-          name="label_eventName"
+          name="Event Name"
           value={form.name}
           onChange={(event) =>
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
         />
-
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <TextField
             required
             id="standard-basic"
             label="City"
             variant="standard"
-            name="label_eventCity"
+            name="City"
             value={form.city}
             onChange={(event) =>
               setForm((prev) => ({ ...prev, city: event.target.value }))
@@ -139,44 +140,54 @@ export default function EventForm(props) {
             id="standard-basic"
             label="Party Limit"
             variant="standard"
-            name="label_sizeLimit"
+            name="Party Limit"
             value={form.size_limit}
             onChange={(event) =>
               setForm((prev) => ({ ...prev, size_limit: event.target.value }))
             }
           />
         </Stack>
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            required
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          {/* <DateTimePicker
             label="Start Time"
-            renderInput={(params) => <TextField {...params} />}
             value={form.start_time}
             onChange={(event) =>
-              setForm((prev) => ({
-                ...prev,
-                start_time: dayjs(event.$d.toUTCString()),
-              }))
+              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
             }
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
+
+          <TimePicker
+            label="Start Time"
+            value={form.start_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+        <LocalizationProvider dateAdapter={AdapterMoment}>
           <TimePicker
-            required
             label="End Time"
             value={form.end_time}
-            renderInput={(params) => <TextField {...params} />}
             onChange={(event) =>
-              setForm((prev) => ({
-                ...prev,
-                end_time: dayjs(event.$d.toUTCString()),
-              }))
+              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
             }
+            renderInput={(params) => <TextField {...params} />}
           />
-        </LocalizationProvider>
 
+          {/* <DateTimePicker
+            label="End Time"
+            value={form.end_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
+        </LocalizationProvider>
         <CategoriesList
           required
           categories={categoriesData}
@@ -190,7 +201,6 @@ export default function EventForm(props) {
             }));
           }}
         />
-
         <TextField
           required
           id="outlined-textarea"
@@ -204,7 +214,6 @@ export default function EventForm(props) {
             setForm((prev) => ({ ...prev, description: event.target.value }))
           }
         />
-
         <TextField
           required
           id="outlined-textarea"
@@ -218,7 +227,6 @@ export default function EventForm(props) {
             setForm((prev) => ({ ...prev, image: event.target.value }))
           }
         />
-
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button onClick={(e) => handleCancelClick(e)} variant="outlined">
             Cancel
