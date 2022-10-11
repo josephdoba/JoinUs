@@ -6,7 +6,7 @@ import {formatTime, shortenText} from '../../helpers/helpers';
 
 // display of the individual event item
 
-const EventsList = ({navigation, event}) => {
+const EventsList = ({navigation, event, attendeelist, category}) => {
   const IMAGE_URL = event.image;
 
   return (
@@ -19,7 +19,9 @@ const EventsList = ({navigation, event}) => {
         leftContent={reset => (
           <Button
             title="Info"
-            onPress={() => navigation.navigate('Event', event)}
+            onPress={() =>
+              navigation.navigate('Event', {event, attendeelist, category})
+            }
             onPressOut={() => reset()}
             icon={{name: 'info', color: 'white'}}
             buttonStyle={{minHeight: '100%'}}
@@ -122,6 +124,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     width: 250,
-    // textAlign: 'center',
   },
 });
