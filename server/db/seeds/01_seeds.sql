@@ -2,15 +2,15 @@
 INSERT INTO users (name, age, gender, picture) VALUES 
 ('Lawrence Barker', 24, 'male', 'https://cdn-icons-png.flaticon.com/128/4333/4333609.png'),
 ('Ashley Ketchup',28, 'female', 'https://cdn-icons-png.flaticon.com/128/4140/4140047.png'),
-('Shauna Benton', 18, 'male', 'https://cdn-icons-png.flaticon.com/128/3940/3940403.png'),
+('Shauna Benton', 18, 'female', 'https://cdn-icons-png.flaticon.com/128/3940/3940403.png'),
 ('Millicent Sawyer', 37, 'female', 'https://cdn-icons-png.flaticon.com/128/921/921124.png'),
 ('Richard Kim', 32, 'male','https://cdn-icons-png.flaticon.com/128/2202/2202112.png'),
 ('Sadie Carrillo', 22, 'male', 'https://cdn-icons-png.flaticon.com/128/219/219969.png'),
-('Geraldo Haley', 30, 'male', 'https://cdn-icons-png.flaticon.com/512/892/892785.png'),
+('Katie Haley', 30, 'female', 'https://cdn-icons-png.flaticon.com/512/892/892785.png'),
 ('Celeste Archer', 20, 'female', 'https://cdn-icons-png.flaticon.com/128/706/706830.png'),
 ('Garry Mcclure', 16, 'male', 'https://cdn-icons-png.flaticon.com/128/366/366343.png'),
 ('Philip Macias', 18, 'male', 'https://cdn-icons-png.flaticon.com/128/145/145843.png'),
-('Millie Jones', 24, 'female', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
+('Jennifer Aniston', 24, 'female', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
 ('Timothy Horton', 32, 'male', 'https://cdn-icons-png.flaticon.com/128/1785/1785896.png'),
 ('Olivia Maynard', 27, 'female', 'https://cdn-icons-png.flaticon.com/128/1081/1081055.png');
 
@@ -67,7 +67,13 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ci
 
 ('Sushi Time', 'https://www.readersdigest.ca/wp-content/uploads/2011/11/japanese-sushi-rolls-scaled.jpg', 'I see you too are a person of culture. Lets get Sushi!', 6, 3, 1, 'Vancouver', 49.276778603471904, -123.125723820729, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'Come eat the finest Steak chops with us!', 8, 8, 1, 'Calgary', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
+('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'Come eat the finest Steak chops with us!', 8, 8, 1, 'Calgary', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+
+('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 3, 1, 'Victoria', 48.44496184753853, -123.36704924925516, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+
+('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 2, 'Victoria', 48.43832292517139, -123.36703305511062, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+
+('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 2, 'Victoria', 48.4369531023204, -123.3630174847849, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
@@ -113,9 +119,15 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 
 INSERT INTO comments(user_id, event_id, name, message) VALUES
 (5, 3, 'J-Wings', 'I love this event so much!'),
-(1, 1, 'Alice', 'Great event'),
-(6, 4, 'Boris', 'What time we meeting?'),
-(3, 7, 'Mike', 'I love this place!'),
-(3, 3, 'Michael', 'Where can I park?'),
-(8, 5, 'Jennifer Aniston', 'Awesome guys!'),
-(2, 4, 'Bo', 'see you soon Katie');
+(1, 1, 'Lawrence', 'Stoked to meet you both. See you soon!'),
+(1, 1, 'Ashley', 'This looks like fun!'),
+(6, 4, 'Shauna', 'What time we meeting?'),
+(3, 7, 'Millicent', 'I think I forgot my car keys, can someone check for me?'),
+(3, 3, 'Richard', 'Where can I park?'),
+(8, 5, 'Sadie', 'Awesome guys!'),
+(2, 4, 'Celeste', 'See you soon Katie!'),
+(2, 4, 'Garry', 'Outside with a blue shirt. See you soon!'),
+(2, 5, 'Philip', 'I quite like the food here'),
+(1, 4, 'Jennifer', 'One of us'),
+(2, 6, 'Timothy', 'One of us'),
+(6, 1, 'Katie', 'Sounds good, can I bring a friend?');
