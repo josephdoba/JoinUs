@@ -69,11 +69,11 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ci
 
 ('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'Come eat the finest Steak chops with us!', 8, 8, 1, 'Calgary', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 3, 1, 'Smallville', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 3, 1, 'Victoria', 48.44496184753853, -123.36704924925516, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 2, 'Smallville', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 2, 'Victoria', 48.43832292517139, -123.36703305511062, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 2, 'Smallville', 50.0943441322179, -79.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
+('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 2, 'Victoria', 48.4369531023204, -123.3630174847849, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
