@@ -21,9 +21,6 @@ export default function EventForm(props) {
   const { user } = useSharedUser();
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
 
-  // console.log("From eventForm.js")
-  // console.log(eventData)
-
   // Stuff for image processing... might still need this
   const imageRef = useRef(null);
   // https://reactjs.org/docs/hooks-reference.html#useref
@@ -38,7 +35,7 @@ export default function EventForm(props) {
 
   // For Lat lng
   const [selected, setSelected] = useState({ lat: null, lng: null });
-  console.log(moment("2022-10-11T17:03:57.765Z"));
+
   useEffect(() => {
     setForm((prev) => ({ ...form, lat: selected.lat, lng: selected.lng }));
   }, []);
@@ -147,8 +144,16 @@ export default function EventForm(props) {
             }
           />
         </Stack>
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+
+        <Search
+          selected={selected}
+          setSelected={setSelected}
+          form={form}
+          setForm={setForm}
+        />
+
         <LocalizationProvider dateAdapter={AdapterMoment}>
+          {/* if we want to let them pick date as well */}
           {/* <DateTimePicker
             label="Start Time"
             value={form.start_time}
@@ -168,7 +173,6 @@ export default function EventForm(props) {
           />
         </LocalizationProvider>
 
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <TimePicker
             label="End Time"
@@ -179,6 +183,7 @@ export default function EventForm(props) {
             renderInput={(params) => <TextField {...params} />}
           />
 
+          {/* if we want to let them pick date as well */}
           {/* <DateTimePicker
             label="End Time"
             value={form.end_time}
@@ -235,12 +240,6 @@ export default function EventForm(props) {
             {formMode === "create" ? "Create" : "Submit"}
           </Button>
         </Stack>
-        <Search
-          selected={selected}
-          setSelected={setSelected}
-          form={form}
-          setForm={setForm}
-        />
       </Box>
     </Modal>
   );
