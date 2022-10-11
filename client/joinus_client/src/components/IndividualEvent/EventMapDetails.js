@@ -15,11 +15,6 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 export default function EventMapDetails(props) {
   const { handleClick } = props;
   const { event } = useSharedEvent();
-  // const ListItemText = styled("ListItemText")(({ theme }) => ({
-  //   listItemText:{
-  //     fontSize:'10px',//Insert your required size
-  //   }
-  // }));
 
   return (
     <List

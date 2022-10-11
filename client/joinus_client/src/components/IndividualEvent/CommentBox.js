@@ -58,8 +58,6 @@ export default function CommentBox(props) {
 
   let showComments = displayComments(comments);
 
-  // Carmen: @Kyler I did not touch the user comment box...looks complicated...
-
   async function handleAddComment(e) {
     if (
       e.target[0].value &&
