@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 //import "./commentBox.scss";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import SingleComment from "./SingleComment";
 import useUserEvents from "../../hooks/useUserEvents";
 import { checkIfUserJoinedSingleEvent } from "../../helpers/event_selectors";
@@ -57,8 +56,6 @@ export default function CommentBox(props) {
   };
 
   let showComments = displayComments(comments);
-
-  // Carmen: @Kyler I did not touch the user comment box...looks complicated...
 
   async function handleAddComment(e) {
     if (
