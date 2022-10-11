@@ -57,32 +57,33 @@ export default function EventForm(props) {
 
   console.log(`log in form ${form.start_time}`);
 
-  const submitForm = (event) => {
-    event.preventDefault();
-    const sendDataObj = {
-      eventId: eventData ? eventData.id : null,
-      eventName: form.name,
-      eventImage: form.image,
-      eventDescription: form.description,
-      eventSizeLimit: form.size_limit,
-      eventOwnerId: user.id,
-      eventCategory: form.category,
-      eventCity: form.city,
-      lat: selected.lat,
-      lng: selected.lng,
-      start_time: form.start_time,
-      end_time: form.end_time,
-    };
+  const dataObj = {
+    eventId: eventData ? eventData.id : null,
+    eventName: form.name,
+    eventImage: form.image,
+    eventDescription: form.description,
+    eventSizeLimit: form.size_limit,
+    eventOwnerId: user.id,
+    eventCategory: form.category,
+    eventCity: form.city,
+    lat: selected.lat,
+    lng: selected.lng,
+    start_time: form.start_time,
+    end_time: form.end_time,
+  };
+
+  const submitForm = (dataObj) => {
     console.log("Form mode:");
     console.log(formMode);
     if (formMode === "create") {
-      userCreateEventSubmit(sendDataObj);
+      userCreateEventSubmit(dataObj);
     } else if (formMode === "edit") {
-      userEditEventSubmit(sendDataObj);
+      userEditEventSubmit(dataObj);
     } else {
       console.log("something went wrong updating the formMode");
     }
     setOpen(false);
+    setForm({});
   };
 
   return (
@@ -104,7 +105,10 @@ export default function EventForm(props) {
         autoComplete="off"
         sx={FormBoxStyles}
         ref={inputEl}
-        onSubmit={submitForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitForm(dataObj);
+        }}
       >
         <Typography variant="h6" color="gray" textAlign="center">
           {formMode === "create" ? "Create New Event" : "Edit Event"}
@@ -154,16 +158,7 @@ export default function EventForm(props) {
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
           {/* if we want to let them pick date as well */}
-          {/* <DateTimePicker
-            label="Start Time"
-            value={form.start_time}
-            onChange={(event) =>
-              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
-            }
-            renderInput={(params) => <TextField {...params} />}
-          /> */}
-
-          <TimePicker
+          <DateTimePicker
             label="Start Time"
             value={form.start_time}
             onChange={(event) =>
@@ -171,20 +166,19 @@ export default function EventForm(props) {
             }
             renderInput={(params) => <TextField {...params} />}
           />
+
+          {/* <TimePicker
+            label="Start Time"
+            value={form.start_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
         </LocalizationProvider>
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          <TimePicker
-            label="End Time"
-            value={form.end_time}
-            onChange={(event) =>
-              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
-            }
-            renderInput={(params) => <TextField {...params} />}
-          />
-
-          {/* if we want to let them pick date as well */}
-          {/* <DateTimePicker
+          {/* <TimePicker
             label="End Time"
             value={form.end_time}
             onChange={(event) =>
@@ -192,6 +186,16 @@ export default function EventForm(props) {
             }
             renderInput={(params) => <TextField {...params} />}
           /> */}
+
+          {/* if we want to let them pick date as well */}
+          <DateTimePicker
+            label="End Time"
+            value={form.end_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
+          />
         </LocalizationProvider>
         <CategoriesList
           required
