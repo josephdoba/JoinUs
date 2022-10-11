@@ -24,7 +24,6 @@ export default function Error(props) {
     setError(false);
   };
 
-  console.log(error)
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
