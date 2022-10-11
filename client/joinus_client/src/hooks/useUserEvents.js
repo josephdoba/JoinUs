@@ -13,7 +13,7 @@ export default function useUserEvents() {
       .then((res) => {
         console.log("from useUserEvents res:")
         console.log(res);
-        axios.post("http://localhost:8080/event/join", {events_id: res.data[0].id, user_id: res.data[0].owner_id })
+        axios.post("http://localhost:8080/event/join", {events_id: res.data[0].id, user_id: res.data[0].owner_id, user_attendance: true })
       })
       .catch((err) => {
         console.log(err);

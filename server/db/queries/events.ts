@@ -1,8 +1,5 @@
 import { db } from "../connection";
 
-// we use interfaces in TS to get around needing to use any
-// https://www.typescriptlang.org/docs/handbook/interfaces.html
-
 interface IEventObject {
   body: {
     eventName: string;
@@ -41,11 +38,6 @@ const getComments = () => {
 };
 
 const createEvent = (eventObj: IEventObject) => {
-  // console.log("event eventObject from queries/events.ts");
-  // // console.log(eventObj)
-  // console.log(eventObj.body);
-  // console.log(Number(eventObj.body.eventCategory));
-
   // https://node-postgres.com/features/queries
   const createEventQuery = `INSERT INTO events(name, image, description, size_limit, owner_id, category, city, lat, lng, start_time, end_time) VALUES
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
@@ -71,7 +63,6 @@ const createEvent = (eventObj: IEventObject) => {
       console.log(data.rows)
       return data.rows
     })
-    // .then(() => console.log(values))
     .catch((err) => {
       console.error(err.stack);
       console.log("Something went wrong with createEvent in events.ts");
