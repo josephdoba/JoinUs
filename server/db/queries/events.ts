@@ -95,7 +95,6 @@ const editEvent = (eventObj: any) => {
 
   return (
     db
-      // .query(`SELECT * FROM events WHERE id = 1`)
       .query(editEventQuery, values)
       .then((data) => data.rows)
       .catch((err) => console.error(err.stack))
