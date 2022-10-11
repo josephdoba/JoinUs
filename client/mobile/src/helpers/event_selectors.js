@@ -35,17 +35,19 @@ export function findUsersCreatedEvents(userID, eventsData) {
   return data;
 }
 
-export function findUsersJoinedEvents(userID, eventsData, joinedEvents) {
-  let eventID = [];
+export function findJoinedEvents(userID, eventsData, joinedEvents) {
+  // let eventID = [];
   let finalEvents = [];
-  for (const i of joinedEvents) {
-    if (userID === i.user_id) {
-      eventID.push(i.event_id);
-    }
-  }
+
+  const events = joinedEvents.filter(e => e.user_id === userID);
+  // for (const i of joinedEvents) {
+  //   if (userID === i.user_id) {
+  //     eventID.push(i.event_id);
+  //   }
+  // }
 
   for (const event of eventsData) {
-    for (const id of eventID) {
+    for (const id of events) {
       if (id === event.id) finalEvents.push(event);
     }
   }

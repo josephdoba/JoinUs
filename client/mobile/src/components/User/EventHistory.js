@@ -19,14 +19,8 @@ const HistoryScreen = ({navigation}) => {
         categoriesData={categoriesData}
         navigation={navigation}
       />
-      <Button
-        title="Go To Event"
-        onPress={() => navigation.navigate('Event')}
-      />
-      <Button
-        title="To My Events"
-        onPress={() => navigation.push('MyEvents')}
-      />
+
+      <Button title="To My Profile" onPress={() => navigation.goBack()} />
     </ScrollView>
   );
 };
