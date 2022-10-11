@@ -16,6 +16,7 @@ router.post("/join", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
+// inside .joinevent
 router.post("/leave", (req, res) => {
     console.log(req.body);
     events_1.default
