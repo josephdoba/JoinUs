@@ -13,17 +13,11 @@ const app = (0, express_1.default)();
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(express_1.default.static("public"));
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const events_1 = __importDefault(require("./routes/events"));
 const users_1 = __importDefault(require("./routes/users"));
 const comments_1 = __importDefault(require("./routes/comments"));
@@ -33,15 +27,19 @@ const comments_1 = __importDefault(require("./routes/comments"));
 app.use("/api/users", users_1.default);
 app.use("/api/events", events_1.default);
 app.use("/api/comments", comments_1.default);
-// Note: mount other resources here, using the same pattern above
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-io.on("connection", (socket) => {
-    socket.on("message", ({ name, message }) => {
-        io.emit("message", { name, message });
-    });
-});
+// io.on(
+//   "connection",
+//   (socket: {
+//     on: (
+//       arg0: string,
+//       arg1: ({ name, message }: { name: any; message: any }) => void
+//     ) => void;
+//   }) => {
+//     socket.on("message", ({ name, message }) => {
+//       io.emit("message", { name, message });
+//     });
+//   }
+// );
 http.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
 });
