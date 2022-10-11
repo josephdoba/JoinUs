@@ -11,7 +11,6 @@ import {
   Box,
   Tooltip,
 } from "@mui/material";
-import moment from "moment";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested"; // not interested
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone"; // interested in event
@@ -29,8 +28,6 @@ import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventCard(props) {
-  // console.log("props from EventCard")
-  // console.log(props)
   const {
     category,
     attendeelist,
@@ -38,7 +35,6 @@ export default function EventCard(props) {
     thisEvent,
     showUserEvents,
     joinedEvents,
-    error,
     setError,
   } = props;
 
@@ -54,10 +50,7 @@ export default function EventCard(props) {
     size_limit,
   } = thisEvent;
 
-  // console.log(thisEvent)
-
   const { user } = useSharedUser();
-
   const [open, setOpen] = useState(false);
 
   const [confirm, setConfirm] = useState(false);
@@ -107,7 +100,7 @@ export default function EventCard(props) {
         <Tooltip title="Delete Event">
           <DeleteForeverTwoToneIcon />
         </Tooltip>
-      )
+      );
     }
     if (
       user_id !== owner_id &&
@@ -118,7 +111,7 @@ export default function EventCard(props) {
         <Tooltip title="Not Interested">
           <NotInterestedIcon />
         </Tooltip>
-      )
+      );
     }
     if (
       user_id !== owner_id &&
@@ -129,7 +122,7 @@ export default function EventCard(props) {
         <Tooltip title="Interested">
           <AddReactionTwoToneIcon />
         </Tooltip>
-      )
+      );
     }
   };
   // end of logic for buttons
@@ -158,10 +151,10 @@ export default function EventCard(props) {
             {name}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-            
-            {formatTime(start_time, end_time)} 
+            {formatTime(start_time, end_time)}
             <br />
             City: {city}
+            <br />
             Category: {category.name}
           </Typography>
           <Typography variant="paragraph">
@@ -171,11 +164,13 @@ export default function EventCard(props) {
 
         {/* Learn More */}
 
-        <CardActions sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}>
+        <CardActions
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
           <Tooltip title="Learn More">
             <IconButton onClick={submitHandler} size="small">
               <ReadMoreTwoToneIcon />

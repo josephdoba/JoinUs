@@ -43,7 +43,7 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ci
 
 ('Dinner Party', 'https://cdn77-s3.lazycatkitchen.com/wp-content/uploads/2020/09/basil-tofu-steak-dinner-close-up-1024x1536.jpg', 'Come enjoy a nice porkchop entree with a side potatoes and green beans tossed in a cabernet reduction', 6, 1, 1, 'Vancouver', 49.276189979572884, -123.12153898959998, '2022-09-30 15:00:00', '2022-09-30 17:00:00'),
 
-('Lets Eat Curry!', 'https://www.simplyrecipes.com/thmb/1SXZ_F1GC6ww_ppWnrdbKgHi9fQ=/2000x1333/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__01__Butter-Chicken-LEAD-2-6ca76f24bbe74114a09958073cb9c76f.jpg', 'Come enjoy one of the finest dishes from the best indian food resturant in town!', 6, 5, 1, 'Smallville', 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
+('Lets Eat Curry!', 'https://www.simplyrecipes.com/thmb/1SXZ_F1GC6ww_ppWnrdbKgHi9fQ=/2000x1333/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__01__Butter-Chicken-LEAD-2-6ca76f24bbe74114a09958073cb9c76f.jpg', 'Come enjoy one of the finest dishes from the best indian food resturant in town!', 6, 5, 1, 'Vancouver', 49.28053130736995, -123.11693171231532, '2022-10-13 13:00:00', '2022-10-13  14:00:00'),
 
 ('Seafood Restaurant', 'https://lh5.googleusercontent.com/p/AF1QipO05bf-v-UnqlrcwtSN85qOHwKr36gBKFQvf4ox=w408-h272-k-no', 'All my friends are allergic to shellfish. Looking forward to eating some delicious oysters', 6, 3, 1, 'Vancouver', 49.27087406969367, -123.1365432973447, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
@@ -69,11 +69,11 @@ INSERT INTO events (name, image, description, size_limit, owner_id, category, ci
 
 ('Chop Steakhouse Dining', 'https://i.ytimg.com/vi/nsw0Px-Pho8/maxresdefault.jpg', 'Come eat the finest Steak chops with us!', 8, 8, 1, 'Calgary', 51.0943441322179, -113.99897456996281, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 3, 1, 'Victoria', 48.44496184753853, -123.36704924925516, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Eating Meat In Front Of Vegans', 'https://i0.wp.com/www.retaildetail.eu/wp-content/uploads/sites/2/2022/04/shutterstock_541216123.jpg', 'Chickens, Lambs, Beef, Pork and More! Only the finest flesh of the beast here!', 8, 8, 1, 'Victoria', 48.44496184753853, -123.36704924925516, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 2, 2, 'Victoria', 48.43832292517139, -123.36703305511062, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
+('Beyblade!', 'https://beybase.com/wp-content/uploads/2021/05/top-5-best-beyblade-burst-combos-2021-2-768x432.jpg', 'I challenge you to a best of 5 tournament. Winner takes all!', 2, 9, 2, 'Victoria', 48.43832292517139, -123.36703305511062, '2022-10-13 17:00:00', '2022-10-13 20:00:00'),
 
-('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 2, 2, 'Victoria', 48.4369531023204, -123.3630174847849, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
+('Super Smash Bros Game Night', 'https://www.kpl.gov/app/uploads/2019/08/ds-super-smash-bros-tourney-oct19-web.jpg', 'Hello Gamers! Anyone wanna meetup to play some SSBs?', 8, 10, 2, 'Victoria', 48.4369531023204, -123.3630174847849, '2022-10-13 17:00:00', '2022-10-13 20:00:00');
 
 
 INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
@@ -88,6 +88,7 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (3, 4, TRUE),
 (8, 4, FALSE),
 (1, 4, FALSE),
+(6, 4, FALSE),
 (4, 5, TRUE),
 (2, 5, FALSE),
 (3, 5, FALSE),
@@ -95,6 +96,7 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (8, 6, FALSE),
 (6, 6, FALSE),
 (2, 7, TRUE),
+(3, 7, FALSE),
 (5, 8, TRUE),
 (3, 9, TRUE),
 (10, 9, FALSE),
@@ -112,22 +114,33 @@ INSERT INTO joined_events(user_id, event_id, user_attendance) VALUES
 (5, 17, TRUE),
 (3, 18, TRUE),
 (3, 19, TRUE),
+(5, 3, FALSE),
 (8, 20, TRUE),
 (12, 20, FALSE),
+(12, 7, FALSE),
 (13, 19, FALSE),
-(2, 17, FALSE);
+(2, 17, FALSE),
+(8, 5, FALSE),
+(12, 12, FALSE),
+(13, 12, FALSE),
+(2, 12, FALSE),
+(8, 5, FALSE),
+(8, 21, TRUE),
+(2, 21, TRUE),
+(9, 22, TRUE),
+(10, 23, TRUE);
 
 INSERT INTO comments(user_id, event_id, name, message) VALUES
-(5, 3, 'J-Wings', 'I love this event so much!'),
-(1, 1, 'Lawrence', 'Stoked to meet you both. See you soon!'),
-(1, 1, 'Ashley', 'This looks like fun!'),
-(6, 4, 'Shauna', 'What time we meeting?'),
-(3, 7, 'Millicent', 'I think I forgot my car keys, can someone check for me?'),
-(3, 3, 'Richard', 'Where can I park?'),
-(8, 5, 'Sadie', 'Awesome guys!'),
-(2, 4, 'Celeste', 'See you soon Katie!'),
-(2, 4, 'Garry', 'Outside with a blue shirt. See you soon!'),
-(2, 5, 'Philip', 'I quite like the food here'),
-(1, 4, 'Jennifer', 'One of us'),
-(2, 6, 'Timothy', 'One of us'),
-(6, 1, 'Katie', 'Sounds good, can I bring a friend?');
+(1, 15, 'Lawrence Barker', 'This looks like so much fun!'),
+(1, 1, 'Lawrence Barker', 'Stoked to meet you both. See you soon!'),
+(1, 1, 'Lawrence Barker', 'Looking forward to meeting you!'),
+(6, 4, 'Sadie Carrillo', 'What time we meeting?'),
+(3, 7, 'Shauna Benton', 'I might be late.'),
+(5, 3, 'Richard Kim', 'Where can I park?'),
+(8, 5, 'Celeste Archer', 'Awesome guys!'),
+(10, 20, 'Philip Macias', '!!!!'),
+(12, 7, 'Timothy Horton', 'Outside with a blue shirt. See you soon!'),
+(3, 18, 'Shauna Benton', 'I might be late.'),
+(5, 17, 'Richard Kim', 'Where can I park?'),
+(8, 20, 'Celeste Archer', 'Awesome guys!'),
+(10, 9, 'Philip Macias', '!!!!');
