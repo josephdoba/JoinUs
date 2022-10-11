@@ -1,20 +1,24 @@
-import {Button} from '@rneui/base';
-import {Text, View} from 'react-native';
+import {Button, Text} from '@rneui/base';
 import React from 'react';
+import {ScrollView} from 'react-native';
+import useAppData from '../../hooks/useAppData';
+import DisplayEvents from '../Events/DisplayEvents';
+import {pastEvents} from '../../helpers/event_selectors';
 
 const MyEvents = ({navigation}) => {
   return (
-    <View>
-      <Text>Events Created by the user </Text>
-      <Button
-        title="Go To Event"
-        onPress={() => navigation.navigate('Event')}
+    <ScrollView>
+      <Text>My Created Events </Text>
+      <DisplayEvents
+        eventsArr={past}
+        usersData={usersData}
+        joinedEvents={joinedEvents}
+        categoriesData={categoriesData}
+        navigation={navigation}
       />
-      <Button
-        title="To All Events"
-        onPress={() => navigation.navigate('AllEvents')}
-      />
-    </View>
+
+      <Button title="To My Profile" onPress={() => navigation.goBack()} />
+    </ScrollView>
   );
 };
 
