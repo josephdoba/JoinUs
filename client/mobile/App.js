@@ -44,7 +44,7 @@ const theme = createTheme({
 
 const headerOptions = {
   headerStyle: {
-    backgroundColor: '#fdf3e4',
+    backgroundColor: '#f1d7b1',
   },
   headerTintColor: '#222831',
   headerTitleStyle: {

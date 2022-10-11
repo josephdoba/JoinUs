@@ -21,7 +21,7 @@ const EventTabs = () => {
   return (
     <Tab.Navigator
       name="User"
-      // screenOptions={headerOptions}
+      screenOptions={headerOptions}
       initialRouteName="All"
       backBehaviour="initialRoute"
       headerShown={false}>

@@ -5,7 +5,7 @@ import useAppData from '../../hooks/useAppData';
 import DisplayEvents from '../Events/DisplayEvents';
 import {pastEvents} from '../../helpers/event_selectors';
 
-const HistoryScreen = ({navigation}) => {
+const HistoryScreen = ({route, navigation}) => {
   const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
 
   const past = pastEvents(eventsData);
