@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginLeft: 35,
     color: 'grey',
-    width: 120,
+    width: 130,
     fontSize: 12,
     paddingBottom: 5,
     // justifyContent: '',
