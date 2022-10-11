@@ -84,7 +84,7 @@ export default function useUserEvents() {
   };
 
   const deleteComment = (dataObj) => {
-    postData("api/comments/delete", dataObj)
+    postData("comments/delete", dataObj)
       .then(() => {
         setReload(reload + 1);
         console.log(dataObj);
