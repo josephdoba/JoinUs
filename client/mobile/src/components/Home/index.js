@@ -15,11 +15,11 @@ const HomeScreen = ({navigation}) => {
 
   const handleLogin = e => {
     e.preventDefault();
-    fetchUser(userID).then(user => {
-      console.log(user);
+    fetchUser(userID).then(person => {
+      console.log(person);
       setUserID('');
       toggleOverlay();
-      navigation.navigate('Profile', {user});
+      navigation.navigate('Profile', {person});
     });
   };
 
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     // borderRadius: 5,
   },
   button: {
-    backgroundColor: '#F9CF93',
+    backgroundColor: '#ffac33',
+    border: '#ffac33',
   },
   title: {fontWeight: 'bold', fontSize: 23},
   container: {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import useSharedReload from "./useSharedReload";
 import { postData } from "../api/index";
 
@@ -7,13 +6,17 @@ export default function useUserEvents() {
   const { reload, setReload } = useSharedReload();
 
   const userCreateEventSubmit = (event) => {
-    console.log("api post request for userCreateEvent"); 
+    console.log("api post request for userCreateEvent");
     axios
       .post("http://localhost:8080/api/events", event)
       .then((res) => {
-        console.log("from useUserEvents res:")
+        console.log("from useUserEvents res:");
         console.log(res);
-        axios.post("http://localhost:8080/event/join", {events_id: res.data[0].id, user_id: res.data[0].owner_id })
+        setReload(reload + 1);
+        axios.post("http://localhost:8080/events/join", {
+          events_id: res.data[0].id,
+          user_id: res.data[0].owner_id,
+        });
       })
       .catch((err) => {
         console.log(err);

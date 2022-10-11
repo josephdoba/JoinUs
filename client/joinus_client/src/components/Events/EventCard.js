@@ -11,6 +11,7 @@ import {
   Box,
   Tooltip,
 } from "@mui/material";
+import moment from "moment";
 import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
 import NotInterestedIcon from "@mui/icons-material/NotInterested"; // not interested
 import AddReactionTwoToneIcon from "@mui/icons-material/AddReactionTwoTone"; // interested in event
@@ -157,7 +158,6 @@ export default function EventCard(props) {
             {formatTime(start_time, end_time)} 
             <br />
             City: {city}
-            <br />
             Category: {category.name}
           </Typography>
           <Typography variant="paragraph">

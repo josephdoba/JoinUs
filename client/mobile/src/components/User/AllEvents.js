@@ -5,15 +5,13 @@ import useAppData from '../../hooks/useAppData';
 import DisplayEvents from '../Events/DisplayEvents';
 
 const AllEvents = ({route, navigation}) => {
-  const {eventsData, joinedEvents, usersData, user, categoriesData} =
-    useAppData();
-
-  console.log(user.name);
+  const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
+  console.log(route.params.user);
 
   const allevents = upcomingEvents(eventsData);
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#fdf3e4'}}>
       <DisplayEvents
         eventsArr={allevents}
         usersData={usersData}

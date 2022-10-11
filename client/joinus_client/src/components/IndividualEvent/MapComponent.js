@@ -19,30 +19,31 @@ export default function MapComponent(props) {
   };
 
   // find user's coordinates
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserCoords({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-      console.log("user Latitude is :", position.coords.latitude);
-      console.log(" user Longitude is :", position.coords.longitude);
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition((position) => {
+  //     setUserCoords({
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude,
+  //     });
+  //     console.log("user Latitude is :", position.coords.latitude);
+  //     console.log(" user Longitude is :", position.coords.longitude);
+  //   });
+  // }, []);
 
   // event coordinates
   const center = { lat: event.lat, lng: event.lng };
 
   return (
-    <Box sx={{
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      margin: 2
-    }}>
-
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        margin: 2,
+      }}
+    >
       <GoogleMap
-        zoom={12}
+        zoom={14}
         center={center ? center : userCoords} // set center to event location, or user's location
         mapContainerStyle={mapContainerStyle}
         options={{

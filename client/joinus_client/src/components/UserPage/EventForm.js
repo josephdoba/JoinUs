@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import useUserEvents from "../../hooks/useUserEvents";
-import useAppData from "../../hooks/useAppData";
+import moment from "moment";
 import CategoriesList from "./CategoriesList";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -18,9 +20,6 @@ export default function EventForm(props) {
   const { open, setOpen, categoriesData, eventData } = props;
   const { user } = useSharedUser();
   const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
-
-  // console.log("From eventForm.js")
-  // console.log(eventData)
 
   // Stuff for image processing... might still need this
   const imageRef = useRef(null);
@@ -36,7 +35,6 @@ export default function EventForm(props) {
 
   // For Lat lng
   const [selected, setSelected] = useState({ lat: null, lng: null });
-  // console.log(`${selected.lat}, ${selected.lng}`)
 
   useEffect(() => {
     setForm((prev) => ({ ...form, lat: selected.lat, lng: selected.lng }));
@@ -57,32 +55,35 @@ export default function EventForm(props) {
     end_time: eventData ? eventData.end_time : "",
   });
 
-  const submitForm = (event) => {
-    event.preventDefault();
-    const sendDataObj = {
-      eventId: eventData ? eventData.id : null,
-      eventName: form.name,
-      eventImage: form.image,
-      eventDescription: form.description,
-      eventSizeLimit: form.size_limit,
-      eventOwnerId: user.id,
-      eventCategory: form.category,
-      eventCity: form.city,
-      lat: selected.lat,
-      lng: selected.lng,
-      start_time: form.start_time,
-      end_time: form.end_time,
-    };
+  console.log(`log in form ${form.start_time}`);
+
+  const dataObj = {
+    eventId: eventData ? eventData.id : null,
+    eventName: form.name,
+    eventImage: form.image,
+    eventDescription: form.description,
+    eventSizeLimit: form.size_limit,
+    eventOwnerId: user.id,
+    eventCategory: form.category,
+    eventCity: form.city,
+    lat: selected.lat,
+    lng: selected.lng,
+    start_time: form.start_time,
+    end_time: form.end_time,
+  };
+
+  const submitForm = (dataObj) => {
     console.log("Form mode:");
     console.log(formMode);
     if (formMode === "create") {
-      userCreateEventSubmit(sendDataObj);
+      userCreateEventSubmit(dataObj);
     } else if (formMode === "edit") {
-      userEditEventSubmit(sendDataObj);
+      userEditEventSubmit(dataObj);
     } else {
       console.log("something went wrong updating the formMode");
     }
     setOpen(false);
+    setForm({});
   };
 
   return (
@@ -104,31 +105,32 @@ export default function EventForm(props) {
         autoComplete="off"
         sx={FormBoxStyles}
         ref={inputEl}
-        onSubmit={submitForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitForm(dataObj);
+        }}
       >
         <Typography variant="h6" color="gray" textAlign="center">
           {formMode === "create" ? "Create New Event" : "Edit Event"}
         </Typography>
-
         <TextField
           required
           id="standard-basic"
           label="Event Name"
           variant="standard"
-          name="label_eventName"
+          name="Event Name"
           value={form.name}
           onChange={(event) =>
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
         />
-
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <TextField
             required
             id="standard-basic"
             label="City"
             variant="standard"
-            name="label_eventCity"
+            name="City"
             value={form.city}
             onChange={(event) =>
               setForm((prev) => ({ ...prev, city: event.target.value }))
@@ -139,7 +141,7 @@ export default function EventForm(props) {
             id="standard-basic"
             label="Party Limit"
             variant="standard"
-            name="label_sizeLimit"
+            name="Party Limit"
             value={form.size_limit}
             onChange={(event) =>
               setForm((prev) => ({ ...prev, size_limit: event.target.value }))
@@ -147,36 +149,54 @@ export default function EventForm(props) {
           />
         </Stack>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            required
+        <Search
+          selected={selected}
+          setSelected={setSelected}
+          form={form}
+          setForm={setForm}
+        />
+
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          {/* if we want to let them pick date as well */}
+          <DateTimePicker
             label="Start Time"
-            renderInput={(params) => <TextField {...params} />}
             value={form.start_time}
             onChange={(event) =>
-              setForm((prev) => ({
-                ...prev,
-                start_time: dayjs(event.$d.toUTCString()),
-              }))
+              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
             }
+            renderInput={(params) => <TextField {...params} />}
           />
+
+          {/* <TimePicker
+            label="Start Time"
+            value={form.start_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
         </LocalizationProvider>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            required
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          {/* <TimePicker
             label="End Time"
             value={form.end_time}
-            renderInput={(params) => <TextField {...params} />}
             onChange={(event) =>
-              setForm((prev) => ({
-                ...prev,
-                end_time: dayjs(event.$d.toUTCString()),
-              }))
+              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
             }
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
+
+          {/* if we want to let them pick date as well */}
+          <DateTimePicker
+            label="End Time"
+            value={form.end_time}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
+            }
+            renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-
         <CategoriesList
           required
           categories={categoriesData}
@@ -190,7 +210,6 @@ export default function EventForm(props) {
             }));
           }}
         />
-
         <TextField
           required
           id="outlined-textarea"
@@ -204,7 +223,6 @@ export default function EventForm(props) {
             setForm((prev) => ({ ...prev, description: event.target.value }))
           }
         />
-
         <TextField
           required
           id="outlined-textarea"
@@ -218,7 +236,6 @@ export default function EventForm(props) {
             setForm((prev) => ({ ...prev, image: event.target.value }))
           }
         />
-
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button onClick={(e) => handleCancelClick(e)} variant="outlined">
             Cancel
@@ -227,12 +244,6 @@ export default function EventForm(props) {
             {formMode === "create" ? "Create" : "Submit"}
           </Button>
         </Stack>
-        <Search
-          selected={selected}
-          setSelected={setSelected}
-          form={form}
-          setForm={setForm}
-        />
       </Box>
     </Modal>
   );
