@@ -5,9 +5,6 @@ import React, {useState} from 'react';
 const UserScreen = ({route, navigation}) => {
   const user = route.params.user;
 
-  console.log(`user in profile: ${JSON.stringify(user)}`);
-  // console.log();
-
   return (
     <View style={styles.container}>
       <ImageBackground
