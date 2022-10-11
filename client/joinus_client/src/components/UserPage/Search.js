@@ -42,9 +42,11 @@ export default function Search({ setForm, form, setSelected, selected }) {
         disabled={!ready}
         className="combobox-input"
         placeholder="Address"
-        style={{  position: 'relative', width: 300, maxWidth: "90%", zIndex: '2000' }}
+        style={{  position: 'relative', width: 300, maxWidth: "90%" }}
       />
-      <ComboboxPopover>
+      <ComboboxPopover
+      style={{zIndex: '2000'}}
+      >
         <ComboboxList >
           {status === "OK" &&
             data.map(({ place_id, description }) => (

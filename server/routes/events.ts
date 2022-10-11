@@ -26,10 +26,11 @@ router.get("/", (req, res) => {
 
 // api route for create event
 router.post("/", (req, res) => {
-  console.log("-----------------------", req.body);
+  // console.log("-----------------------", req.body)
   eventQueries
     .createEvent(req)
     .then((events) => {
+      // console.log(events);
       res.json(events);
     })
     .catch((err: any) => {
@@ -39,7 +40,7 @@ router.post("/", (req, res) => {
 
 // api route for edit event
 router.put("/", (req, res) => {
-  console.log("-----------------------", req.body);
+  // console.log("-----------------------", req.body)
   eventQueries
     .editEvent(req)
     .then((events) => {
