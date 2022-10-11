@@ -1,9 +1,12 @@
 import {Button, Text, Avatar, Divider} from '@rneui/base';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
+import useAppData from '../../hooks/useAppData';
 
 const UserScreen = ({route, navigation}) => {
-  const user = route.params.user;
+  const {user} = useAppData();
+  const person = route.params.person;
+  console.log(`user in profile ${JSON.stringify(user)}`);
 
   return (
     <View style={styles.container}>
@@ -15,13 +18,13 @@ const UserScreen = ({route, navigation}) => {
           <Avatar
             size={120}
             rounded
-            source={{uri: user.picture}}
-            title={user.name}
+            source={{uri: person.picture}}
+            title={person.name}
             containerStyle={styles.avatar}>
             <Avatar.Accessory size={30} />
           </Avatar>
           <View>
-            <Text style={styles.header}>{user.name} </Text>
+            <Text style={styles.header}>{person.name} </Text>
             <Button
               title="EDIT"
               icon={{

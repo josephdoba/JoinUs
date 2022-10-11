@@ -11,7 +11,6 @@ const HistoryScreen = ({navigation}) => {
   const past = pastEvents(eventsData);
   return (
     <ScrollView>
-      <Text>All Past Events go here</Text>
       <DisplayEvents
         eventsArr={past}
         usersData={usersData}
@@ -19,8 +18,6 @@ const HistoryScreen = ({navigation}) => {
         categoriesData={categoriesData}
         navigation={navigation}
       />
-
-      <Button title="To My Profile" onPress={() => navigation.goBack()} />
     </ScrollView>
   );
 };

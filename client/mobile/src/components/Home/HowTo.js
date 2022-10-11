@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ListItem, Avatar} from '@rneui/base';
 
 const DATA = [
@@ -66,10 +58,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
   },
-  // sectionContainer: {
-  //   color: '#FBFBFF',
-  //   position: 'relative',
-  // },
+
   title: {
     fontWeight: 'bold',
     fontSize: 18,

@@ -16,8 +16,6 @@ const MyEvents = ({navigation}) => {
         categoriesData={categoriesData}
         navigation={navigation}
       />
-
-      <Button title="To My Profile" onPress={() => navigation.goBack()} />
     </ScrollView>
   );
 };

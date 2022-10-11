@@ -5,10 +5,7 @@ import useAppData from '../../hooks/useAppData';
 import DisplayEvents from '../Events/DisplayEvents';
 
 const AllEvents = ({route, navigation}) => {
-  const {eventsData, joinedEvents, usersData, user, categoriesData} =
-    useAppData();
-
-  console.log(user.name);
+  const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
 
   const allevents = upcomingEvents(eventsData);
 

@@ -15,11 +15,11 @@ const HomeScreen = ({navigation}) => {
 
   const handleLogin = e => {
     e.preventDefault();
-    fetchUser(userID).then(user => {
-      console.log(user);
+    fetchUser(userID).then(person => {
+      console.log(person);
       setUserID('');
       toggleOverlay();
-      navigation.navigate('Profile', {user});
+      navigation.navigate('Profile', {person});
     });
   };
 
