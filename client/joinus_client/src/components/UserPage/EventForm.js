@@ -94,7 +94,7 @@ export default function EventForm(props) {
       <Box
         width={500}
         height={700}
-        bgcolor="white"
+        bgcolor={"background.default"} color={"text.primary"}
         p={3}
         borderRadius={3}
         component="form"
