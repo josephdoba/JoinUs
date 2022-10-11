@@ -4,9 +4,10 @@ import React, {useState} from 'react';
 import useAppData from '../../hooks/useAppData';
 
 const UserScreen = ({route, navigation}) => {
-  const {user} = useAppData();
   const person = route.params.person;
-  console.log(`user in profile ${JSON.stringify(user)}`);
+  console.log(person);
+
+  // can't send user state b/c of refresh. state is cleared.
 
   return (
     <View style={styles.container}>
@@ -55,7 +56,12 @@ const UserScreen = ({route, navigation}) => {
             containerStyle={styles.buttonContainer}
             buttonStyle={styles.newButton}
             titleStyle={styles.buttonTitle}
-            onPress={() => navigation.navigate('AllEvents', {user})}
+            onPress={() =>
+              navigation.navigate('Events', {
+                screen: 'All',
+                params: {user: person},
+              })
+            }
           />
           <Button
             title="New Event"

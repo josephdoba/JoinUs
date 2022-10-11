@@ -7,9 +7,24 @@ import HistoryScreen from './User/EventHistory';
 // for creating bottom nav https://reactnavigation.org/docs/bottom-tab-navigator/
 const Tab = createBottomTabNavigator();
 
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: '#fdf3e4',
+  },
+  headerTintColor: '#222831',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const EventTabs = () => {
   return (
-    <Tab.Navigator name="User">
+    <Tab.Navigator
+      name="User"
+      // screenOptions={headerOptions}
+      initialRouteName="All"
+      backBehaviour="initialRoute"
+      headerShown={false}>
       <Tab.Screen name="All" component={AllEvents} />
       <Tab.Screen name="My Events" component={MyEvents} />
       <Tab.Screen name="Interested" component={InterestedEvents} />

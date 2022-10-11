@@ -34,7 +34,7 @@ const DATA = [
 const HowTo = () => {
   return DATA.map(item => {
     return (
-      <ListItem key={item.id} containerStyle={{backgroundColor: '#FBFBFF'}}>
+      <ListItem key={item.id} containerStyle={{backgroundColor: '#fdf3e4'}}>
         <Avatar source={item.image} style={styles.imageSize} />
         <ListItem.Content style={styles.content}>
           <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>

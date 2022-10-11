@@ -3,14 +3,14 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import useAppData from '../../hooks/useAppData';
 import DisplayEvents from '../Events/DisplayEvents';
-import {pastEvents} from '../../helpers/event_selectors';
 
 const MyEvents = ({navigation}) => {
+  const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
   return (
     <ScrollView>
       <Text>My Created Events </Text>
       <DisplayEvents
-        eventsArr={past}
+        eventsArr={eventsData}
         usersData={usersData}
         joinedEvents={joinedEvents}
         categoriesData={categoriesData}

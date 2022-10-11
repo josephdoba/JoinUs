@@ -44,7 +44,7 @@ const theme = createTheme({
 
 const headerOptions = {
   headerStyle: {
-    backgroundColor: '#f9fbe7',
+    backgroundColor: '#fdf3e4',
   },
   headerTintColor: '#222831',
   headerTitleStyle: {
@@ -68,7 +68,7 @@ const App = () => {
               component={HomeScreen}
               options={{title: 'Join Us!'}}
             />
-            <Stack.Screen name="AllEvents" component={EventTabs} />
+            <Stack.Screen name="Events" component={EventTabs} />
             <Stack.Screen name="Profile" component={UserScreen} />
             <Stack.Screen name="Event" component={EventScreen} />
           </Stack.Navigator>

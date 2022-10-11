@@ -6,15 +6,14 @@ import DisplayEvents from '../Events/DisplayEvents';
 import {findJoinedEvents} from '../../helpers/event_selectors';
 
 const InterestedEvents = ({navigation}) => {
-  const {eventsData, joinedEvents, user, usersData, categoriesData} =
-    useAppData();
+  const {eventsData, joinedEvents, usersData, categoriesData} = useAppData();
 
   const interestedEvents = findJoinedEvents();
   return (
     <ScrollView>
       <Text>My Interested Events </Text>
       <DisplayEvents
-        eventsArr={interestedEvents}
+        eventsArr={eventsData}
         usersData={usersData}
         joinedEvents={joinedEvents}
         categoriesData={categoriesData}

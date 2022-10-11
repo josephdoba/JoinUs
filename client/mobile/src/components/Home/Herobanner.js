@@ -21,7 +21,7 @@ export default Herobanner;
 const styles = StyleSheet.create({
   sectionContainer: {
     paddingHorizontal: 24,
-    backgroundColor: '#FBFBFF',
+    backgroundColor: '#fdf3e4',
     alignItems: 'center',
     position: 'relative',
   },
