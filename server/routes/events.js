@@ -10,8 +10,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 const express_1 = __importDefault(require("express"));
-// const express = require("express");
-// const db = require("../db/connection");
 const events_1 = __importDefault(require("../db/queries/events"));
 const router = express_1.default.Router();
 // api route for category list
@@ -36,7 +34,13 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     console.log("-----------------------", req.body);
     events_1.default
-        .createEvent(req);
+        .createEvent(req)
+        .then((events) => {
+        res.json(events);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
 });
 // api route for edit event
 router.put("/", (req, res) => {
