@@ -14,6 +14,6 @@ export function findEventAttendees(eventId, usersData, joinedEvents) {
   return results;
 }
 
-export function owner(attendeelist, event) {
-  return attendeelist.find((user) => user.id === event.owner_id);
+export function owner(list, event) {
+  return list.find((user) => user.id === event.owner_id);
 }
