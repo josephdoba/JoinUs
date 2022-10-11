@@ -11,8 +11,8 @@ const getUser = (id: string) => {
     .then((data) => data.rows);
 };
 
-const getUserJoinedEvents = () => {
+const getJoinedEvents = () => {
   return db.query(`SELECT * FROM joined_events`).then((data) => data.rows);
 };
 
-export default { getUsers, getUserJoinedEvents, getUser };
+export default { getUsers, getJoinedEvents, getUser };

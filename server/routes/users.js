@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const users_1 = __importDefault(require("../db/queries/users"));
 const router = express_1.default.Router();
-// const userQueries = require("../db/queries/users");
 router.get("/", (req, res) => {
     users_1.default
         .getUsers()
@@ -23,9 +22,9 @@ router.get("/", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-router.get("/user_events", (req, res) => {
+router.get("/events", (req, res) => {
     users_1.default
-        .getUserJoinedEvents()
+        .getJoinedEvents()
         .then((joinedEvents) => {
         res.json(joinedEvents);
     })
@@ -33,6 +32,16 @@ router.get("/user_events", (req, res) => {
         res.status(500).json({ error: err.message });
     });
 });
-// create api events joined
-// delete route
+// get the user's login
+router.get("/:user_id", (req, res) => {
+    const userID = req.params.user_id;
+    users_1.default
+        .getUser(userID)
+        .then((user) => {
+        res.json(user);
+    })
+        .catch((err) => {
+        res.status(500).json({ error: err.message });
+    });
+});
 exports.default = router;

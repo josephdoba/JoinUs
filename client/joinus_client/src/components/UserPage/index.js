@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import EventForm from "./EventForm";
-import { Fab, Tooltip, Box, Button, Stack } from "@mui/material";
+import { Fab, Tooltip, Box, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Search from "./Search";
 
 import Events from "../Events";
 import EventCategoryDropdown from "../Events/EventCategoryDropdown";
@@ -23,9 +22,8 @@ export default function Userpage(props) {
     usersData,
     setEvent,
     joinedEvents,
-    formType,
     error,
-    setError
+    setError,
   } = props;
 
   const [selectedCategory, setSelectedCategory] = useState([]); // state for drop down list
