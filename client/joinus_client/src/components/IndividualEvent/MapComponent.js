@@ -10,7 +10,6 @@ const mapContainerStyle = {
 };
 
 export default function MapComponent(props) {
-  const [userCoords, setUserCoords] = useState(null);
   const { setMap } = props;
   const { event } = useSharedEvent();
 
@@ -18,19 +17,17 @@ export default function MapComponent(props) {
     console.log("marker: ", marker);
   };
 
-  // find user's coordinates
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     setUserCoords({
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude,
-  //     });
-  //     console.log("user Latitude is :", position.coords.latitude);
-  //     console.log(" user Longitude is :", position.coords.longitude);
-  //   });
-  // }, []);
+  const [userCoords, setUserCoords] = useState(null);
 
-  // event coordinates
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserCoords({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }, []);
+
   const center = { lat: event.lat, lng: event.lng };
 
   return (

@@ -61,7 +61,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Homepage(props) {
+export default function Sidebar(props) {
 
   const { showUserEvents, setUserEvents } = props
 
@@ -78,7 +78,7 @@ export default function Homepage(props) {
     navigate('/')
   }
 
-
+  const {mode,setMode} = props
   return (
     <Box
       flex={0.75}
@@ -129,7 +129,7 @@ export default function Homepage(props) {
               <ListItemIcon>
                 <Brightness4TwoToneIcon />
               </ListItemIcon>
-              <MaterialUISwitch />
+              <MaterialUISwitch onChange={e=>setMode(mode === "light" ? "dark" : "light" )}/>
             </ListItemButton>
           </ListItem>
         </List>

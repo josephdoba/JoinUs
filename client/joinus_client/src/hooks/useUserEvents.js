@@ -2,10 +2,11 @@ import axios from "axios";
 import useSharedReload from "./useSharedReload";
 import { useState } from "react";
 import { postData } from "../api/index";
+import { useNavigate } from "react-router-dom";
 
 export default function useUserEvents() {
   const { reload, setReload } = useSharedReload();
-
+  const navigate = useNavigate();
   const userCreateEventSubmit = (event) => {
     console.log("api post request for userCreateEvent");
     axios
@@ -60,8 +61,6 @@ export default function useUserEvents() {
   };
 
   const deleteEvent = (dataObj) => {
-    let answer = prompt("Are you sure you want to delete? type yes or no");
-    if (answer === "yes" || answer === "Yes") {
       postData(`events/delete`, dataObj)
         .then(() => {
           setReload(reload + 1);
@@ -70,7 +69,8 @@ export default function useUserEvents() {
         .catch((err) => {
           console.log(err);
         });
-    }
+      
+      navigate('/user')
   };
 
   const userAddComment = (event) => {
@@ -86,7 +86,7 @@ export default function useUserEvents() {
   };
 
   const deleteComment = (dataObj) => {
-    postData("api/comments/delete", dataObj)
+    postData("comments/delete", dataObj)
       .then(() => {
         setReload(reload + 1);
         console.log(dataObj);

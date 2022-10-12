@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import dayjs from "dayjs";
 import useUserEvents from "../../hooks/useUserEvents";
 import moment from "moment";
 import CategoriesList from "./CategoriesList";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import AddIcon from "@mui/icons-material/Add";
 import { Box } from "@mui/system";
@@ -17,9 +13,10 @@ import useSharedUser from "../../hooks/useSharedUser";
 
 export default function EventForm(props) {
   let { formMode } = props; // needs to be a let for it to work
-  const { open, setOpen, categoriesData, eventData } = props;
+  const { open, setOpen, categoriesData, eventsData, eventData } = props;
   const { user } = useSharedUser();
-  const { userCreateEventSubmit, userEditEventSubmit } = useUserEvents();
+  const { userCreateEventSubmit, userEditEventSubmit, joinEvent } =
+    useUserEvents();
 
   // Stuff for image processing... might still need this
   const imageRef = useRef(null);
@@ -27,7 +24,6 @@ export default function EventForm(props) {
   const inputEl = useRef(null);
 
   // form mode handling:
-
   function handleCancelClick(e) {
     formMode = "create";
     setOpen(false);
@@ -55,8 +51,6 @@ export default function EventForm(props) {
     end_time: eventData ? eventData.end_time : "",
   });
 
-  console.log(`log in form ${form.start_time}`);
-
   const dataObj = {
     eventId: eventData ? eventData.id : null,
     eventName: form.name,
@@ -73,10 +67,13 @@ export default function EventForm(props) {
   };
 
   const submitForm = (dataObj) => {
-    console.log("Form mode:");
-    console.log(formMode);
+    console.log(`form mode: ${formMode}`);
     if (formMode === "create") {
       userCreateEventSubmit(dataObj);
+      joinEvent([], dataObj.eventSizeLimit, {
+        event_id: eventsData.length + 1,
+        user_id: user.id,
+      });
     } else if (formMode === "edit") {
       userEditEventSubmit(dataObj);
     } else {
@@ -97,7 +94,7 @@ export default function EventForm(props) {
       <Box
         width={500}
         height={700}
-        bgcolor="white"
+        bgcolor={"background.default"} color={"text.primary"}
         p={3}
         borderRadius={3}
         component="form"
@@ -163,7 +160,6 @@ export default function EventForm(props) {
         />
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          {/* if we want to let them pick date as well */}
           <DateTimePicker
             label="Start Time"
             value={form.start_time}
@@ -172,28 +168,9 @@ export default function EventForm(props) {
             }
             renderInput={(params) => <TextField {...params} />}
           />
-
-          {/* <TimePicker
-            label="Start Time"
-            value={form.start_time}
-            onChange={(event) =>
-              setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
-            }
-            renderInput={(params) => <TextField {...params} />}
-          /> */}
         </LocalizationProvider>
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          {/* <TimePicker
-            label="End Time"
-            value={form.end_time}
-            onChange={(event) =>
-              setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
-            }
-            renderInput={(params) => <TextField {...params} />}
-          /> */}
-
-          {/* if we want to let them pick date as well */}
           <DateTimePicker
             label="End Time"
             value={form.end_time}
@@ -261,7 +238,6 @@ const StyledModal = {
   justifyContent: "center",
 };
 
-// styles the elements inside the modal:
 const FormBoxStyles = {
   display: "flex",
   flexDirection: "column",

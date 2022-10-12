@@ -81,6 +81,8 @@ export default function Userpage(props) {
         </Box>
         <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
           <Sidebar
+            setMode={props.setMode}
+            mode={props.mode}
             setUserEvents={setShowUserEvents}
             showUserEvents={showUserEvents}
           />

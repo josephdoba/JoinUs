@@ -9,12 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function Error(props) {
-
-  const {error, setError } = props;
-
-  const handleClick = () => {
-    setError(true);
-  }
+  const { error, setError } = props;
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -23,8 +18,6 @@ export default function Error(props) {
 
     setError(false);
   };
-
-  // console.log(error)
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
