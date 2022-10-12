@@ -7,7 +7,6 @@ import {
   Typography,
   CardMedia,
   CardContent,
-  Button,
   Box,
   Tooltip,
 } from "@mui/material";
@@ -209,7 +208,13 @@ export default function EventCard(props) {
             size_limit={size_limit}
           />
         </CardActions>
-        <DeleteConfirm confirm={confirm} setConfirm={setConfirm} deleteEvent={deleteEvent} event_id={id} owner_id={owner_id}/>
+        <DeleteConfirm
+          confirm={confirm}
+          setConfirm={setConfirm}
+          deleteEvent={deleteEvent}
+          event_id={id}
+          owner_id={owner_id}
+        />
       </Card>
     </Box>
   );

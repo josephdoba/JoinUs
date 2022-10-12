@@ -4,8 +4,7 @@ import useSharedEvent from "../../hooks/useSharedEvent";
 import useSharedUser from "../../hooks/useSharedUser";
 import { checkIfJoinedEvent } from "../../helpers/event_selectors";
 import useUserEvents from "../../hooks/useUserEvents";
-import { useNavigate } from "react-router-dom";
-import DeleteConfirm from '../Events/DeleteConfirm'
+import DeleteConfirm from "../Events/DeleteConfirm";
 import { useState } from "react";
 
 export default function JoinEventButton(props) {
@@ -13,13 +12,12 @@ export default function JoinEventButton(props) {
   const { event } = useSharedEvent();
   const { user } = useSharedUser();
   const { leaveEvent, deleteEvent, joinEvent } = useUserEvents();
-  const navigate = useNavigate();
-  const [openDelete, setOpenDelete] = useState(false)
+  const [openDelete, setOpenDelete] = useState(false);
 
   const processEvent = (event_id, user_id) => {
     if (user_id === event.owner_id) {
       //deleteEvent({ event_id, user_id });
-      setOpenDelete(true)
+      setOpenDelete(true);
     }
     if (
       user_id !== event.owner_id &&
@@ -59,19 +57,25 @@ export default function JoinEventButton(props) {
 
   return (
     <div>
-    <Button
-      size="medium"
-      color="primary"
-      endIcon={<LocalActivityIcon />}
-      onClick={(e) => {
-        e.preventDefault();
-        processEvent(event.id, user.id);
-      }}
-      // onSubmit={(e) => e.preventDefault}
-    >
-      {getButtonText(event.id, user.id)}
-    </Button>
-    <DeleteConfirm confirm={openDelete} setConfirm={setOpenDelete} deleteEvent={deleteEvent} event_id={event.id} owner_id={user.id}/>
+      <Button
+        size="medium"
+        color="primary"
+        endIcon={<LocalActivityIcon />}
+        onClick={(e) => {
+          e.preventDefault();
+          processEvent(event.id, user.id);
+        }}
+        // onSubmit={(e) => e.preventDefault}
+      >
+        {getButtonText(event.id, user.id)}
+      </Button>
+      <DeleteConfirm
+        confirm={openDelete}
+        setConfirm={setOpenDelete}
+        deleteEvent={deleteEvent}
+        event_id={event.id}
+        owner_id={user.id}
+      />
     </div>
   );
 }

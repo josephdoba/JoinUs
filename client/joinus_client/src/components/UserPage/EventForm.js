@@ -19,7 +19,7 @@ export default function EventForm(props) {
     useUserEvents();
 
   // Stuff for image processing... might still need this
-  const imageRef = useRef(null);
+  // const imageRef = useRef(null);
   // https://reactjs.org/docs/hooks-reference.html#useref
   const inputEl = useRef(null);
 
