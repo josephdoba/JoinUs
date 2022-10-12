@@ -19,7 +19,7 @@ export default function EventForm(props) {
     useUserEvents();
 
   // Stuff for image processing... might still need this
-  const imageRef = useRef(null);
+  // const imageRef = useRef(null);
   // https://reactjs.org/docs/hooks-reference.html#useref
   const inputEl = useRef(null);
 
@@ -38,17 +38,25 @@ export default function EventForm(props) {
   // latlng end
 
   const [form, setForm] = useState({
-    name: eventData ? eventData.name : "",
-    image: eventData ? eventData.image : "",
-    description: eventData ? eventData.description : "",
-    size_limit: eventData ? eventData.size_limit : "",
-    city: eventData ? eventData.city : "",
+    name: eventData ? eventData.name : "Tea Time With Alice",
+    image: eventData
+      ? eventData.image
+      : "https://i.ytimg.com/vi/F0TCIeOeIYA/hqdefault.jpg",
+    description: eventData
+      ? eventData.description
+      : "Join us for Tea Time with myself and friends! Fancy biscuits, delicious Tea, all the snacks you could want to complement this regal experience. Hope to see you there!",
+    size_limit: eventData ? eventData.size_limit : "6",
+    city: eventData ? eventData.city : "Vancouver",
     owner_id: user.id,
     category: eventData ? eventData.category : "",
     lat: selected.lat,
     lng: selected.lng,
-    start_time: eventData ? eventData.start_time : "",
-    end_time: eventData ? eventData.end_time : "",
+    start_time: eventData
+      ? eventData.start_time
+      : moment.utc("2022-10-14T00:00:00.000Z"),
+    end_time: eventData
+      ? eventData.end_time
+      : moment.utc("2022-10-14T03:00:00.000Z"),
   });
 
   const dataObj = {
@@ -66,14 +74,30 @@ export default function EventForm(props) {
     end_time: form.end_time,
   };
 
+  // this code here doesn't work...i give up.
+  const newEventID = (eventsData) => {
+    eventsData.sort();
+    eventsData.reverse();
+    const newE = eventsData[0].id + 1;
+    console.log(newE);
+    return newE;
+  };
+
+  const both = async (dataObj) => {
+    userCreateEventSubmit(dataObj);
+
+    await joinEvent([], dataObj.eventSizeLimit, {
+      event_id: newEventID(eventsData),
+      user_id: user.id,
+    });
+  };
+
+  // not working code end.
+
   const submitForm = (dataObj) => {
     console.log(`form mode: ${formMode}`);
     if (formMode === "create") {
-      userCreateEventSubmit(dataObj);
-      joinEvent([], dataObj.eventSizeLimit, {
-        event_id: eventsData.length + 1,
-        user_id: user.id,
-      });
+      both(dataObj);
     } else if (formMode === "edit") {
       userEditEventSubmit(dataObj);
     } else {
@@ -94,7 +118,8 @@ export default function EventForm(props) {
       <Box
         width={500}
         height={700}
-        bgcolor={"background.default"} color={"text.primary"}
+        bgcolor={"background.default"}
+        color={"text.primary"}
         p={3}
         borderRadius={3}
         component="form"
@@ -116,7 +141,7 @@ export default function EventForm(props) {
           label="Event Name"
           variant="standard"
           name="Event Name"
-          value={form.name}
+          value="Tea Time With Alice"
           onChange={(event) =>
             setForm((prev) => ({ ...prev, name: event.target.value }))
           }
@@ -128,7 +153,7 @@ export default function EventForm(props) {
             label="City"
             variant="standard"
             name="City"
-            value={form.city}
+            value="Vancouver"
             onChange={(event) =>
               setForm((prev) => ({ ...prev, city: event.target.value }))
             }
@@ -139,7 +164,7 @@ export default function EventForm(props) {
             label="Party Limit"
             variant="standard"
             name="Party Limit"
-            value={form.size_limit}
+            value="6"
             onChange={(event) =>
               setForm((prev) => ({ ...prev, size_limit: event.target.value }))
             }
@@ -156,7 +181,7 @@ export default function EventForm(props) {
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
             label="Start Time"
-            value={form.start_time}
+            value="2022-10-14T00:00:00.000Z"
             onChange={(event) =>
               setForm((prev) => ({ ...prev, start_time: moment.utc(event) }))
             }
@@ -167,7 +192,7 @@ export default function EventForm(props) {
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
             label="End Time"
-            value={form.end_time}
+            value="2022-10-14T03:00:00.000Z"
             onChange={(event) =>
               setForm((prev) => ({ ...prev, end_time: moment.utc(event) }))
             }
@@ -180,7 +205,6 @@ export default function EventForm(props) {
           name="label_eventCategory"
           value={form.category}
           onChange={(event) => {
-            console.log(`${event}, event from categories list`);
             setForm((prev) => ({
               ...prev,
               category: parseInt(event.target.value),
@@ -195,7 +219,7 @@ export default function EventForm(props) {
           multiline
           inputProps={{ maxLength: 300 }}
           name="label_eventDescription"
-          value={form.description}
+          value="Join us for Tea Time with myself and friends! Fancy biscuits, delicious Tea, all the snacks you could want to complement this regal experience. Hope to see you there!"
           onChange={(event) =>
             setForm((prev) => ({ ...prev, description: event.target.value }))
           }
@@ -208,7 +232,7 @@ export default function EventForm(props) {
           multiline
           inputProps={{ maxLength: 300 }}
           name="label_eventImage"
-          value={form.image}
+          value="https://i.ytimg.com/vi/F0TCIeOeIYA/hqdefault.jpg"
           onChange={(event) =>
             setForm((prev) => ({ ...prev, image: event.target.value }))
           }

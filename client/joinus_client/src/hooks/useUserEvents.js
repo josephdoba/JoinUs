@@ -6,22 +6,16 @@ import { useNavigate } from "react-router-dom";
 export default function useUserEvents() {
   const { reload, setReload } = useSharedReload();
   const navigate = useNavigate();
-  const userCreateEventSubmit = (event) => {
+  const userCreateEventSubmit = (eventObj) => {
     console.log("api post request for userCreateEvent");
-    axios
-      .post("http://localhost:8080/api/events", event)
-      .then((res) => {
-        console.log("from useUserEvents res:");
-        console.log(res);
-        setReload(reload + 1);
-        axios.post("http://localhost:8080/events/join", {
-          events_id: res.data[0].id,
-          user_id: res.data[0].owner_id,
-        });
+    postData("events", eventObj)
+      .then(() => {
+        console.log(eventObj);
       })
       .catch((err) => {
         console.log(err);
       });
+    setReload(reload + 1);
   };
 
   const userEditEventSubmit = (event) => {
@@ -59,16 +53,16 @@ export default function useUserEvents() {
   };
 
   const deleteEvent = (dataObj) => {
-      postData(`events/delete`, dataObj)
-        .then(() => {
-          setReload(reload + 1);
-          console.log(dataObj);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      
-      navigate('/user')
+    postData(`events/delete`, dataObj)
+      .then(() => {
+        setReload(reload + 1);
+        console.log(dataObj);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    navigate("/user");
   };
 
   const userAddComment = (event) => {
