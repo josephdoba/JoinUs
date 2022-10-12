@@ -98,7 +98,7 @@ export default function Nav(props) {
             <Avatar sx={{ width: 60, height: 60 }} alt="Logo" src={logo} />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "end", padding: 2 }}>
             {user && <p>{user.name}</p>}
           </Box>
 

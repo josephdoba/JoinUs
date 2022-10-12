@@ -8,7 +8,7 @@ export default function Home() {
     <Box>
       <Herobanner />
       <Container maxWidth={"lg"}>
-        <HowToJoin />
+        {/* <HowToJoin /> */}
 
         <input
           style={{ display: "none" }}
