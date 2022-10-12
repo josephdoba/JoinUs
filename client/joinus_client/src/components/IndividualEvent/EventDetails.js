@@ -1,14 +1,5 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-  Button,
-  Avatar,
-} from "@mui/material";
+import { Box, CardHeader, Typography, Avatar } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useSharedEvent from "../../hooks/useSharedEvent";
 import AttendeeNumDisplay from "../Events/AttendeeNumDisplay";
 import AttendeesAvatar from "./AtendeesAvatar";
@@ -18,7 +9,6 @@ import { owner } from "../../helpers/user_selectors";
 
 export default function EventDetails(props) {
   const { attendeelist, error, setError } = props;
-  const navigate = useNavigate();
   const { event } = useSharedEvent();
   const { joinedEvents, usersData } = props;
 
@@ -50,7 +40,6 @@ export default function EventDetails(props) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-
         }}
       >
         <CardHeader style={{ textAlign: "center" }} />
@@ -68,27 +57,27 @@ export default function EventDetails(props) {
         />
         <Box>
           <Box>
-            <Box sx={{
-              display: "flex",
-              justifyContent: "center",
-              m: 1,
-              alignItems: "center",
-            }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                m: 1,
+                alignItems: "center",
+              }}
+            >
               <Avatar
                 alt={eventOwner.name}
                 src={eventOwner.picture}
                 sx={{ width: 26, height: 26, marginRight: 1 }}
               />
-              <Typography variant="overline" display="block" >
+              <Typography variant="overline" display="block">
                 Organizer: {eventOwner.name}
               </Typography>
-
             </Box>
 
             <Typography variant="h6" m={2}>
               Details
             </Typography>
-
 
             <Typography variant="body1" color="text.secondary" m={2}>
               {event.description}

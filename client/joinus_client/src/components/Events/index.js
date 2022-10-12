@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
-
 import EventCard from "./EventCard";
-
 import { findCategoryByID } from "../../helpers/category_selectors";
 import {
   upcomingEvents,
@@ -20,7 +18,7 @@ export default function Events(props) {
     joinedEvents,
     showUserEvents,
     error,
-    setError
+    setError,
   } = props;
   const displayEventCard = (eventArr) => {
     return eventArr.map((e) => {
@@ -77,7 +75,7 @@ export default function Events(props) {
       }}
     >
       {event}
-      <Error error={error} setError={setError}/>
+      <Error error={error} setError={setError} />
     </Box>
   );
 }
